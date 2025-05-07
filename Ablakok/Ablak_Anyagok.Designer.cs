@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Anyagok));
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label34 = new System.Windows.Forms.Label();
@@ -44,8 +45,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.BtnExcel = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Cikkszámok = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -256,6 +257,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.Tábla);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Ablak_Anyagok";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -7,7 +7,7 @@
     <ProjectGuid>{B0779EAB-5BDA-4C9B-B526-D4307C47BECC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Tisztito</RootNamespace>
-    <AssemblyName>Tisztító</AssemblyName>
+    <AssemblyName>Humánellátás</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -66,17 +66,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ablakok\Ablak_Anyagok.cs">
+    <Compile Include="Ablakok\Ablak_Beállítások.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Anyagok.Designer.cs">
-      <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
+    <Compile Include="Ablakok\Ablak_Beállítások.Designer.cs">
+      <DependentUpon>Ablak_Beállítások.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Ablak_Dolgozók.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ablakok\Ablak_Dolgozók.Designer.cs">
       <DependentUpon>Ablak_Dolgozók.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Anyagok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Anyagok.Designer.cs">
+      <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Ablak_Járandóság.cs">
       <SubType>Form</SubType>
@@ -97,18 +103,26 @@
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Egyéb_beolvasás.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Dolgozó.cs" />
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
+    <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
+    <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
+    <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
+    <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
     <Compile Include="Minden\Enumok.cs" />
     <Compile Include="Minden\Excel.cs" />
+    <Compile Include="Minden\Excel_Kezelés.cs" />
     <Compile Include="Minden\Excel_Nyomtatási.cs" />
     <Compile Include="Minden\Fv_Dátum.cs" />
     <Compile Include="Minden\Fv_Szöveg.cs" />
     <Compile Include="Minden\Függvénygyűjtemény.cs" />
     <Compile Include="Minden\Hely_Ellenőr.cs" />
     <Compile Include="Minden\Hibakezelés.cs" />
+    <Compile Include="Minden\IDM_Dolgozó.cs" />
     <Compile Include="Minden\Kezelő_Értékellenőrzés.cs" />
     <Compile Include="Minden\Kész_Excelek.cs" />
     <Compile Include="Minden\ListToDataTable.cs" />
@@ -116,11 +130,14 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Ablakok\Ablak_Anyagok.resx">
-      <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
+    <EmbeddedResource Include="Ablakok\Ablak_Beállítások.resx">
+      <DependentUpon>Ablak_Beállítások.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Dolgozók.resx">
       <DependentUpon>Ablak_Dolgozók.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Ablak_Anyagok.resx">
+      <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Főoldal.resx">
       <DependentUpon>Főoldal.cs</DependentUpon>
@@ -167,6 +184,12 @@
     <PackageReference Include="DG.AdvancedDataGridView">
       <Version>1.2.30115.18</Version>
     </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.8.0-develop00474</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
+      <Version>3.8.0-develop00474</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Office.Interop.Excel">
       <Version>15.0.4795.1001</Version>
     </PackageReference>
@@ -175,6 +198,9 @@
     </PackageReference>
     <PackageReference Include="MicrosoftOfficeCore">
       <Version>15.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.OleDb">
+      <Version>10.0.0-preview.3.25171.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +234,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\New gyűjtemény.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gear-01.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Action-configure.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\App-edit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aha-Soft-Large-Seo-SEO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\community_users.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\App-warehause.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Orange System Icon 05.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

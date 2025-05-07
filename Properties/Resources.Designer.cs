@@ -63,6 +63,56 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Action_configure {
+            get {
+                object obj = ResourceManager.GetObject("Action-configure", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Aha_Soft_Large_Seo_SEO {
+            get {
+                object obj = ResourceManager.GetObject("Aha-Soft-Large-Seo-SEO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap App_edit {
+            get {
+                object obj = ResourceManager.GetObject("App-edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap App_warehause {
+            get {
+                object obj = ResourceManager.GetObject("App-warehause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap community_users {
+            get {
+                object obj = ResourceManager.GetObject("community_users", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Excel_gyűjtő {
             get {
                 object obj = ResourceManager.GetObject("Excel gyűjtő", resourceCulture);
@@ -83,6 +133,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gear_01 {
+            get {
+                object obj = ResourceManager.GetObject("Gear-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap New_gyűjtemény {
             get {
                 object obj = ResourceManager.GetObject("New gyűjtemény", resourceCulture);
@@ -96,6 +156,16 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap Ok_gyűjtemény {
             get {
                 object obj = ResourceManager.GetObject("Ok gyűjtemény", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Orange_System_Icon_05 {
+            get {
+                object obj = ResourceManager.GetObject("Orange System Icon 05", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

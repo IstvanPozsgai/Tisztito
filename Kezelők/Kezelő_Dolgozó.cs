@@ -11,23 +11,23 @@ using MyA = Adatbázis;
 
 namespace Tisztito.Kezelők
 {
-    public class Kezelő_Anyag
+    public class Kezelő_Dolgozó
     {
         readonly string hely = $@"{Application.StartupPath}\Adatok\Alapadatok.mdb";
         readonly string jelszó = "csavarhúzó";
-        readonly string táblanév = "Tábla_Anyag";
+        readonly string táblanév = "Tábla_Dolgozó";
 
-        public Kezelő_Anyag()
+        public Kezelő_Dolgozó()
         {
             if (!File.Exists(hely)) Adatbázis_Létrehozás.Anyag(hely.KönyvSzerk());
-            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Anyag(hely);
+            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Dolgozó(hely);
         }
 
-        public List<Adat_Anyag> Lista_Adatok()
+        public List<Adat_Dolgozó> Lista_Adatok()
         {
-            string szöveg = $"SELECT * FROM {táblanév} ORDER BY Cikkszám";
-            List<Adat_Anyag> Adatok = new List<Adat_Anyag>();
-            Adat_Anyag Adat;
+            string szöveg = $"SELECT * FROM {táblanév} ORDER BY Dolgozónév";
+            List<Adat_Dolgozó> Adatok = new List<Adat_Dolgozó>();
+            Adat_Dolgozó Adat;
 
             string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
 
@@ -42,11 +42,11 @@ namespace Tisztito.Kezelők
                         {
                             while (rekord.Read())
                             {
-                                Adat = new Adat_Anyag(
-                                        rekord["Cikkszám"].ToStrTrim(),
-                                        rekord["Megnevezés"].ToStrTrim(),
-                                        rekord["Rajzszám"].ToStrTrim(),
-                                        rekord["MennyiségEgység"].ToStrTrim(),
+                                Adat = new Adat_Dolgozó(
+                                        rekord["Dolgozószám"].ToStrTrim(),
+                                        rekord["Dolgozónév"].ToStrTrim(),
+                                        rekord["Munkakör"].ToStrTrim(),
+                                        rekord["Szervezet"].ToStrTrim(),
                                         rekord["Státus"].ToÉrt_Bool());
                                 Adatok.Add(Adat);
                             }
@@ -58,12 +58,12 @@ namespace Tisztito.Kezelők
         }
 
 
-        public void Döntés(Adat_Anyag Adat)
+        public void Döntés(Adat_Dolgozó Adat)
         {
             try
             {
-                List<Adat_Anyag> Adatok = Lista_Adatok();
-                if (!Adatok.Any(a => a.Cikkszám == Adat.Cikkszám))
+                List<Adat_Dolgozó> Adatok = Lista_Adatok();
+                if (!Adatok.Any(a => a.Dolgozószám == Adat.Dolgozószám))
                     Rögzítés(Adat);
                 else
                     Módosítás(Adat);
@@ -80,12 +80,12 @@ namespace Tisztito.Kezelők
             }
         }
 
-        public void Rögzítés(Adat_Anyag Adat)
+        public void Rögzítés(Adat_Dolgozó Adat)
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Megnevezés, Rajzszám, MennyiségEgység, Státus) VALUES ";
-                szöveg += $"('{Adat.Cikkszám}', '{Adat.Megnevezés}', '{Adat.Rajzszám}', '{Adat.MennyiségEgység}', {Adat.Státus})";
+                string szöveg = $"INSERT INTO {táblanév} ( Dolgozószám, Dolgozónév, Munkakör, Szervezet, státus) VALUES ";
+                szöveg += $"('{Adat.Dolgozószám}', '{Adat.Dolgozónév}', '{Adat.Munkakör}', '{Adat.Szervezet}', {Adat.Státus})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
 
             }
@@ -100,16 +100,17 @@ namespace Tisztito.Kezelők
             }
         }
 
-        public void Módosítás(Adat_Anyag Adat)
+        public void Módosítás(Adat_Dolgozó Adat)
         {
             try
             {
+
                 string szöveg = $"UPDATE {táblanév} SET ";
-                szöveg += $"Megnevezés='{Adat.Megnevezés}', ";
-                szöveg += $"Rajzszám='{Adat.Rajzszám}', ";
-                szöveg += $"MennyiségEgység='{Adat.MennyiségEgység}', ";
+                szöveg += $"Dolgozónév='{Adat.Dolgozónév}', ";
+                szöveg += $"Szervezet='{Adat.Szervezet}', ";
+                szöveg += $"Munkakör='{Adat.Munkakör}', ";
                 szöveg += $"Státus={Adat.Státus}";
-                szöveg += $" WHERE Cikkszám='{Adat.Cikkszám}'";
+                szöveg += $" WHERE Dolgozószám='{Adat.Dolgozószám}'";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
