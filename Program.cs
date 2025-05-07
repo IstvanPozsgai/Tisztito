@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tisztító
+namespace Tisztito
 {
-    internal static class Program
+    public static class Program
     {
+        /// <summary>
+        /// Aki bejelentkezett
+        /// </summary>
+        public static string PostásNév = "";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

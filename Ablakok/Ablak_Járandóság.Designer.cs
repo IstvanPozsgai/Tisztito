@@ -1,4 +1,4 @@
-﻿namespace Tisztító.Ablakok
+﻿namespace Tisztito.Ablakok
 {
     partial class Ablak_Járandóság
     {

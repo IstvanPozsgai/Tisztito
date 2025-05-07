@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tisztító.Ablakok
+namespace Tisztito.Ablakok
 {
     public partial class Ablak_Járandóság : Form
     {

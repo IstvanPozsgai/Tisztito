@@ -1,4 +1,4 @@
-﻿namespace Tisztító
+﻿namespace Tisztito
 {
     partial class Főoldal
     {
@@ -33,6 +33,10 @@
             this.alapAdatokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.könyvelésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Anyag = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Dolgozó = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Szervezet = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Járandóság = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +61,11 @@
             // 
             // alapAdatokToolStripMenuItem
             // 
+            this.alapAdatokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Anyag,
+            this.ToolStripMenuItem_Dolgozó,
+            this.ToolStripMenuItem_Szervezet,
+            this.ToolStripMenuItem_Járandóság});
             this.alapAdatokToolStripMenuItem.Name = "alapAdatokToolStripMenuItem";
             this.alapAdatokToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.alapAdatokToolStripMenuItem.Text = "Alap adatok";
@@ -73,6 +82,31 @@
             this.lekérdezésekToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.lekérdezésekToolStripMenuItem.Text = "Lekérdezések";
             // 
+            // ToolStripMenuItem_Anyag
+            // 
+            this.ToolStripMenuItem_Anyag.Name = "ToolStripMenuItem_Anyag";
+            this.ToolStripMenuItem_Anyag.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_Anyag.Text = "Anyag törzs";
+            this.ToolStripMenuItem_Anyag.Click += new System.EventHandler(this.ToolStripMenuItem_Anyag_Click);
+            // 
+            // ToolStripMenuItem_Dolgozó
+            // 
+            this.ToolStripMenuItem_Dolgozó.Name = "ToolStripMenuItem_Dolgozó";
+            this.ToolStripMenuItem_Dolgozó.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_Dolgozó.Text = "Dolgozó Törzs";
+            // 
+            // ToolStripMenuItem_Szervezet
+            // 
+            this.ToolStripMenuItem_Szervezet.Name = "ToolStripMenuItem_Szervezet";
+            this.ToolStripMenuItem_Szervezet.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_Szervezet.Text = "Szervezet Törzs";
+            // 
+            // ToolStripMenuItem_Járandóság
+            // 
+            this.ToolStripMenuItem_Járandóság.Name = "ToolStripMenuItem_Járandóság";
+            this.ToolStripMenuItem_Járandóság.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_Járandóság.Text = "Járandóság Törzs";
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -82,6 +116,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Főoldal";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Főoldal_FormClosing);
+            this.Load += new System.EventHandler(this.Főoldal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -96,6 +132,10 @@
         private System.Windows.Forms.ToolStripMenuItem alapAdatokToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem könyvelésekToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lekérdezésekToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Anyag;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Dolgozó;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Szervezet;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Járandóság;
     }
 }
 

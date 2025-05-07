@@ -1,4 +1,4 @@
-﻿namespace Tisztító.Ablakok
+﻿namespace Tisztito.Ablakok
 {
     partial class Ablak_Dolgozók
     {
@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Ablak_Dolgozók
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Name = "Ablak_Dolgozók";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Ablak_Dolgozók_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
