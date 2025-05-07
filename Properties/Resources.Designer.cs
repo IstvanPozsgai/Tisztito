@@ -123,6 +123,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Filesystem_blockdevice_cubes {
+            get {
+                object obj = ResourceManager.GetObject("Filesystem-blockdevice-cubes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap frissít_gyűjtemény {
             get {
                 object obj = ResourceManager.GetObject("frissít gyűjtemény", resourceCulture);

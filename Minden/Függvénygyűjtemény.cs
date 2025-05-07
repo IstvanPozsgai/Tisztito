@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Linq;
 using System.Windows.Forms;
+using Tisztito;
+using Tisztito.Adatszerkezet;
+using Tisztito.Kezelők;
 
 
 public static partial class Függvénygyűjtemény
 {
-    //   readonly static Kezelő_Alap_Beolvasás KézBeolvasás = new Kezelő_Alap_Beolvasás();
+    readonly static Kezelő_Alap_Beolvasás KézBeolvasás = new Kezelő_Alap_Beolvasás();
     /// <summary>
     /// Az Excel tábla fejlécét hasonlítja össze a táblázatban letárolt értékekkel.
     /// </summary>
@@ -54,24 +59,24 @@ public static partial class Függvénygyűjtemény
         bool válasz = false;
         try
         {
-            ////  beolvassuk a fejlécet ha eltér a megadotttól, akkor kiírja és bezárja
-            //string fejlécbeolvas = "";
-            //for (int i = 0; i < Tábla.Columns.Count; i++)
-            //    fejlécbeolvas += Tábla.Columns[i].ColumnName.ToStrTrim();
+            //  beolvassuk a fejlécet ha eltér a megadotttól, akkor kiírja és bezárja
+            string fejlécbeolvas = "";
+            for (int i = 0; i < Tábla.Columns.Count; i++)
+                fejlécbeolvas += Tábla.Columns[i].ColumnName.ToStrTrim();
 
 
-            //List<Adat_Alap_Beolvasás> Adatok = KézBeolvasás.Lista_Adatok();
-            //Adatok = (from a in Adatok
-            //          where a.Csoport == Melyik.Trim()
-            //          && a.Törölt == "0"
-            //          orderby a.Oszlop
-            //          select a).ToList();
+            List<Adat_Alap_Beolvasás> Adatok = KézBeolvasás.Lista_Adatok();
+            Adatok = (from a in Adatok
+                      where a.Csoport == Melyik.Trim()
+                      && a.Törölt == "0"
+                      orderby a.Oszlop
+                      select a).ToList();
 
-            //string szöveg = "";
-            //foreach (Adat_Alap_Beolvasás rekord in Adatok)
-            //    szöveg += rekord.Fejléc;
+            string szöveg = "";
+            foreach (Adat_Alap_Beolvasás rekord in Adatok)
+                szöveg += rekord.Fejléc;
 
-            //if (szöveg.Trim() == fejlécbeolvas.Trim()) válasz = true;
+            if (szöveg.Trim() == fejlécbeolvas.Trim()) válasz = true;
         }
         catch (HibásBevittAdat ex)
         {

@@ -69,7 +69,7 @@ namespace Tisztito.Kezelők
         {
             try
             {
-                string szöveg = "UPDATE  {táblanév} SET ";
+                string szöveg = $"UPDATE  {táblanév} SET ";
                 szöveg += $" fejléc='{Adat.Fejléc}', ";
                 szöveg += $" kell={Adat.Kell}";
                 szöveg += $" WHERE [csoport]= '{Adat.Csoport}' and [oszlop]={Adat.Oszlop}";

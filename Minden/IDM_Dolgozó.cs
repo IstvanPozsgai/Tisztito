@@ -31,6 +31,7 @@ namespace Tisztito
                 oszlopnév = (from a in oszlopnév
                              where a.Csoport == "Dolgozó"
                              && a.Törölt == "0"
+                             orderby a.Oszlop
                              select a).ToList();
 
                 MyE.ExcelMegnyitás(Excel_hely);
@@ -39,35 +40,32 @@ namespace Tisztito
                 List<Adat_Dolgozó> Dolgozók = KézDolgozó.Lista_Adatok();
 
                 int sor = 2;
+                List<Adat_Dolgozó> AdatokGy = new List<Adat_Dolgozó>();
                 while (MyE.Beolvas("A" + sor) != "_")
                 {
                     // beolvassuk az adatokat
-                    string sztsz = MyE.Beolvas(MyE.Oszlopnév(1) + sor);
+                    string sztsz = MyE.Beolvas($"B{sor}");
                     //Ha csak számot tartalmaz akkor foglalkozunk tovább vele
                     Regex vizsgál = new Regex(@"[0-9]", RegexOptions.Compiled);
                     if (vizsgál.IsMatch(sztsz))
                     {
                         sztsz = MyF.Szöveg_Tisztítás(MyF.Eleje_kihagy(sztsz, "0"), 0, 8);
-                        string családnévutónév = MyF.Szöveg_Tisztítás((MyE.Beolvas(MyE.Oszlopnév(7) + sor) + " " + MyE.Beolvas(MyE.Oszlopnév(8) + sor)), 0, 50);
-                        string munkakör = MyF.Szöveg_Tisztítás(MyE.Beolvas(MyE.Oszlopnév(9) + sor), 0, 50);
-                        string státussz = MyE.Beolvas(MyE.Oszlopnév(4) + sor);
+                        string családnévutónév = MyF.Szöveg_Tisztítás((MyE.Beolvas($"E{sor}")), 0, 250);
+                        string munkakör = MyF.Szöveg_Tisztítás(MyE.Beolvas($"K{sor}"), 0, 250);
+                        string státussz = MyE.Beolvas($"J{sor}");
+                        string szervezet = MyF.Szöveg_Tisztítás(MyE.Beolvas($"P{sor}"), 0, 200);
 
                         Adat_Dolgozó ADAT = new Adat_Dolgozó(
                             sztsz.Trim(),
                             családnévutónév.Trim(),
-                            DateTime.Today,
-                            new DateTime(1900, 1, 1),
-                            munkakör.Trim());
-
-
-                        // meg nézzük, hogy van-e már ilyen adat
-                        if (!DolgozóVan(Dolgozók, sztsz))
-                            KézDolgozó.Rögzítés_IDM(Cmbtelephely.Trim(), ADAT);
-                        else
-                           if (státussz.Trim() == "ACTIVE") KézDolgozó.Módosítás_IDM(ADAT);
+                            munkakör.Trim(),
+                            szervezet,
+                            false);
+                        AdatokGy.Add(ADAT);
                     }
                     sor++;
                 }
+                if (AdatokGy.Count > 0) KézDolgozó.IDMBeolvasás(AdatokGy);
                 // az excel tábla bezárása
                 MyE.ExcelBezárás();
                 // kitöröljük a betöltött fájlt

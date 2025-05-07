@@ -1,5 +1,4 @@
 ﻿namespace Tisztito.Adatszerkezet
-
 {
     public class Adat_Alap_Beolvasás
     {

@@ -103,14 +103,17 @@
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Szervezet.cs" />
     <Compile Include="Adatbázis\Adatbázis_Egyéb_beolvasás.cs" />
     <Compile Include="Adatbázis\Adatbázis_Dolgozó.cs" />
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
+    <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
+    <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
     <Compile Include="Minden\Enumok.cs" />
@@ -138,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Anyagok.resx">
       <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Ablak_Szervezet.resx">
+      <DependentUpon>Ablak_Szervezet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Főoldal.resx">
       <DependentUpon>Főoldal.cs</DependentUpon>
@@ -255,6 +261,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Orange System Icon 05.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filesystem-blockdevice-cubes.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
