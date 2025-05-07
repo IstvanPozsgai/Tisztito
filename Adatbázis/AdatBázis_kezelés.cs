@@ -9,7 +9,7 @@ namespace Tisztito.Adatszerkezet
     {
 
 
-        public void AB_Adatbázis_Létrehozás(string hely, string jelszó)
+        public void AB_Adatbázis_Létrehozás_(string hely, string jelszó)
         {
             try
             {
@@ -33,7 +33,6 @@ namespace Tisztito.Adatszerkezet
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
             }
         }
-
 
 
         public void AB_Adat_Tábla_Létrehozás(string hely, string jelszó, string szöveg)

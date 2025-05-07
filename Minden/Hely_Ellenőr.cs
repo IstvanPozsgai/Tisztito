@@ -16,7 +16,7 @@ namespace Tisztito
                 string alap = Könyvtár[0];
                 for (int i = 1; i < Könyvtár.Length; i++)
                 {
-                    if (!Könyvtár[i].Contains(".accdb"))
+                    if (!Könyvtár[i].Contains(".mdb"))
                     {
                         alap += $@"\{Könyvtár[i]}";
                         if (!Directory.Exists(alap)) Directory.CreateDirectory(alap);

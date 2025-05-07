@@ -34,7 +34,6 @@
             this.Label34 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Alap_Rögzít = new System.Windows.Forms.Button();
-            this.Cikkszámok = new System.Windows.Forms.ComboBox();
             this.Új_adat = new System.Windows.Forms.Button();
             this.Megnevezés = new System.Windows.Forms.TextBox();
             this.Rajzszám = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@
             this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.BtnExcel = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Cikkszámok = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,11 +79,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 99F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.Controls.Add(this.Label34, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.Alap_Rögzít, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Cikkszámok, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Új_adat, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.Megnevezés, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.Rajzszám, 1, 3);
@@ -94,6 +93,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.CmbStátus, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.BtnExcel, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.Cikkszámok, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -120,7 +120,7 @@
             // 
             this.Label2.AutoSize = true;
             this.Label2.BackColor = System.Drawing.Color.Silver;
-            this.Label2.Location = new System.Drawing.Point(3, 84);
+            this.Label2.Location = new System.Drawing.Point(3, 82);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(103, 20);
             this.Label2.TabIndex = 212;
@@ -138,17 +138,6 @@
             this.Alap_Rögzít.UseVisualStyleBackColor = true;
             this.Alap_Rögzít.Click += new System.EventHandler(this.Alap_Rögzít_Click);
             // 
-            // Cikkszámok
-            // 
-            this.Cikkszámok.DropDownHeight = 300;
-            this.Cikkszámok.FormattingEnabled = true;
-            this.Cikkszámok.IntegralHeight = false;
-            this.Cikkszámok.Location = new System.Drawing.Point(153, 53);
-            this.Cikkszámok.MaxLength = 20;
-            this.Cikkszámok.Name = "Cikkszámok";
-            this.Cikkszámok.Size = new System.Drawing.Size(180, 28);
-            this.Cikkszámok.TabIndex = 196;
-            // 
             // Új_adat
             // 
             this.Új_adat.BackgroundImage = global::Tisztito.Properties.Resources.New_gyűjtemény;
@@ -163,16 +152,16 @@
             // 
             // Megnevezés
             // 
-            this.Megnevezés.Location = new System.Drawing.Point(153, 87);
-            this.Megnevezés.MaxLength = 50;
+            this.Megnevezés.Location = new System.Drawing.Point(153, 85);
+            this.Megnevezés.MaxLength = 250;
             this.Megnevezés.Name = "Megnevezés";
             this.Megnevezés.Size = new System.Drawing.Size(550, 26);
             this.Megnevezés.TabIndex = 197;
             // 
             // Rajzszám
             // 
-            this.Rajzszám.Location = new System.Drawing.Point(153, 119);
-            this.Rajzszám.MaxLength = 6;
+            this.Rajzszám.Location = new System.Drawing.Point(153, 117);
+            this.Rajzszám.MaxLength = 50;
             this.Rajzszám.Name = "Rajzszám";
             this.Rajzszám.Size = new System.Drawing.Size(346, 26);
             this.Rajzszám.TabIndex = 198;
@@ -181,7 +170,7 @@
             // 
             this.Label4.AutoSize = true;
             this.Label4.BackColor = System.Drawing.Color.Silver;
-            this.Label4.Location = new System.Drawing.Point(3, 116);
+            this.Label4.Location = new System.Drawing.Point(3, 114);
             this.Label4.Name = "Label4";
             this.Label4.Size = new System.Drawing.Size(83, 20);
             this.Label4.TabIndex = 214;
@@ -191,7 +180,7 @@
             // 
             this.Label3.AutoSize = true;
             this.Label3.BackColor = System.Drawing.Color.Silver;
-            this.Label3.Location = new System.Drawing.Point(3, 148);
+            this.Label3.Location = new System.Drawing.Point(3, 146);
             this.Label3.Name = "Label3";
             this.Label3.Size = new System.Drawing.Size(144, 20);
             this.Label3.TabIndex = 213;
@@ -199,8 +188,8 @@
             // 
             // MennyiségEgység
             // 
-            this.MennyiségEgység.Location = new System.Drawing.Point(153, 151);
-            this.MennyiségEgység.MaxLength = 15;
+            this.MennyiségEgység.Location = new System.Drawing.Point(153, 149);
+            this.MennyiségEgység.MaxLength = 10;
             this.MennyiségEgység.Name = "MennyiségEgység";
             this.MennyiségEgység.Size = new System.Drawing.Size(346, 26);
             this.MennyiségEgység.TabIndex = 199;
@@ -221,7 +210,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Silver;
-            this.label1.Location = new System.Drawing.Point(3, 180);
+            this.label1.Location = new System.Drawing.Point(3, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 20);
             this.label1.TabIndex = 216;
@@ -232,7 +221,7 @@
             this.CmbStátus.DropDownHeight = 300;
             this.CmbStátus.FormattingEnabled = true;
             this.CmbStátus.IntegralHeight = false;
-            this.CmbStátus.Location = new System.Drawing.Point(153, 183);
+            this.CmbStátus.Location = new System.Drawing.Point(153, 181);
             this.CmbStátus.MaxLength = 20;
             this.CmbStátus.Name = "CmbStátus";
             this.CmbStátus.Size = new System.Drawing.Size(180, 28);
@@ -249,6 +238,14 @@
             this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenet készítés");
             this.BtnExcel.UseVisualStyleBackColor = true;
             this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
+            // 
+            // Cikkszámok
+            // 
+            this.Cikkszámok.Location = new System.Drawing.Point(153, 53);
+            this.Cikkszámok.MaxLength = 10;
+            this.Cikkszámok.Name = "Cikkszámok";
+            this.Cikkszámok.Size = new System.Drawing.Size(202, 26);
+            this.Cikkszámok.TabIndex = 219;
             // 
             // Ablak_Anyagok
             // 
@@ -280,7 +277,6 @@
         internal System.Windows.Forms.Button BtnFrissít;
         internal System.Windows.Forms.Label Label34;
         internal System.Windows.Forms.Label Label2;
-        internal System.Windows.Forms.ComboBox Cikkszámok;
         internal System.Windows.Forms.TextBox Megnevezés;
         internal System.Windows.Forms.TextBox Rajzszám;
         internal System.Windows.Forms.Label Label4;
@@ -290,5 +286,6 @@
         internal System.Windows.Forms.ComboBox CmbStátus;
         internal System.Windows.Forms.Button BtnExcel;
         private System.Windows.Forms.ToolTip toolTip1;
+        internal System.Windows.Forms.TextBox Cikkszámok;
     }
 }

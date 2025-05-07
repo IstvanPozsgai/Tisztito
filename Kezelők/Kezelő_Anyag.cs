@@ -13,12 +13,12 @@ namespace Tisztito.Kezelők
 {
     public class Kezelő_Anyag
     {
-        readonly string hely = $@"{Application.StartupPath}\Adatok\Alapadatok.accdb";
+        readonly string hely = $@"{Application.StartupPath}\Adatok\Alapadatok.mdb";
         readonly string jelszó = "csavarhúzó";
 
         public Kezelő_Anyag()
         {
-            if (!File.Exists(hely)) Adatbázis_Létrehozás.Anyag(hely.KönyvSzerk());
+            if (!File.Exists(hely)) Adatbázis_Anyag.Anyag(hely.KönyvSzerk());
         }
 
         public List<Adat_Anyag> Lista_Adatok()
@@ -27,8 +27,8 @@ namespace Tisztito.Kezelők
             List<Adat_Anyag> Adatok = new List<Adat_Anyag>();
             Adat_Anyag Adat;
 
-            //   string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
-            string kapcsolatiszöveg = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={hely};Jet OLEDB:Database Password={jelszó};";
+            string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
+
             using (OleDbConnection Kapcsolat = new OleDbConnection(kapcsolatiszöveg))
             {
                 using (OleDbCommand Parancs = new OleDbCommand(szöveg, Kapcsolat))

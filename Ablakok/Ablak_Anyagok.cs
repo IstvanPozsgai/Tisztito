@@ -23,6 +23,9 @@ namespace Tisztito.Ablakok
             Start();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void Start()
         {
             StátusokFeltöltése();
@@ -96,6 +99,7 @@ namespace Tisztito.Ablakok
         {
             try
             {
+                Adatok = KézAnyag.Lista_Adatok();
                 Tábla.Visible = false;
                 Tábla.CleanFilterAndSort();
                 AlapTáblaFejléc();

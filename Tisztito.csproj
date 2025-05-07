@@ -29,7 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -98,7 +98,7 @@
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
-    <Compile Include="Adatbázis\Adatbázis_Létrehozás.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
     <Compile Include="Minden\Enumok.cs" />

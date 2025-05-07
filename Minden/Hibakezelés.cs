@@ -54,11 +54,12 @@ namespace Tisztito
             // E-mail küldés
             Email(Képernyőfájl, szöveg);
 
-            string hely = $@"{Application.StartupPath}\főmérnökség\adatok\hibanapló\hiba{DateTime.Today:yyyyMMdd}.log";
+            string hely = $@"{Application.StartupPath}\Adatok\Hibanapló".KönyvSzerk();
+            hely += $@"\hiba{DateTime.Today:yyyyMMdd}.log";
             File.AppendAllText(hely, szöveg);
 
             // beírjuk a csv fájlba
-            hely = $@"{Application.StartupPath}\főmérnökség\adatok\hibanapló\hiba{DateTime.Today:yyyy}.csv";
+            hely = $@"{Application.StartupPath}\Adatok\Hibanapló\hiba{DateTime.Today:yyyy}.csv";
             if (!File.Exists(hely))
             {
                 //fejléc 
@@ -106,7 +107,7 @@ namespace Tisztito
             // címzett
             mail.To = "pozsgaii@bkv.hu";
             // üzenet tárgya
-            mail.Subject = $"Hibanapló {DateTime.Now:yyyyMMddHHmmss}";
+            mail.Subject = $"Tisztító Hibanapló {DateTime.Now:yyyyMMddHHmmss}";
             mail.Body = hiba;
             mail.Importance = MyO.OlImportance.olImportanceNormal;
             if (File.Exists(hely)) mail.Attachments.Add(hely);

@@ -2,7 +2,7 @@
 
 namespace Tisztito.Adatbázis
 {
-    public static partial class Adatbázis_Létrehozás
+    public static partial class Adatbázis_Anyag
     {
         public static void Anyag(string hely)
         {
@@ -10,7 +10,7 @@ namespace Tisztito.Adatbázis
             string jelszó = "csavarhúzó";
 
             AdatBázis_kezelés ADAT = new AdatBázis_kezelés();
-            ADAT.AB_Adatbázis_Létrehozás(hely, jelszó);
+            ADAT.AB_Adat_Bázis_Létrehozás(hely, jelszó);
 
             szöveg = "CREATE TABLE Tábla_Anyag (";
             szöveg += "[Cikkszám]  char (10),";
