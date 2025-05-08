@@ -69,6 +69,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\Ablak_Igény.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Igény.Designer.cs">
+      <DependentUpon>Ablak_Igény.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Igények.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Igények.Designer.cs">
+      <DependentUpon>Ablak_Igények.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Ablak_Járandóság.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +125,7 @@
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
+    <Compile Include="Adatszerkezet\Adat_Igény.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
@@ -140,6 +153,12 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\Ablak_Igény.resx">
+      <DependentUpon>Ablak_Igény.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Ablak_Igények.resx">
+      <DependentUpon>Ablak_Igények.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Járandóság.resx">
       <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
     </EmbeddedResource>
@@ -277,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\App-spreadsheet.ico" />
     <None Include="Resources\lista.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -159,6 +159,30 @@ namespace Tisztito
             Új_Ablak_Járandóság = null;
         }
         #endregion
+
+
+        #region TerületiIgények
+        Ablak_Igények Új_Ablak_Igények;
+        private void területiIgényekToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Igények == null)
+            {
+                Új_Ablak_Igények = new Ablak_Igények();
+                Új_Ablak_Igények.FormClosed += Új_Ablak_Igények_FormClosed;
+                Új_Ablak_Igények.Show();
+            }
+            else
+            {
+                Új_Ablak_Igények.Activate();
+                Új_Ablak_Igények.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_Igények_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Igények = null;
+        }
+        #endregion
         #endregion
 
         #region Képkezelés
@@ -239,6 +263,7 @@ namespace Tisztito
                 return false;
             }
         }
+
         #endregion
 
 
