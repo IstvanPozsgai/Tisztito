@@ -31,6 +31,7 @@ namespace Tisztito.Ablakok
         {
             StátusokFeltöltése();
 
+
         }
 
         private void StátusokFeltöltése()
@@ -39,6 +40,7 @@ namespace Tisztito.Ablakok
             {
                 foreach (string adat in Enum.GetNames(typeof(MyEn.Státus)))
                     CmbStátus.Items.Add(adat);
+                CmbStátus.Text = "Aktív";
             }
             catch (HibásBevittAdat ex)
             {
@@ -62,10 +64,12 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                if (!int.TryParse(Id.Text, out int Id)) Id = 0;
+                if (!int.TryParse(Id.Text, out int id)) id = 0;
+                if (MyF.Szöveg_Tisztítás(Szervezet.Text, 0, 200).Trim() == "") throw new HibásBevittAdat("Szervezet mezőt ki kell tölteni.");
+                if (CmbStátus.Text != "Aktív" || CmbStátus.Text == "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
                 Adat_Szervezet ADAT = new Adat_Szervezet(
-                    Id,
-                    MyF.Szöveg_Tisztítás(Szervezet.Text),
+                    id,
+                    MyF.Szöveg_Tisztítás(Szervezet.Text, 0, 200),
                     CmbStátus.Text != "Aktív");
                 KézSzervezet.Döntés(ADAT);
                 Adatok = KézSzervezet.Lista_Adatok();

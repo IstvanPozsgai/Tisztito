@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>community_users.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,6 +116,7 @@
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
+    <Compile Include="Kezelők\Kezelő_Kép.cs" />
     <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
@@ -264,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Filesystem-blockdevice-cubes.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="community_users.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -43,7 +43,7 @@ namespace Tisztito.Kezelők
                             while (rekord.Read())
                             {
                                 Adat = new Adat_Szervezet(
-                                        rekord["Id"].ToÉrt_Long(),
+                                        rekord["Id"].ToÉrt_Int(),
                                         rekord["Szervezet"].ToStrTrim(),
                                         rekord["Státus"].ToÉrt_Bool());
                                 Adatok.Add(Adat);

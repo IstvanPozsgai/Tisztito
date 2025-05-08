@@ -52,6 +52,7 @@ namespace Tisztito.Ablakok
             {
                 foreach (string adat in Enum.GetNames(typeof(MyEn.Státus)))
                     CmbStátus.Items.Add(adat);
+                CmbStátus.Text = "Aktív";
             }
             catch (HibásBevittAdat ex)
             {
@@ -66,9 +67,12 @@ namespace Tisztito.Ablakok
 
         private void Alap_Rögzít_Click(object sender, EventArgs e)
         {
-
             try
             {
+                if (MyF.Szöveg_Tisztítás(Cikkszámok.Text, 0, 10).Trim() == "") throw new HibásBevittAdat("Cikkszám mezőt ki kell tölteni.");
+                if (MyF.Szöveg_Tisztítás(Megnevezés.Text, 0, 250).Trim() == "") throw new HibásBevittAdat("Megnevezés mezőt ki kell tölteni.");
+                if (MyF.Szöveg_Tisztítás(MennyiségEgység.Text, 0, 10).Trim() == "") throw new HibásBevittAdat("Mennyiség egység mezőt ki kell tölteni.");
+                if (CmbStátus.Text != "Aktív" || CmbStátus.Text == "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
                 Adat_Anyag ADAT = new Adat_Anyag(
                        MyF.Szöveg_Tisztítás(Cikkszámok.Text),
                        MyF.Szöveg_Tisztítás(Megnevezés.Text),
