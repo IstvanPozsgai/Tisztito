@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\Ablak_Járandóság.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Járandóság.Designer.cs">
+      <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Ablak_Beállítások.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,12 +93,6 @@
     <Compile Include="Ablakok\Ablak_Anyagok.Designer.cs">
       <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Járandóság.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ablakok\Ablak_Járandóság.Designer.cs">
-      <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ablakok\Ablak_Szervezet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,16 +106,19 @@
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Járandóság.cs" />
     <Compile Include="Adatbázis\Adatbázis_Szervezet.cs" />
     <Compile Include="Adatbázis\Adatbázis_Egyéb_beolvasás.cs" />
     <Compile Include="Adatbázis\Adatbázis_Dolgozó.cs" />
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
+    <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
+    <Compile Include="Kezelők\Kezelő_Járandóság.cs" />
     <Compile Include="Kezelők\Kezelő_Kép.cs" />
     <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
@@ -137,6 +140,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\Ablak_Járandóság.resx">
+      <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Beállítások.resx">
       <DependentUpon>Ablak_Beállítások.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\lista.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

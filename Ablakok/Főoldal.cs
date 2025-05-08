@@ -134,6 +134,31 @@ namespace Tisztito
             Új_Ablak_Szervezet = null;
         }
         #endregion
+
+
+        #region Járandóság
+        Ablak_Járandóság Új_Ablak_Járandóság;
+        private void ToolStripMenuItem_Járandóság_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Járandóság == null)
+            {
+                Új_Ablak_Járandóság = new Ablak_Járandóság();
+                Új_Ablak_Járandóság.FormClosed += Új_Ablak_Járandóság_FormClosed;
+                Új_Ablak_Járandóság.Show();
+            }
+            else
+            {
+                Új_Ablak_Járandóság.Activate();
+                Új_Ablak_Járandóság.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_Ablak_Járandóság_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Járandóság = null;
+        }
+        #endregion
         #endregion
 
         #region Képkezelés
@@ -215,5 +240,7 @@ namespace Tisztito
             }
         }
         #endregion
+
+
     }
 }

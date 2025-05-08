@@ -41,8 +41,8 @@
             this.ToolStripMenuItem_Járandóság = new System.Windows.Forms.ToolStripMenuItem();
             this.könyvelésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Képkeret = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Képkeret = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.SuspendLayout();
@@ -102,7 +102,7 @@
             this.ToolStripMenuItem_Anyag.Image = global::Tisztito.Properties.Resources.App_warehause;
             this.ToolStripMenuItem_Anyag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ToolStripMenuItem_Anyag.Name = "ToolStripMenuItem_Anyag";
-            this.ToolStripMenuItem_Anyag.Size = new System.Drawing.Size(162, 22);
+            this.ToolStripMenuItem_Anyag.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem_Anyag.Text = "Anyag törzs";
             this.ToolStripMenuItem_Anyag.Click += new System.EventHandler(this.ToolStripMenuItem_Anyag_Click);
             // 
@@ -111,7 +111,7 @@
             this.ToolStripMenuItem_Dolgozó.Image = global::Tisztito.Properties.Resources.community_users;
             this.ToolStripMenuItem_Dolgozó.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ToolStripMenuItem_Dolgozó.Name = "ToolStripMenuItem_Dolgozó";
-            this.ToolStripMenuItem_Dolgozó.Size = new System.Drawing.Size(162, 22);
+            this.ToolStripMenuItem_Dolgozó.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem_Dolgozó.Text = "Dolgozó Törzs";
             this.ToolStripMenuItem_Dolgozó.Click += new System.EventHandler(this.ToolStripMenuItem_Dolgozó_Click);
             // 
@@ -120,16 +120,18 @@
             this.ToolStripMenuItem_Szervezet.Image = global::Tisztito.Properties.Resources.Filesystem_blockdevice_cubes;
             this.ToolStripMenuItem_Szervezet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ToolStripMenuItem_Szervezet.Name = "ToolStripMenuItem_Szervezet";
-            this.ToolStripMenuItem_Szervezet.Size = new System.Drawing.Size(162, 22);
+            this.ToolStripMenuItem_Szervezet.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem_Szervezet.Text = "Szervezet Törzs";
             this.ToolStripMenuItem_Szervezet.Click += new System.EventHandler(this.ToolStripMenuItem_Szervezet_Click);
             // 
             // ToolStripMenuItem_Járandóság
             // 
-            this.ToolStripMenuItem_Járandóság.Enabled = false;
+            this.ToolStripMenuItem_Járandóság.Image = global::Tisztito.Properties.Resources.lista;
+            this.ToolStripMenuItem_Járandóság.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ToolStripMenuItem_Járandóság.Name = "ToolStripMenuItem_Járandóság";
-            this.ToolStripMenuItem_Járandóság.Size = new System.Drawing.Size(162, 22);
+            this.ToolStripMenuItem_Járandóság.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem_Járandóság.Text = "Járandóság Törzs";
+            this.ToolStripMenuItem_Járandóság.Click += new System.EventHandler(this.ToolStripMenuItem_Járandóság_Click);
             // 
             // könyvelésekToolStripMenuItem
             // 
