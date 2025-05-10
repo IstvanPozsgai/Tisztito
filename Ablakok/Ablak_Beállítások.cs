@@ -69,7 +69,7 @@ namespace Tisztito.Ablakok
             {
                 List<Adat_Alap_Beolvasás> AdatokBeolvÖ = KézBeolv.Lista_Adatok();
                 List<string> AdatokBeolv = (from a in AdatokBeolvÖ
-                                            where a.Törölt == "0"
+                                            where a.Törölt == false
                                             orderby a.Csoport
                                             select a.Csoport).Distinct().ToList();
                 SAPCsoport.Items.Clear();
@@ -113,7 +113,7 @@ namespace Tisztito.Ablakok
                 List<Adat_Alap_Beolvasás> AdatokBeolvÖ = KézBeolv.Lista_Adatok();
                 List<Adat_Alap_Beolvasás> AdatokBeolv = (from a in AdatokBeolvÖ
                                                          where a.Csoport == SAPCsoport.Text.Trim()
-                                                         && a.Törölt == "0"
+                                                         && a.Törölt == false
                                                          orderby a.Oszlop
                                                          select a).ToList();
                 SAPTábla.Rows.Clear();
@@ -213,19 +213,18 @@ namespace Tisztito.Ablakok
                 if ((SAPFejléc.Text.Trim() == "")) return;
                 if ((SAPBeolvassuk.Text.Trim() == "")) return;
                 if (!int.TryParse(SAPOSzlopszám.Text, out int SAPoszlop)) return;
-                if (!int.TryParse(SAPBeolvassuk.Text, out int SAPBeolvas)) return;
 
                 List<Adat_Alap_Beolvasás> AdatokBeolv = KézBeolv.Lista_Adatok();
 
                 Adat_Alap_Beolvasás Elem = (from a in AdatokBeolv
-                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == "0"
+                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == false
                                             select a).FirstOrDefault();
 
                 Adat_Alap_Beolvasás Adat = new Adat_Alap_Beolvasás(SAPCsoport.Text.Trim(),
                                                                    SAPoszlop,
                                                                    SAPFejléc.Text.Trim(),
-                                                                   "0",
-                                                                   SAPBeolvas);
+                                                                   false,
+                                                                   SAPBeolvassuk.Text);
 
                 if (Elem != null)
                     KézBeolv.Módosítás(Adat);
@@ -260,7 +259,7 @@ namespace Tisztito.Ablakok
                 List<Adat_Alap_Beolvasás> AdatokBeolv = KézBeolv.Lista_Adatok();
 
                 Adat_Alap_Beolvasás Elem = (from a in AdatokBeolv
-                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == "0"
+                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == false
                                             select a).FirstOrDefault();
 
                 if (Elem != null)
@@ -268,8 +267,8 @@ namespace Tisztito.Ablakok
                     Adat_Alap_Beolvasás ADAT = new Adat_Alap_Beolvasás(SAPCsoport.Text.Trim(),
                                    SAPoszlop,
                                    "",
-                                   "0",
-                                   0);
+                                   false,
+                                   "0");
                     // ha van
                     KézBeolv.Törlés(ADAT);
                     Táblaíró();

@@ -44,8 +44,8 @@ namespace Tisztito.Kezelők
                                         rekord["csoport"].ToStrTrim(),
                                         rekord["oszlop"].ToÉrt_Int(),
                                         rekord["fejléc"].ToStrTrim(),
-                                        rekord["törölt"].ToStrTrim(),
-                                        rekord["kell"].ToÉrt_Long()
+                                        rekord["törölt"].ToÉrt_Bool(),
+                                        rekord["kell"].ToStrTrim()
                                      );
                                 Adatok.Add(Adat);
                             }
@@ -61,7 +61,7 @@ namespace Tisztito.Kezelők
             string szöveg = $"INSERT INTO {táblanév} ";
             szöveg += " ( csoport, oszlop, fejléc, törölt, kell)";
             szöveg += " VALUES ";
-            szöveg += $" ('{Adat.Csoport}', {Adat.Oszlop}, '{Adat.Fejléc}', '{Adat.Törölt}', {Adat.Kell})";
+            szöveg += $" ('{Adat.Csoport}', {Adat.Oszlop}, '{Adat.Fejléc}', {Adat.Törölt}, '{Adat.Kell}')";
             MyA.ABMódosítás(hely, jelszó, szöveg);
         }
 
@@ -71,9 +71,9 @@ namespace Tisztito.Kezelők
             {
                 string szöveg = $"UPDATE  {táblanév} SET ";
                 szöveg += $" fejléc='{Adat.Fejléc}', ";
-                szöveg += $" kell={Adat.Kell}";
+                szöveg += $" kell='{Adat.Kell}'";
                 szöveg += $" WHERE [csoport]= '{Adat.Csoport}' and [oszlop]={Adat.Oszlop}";
-                szöveg += $" and [törölt]='{Adat.Törölt}'";
+                szöveg += $" and [törölt]={Adat.Törölt}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -93,9 +93,9 @@ namespace Tisztito.Kezelők
             try
             {
                 string szöveg = "UPDATE  {táblanév} SET ";
-                szöveg += $" törölt='1'";
+                szöveg += $" törölt=true ";
                 szöveg += $" WHERE [csoport]= '{Adat.Csoport}'  and [oszlop]={Adat.Oszlop}";
-                szöveg += $" and [törölt]='{Adat.Törölt}'";
+                szöveg += $" and [törölt]={Adat.Törölt}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)

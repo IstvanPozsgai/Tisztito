@@ -16,8 +16,8 @@ namespace Tisztito.Adatbázis
             szöveg += " [csoport] CHAR(10), ";
             szöveg += " [oszlop] short,";
             szöveg += " [fejléc] CHAR(255),";
-            szöveg += " [törölt] CHAR(1),";
-            szöveg += " [kell] long)";
+            szöveg += " [törölt] yesno,";
+            szöveg += " [kell] CHAR(255))";
 
             //Létrehozzuk az adattáblát
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);

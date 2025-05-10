@@ -220,7 +220,7 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Dolgozónév"].Width = 400;
             Tábla.Columns["Munkakör"].Width = 300;
             Tábla.Columns["Szervezet"].Width = 300;
-            Tábla.Columns["státus"].Width = 70;
+            Tábla.Columns["státus"].Width = 200;
 
         }
 

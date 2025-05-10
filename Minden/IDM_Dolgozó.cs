@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
-using MyE = Tisztito.Module_Excel;
 using MyF = Függvénygyűjtemény;
 
 namespace Tisztito
@@ -22,52 +21,49 @@ namespace Tisztito
         {
             try
             {
+
                 //beolvassuk az excel táblát és megnézzük, hogy megegyezik-e a két fejléc
                 DataTable Tábla = MyF.Excel_Tábla_Beolvas(Excel_hely);
                 if (!MyF.Betöltéshelyes("Dolgozó", Tábla)) throw new HibásBevittAdat("Nem megfelelő a betölteni kívánt adatok formátuma ! ");
 
                 // Beolvasni kívánt oszlopok
                 List<Adat_Alap_Beolvasás> oszlopnév = KézBeolvasás.Lista_Adatok();
-                oszlopnév = (from a in oszlopnév
-                             where a.Csoport == "Dolgozó"
-                             && a.Törölt == "0"
-                             orderby a.Oszlop
-                             select a).ToList();
 
-                MyE.ExcelMegnyitás(Excel_hely);
+                //Meghatározzuk a beolvasó tábla elnevezéseit
+                string oszlopHR = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Dolgozószám" select a.Fejléc).FirstOrDefault();
+                string oszlopMunka = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Munkakör" select a.Fejléc).FirstOrDefault();
+                string oszlopNév = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Dolgozónév" select a.Fejléc).FirstOrDefault();
+                string oszlopStátus = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Státusz" select a.Fejléc).FirstOrDefault();
+                string oszlopSzerv = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Szervezet" select a.Fejléc).FirstOrDefault();
+                if (oszlopHR == null || oszlopMunka == null || oszlopNév == null || oszlopStátus == null || oszlopSzerv == null) throw new HibásBevittAdat("Nincs helyesen beállítva a beolvasótábla! ");
 
                 // Minden dolgozót feltöltünk
                 List<Adat_Dolgozó> Dolgozók = KézDolgozó.Lista_Adatok();
-
-                int sor = 2;
-                List<Adat_Dolgozó> AdatokGy = new List<Adat_Dolgozó>();
-                while (MyE.Beolvas("A" + sor) != "_")
+                List<Adat_Dolgozó> DolgozókGY = new List<Adat_Dolgozó>();
+                foreach (DataRow sor in Tábla.Rows)
                 {
                     // beolvassuk az adatokat
-                    string sztsz = MyE.Beolvas($"B{sor}");
+                    string sztsz = sor[oszlopHR].ToString();
                     //Ha csak számot tartalmaz akkor foglalkozunk tovább vele
                     Regex vizsgál = new Regex(@"[0-9]", RegexOptions.Compiled);
                     if (vizsgál.IsMatch(sztsz))
                     {
                         sztsz = MyF.Szöveg_Tisztítás(MyF.Eleje_kihagy(sztsz, "0"), 0, 8);
-                        string családnévutónév = MyF.Szöveg_Tisztítás((MyE.Beolvas($"E{sor}")), 0, 250);
-                        string munkakör = MyF.Szöveg_Tisztítás(MyE.Beolvas($"K{sor}"), 0, 250);
-                        string státussz = MyE.Beolvas($"J{sor}");
-                        string szervezet = MyF.Szöveg_Tisztítás(MyE.Beolvas($"P{sor}"), 0, 200);
+                        string családnévutónév = MyF.Szöveg_Tisztítás(sor[oszlopNév].ToString(), 0, 50);
+                        string munkakör = MyF.Szöveg_Tisztítás(sor[oszlopMunka].ToString(), 0, 50);
+                        string szervezet = MyF.Szöveg_Tisztítás(sor[oszlopSzerv].ToString(), 0, 50);
+                        string státussz = sor[oszlopStátus].ToStrTrim().ToUpper();
 
                         Adat_Dolgozó ADAT = new Adat_Dolgozó(
                             sztsz.Trim(),
                             családnévutónév.Trim(),
-                            munkakör.Trim(),
+                            munkakör,
                             szervezet,
-                            false);
-                        AdatokGy.Add(ADAT);
+                            státussz != "ACTIVE");
+                        DolgozókGY.Add(ADAT);
                     }
-                    sor++;
                 }
-                if (AdatokGy.Count > 0) KézDolgozó.IDMBeolvasás(AdatokGy);
-                // az excel tábla bezárása
-                MyE.ExcelBezárás();
+                KézDolgozó.IDMBeolvasás(DolgozókGY);
                 // kitöröljük a betöltött fájlt
                 File.Delete(Excel_hely);
             }
@@ -80,13 +76,6 @@ namespace Tisztito
                 HibaNapló.Log(ex.Message, "Behajtási_beolvasás", ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        static bool DolgozóVan(List<Adat_Dolgozó> Dolgozók, string HRazonosító)
-        {
-            bool válasz = false;
-            if (Dolgozók.Any(d => d.Dolgozószám.Trim() == HRazonosító.Trim())) válasz = true;
-            return válasz;
         }
     }
 }
