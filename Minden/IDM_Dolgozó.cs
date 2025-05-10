@@ -49,9 +49,9 @@ namespace Tisztito
                     if (vizsgál.IsMatch(sztsz))
                     {
                         sztsz = MyF.Szöveg_Tisztítás(MyF.Eleje_kihagy(sztsz, "0"), 0, 8);
-                        string családnévutónév = MyF.Szöveg_Tisztítás(sor[oszlopNév].ToString(), 0, 50);
-                        string munkakör = MyF.Szöveg_Tisztítás(sor[oszlopMunka].ToString(), 0, 50);
-                        string szervezet = MyF.Szöveg_Tisztítás(sor[oszlopSzerv].ToString(), 0, 50);
+                        string családnévutónév = MyF.Szöveg_Tisztítás(sor[oszlopNév].ToString(), 0, 250);
+                        string munkakör = MyF.Szöveg_Tisztítás(sor[oszlopMunka].ToString(), 0, 250);
+                        string szervezet = MyF.Szöveg_Tisztítás(sor[oszlopSzerv].ToString(), 0, 200);
                         string státussz = sor[oszlopStátus].ToStrTrim().ToUpper();
 
                         Adat_Dolgozó ADAT = new Adat_Dolgozó(
