@@ -19,7 +19,7 @@ namespace Tisztito.Kezelők
 
         public Kezelő_Járandóság()
         {
-            if (!File.Exists(hely)) Adatbázis_Létrehozás.Anyag(hely.KönyvSzerk());
+            if (!File.Exists(hely)) Adatbázis_Létrehozás.Járandóság(hely.KönyvSzerk());
             if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Járandóság(hely);
         }
 

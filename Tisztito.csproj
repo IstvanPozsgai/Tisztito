@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\Ablak_Raktár.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Raktár.Designer.cs">
+      <DependentUpon>Ablak_Raktár.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Ablak_Igény.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,8 @@
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
     <Compile Include="Adatbázis\Adatbázis_Járandóság.cs" />
+    <Compile Include="Adatbázis\Adatbázis_KészletRaktKönyvelés.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Raktár.cs" />
     <Compile Include="Adatbázis\Adatbázis_Szervezet.cs" />
     <Compile Include="Adatbázis\Adatbázis_Egyéb_beolvasás.cs" />
     <Compile Include="Adatbázis\Adatbázis_Dolgozó.cs" />
@@ -123,12 +131,15 @@
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
     <Compile Include="Adatszerkezet\Adat_Igény.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
+    <Compile Include="Adatszerkezet\Adat_KészletRaktKönyvelés.cs" />
+    <Compile Include="Adatszerkezet\Adat_Raktár.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
     <Compile Include="Kezelők\Kezelő_Járandóság.cs" />
     <Compile Include="Kezelők\Kezelő_Kép.cs" />
+    <Compile Include="Kezelők\Kezelő_Raktár.cs" />
     <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
@@ -149,6 +160,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\Ablak_Raktár.resx">
+      <DependentUpon>Ablak_Raktár.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Igény.resx">
       <DependentUpon>Ablak_Igény.cs</DependentUpon>
     </EmbeddedResource>
