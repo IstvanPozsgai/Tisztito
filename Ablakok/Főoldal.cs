@@ -183,6 +183,30 @@ namespace Tisztito
             Új_Ablak_Igények = null;
         }
         #endregion
+
+
+        #region Raktárak közötti könyvelés
+        Ablak_Raktár Új_Ablak_Raktár;
+        private void RaktárakKözöttiKönyvelésToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Raktár == null)
+            {
+                Új_Ablak_Raktár = new Ablak_Raktár();
+                Új_Ablak_Raktár.FormClosed += Új_Ablak_Raktár_FormClosed;
+                Új_Ablak_Raktár.Show();
+            }
+            else
+            {
+                Új_Ablak_Raktár.Activate();
+                Új_Ablak_Raktár.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_Raktár_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Igények = null;
+        }
+        #endregion
         #endregion
 
         #region Képkezelés
@@ -263,6 +287,7 @@ namespace Tisztito
                 return false;
             }
         }
+
 
         #endregion
 
