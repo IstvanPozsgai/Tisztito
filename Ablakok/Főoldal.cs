@@ -204,7 +204,7 @@ namespace Tisztito
 
         private void Új_Ablak_Raktár_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Új_Ablak_Igények = null;
+            Új_Ablak_Raktár = null;
         }
         #endregion
         #endregion

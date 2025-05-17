@@ -13,7 +13,7 @@ namespace Tisztito.Adatbázis
             string szöveg = $"CREATE TABLE {táblanév} (";
             szöveg += "[Cikkszám]  char (10),";
             szöveg += "[Mennyiség]  Short,";
-            szöveg += "[Szervezet]  char (200),";
+            szöveg += "[Szervezet]  char (200))";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }
     }
