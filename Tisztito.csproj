@@ -121,7 +121,7 @@
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
     <Compile Include="Adatbázis\Adatbázis_Járandóság.cs" />
-    <Compile Include="Adatbázis\Adatbázis_KészletRaktKönyvelés.cs" />
+    <Compile Include="Adatbázis\Adatbázis_KészletNaplóRaktár.cs" />
     <Compile Include="Adatbázis\Adatbázis_Raktár.cs" />
     <Compile Include="Adatbázis\Adatbázis_Szervezet.cs" />
     <Compile Include="Adatbázis\Adatbázis_Egyéb_beolvasás.cs" />
@@ -131,7 +131,7 @@
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
     <Compile Include="Adatszerkezet\Adat_Igény.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
-    <Compile Include="Adatszerkezet\Adat_KészletRaktKönyvelés.cs" />
+    <Compile Include="Adatszerkezet\Adat_KészletNaplóRaktár.cs" />
     <Compile Include="Adatszerkezet\Adat_Raktár.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
@@ -139,6 +139,7 @@
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
     <Compile Include="Kezelők\Kezelő_Járandóság.cs" />
     <Compile Include="Kezelők\Kezelő_Kép.cs" />
+    <Compile Include="Kezelők\Kezelő_KészletNaplóRaktár.cs" />
     <Compile Include="Kezelők\Kezelő_Raktár.cs" />
     <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />

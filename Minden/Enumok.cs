@@ -11,9 +11,9 @@
         public enum Mozgás
         {
             Beérkezés = 0,
-            Beérkezés_Storno = 1,
             Átadás = 3,
-            Átadás_Storno = 4,
+            VisszaVétel = 5,
+            Storno = 9
         };
 
     }

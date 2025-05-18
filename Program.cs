@@ -8,7 +8,7 @@ namespace Tisztito
         /// <summary>
         /// Aki bejelentkezett
         /// </summary>
-        public static string PostásNév = "";
+        public static string PostásNév = "Próba";
 
         /// <summary>
         /// The main entry point for the application.
