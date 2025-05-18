@@ -65,12 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ablakok\Ablak_Raktár.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ablakok\Ablak_Raktár.Designer.cs">
-      <DependentUpon>Ablak_Raktár.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ablakok\Ablak_Igény.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,9 +155,6 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Ablakok\Ablak_Raktár.resx">
-      <DependentUpon>Ablak_Raktár.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Igény.resx">
       <DependentUpon>Ablak_Igény.cs</DependentUpon>
     </EmbeddedResource>
