@@ -50,7 +50,6 @@ namespace Tisztito.Kezelők
                                          rekord["Bizonylatszám"].ToStrTrim(),
                                          rekord["Rögzítő"].ToStrTrim(),
                                          rekord["Dátum"].ToÉrt_DaTeTime(),
-                                         rekord["Pdf"].ToStrTrim(),
                                          rekord["Storno"].ToÉrt_Bool(),
                                          rekord["Storno_Rögzítő"].ToStrTrim(),
                                          rekord["Storno_Dátum"].ToÉrt_DaTeTime());
@@ -68,7 +67,7 @@ namespace Tisztito.Kezelők
             try
             {
                 FájlBeállítás(Év);
-                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Pdf, Storno, Storno_Rögzítő, Storno_Dátum) VALUES ";
+                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Storno, Storno_Rögzítő, Storno_Dátum) VALUES ";
                 szöveg += $"('{Adat.Cikkszám}', ";
                 szöveg += $"{Adat.Mennyiség}, ";
                 szöveg += $"'{Adat.SzervezetHonnan}', ";
@@ -76,7 +75,6 @@ namespace Tisztito.Kezelők
                 szöveg += $"'{Adat.Bizonylat}', ";
                 szöveg += $"'{Adat.Rögzítő}', ";
                 szöveg += $"'{Adat.Dátum}', ";
-                szöveg += $"'{Adat.Pdf}', ";
                 szöveg += $"{Adat.Storno}, ";
                 szöveg += $"'{Adat.Storno_Rögzítő}', ";
                 szöveg += $"'{Adat.Storno_Dátum}') ";

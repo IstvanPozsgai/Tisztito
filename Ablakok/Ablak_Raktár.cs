@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using MyEn = Tisztito.Minden.Enumok;
+using MyF = Függvénygyűjtemény;
 
 namespace Tisztito.Ablakok
 {
@@ -326,8 +327,7 @@ namespace Tisztito.Ablakok
                      Hova.Text.Trim(),
                      Bizonylatszám.Text.Trim(),
                      Program.PostásNév,
-                     DateTime.Now,
-                     PDFhely.Text.Trim(),
+                     Dátum.Value,
                      false,
                      "",
                      new DateTime(1900, 1, 1));
@@ -626,7 +626,6 @@ namespace Tisztito.Ablakok
                 AdatTáblaALap.Columns.Add("Bizonylat");
                 AdatTáblaALap.Columns.Add("Rögzítő");
                 AdatTáblaALap.Columns.Add("Dátum");
-                AdatTáblaALap.Columns.Add("Pdf fájlhelye");
                 AdatTáblaALap.Columns.Add("Storno");
                 AdatTáblaALap.Columns.Add("Storno Rögzítő");
                 AdatTáblaALap.Columns.Add("Storno Dátum");
@@ -655,7 +654,6 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Bizonylat"].Width = 100;
             Tábla.Columns["Rögzítő"].Width = 100;
             Tábla.Columns["Dátum"].Width = 180;
-            Tábla.Columns["Pdf fájlhelye"].Width = 250;
             Tábla.Columns["Storno"].Width = 120;
             Tábla.Columns["Storno Rögzítő"].Width = 100;
             Tábla.Columns["Storno Dátum"].Width = 180;
@@ -689,7 +687,6 @@ namespace Tisztito.Ablakok
                     Soradat["Bizonylat"] = rekord.Bizonylat;
                     Soradat["Rögzítő"] = rekord.Rögzítő;
                     Soradat["Dátum"] = rekord.Dátum;
-                    Soradat["Pdf fájlhelye"] = rekord.Pdf;
                     Soradat["Storno"] = rekord.Storno ? "Stornózva" : "Rögzítés";
                     Soradat["Storno Rögzítő"] = rekord.Storno_Rögzítő;
                     Soradat["Storno Dátum"] = rekord.Storno_Dátum;
@@ -708,5 +705,34 @@ namespace Tisztito.Ablakok
             }
         }
         #endregion
+
+        #region PdfAblak
+        Ablak_PDF_Feltöltés Új_Ablak_PDF_Feltöltés;
+        private void PDFAblak_Click(object sender, EventArgs e)
+        {
+            if (Bizonylatszám.Text.Trim() == "") throw new HibásBevittAdat("A bizonylatszám mező nem lehet üres.");
+            string hely = $@"{Application.StartupPath}\Adatok\PDF".KönyvSzerk();
+            Bizonylatszám.Text = MyF.Szöveg_Tisztítás(Bizonylatszám.Text);
+            if (Új_Ablak_PDF_Feltöltés == null)
+            {
+                Új_Ablak_PDF_Feltöltés = new Ablak_PDF_Feltöltés(Bizonylatszám.Text, hely, false, Dátum.Value);
+                Új_Ablak_PDF_Feltöltés.FormClosed += Új_Ablak_PDF_Feltöltés_FormClosed;
+                Új_Ablak_PDF_Feltöltés.Show();
+            }
+            else
+            {
+                Új_Ablak_PDF_Feltöltés.Activate();
+                Új_Ablak_PDF_Feltöltés.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_Ablak_PDF_Feltöltés_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_PDF_Feltöltés = null;
+        }
+
+        #endregion
+
     }
 }

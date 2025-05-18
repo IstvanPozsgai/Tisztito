@@ -39,7 +39,7 @@ namespace Tisztito
             // 
             // FájlLista
             // 
-            this.FájlLista.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.FájlLista.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.FájlLista.FormattingEnabled = true;
             this.FájlLista.ItemHeight = 20;
@@ -53,22 +53,20 @@ namespace Tisztito
             // 
             // Pdftöltő
             // 
-            this.Pdftöltő.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Pdftöltő.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Pdftöltő.BackColor = System.Drawing.Color.SeaGreen;
             this.Pdftöltő.Location = new System.Drawing.Point(306, 10);
             this.Pdftöltő.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Pdftöltő.Name = "Pdftöltő";
-            this.Pdftöltő.ShowToolbar = false;
             this.Pdftöltő.Size = new System.Drawing.Size(473, 542);
             this.Pdftöltő.TabIndex = 253;
             this.Pdftöltő.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitBest;
-            this.Pdftöltő.ShowToolbar = true;
             // 
             // Btn_Másolás
             // 
-
+            this.Btn_Másolás.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
             this.Btn_Másolás.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Btn_Másolás.Location = new System.Drawing.Point(246, 10);
             this.Btn_Másolás.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
@@ -76,11 +74,11 @@ namespace Tisztito
             this.Btn_Másolás.Size = new System.Drawing.Size(45, 45);
             this.Btn_Másolás.TabIndex = 255;
             this.Btn_Másolás.UseVisualStyleBackColor = true;
-            this.Btn_Másolás.Click += new System.EventHandler(this.Btn_PDFVálasztó_Click);
+            this.Btn_Másolás.Click += new System.EventHandler(this.Btn_Másolás_Click);
             // 
             // Btn_PDFNyitó
             // 
-
+            this.Btn_PDFNyitó.BackgroundImage = global::Tisztito.Properties.Resources.My_Ebooks_01;
             this.Btn_PDFNyitó.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Btn_PDFNyitó.Location = new System.Drawing.Point(10, 10);
             this.Btn_PDFNyitó.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
@@ -89,7 +87,6 @@ namespace Tisztito
             this.Btn_PDFNyitó.TabIndex = 254;
             this.Btn_PDFNyitó.UseVisualStyleBackColor = true;
             this.Btn_PDFNyitó.Click += new System.EventHandler(this.Btn_PDFNyitó_Click);
-
             // 
             // Ablak_PDF_Feltöltés
             // 
@@ -105,7 +102,7 @@ namespace Tisztito
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Ablak_PDF_Feltöltés";
-            this.Text = "Villamos PDF feltöltés";
+            this.Text = "PDF feltöltés";
             this.Load += new System.EventHandler(this.Ablak_Sérülés_PDF_Load);
             this.ResumeLayout(false);
 

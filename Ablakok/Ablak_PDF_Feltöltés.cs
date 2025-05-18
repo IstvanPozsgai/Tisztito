@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using static System.IO.File;
@@ -7,32 +6,24 @@ using MyF = Függvénygyűjtemény;
 
 namespace Tisztito
 {
+    public delegate void Event_Kidobó();
     public partial class Ablak_PDF_Feltöltés : Form
     {
         public event Event_Kidobó Változás;
 
         private string BeolvasásiHely;
+
+        private string Bizonylat { get; set; }
         private DateTime Dátum { get; set; }
-        private int DoksikValue { get; set; }
-        private int Sorszam { get; set; }
-        private string Pályaszám { get; set; }
         private string Hova { get; set; }
-        private string MelyikAblak { get; set; }
-        private List<string> PDFek { get; set; }
         private bool Megjelenítés { get; set; }
 
-
-
-        public Ablak_PDF_Feltöltés(string hova, DateTime dátum, int doksikValue, int sorszam, string pályaszám, List<string> pDFek, string melyikAblak, bool megjelenítés)
+        public Ablak_PDF_Feltöltés(string bizonylat, string hova, bool megjelenítés, DateTime dátum)
         {
-            Dátum = dátum;
-            DoksikValue = doksikValue;
-            Sorszam = sorszam;
-            Pályaszám = pályaszám;
-            PDFek = pDFek;
-            Hova = hova;
-            MelyikAblak = melyikAblak;
+            Bizonylat = bizonylat;
             Megjelenítés = megjelenítés;
+            Hova = hova;
+            Dátum = dátum;
             InitializeComponent();
 
         }
@@ -44,8 +35,7 @@ namespace Tisztito
                 Btn_PDFNyitó.Visible = false;
                 Btn_Másolás.Visible = false;
                 ElemekListája();
-                BeolvasásiHely = Hova;
-                this.Text = "Villamos PDF megjelenítés";
+                this.Text = "PDF megjelenítés";
             }
         }
 
@@ -55,7 +45,7 @@ namespace Tisztito
             {       // A tervezett fájlnévnek megfelelően szűrjük a könyvtár tartalmát
                 FájlLista.Items.Clear();
                 DirectoryInfo Directories = new DirectoryInfo(Hova);
-                string mialapján = $@"{Pályaszám}_{Dátum:yyyy}*.pdf";
+                string mialapján = $@"{Bizonylat}_{Dátum:yyyy}*.pdf";
 
 
                 FileInfo[] fileInfo = Directories.GetFiles(mialapján, SearchOption.TopDirectoryOnly);
@@ -108,92 +98,6 @@ namespace Tisztito
             }
         }
 
-
-        private void Btn_PDFVálasztó_Click(object sender, EventArgs e)
-        {
-            switch (MelyikAblak)
-            {
-                case "Sérülés":
-                    Sérüléshez();
-                    break;
-                case "TTP":
-                    TTP();
-                    break;
-            }
-        }
-
-
-
-
-
-        private void Sérüléshez()
-        {
-            try
-            {
-                if (FájlLista.SelectedItems.Count < 1) throw new HibásBevittAdat("Nincs kiválasztva dokumentum!");
-
-                int sorszám;
-                if (DoksikValue == 0) sorszám = 0;
-                else
-                {
-                    string szöveg = PDFek[PDFek.Count - 1].Trim().Substring(0, PDFek[PDFek.Count - 1].Trim().Length - 4);
-                    string[] darabok = szöveg.Split('_');
-                    sorszám = int.Parse(darabok[darabok.Length - 1]);
-                }
-                // kijelölt elemeket másolja a kijelölt könyvtárba
-                for (int i = 0; i < FájlLista.SelectedItems.Count; i++)
-                {
-                    sorszám++;
-                    string hely = $@"{$"{Hova}{Dátum.Year}"}_{Sorszam.ToStrTrim()}_{Pályaszám.ToStrTrim()}_{sorszám}.pdf";
-                    string honnan = $@"{BeolvasásiHely}\{FájlLista.SelectedItems[i].ToStrTrim()}";
-                    Copy(honnan, hely);
-                    PDFek.Add($@"{$"{Dátum.Year}"}_{Sorszam.ToStrTrim()}_{Pályaszám.ToStrTrim()}_{sorszám}.pdf");
-                }
-                DoksikValue += FájlLista.SelectedItems.Count;
-                MessageBox.Show("A PDF feltöltés sikeres volt.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Változás?.Invoke();
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToStrTrim(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-        private void TTP()
-        {
-            try
-            {
-                if (FájlLista.SelectedItems.Count < 1) throw new HibásBevittAdat("Nincs kiválasztva dokumentum!");
-                int elem = MyF.VanPDFdb(Pályaszám, Dátum);
-                // kijelölt elemeket másolja a kijelölt könyvtárba
-                for (int i = 0; i < FájlLista.SelectedItems.Count; i++)
-                {
-                    string hely = $@"{Hova}\{Pályaszám}_{Dátum:yyyyMMdd}_{++elem}.pdf";
-                    string honnan = $@"{BeolvasásiHely}\{FájlLista.SelectedItems[i].ToStrTrim()}";
-                    Copy(honnan, hely);
-                }
-                DoksikValue += FájlLista.SelectedItems.Count;
-                MessageBox.Show("A PDF feltöltés sikeres volt.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Változás?.Invoke();
-
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -215,5 +119,31 @@ namespace Tisztito
             }
         }
 
+        private void Btn_Másolás_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (FájlLista.SelectedItems.Count < 1) throw new HibásBevittAdat("Nincs kiválasztva dokumentum!");
+                int elem = MyF.VanPDFdb(Bizonylat, Dátum, Hova);
+                // kijelölt elemeket másolja a kijelölt könyvtárba
+                for (int i = 0; i < FájlLista.SelectedItems.Count; i++)
+                {
+                    string hely = $@"{Hova}\{Bizonylat}_{Dátum:yyyyMMdd}_{++elem}.pdf";
+                    string honnan = $@"{BeolvasásiHely}\{FájlLista.SelectedItems[i].ToStrTrim()}";
+                    Copy(honnan, hely);
+                }
+                MessageBox.Show("A PDF feltöltés sikeres volt.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Változás?.Invoke();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

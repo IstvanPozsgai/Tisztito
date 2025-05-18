@@ -43,15 +43,12 @@
             this.Mennyiség = new System.Windows.Forms.TextBox();
             this.Label25 = new System.Windows.Forms.Label();
             this.Bizonylatszám = new System.Windows.Forms.TextBox();
-            this.Rögzít = new System.Windows.Forms.Button();
             this.Hova = new System.Windows.Forms.ComboBox();
             this.Label18 = new System.Windows.Forms.Label();
             this.Label19 = new System.Windows.Forms.Label();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.Honnan = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.PDFhely = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Mozgás = new System.Windows.Forms.ComboBox();
             this.Megnevezések = new System.Windows.Forms.ComboBox();
@@ -60,6 +57,8 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
+            this.PDFAblak = new System.Windows.Forms.Button();
+            this.Rögzít = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -81,7 +80,7 @@
             // 
             this.Label20.AutoSize = true;
             this.Label20.BackColor = System.Drawing.Color.Silver;
-            this.Label20.Location = new System.Drawing.Point(477, 74);
+            this.Label20.Location = new System.Drawing.Point(507, 74);
             this.Label20.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.Label20.Name = "Label20";
             this.Label20.Size = new System.Drawing.Size(65, 20);
@@ -103,7 +102,7 @@
             // 
             this.HonnanMennyiség.AutoSize = true;
             this.HonnanMennyiség.BackColor = System.Drawing.Color.Silver;
-            this.HonnanMennyiség.Location = new System.Drawing.Point(121, 74);
+            this.HonnanMennyiség.Location = new System.Drawing.Point(151, 74);
             this.HonnanMennyiség.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.HonnanMennyiség.Name = "HonnanMennyiség";
             this.HonnanMennyiség.Size = new System.Drawing.Size(37, 20);
@@ -114,7 +113,7 @@
             // 
             this.HováMennyiség.AutoSize = true;
             this.HováMennyiség.BackColor = System.Drawing.Color.Silver;
-            this.HováMennyiség.Location = new System.Drawing.Point(598, 74);
+            this.HováMennyiség.Location = new System.Drawing.Point(628, 74);
             this.HováMennyiség.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.HováMennyiség.Name = "HováMennyiség";
             this.HováMennyiség.Size = new System.Drawing.Size(37, 20);
@@ -126,8 +125,8 @@
             this.Cikkszámok.DropDownHeight = 300;
             this.Cikkszámok.FormattingEnabled = true;
             this.Cikkszámok.IntegralHeight = false;
-            this.Cikkszámok.Location = new System.Drawing.Point(121, 100);
-            this.Cikkszámok.MaxLength = 20;
+            this.Cikkszámok.Location = new System.Drawing.Point(151, 100);
+            this.Cikkszámok.MaxLength = 10;
             this.Cikkszámok.Name = "Cikkszámok";
             this.Cikkszámok.Size = new System.Drawing.Size(220, 28);
             this.Cikkszámok.TabIndex = 225;
@@ -137,7 +136,7 @@
             // 
             this.Label23.AutoSize = true;
             this.Label23.BackColor = System.Drawing.Color.Silver;
-            this.Label23.Location = new System.Drawing.Point(477, 103);
+            this.Label23.Location = new System.Drawing.Point(507, 103);
             this.Label23.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.Label23.Name = "Label23";
             this.Label23.Size = new System.Drawing.Size(103, 20);
@@ -157,7 +156,7 @@
             // 
             // Mennyiség
             // 
-            this.Mennyiség.Location = new System.Drawing.Point(121, 134);
+            this.Mennyiség.Location = new System.Drawing.Point(151, 134);
             this.Mennyiség.Name = "Mennyiség";
             this.Mennyiség.Size = new System.Drawing.Size(128, 26);
             this.Mennyiség.TabIndex = 227;
@@ -166,7 +165,7 @@
             // 
             this.Label25.AutoSize = true;
             this.Label25.BackColor = System.Drawing.Color.Silver;
-            this.Label25.Location = new System.Drawing.Point(477, 169);
+            this.Label25.Location = new System.Drawing.Point(507, 169);
             this.Label25.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.Label25.Name = "Label25";
             this.Label25.Size = new System.Drawing.Size(115, 20);
@@ -175,29 +174,19 @@
             // 
             // Bizonylatszám
             // 
-            this.Bizonylatszám.Location = new System.Drawing.Point(598, 166);
+            this.Bizonylatszám.Location = new System.Drawing.Point(628, 166);
+            this.Bizonylatszám.MaxLength = 15;
             this.Bizonylatszám.Name = "Bizonylatszám";
             this.Bizonylatszám.Size = new System.Drawing.Size(301, 26);
             this.Bizonylatszám.TabIndex = 228;
-            // 
-            // Rögzít
-            // 
-            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Image = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
-            this.Rögzít.Location = new System.Drawing.Point(113, 168);
-            this.Rögzít.Name = "Rögzít";
-            this.Rögzít.Size = new System.Drawing.Size(45, 45);
-            this.Rögzít.TabIndex = 229;
-            this.Rögzít.UseVisualStyleBackColor = true;
-            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
             // Hova
             // 
             this.Hova.DropDownHeight = 300;
             this.Hova.FormattingEnabled = true;
             this.Hova.IntegralHeight = false;
-            this.Hova.Location = new System.Drawing.Point(598, 37);
-            this.Hova.MaxLength = 20;
+            this.Hova.Location = new System.Drawing.Point(628, 37);
+            this.Hova.MaxLength = 200;
             this.Hova.Name = "Hova";
             this.Hova.Size = new System.Drawing.Size(350, 28);
             this.Hova.Sorted = true;
@@ -207,7 +196,7 @@
             // 
             this.Label18.AutoSize = true;
             this.Label18.BackColor = System.Drawing.Color.Silver;
-            this.Label18.Location = new System.Drawing.Point(477, 40);
+            this.Label18.Location = new System.Drawing.Point(507, 40);
             this.Label18.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.Label18.Name = "Label18";
             this.Label18.Size = new System.Drawing.Size(50, 20);
@@ -246,14 +235,14 @@
             this.Tábla.EnableHeadersVisualStyles = false;
             this.Tábla.FilterAndSortEnabled = true;
             this.Tábla.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-            this.Tábla.Location = new System.Drawing.Point(12, 249);
+            this.Tábla.Location = new System.Drawing.Point(12, 220);
             this.Tábla.MaxFilterButtonImageHeight = 23;
             this.Tábla.Name = "Tábla";
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersVisible = false;
             this.Tábla.RowHeadersWidth = 62;
             this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.Tábla.Size = new System.Drawing.Size(1227, 98);
+            this.Tábla.Size = new System.Drawing.Size(1227, 208);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 224;
             this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
@@ -263,8 +252,8 @@
             this.Honnan.DropDownHeight = 300;
             this.Honnan.FormattingEnabled = true;
             this.Honnan.IntegralHeight = false;
-            this.Honnan.Location = new System.Drawing.Point(121, 37);
-            this.Honnan.MaxLength = 20;
+            this.Honnan.Location = new System.Drawing.Point(151, 37);
+            this.Honnan.MaxLength = 200;
             this.Honnan.Name = "Honnan";
             this.Honnan.Size = new System.Drawing.Size(350, 28);
             this.Honnan.Sorted = true;
@@ -277,9 +266,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.PDFhely, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.Bizonylatszám, 3, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 7);
             this.tableLayoutPanel1.Controls.Add(this.Label25, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.Label21, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.HonnanMennyiség, 1, 2);
@@ -296,12 +283,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.Mozgás, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.Cikkszámok, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.Dátum, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.Megnevezések, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.Dátum, 1, 7);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -309,27 +296,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1049, 231);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1049, 202);
             this.tableLayoutPanel1.TabIndex = 241;
-            // 
-            // PDFhely
-            // 
-            this.PDFhely.Location = new System.Drawing.Point(598, 198);
-            this.PDFhely.Name = "PDFhely";
-            this.PDFhely.Size = new System.Drawing.Size(465, 26);
-            this.PDFhely.TabIndex = 243;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Silver;
-            this.label2.Location = new System.Drawing.Point(477, 201);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 20);
-            this.label2.TabIndex = 242;
-            this.label2.Text = "Pdf fájlnév";
             // 
             // label3
             // 
@@ -347,7 +315,7 @@
             this.Mozgás.DropDownHeight = 300;
             this.Mozgás.FormattingEnabled = true;
             this.Mozgás.IntegralHeight = false;
-            this.Mozgás.Location = new System.Drawing.Point(121, 3);
+            this.Mozgás.Location = new System.Drawing.Point(151, 3);
             this.Mozgás.MaxLength = 20;
             this.Mozgás.Name = "Mozgás";
             this.Mozgás.Size = new System.Drawing.Size(350, 28);
@@ -360,10 +328,10 @@
             this.Megnevezések.DropDownHeight = 300;
             this.Megnevezések.FormattingEnabled = true;
             this.Megnevezések.IntegralHeight = false;
-            this.Megnevezések.Location = new System.Drawing.Point(598, 100);
+            this.Megnevezések.Location = new System.Drawing.Point(628, 100);
             this.Megnevezések.MaxLength = 20;
             this.Megnevezések.Name = "Megnevezések";
-            this.Megnevezések.Size = new System.Drawing.Size(465, 28);
+            this.Megnevezések.Size = new System.Drawing.Size(410, 28);
             this.Megnevezések.TabIndex = 246;
             this.Megnevezések.SelectionChangeCommitted += new System.EventHandler(this.Megnevezések_SelectionChangeCommitted);
             // 
@@ -371,17 +339,17 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Silver;
-            this.label4.Location = new System.Drawing.Point(3, 201);
+            this.label4.Location = new System.Drawing.Point(3, 169);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 20);
+            this.label4.Size = new System.Drawing.Size(142, 20);
             this.label4.TabIndex = 247;
-            this.label4.Text = "Napló dátuma:";
+            this.label4.Text = "Könyvelés dátuma:";
             // 
             // Dátum
             // 
             this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.Dátum.Location = new System.Drawing.Point(121, 198);
+            this.Dátum.Location = new System.Drawing.Point(151, 166);
             this.Dátum.Name = "Dátum";
             this.Dátum.Size = new System.Drawing.Size(128, 26);
             this.Dátum.TabIndex = 248;
@@ -391,24 +359,25 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
             this.tableLayoutPanel2.Controls.Add(this.Frissít, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 231);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 202);
             this.tableLayoutPanel2.TabIndex = 242;
             // 
             // Frissít
             // 
+            this.Frissít.BackgroundImage = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
             this.Frissít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Frissít.Image = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
             this.Frissít.Location = new System.Drawing.Point(58, 3);
             this.Frissít.Name = "Frissít";
             this.Frissít.Size = new System.Drawing.Size(45, 45);
@@ -418,8 +387,8 @@
             // 
             // MezőkÜrítése
             // 
+            this.MezőkÜrítése.BackgroundImage = global::Tisztito.Properties.Resources.New_gyűjtemény;
             this.MezőkÜrítése.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.MezőkÜrítése.Image = global::Tisztito.Properties.Resources.New_gyűjtemény;
             this.MezőkÜrítése.Location = new System.Drawing.Point(3, 3);
             this.MezőkÜrítése.Name = "MezőkÜrítése";
             this.MezőkÜrítése.Size = new System.Drawing.Size(45, 45);
@@ -427,12 +396,34 @@
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
             // 
+            // PDFAblak
+            // 
+            this.PDFAblak.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
+            this.PDFAblak.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PDFAblak.Location = new System.Drawing.Point(3, 154);
+            this.PDFAblak.Name = "PDFAblak";
+            this.PDFAblak.Size = new System.Drawing.Size(45, 44);
+            this.PDFAblak.TabIndex = 232;
+            this.PDFAblak.UseVisualStyleBackColor = true;
+            this.PDFAblak.Click += new System.EventHandler(this.PDFAblak_Click);
+            // 
+            // Rögzít
+            // 
+            this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
+            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Rögzít.Location = new System.Drawing.Point(113, 100);
+            this.Rögzít.Name = "Rögzít";
+            this.Rögzít.Size = new System.Drawing.Size(45, 45);
+            this.Rögzít.TabIndex = 229;
+            this.Rögzít.UseVisualStyleBackColor = true;
+            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
+            // 
             // Ablak_Raktár
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1251, 359);
+            this.ClientSize = new System.Drawing.Size(1251, 440);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.Tábla);
@@ -471,8 +462,6 @@
         internal Zuby.ADGV.AdvancedDataGridView Tábla;
         internal System.Windows.Forms.ComboBox Honnan;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.TextBox PDFhely;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         internal System.Windows.Forms.Button Frissít;
         internal System.Windows.Forms.Button MezőkÜrítése;
@@ -482,5 +471,6 @@
         internal System.Windows.Forms.ComboBox Megnevezések;
         internal System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker Dátum;
+        internal System.Windows.Forms.Button PDFAblak;
     }
 }
