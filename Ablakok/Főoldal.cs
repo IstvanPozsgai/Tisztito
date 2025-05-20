@@ -1,16 +1,22 @@
-﻿using System;
+﻿using Bejelentkezés.Adatszerkezet;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Ablakok;
 using Tisztito.Kezelők;
+using Tisztito.Minden;
 
 
 namespace Tisztito
 {
     public partial class Főoldal : Form
     {
+        readonly Kezelők_Oldalok KézOldal = new Kezelők_Oldalok();
+        List<Adat_Oldalak> OldalAdatok = new List<Adat_Oldalak>();
+
         public Főoldal()
         {
             InitializeComponent();
@@ -21,6 +27,30 @@ namespace Tisztito
         private void Főoldal_Load(object sender, EventArgs e)
         {
 
+            Program.PostásMenü = AblakokGombok.MenüListaKészítés(MenuStrip);
+            MenüBeállítása();
+        }
+
+        private void MenüBeállítása()
+        {
+            try
+            {
+                OldalAdatok = KézOldal.Lista_Adatok();
+                foreach (ToolStripMenuItem item in Program.PostásMenü)
+                {
+                    Adat_Oldalak Adat = OldalAdatok.FirstOrDefault(a => a.MenuName == item.Name);
+                    if (Adat != null) item.Enabled = Adat.Látható;
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Főoldal_FormClosing(object sender, FormClosingEventArgs e)
@@ -30,6 +60,36 @@ namespace Tisztito
         #endregion
 
         #region Menük
+        #region Beállítások
+        #region Ablakok beállítása
+        Ablak_Formok Új_Ablak_Formok;
+        private void AblakokBeállításaMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Formok == null)
+            {
+                Új_Ablak_Formok = new Ablak_Formok();
+                Új_Ablak_Formok.FormClosed += Új_Ablak_Formok_FormClosed;
+                Új_Ablak_Formok.Show();
+            }
+            else
+            {
+                Új_Ablak_Formok.Activate();
+                Új_Ablak_Formok.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_Ablak_Formok_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Formok = null;
+        }
+        #endregion
+
+
+        #endregion
+
+
+
         /// <summary>
         /// Ablakokat nyitja meg és kezeli a bezárást
         /// <summary>
@@ -207,6 +267,9 @@ namespace Tisztito
             Új_Ablak_Raktár = null;
         }
         #endregion
+
+
+
         #endregion
 
         #region Képkezelés
@@ -287,6 +350,7 @@ namespace Tisztito
                 return false;
             }
         }
+
 
 
         #endregion

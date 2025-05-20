@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Tisztito
@@ -9,7 +10,7 @@ namespace Tisztito
         /// Aki bejelentkezett
         /// </summary>
         public static string PostásNév = "Próba";
-
+        public static List<ToolStripMenuItem> PostásMenü = new List<ToolStripMenuItem>();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Formok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Formok.Designer.cs">
+      <DependentUpon>Ablak_Formok.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Ablak_Igény.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,7 @@
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
+    <Compile Include="Adatbázis\Adatbázis_Bejelentkezés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Járandóság.cs" />
     <Compile Include="Adatbázis\Adatbázis_KészletNaplóRaktár.cs" />
     <Compile Include="Adatbázis\Adatbázis_Raktár.cs" />
@@ -136,12 +143,18 @@
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
     <Compile Include="Adatszerkezet\Adat_Igény.cs" />
+    <Compile Include="Adatszerkezet\Adat_Jogosultságok.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
     <Compile Include="Adatszerkezet\Adat_KészletNaplóRaktár.cs" />
+    <Compile Include="Adatszerkezet\Adat_Oldalak.cs" />
     <Compile Include="Adatszerkezet\Adat_Raktár.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
+    <Compile Include="Adatszerkezet\Adat_Users.cs" />
+    <Compile Include="Kezelők\Kezelők_Jogosultságok.cs" />
+    <Compile Include="Kezelők\Kezelők_Oldalok.cs" />
+    <Compile Include="Kezelők\Kezelők_Users.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
     <Compile Include="Kezelők\Kezelő_Járandóság.cs" />
     <Compile Include="Kezelők\Kezelő_Kép.cs" />
@@ -150,6 +163,7 @@
     <Compile Include="Kezelők\Kezelő_Szervezet.cs" />
     <Compile Include="Kezelők\Kezelő_Dolgozó.cs" />
     <Compile Include="Kezelők\Kezelő_Anyag.cs" />
+    <Compile Include="Minden\AblakokGombok.cs" />
     <Compile Include="Minden\Enumok.cs" />
     <Compile Include="Minden\Excel.cs" />
     <Compile Include="Minden\Excel_Kezelés.cs" />
@@ -169,6 +183,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Formok.resx">
+      <DependentUpon>Ablak_Formok.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Igény.resx">
       <DependentUpon>Ablak_Igény.cs</DependentUpon>
     </EmbeddedResource>
@@ -335,5 +352,6 @@
     <None Include="Resources\App-spreadsheet.ico" />
     <None Include="Resources\lista.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

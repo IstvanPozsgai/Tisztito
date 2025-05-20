@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bejelentkezés.Adatszerkezet;
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
@@ -10,22 +11,21 @@ using MyA = Adatbázis;
 
 namespace Tisztito.Kezelők
 {
-    public class Kezelő_Raktár
+    public class Kezelők_Oldalok
     {
-        readonly string hely = $@"{Application.StartupPath}\Adatok\Alapadatok.mdb";
-        readonly string jelszó = "csavarhúzó";
-        readonly string táblanév = "Tábla_Raktár_Készlet";
-        List<Adat_Raktár> Adatok = new List<Adat_Raktár>();
+        readonly string hely = $@"{Application.StartupPath}\Adatok\Belépés.mdb";
+        readonly string jelszó = "lilaakác";
+        readonly string táblanév = "Oldalak";
 
-        public Kezelő_Raktár()
+        public Kezelők_Oldalok()
         {
             if (!File.Exists(hely)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely.KönyvSzerk());
             if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely);
-
         }
 
-        public List<Adat_Raktár> Lista_Adatok()
+        public List<Adat_Oldalak> Lista_Adatok()
         {
+            List<Adat_Oldalak> Adatok = new List<Adat_Oldalak>();
             string szöveg = $"SELECT * FROM {táblanév}";
             string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
 
@@ -40,10 +40,13 @@ namespace Tisztito.Kezelők
                         {
                             while (rekord.Read())
                             {
-                                Adat_Raktár Adat = new Adat_Raktár(
-                                        rekord["Cikkszám"].ToStrTrim(),
-                                        rekord["Szervezet"].ToStrTrim(),
-                                        rekord["Mennyiség"].ToÉrt_Int());
+                                Adat_Oldalak Adat = new Adat_Oldalak(
+                                        rekord["OldalId"].ToÉrt_Int(),
+                                        rekord["FromName"].ToStrTrim(),
+                                        rekord["MenuName"].ToStrTrim(),
+                                        rekord["MenuFelirat"].ToStrTrim(),
+                                        rekord["Látható"].ToÉrt_Bool(),
+                                        rekord["Törölt"].ToÉrt_Bool());
                                 Adatok.Add(Adat);
                             }
                         }
@@ -53,16 +56,15 @@ namespace Tisztito.Kezelők
             return Adatok;
         }
 
-        public void Döntés(Adat_Raktár Adat)
+        public void Döntés(Adat_Oldalak Adat)
         {
             try
             {
-                Adatok = Lista_Adatok();
-                Adat_Raktár Készlet = Adatok.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
-                if (Készlet == null)
+                List<Adat_Oldalak> Adatok = Lista_Adatok();
+                if (!Adatok.Any(a => a.OldalId == Adat.OldalId))
                     Rögzítés(Adat);
                 else
-                    Módosítás(Adat, Készlet.Mennyiség);
+                    Módosítás(Adat);
 
             }
             catch (HibásBevittAdat ex)
@@ -76,12 +78,12 @@ namespace Tisztito.Kezelők
             }
         }
 
-        public void Rögzítés(Adat_Raktár Adat)
+        public void Rögzítés(Adat_Oldalak Adat)
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Szervezet, Mennyiség) VALUES ";
-                szöveg += $"('{Adat.Cikkszám}', '{Adat.Szervezet}', {Adat.Mennyiség})";
+                string szöveg = $"INSERT INTO {táblanév} (FromName, MenuName, MenuFelirat, Látható, Törölt) VALUES (";
+                szöveg += $"'{Adat.FromName}', '{Adat.MenuName}', '{Adat.MenuFelirat}', {Adat.Látható}, {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -95,18 +97,18 @@ namespace Tisztito.Kezelők
             }
         }
 
-
-        public void Módosítás(Adat_Raktár Adat, int készlet)
+        public void Módosítás(Adat_Oldalak Adat)
         {
             try
             {
                 string szöveg = $"UPDATE {táblanév} SET ";
-                szöveg += $"Mennyiség={Adat.Mennyiség + készlet}";
-                szöveg += $" WHERE ";
-                szöveg += $"Cikkszám='{Adat.Cikkszám}' AND ";
-                szöveg += $"Szervezet='{Adat.Szervezet}' ";
+                szöveg += $"FromName ='{Adat.FromName}', ";
+                szöveg += $"MenuName ='{Adat.MenuName}', ";
+                szöveg += $"MenuFelirat ='{Adat.MenuFelirat}', ";
+                szöveg += $"Látható ={Adat.Látható}, ";
+                szöveg += $"Törölt ={Adat.Törölt} ";
+                szöveg += $"WHERE OldalId = {Adat.OldalId}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
-
             }
             catch (HibásBevittAdat ex)
             {
@@ -118,7 +120,5 @@ namespace Tisztito.Kezelők
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
 }
