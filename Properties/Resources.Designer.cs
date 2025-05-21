@@ -123,6 +123,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Document_Copy_01 {
+            get {
+                object obj = ResourceManager.GetObject("Document Copy-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Excel_gyűjtő {
             get {
                 object obj = ResourceManager.GetObject("Excel gyűjtő", resourceCulture);
@@ -156,6 +166,16 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap Gear_01 {
             get {
                 object obj = ResourceManager.GetObject("Gear-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Help_Support {
+            get {
+                object obj = ResourceManager.GetObject("Help Support", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +236,56 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap pdf {
             get {
                 object obj = ResourceManager.GetObject("pdf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_accept_256 {
+            get {
+                object obj = ResourceManager.GetObject("user_accept_256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_add_256 {
+            get {
+                object obj = ResourceManager.GetObject("user_add_256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_mindenjogtöröl {
+            get {
+                object obj = ResourceManager.GetObject("user_mindenjogtöröl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_remove_256_64 {
+            get {
+                object obj = ResourceManager.GetObject("user_remove_256_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_vendég {
+            get {
+                object obj = ResourceManager.GetObject("user_vendég", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

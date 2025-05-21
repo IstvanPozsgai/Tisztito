@@ -109,6 +109,31 @@ namespace Tisztito
             Új_Ablak_Gombok = null;
         }
         #endregion
+
+
+        #region Felhasználók létrehozása    
+        AblakFelhasználó Új_AblakFelhasználó;
+        private void FelhasználókMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_AblakFelhasználó == null)
+            {
+                Új_AblakFelhasználó = new AblakFelhasználó();
+                Új_AblakFelhasználó.FormClosed += Új_AblakFelhasználó_FormClosed;
+                Új_AblakFelhasználó.Show();
+            }
+            else
+            {
+                Új_AblakFelhasználó.Activate();
+                Új_AblakFelhasználó.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_AblakFelhasználó_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Gombok = null;
+        }
+        #endregion
         #endregion
 
 
@@ -373,13 +398,7 @@ namespace Tisztito
                 return false;
             }
         }
-
-
-
-
         #endregion
-
-
 
     }
 }

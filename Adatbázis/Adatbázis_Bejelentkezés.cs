@@ -86,16 +86,16 @@ namespace Tisztito.Adatbázis
 
         public static void Adatbázis_Users(string hely)
         {
-            string szöveg;
             string jelszó = "ForgalmiUtasítás";
 
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
 
             string táblanév = "Tábla_Users";
-            szöveg = $"CREATE TABLE {táblanév} (";
+            string szöveg = $"CREATE TABLE {táblanév} (";
             szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
             szöveg += "[UserName] CHAR(25),";
+            szöveg += "[WinUserName] CHAR(25),";
             szöveg += "[Password] CHAR(50),";
             szöveg += "[Törölt] yesno)";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);

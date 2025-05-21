@@ -118,11 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="user_remove_256_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_remove_256_64.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Excel gyűjtő" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Excel gyűjtő.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="lista" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lista.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="My Ebooks-01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\My Ebooks-01.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="App-warehause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\App-warehause.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="user_mindenjogtöröl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_mindenjogtöröl.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pdf1.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -133,17 +145,20 @@
   <data name="Ok gyűjtemény" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ok gyűjtemény.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Excel gyűjtő" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Excel gyűjtő.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="user_accept_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_accept_256.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frissít gyűjtemény" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frissít gyűjtemény.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="App-spreadsheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\App-spreadsheet.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="App-edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\App-edit.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="App-spreadsheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\App-spreadsheet.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="user_vendég" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_vendég.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Action-configure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Action-configure.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Aha-Soft-Large-Seo-SEO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Aha-Soft-Large-Seo-SEO.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,16 +169,22 @@
   <data name="Filesystem-blockdevice-cubes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Filesystem-blockdevice-cubes.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="community_users" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\community_users.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Help Support" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Help Support.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="user_add_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_add_256.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="New gyűjtemény" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\New gyűjtemény.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Action-configure" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Action-configure.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="community_users" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\community_users.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="My Ebooks-01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\My Ebooks-01.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="frissít gyűjtemény" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frissít gyűjtemény.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Document Copy-01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Document Copy-01.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

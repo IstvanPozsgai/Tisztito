@@ -46,6 +46,7 @@ namespace Bejelentkezés.Kezelők
                                 Adat_Users Adat = new Adat_Users(
                                         rekord["UserId"].ToÉrt_Int(),
                                         rekord["UserName"].ToStrTrim(),
+                                        rekord["WinUserName"].ToStrTrim(),
                                         rekord["Password"].ToStrTrim(),
                                         rekord["Törölt"].ToÉrt_Bool());
 
@@ -84,8 +85,8 @@ namespace Bejelentkezés.Kezelők
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} (UserName, Password, Törölt) VALUES (";
-                szöveg += $"'{Adat.UserName}', '{Adat.Password}',  {Adat.Törölt})";
+                string szöveg = $"INSERT INTO {táblanév} (UserName,WinUserName, Password, Törölt) VALUES (";
+                szöveg += $"'{Adat.UserName}','{Adat.WinUserName}', '{Adat.Password}', {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -105,6 +106,7 @@ namespace Bejelentkezés.Kezelők
             {
                 string szöveg = $"UPDATE {táblanév} SET ";
                 szöveg += $"UserName ='{Adat.UserName}', ";
+                szöveg += $"WinUserName ='{Adat.WinUserName}', ";
                 szöveg += $"Password ='{Adat.Password}', ";
                 szöveg += $"Törölt ={Adat.Törölt} ";
                 szöveg += $"WHERE UserId = {Adat.UserId}";

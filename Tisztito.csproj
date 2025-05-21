@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.designer.cs">
+      <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\JogKezeles\Ablak_Gombok.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,11 +143,11 @@
     <Compile Include="Ablakok\Főoldal.Designer.cs">
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\A_Felhasználó.cs">
+    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\A_Felhasználó.designer.cs">
-      <DependentUpon>A_Felhasználó.cs</DependentUpon>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó.designer.cs">
+      <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
     <Compile Include="Adatbázis\Adatbázis_Bejelentkezés.cs" />
@@ -198,6 +204,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.resx">
+      <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Gombok.resx">
       <DependentUpon>Ablak_Gombok.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,8 +243,8 @@
     <EmbeddedResource Include="Ablakok\Főoldal.resx">
       <DependentUpon>Főoldal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\JogKezeles\A_Felhasználó.resx">
-      <DependentUpon>A_Felhasználó.cs</DependentUpon>
+    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Felhasználó.resx">
+      <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -368,6 +377,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\Document Copy-01.ico" />
+    <None Include="Resources\user_mindenjogtöröl.ico" />
+    <None Include="Resources\user_vendég.ico" />
+    <None Include="Resources\user_accept_256.ico" />
+    <None Include="Resources\user_remove_256_64.ico" />
+    <None Include="Resources\user_add_256.ico" />
+    <None Include="Resources\Help Support.ico" />
     <None Include="Resources\My Ebooks-01.ico" />
     <None Include="Resources\pdf1.ico" />
     <None Include="Resources\App-spreadsheet.ico" />
