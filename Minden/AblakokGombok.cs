@@ -9,13 +9,15 @@ namespace Tisztito.Minden
 {
     public static class AblakokGombok
     {
-        public static List<Type> FormokListázása()
+        public static List<Type> FormokListázásaType()
         {
             List<Type> formTypes = Assembly.GetExecutingAssembly()
                    .GetTypes()
                    .Where(t => t.IsSubclassOf(typeof(Form))).ToList();
             return formTypes;
         }
+
+
         public static void MentsdFormokNevetAccessbe()
         {
             List<Type> formTypes = Assembly.GetExecutingAssembly()
@@ -59,9 +61,10 @@ namespace Tisztito.Minden
         }
 
         // Segédfüggvény: összes Button lekérdezése rekurzívan
-        private static List<Button> GetAllButtons(Control parent)
+        public static List<Button> GetAllButtons(Control parent)
         {
             List<Button> buttons = new List<Button>();
+            if (parent == null) return buttons;
             foreach (Control c in parent.Controls)
             {
                 if (c is Button btn)
@@ -99,8 +102,7 @@ namespace Tisztito.Minden
         {
             foreach (Control c in parent.Controls)
             {
-                if (c is Button btn && btn.Name == name)
-                    return btn;
+                if (c is Button btn && btn.Name == name) return btn;
                 if (c.HasChildren)
                 {
                     var found = FindButtonByName(c, name);

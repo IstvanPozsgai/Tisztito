@@ -86,6 +86,29 @@ namespace Tisztito
         #endregion
 
 
+        #region Gombok beállítása
+        Ablak_Gombok Új_Ablak_Gombok;
+        private void GombokBeállításaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Gombok == null)
+            {
+                Új_Ablak_Gombok = new Ablak_Gombok();
+                Új_Ablak_Gombok.FormClosed += Új_Új_Ablak_Gombok_FormClosed;
+                Új_Ablak_Gombok.Show();
+            }
+            else
+            {
+                Új_Ablak_Gombok.Activate();
+                Új_Ablak_Gombok.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_Új_Ablak_Gombok_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Gombok = null;
+        }
+        #endregion
         #endregion
 
 
@@ -353,7 +376,9 @@ namespace Tisztito
 
 
 
+
         #endregion
+
 
 
     }

@@ -11,21 +11,21 @@ using MyA = Adatbázis;
 
 namespace Tisztito.Kezelők
 {
-    public class Kezelők_Oldalok
+    public class Kezelők_Gombok
     {
         readonly string hely = $@"{Application.StartupPath}\Adatok\Belépés.mdb";
         readonly string jelszó = "lilaakác";
         readonly string táblanév = "Tábla_Oldalak";
 
-        public Kezelők_Oldalok()
+        public Kezelők_Gombok()
         {
             if (!File.Exists(hely)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely.KönyvSzerk());
             if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely);
         }
 
-        public List<Adat_Oldalak> Lista_Adatok()
+        public List<Adat_Gombok> Lista_Adatok()
         {
-            List<Adat_Oldalak> Adatok = new List<Adat_Oldalak>();
+            List<Adat_Gombok> Adatok = new List<Adat_Gombok>();
             string szöveg = $"SELECT * FROM {táblanév}";
             string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
 
@@ -40,11 +40,11 @@ namespace Tisztito.Kezelők
                         {
                             while (rekord.Read())
                             {
-                                Adat_Oldalak Adat = new Adat_Oldalak(
+                                Adat_Gombok Adat = new Adat_Gombok(
                                         rekord["OldalId"].ToÉrt_Int(),
                                         rekord["FromName"].ToStrTrim(),
-                                        rekord["MenuName"].ToStrTrim(),
-                                        rekord["MenuFelirat"].ToStrTrim(),
+                                        rekord["GombName"].ToStrTrim(),
+                                        rekord["GombFelirat"].ToStrTrim(),
                                         rekord["Látható"].ToÉrt_Bool(),
                                         rekord["Törölt"].ToÉrt_Bool());
                                 Adatok.Add(Adat);
@@ -56,12 +56,12 @@ namespace Tisztito.Kezelők
             return Adatok;
         }
 
-        public void Döntés(Adat_Oldalak Adat)
+        public void Döntés(Adat_Gombok Adat)
         {
             try
             {
-                List<Adat_Oldalak> Adatok = Lista_Adatok();
-                if (!Adatok.Any(a => a.OldalId == Adat.OldalId))
+                List<Adat_Gombok> Adatok = Lista_Adatok();
+                if (!Adatok.Any(a => a.GombokId == Adat.GombokId))
                     Rögzítés(Adat);
                 else
                     Módosítás(Adat);
@@ -78,12 +78,12 @@ namespace Tisztito.Kezelők
             }
         }
 
-        public void Rögzítés(Adat_Oldalak Adat)
+        public void Rögzítés(Adat_Gombok Adat)
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} (FromName, MenuName, MenuFelirat, Látható, Törölt) VALUES (";
-                szöveg += $"'{Adat.FromName}', '{Adat.MenuName}', '{Adat.MenuFelirat}', {Adat.Látható}, {Adat.Törölt})";
+                string szöveg = $"INSERT INTO {táblanév} ( GombokId, FromName, GombName, GombFelirat, Látható, Törölt) VALUES (";
+                szöveg += $"'{Adat.FromName}', '{Adat.GombName}', '{Adat.GombFelirat}', {Adat.Látható}, {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -97,17 +97,17 @@ namespace Tisztito.Kezelők
             }
         }
 
-        public void Módosítás(Adat_Oldalak Adat)
+        public void Módosítás(Adat_Gombok Adat)
         {
             try
             {
                 string szöveg = $"UPDATE {táblanév} SET ";
                 szöveg += $"FromName ='{Adat.FromName}', ";
-                szöveg += $"MenuName ='{Adat.MenuName}', ";
-                szöveg += $"MenuFelirat ='{Adat.MenuFelirat}', ";
+                szöveg += $"GombName ='{Adat.GombName}', ";
+                szöveg += $"GombFelirat ='{Adat.GombFelirat}', ";
                 szöveg += $"Látható ={Adat.Látható}, ";
                 szöveg += $"Törölt ={Adat.Törölt} ";
-                szöveg += $"WHERE OldalId = {Adat.OldalId}";
+                szöveg += $"WHERE OldalId = {Adat.GombokId}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)

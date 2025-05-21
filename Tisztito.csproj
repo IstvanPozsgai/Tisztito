@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Gombok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\JogKezeles\Ablak_Gombok.Designer.cs">
+      <DependentUpon>Ablak_Gombok.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\JogKezeles\Ablak_Formok.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,7 @@
     <Compile Include="Adatszerkezet\Adat_Jogosultságok.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
     <Compile Include="Adatszerkezet\Adat_KészletNaplóRaktár.cs" />
+    <Compile Include="Adatszerkezet\Adat_Gombok.cs" />
     <Compile Include="Adatszerkezet\Adat_Oldalak.cs" />
     <Compile Include="Adatszerkezet\Adat_Raktár.cs" />
     <Compile Include="Adatszerkezet\Adat_Szervezet.cs" />
@@ -153,6 +160,7 @@
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Users.cs" />
     <Compile Include="Kezelők\Kezelők_Jogosultságok.cs" />
+    <Compile Include="Kezelők\Kezelők_Gombok.cs" />
     <Compile Include="Kezelők\Kezelők_Oldalok.cs" />
     <Compile Include="Kezelők\Kezelők_Users.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
@@ -183,6 +191,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Gombok.resx">
+      <DependentUpon>Ablak_Gombok.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Formok.resx">
       <DependentUpon>Ablak_Formok.cs</DependentUpon>
     </EmbeddedResource>
