@@ -15,12 +15,12 @@ namespace Tisztito.Kezelők
     {
         readonly string hely = $@"{Application.StartupPath}\Adatok\Belépés.mdb";
         readonly string jelszó = "lilaakác";
-        readonly string táblanév = "Tábla_Oldalak";
+        readonly string táblanév = "Tábla_Gombok";
 
         public Kezelők_Gombok()
         {
-            if (!File.Exists(hely)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely.KönyvSzerk());
-            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely);
+            if (!File.Exists(hely)) Adatbázis_Létrehozás.Adatbázis_Gombok(hely.KönyvSzerk());
+            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Adatbázis_Gombok(hely);
         }
 
         public List<Adat_Gombok> Lista_Adatok()
@@ -41,7 +41,7 @@ namespace Tisztito.Kezelők
                             while (rekord.Read())
                             {
                                 Adat_Gombok Adat = new Adat_Gombok(
-                                        rekord["OldalId"].ToÉrt_Int(),
+                                        rekord["GombokId"].ToÉrt_Int(),
                                         rekord["FromName"].ToStrTrim(),
                                         rekord["GombName"].ToStrTrim(),
                                         rekord["GombFelirat"].ToStrTrim(),
@@ -82,7 +82,7 @@ namespace Tisztito.Kezelők
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} ( GombokId, FromName, GombName, GombFelirat, Látható, Törölt) VALUES (";
+                string szöveg = $"INSERT INTO {táblanév} (  FromName, GombName, GombFelirat, Látható, Törölt) VALUES (";
                 szöveg += $"'{Adat.FromName}', '{Adat.GombName}', '{Adat.GombFelirat}', {Adat.Látható}, {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }

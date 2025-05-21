@@ -18,21 +18,12 @@ namespace Tisztito.Adatbázis
             //string táblanév = "Users";
             //szöveg = $"CREATE TABLE {táblanév} (";
             //szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
-            //szöveg += "[OldalId] short,";
             //szöveg += "[UserName] CHAR(25),";
             //szöveg += "[Password] CHAR(50),";
             //szöveg += "[Törölt] yesno)";
             //AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
 
-            táblanév = "Oldalak";
-            szöveg = $"CREATE TABLE {táblanév} (";
-            szöveg += "[OldalId] AUTOINCREMENT PRIMARY KEY,";
-            szöveg += "[FromName] CHAR(255),";
-            szöveg += "[MenuName] CHAR(255),";
-            szöveg += "[MenuFelirat] CHAR(255),";
-            szöveg += "[Látható] yesno,";
-            szöveg += "[Törölt] yesno)";
-            AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
+
 
             //táblanév = "Funkciók";
             //szöveg = $"CREATE TABLE {táblanév} (";
@@ -82,13 +73,30 @@ namespace Tisztito.Adatbázis
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
 
-            string táblanév = "Gombok";
+            string táblanév = "Tábla_Gombok";
             szöveg = $"CREATE TABLE {táblanév} (";
             szöveg += "[GombokId] AUTOINCREMENT PRIMARY KEY,";
             szöveg += "[FromName] CHAR(255),";
             szöveg += "[GombName] CHAR(255),";
             szöveg += "[GombFelirat] CHAR(255),";
             szöveg += "[Látható] yesno,";
+            szöveg += "[Törölt] yesno)";
+            AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
+        }
+
+        public static void Adatbázis_Users(string hely)
+        {
+            string szöveg;
+            string jelszó = "lilaakác";
+
+            //Létrehozzuk az adatbázist és beállítunk jelszót
+            AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
+
+            string táblanév = "Users";
+            szöveg = $"CREATE TABLE {táblanév} (";
+            szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
+            szöveg += "[UserName] CHAR(25),";
+            szöveg += "[Password] CHAR(50),";
             szöveg += "[Törölt] yesno)";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }

@@ -79,16 +79,16 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.GombFelirat, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtId, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.Törölt, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.Label2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Láthatóság, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.Label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Ablaknév, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.Label4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.GombNév, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.Ablaknév, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.Láthatóság, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.GombFelirat, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -103,9 +103,8 @@
             // 
             // GombFelirat
             // 
-            this.GombFelirat.Enabled = false;
-            this.GombFelirat.Location = new System.Drawing.Point(173, 38);
-            this.GombFelirat.MaxLength = 10;
+            this.GombFelirat.Location = new System.Drawing.Point(173, 108);
+            this.GombFelirat.MaxLength = 255;
             this.GombFelirat.Name = "GombFelirat";
             this.GombFelirat.Size = new System.Drawing.Size(607, 26);
             this.GombFelirat.TabIndex = 229;
@@ -126,14 +125,14 @@
             this.TxtId.Location = new System.Drawing.Point(173, 3);
             this.TxtId.MaxLength = 10;
             this.TxtId.Name = "TxtId";
-            this.TxtId.Size = new System.Drawing.Size(202, 26);
+            this.TxtId.Size = new System.Drawing.Size(109, 26);
             this.TxtId.TabIndex = 219;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Silver;
-            this.label1.Location = new System.Drawing.Point(3, 35);
+            this.label1.Location = new System.Drawing.Point(3, 105);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(164, 20);
             this.label1.TabIndex = 225;
@@ -154,7 +153,7 @@
             // 
             this.Label2.AutoSize = true;
             this.Label2.BackColor = System.Drawing.Color.Silver;
-            this.Label2.Location = new System.Drawing.Point(3, 105);
+            this.Label2.Location = new System.Drawing.Point(3, 35);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(82, 20);
             this.Label2.TabIndex = 212;
@@ -181,7 +180,7 @@
             // Ablaknév
             // 
             this.Ablaknév.FormattingEnabled = true;
-            this.Ablaknév.Location = new System.Drawing.Point(173, 108);
+            this.Ablaknév.Location = new System.Drawing.Point(173, 38);
             this.Ablaknév.Name = "Ablaknév";
             this.Ablaknév.Size = new System.Drawing.Size(607, 28);
             this.Ablaknév.TabIndex = 228;

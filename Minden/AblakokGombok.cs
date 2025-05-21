@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -9,6 +8,10 @@ namespace Tisztito.Minden
 {
     public static class AblakokGombok
     {
+        /// <summary>
+        /// Kilistázzaa az összes formot a projektben
+        /// </summary>
+        /// <returns></returns>
         public static List<Type> FormokListázásaType()
         {
             List<Type> formTypes = Assembly.GetExecutingAssembly()
@@ -18,49 +21,50 @@ namespace Tisztito.Minden
         }
 
 
-        public static void MentsdFormokNevetAccessbe()
+        /// <summary>
+        /// Egy ablak összes gombját adja vissza egy listában
+        /// </summary>
+        /// <param name="formNev"></param>
+        /// <returns></returns>
+        public static List<Button> FormbanlévőGombok(string formNev)
         {
-            List<Type> formTypes = Assembly.GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(t => t.IsSubclassOf(typeof(Form))).ToList();
-            string hely = "", jelszó = "";
-            string kapcsolat = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
-            using (var conn = new OleDbConnection(kapcsolat))
+            List<Button> buttons = new List<Button>();
+            try
             {
-                conn.Open();
-                foreach (var formType in formTypes)
-                {
-                    string nev = formType.Name;
-                    string sql = $"INSERT INTO Formok (FormNev) VALUES ('{nev}')";
-                    using (var cmd = new OleDbCommand(sql, conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                // Megkeressük a form típusát név alapján
+                Type FormKiválasztott = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .FirstOrDefault(t => t.IsSubclassOf(typeof(Form)) && t.Name == formNev);
+
+                if (FormKiválasztott == null) return buttons;
+
+                // Példányosítjuk a formot, de nem jelenítjük meg
+                Form form = Activator.CreateInstance(FormKiválasztott) as Form;
+                if (form == null) return null;
+
+                // Lekérjük a gombokat
+                buttons = GetAllButtons(form);
+
+                // A példányt eldobhatod, ha már nincs rá szükség
+                form.Dispose();
             }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, "FormbanlévőGombok", ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return buttons;
         }
 
-        public static void MentsdFormGombokatAccessbe(Form form, string hely, string jelszo)
-        {
-            // Gombok lekérdezése rekurzívan
-            List<Button> gombok = GetAllButtons(form);
-
-            string kapcsolat = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszo}";
-            using (var conn = new OleDbConnection(kapcsolat))
-            {
-                conn.Open();
-                foreach (var gomb in gombok)
-                {
-                    string sql = $"INSERT INTO FormGombok (FormNev, GombNev) VALUES ('{form.Name}', '{gomb.Name}')";
-                    using (var cmd = new OleDbCommand(sql, conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
-        // Segédfüggvény: összes Button lekérdezése rekurzívan
+        /// <summary>
+        ///    Segédfüggvény: összes Button lekérdezése rekurzívan
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
         public static List<Button> GetAllButtons(Control parent)
         {
             List<Button> buttons = new List<Button>();
@@ -73,44 +77,6 @@ namespace Tisztito.Minden
                     buttons.AddRange(GetAllButtons(c));
             }
             return buttons;
-        }
-
-        public static void AllitsdBeGombokLathatosagat(Form form, string hely, string jelszo)
-        {
-            string kapcsolat = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszo}";
-            using (var conn = new OleDbConnection(kapcsolat))
-            {
-                conn.Open();
-                string sql = $"SELECT GombNev, Lathato FROM FormGombok WHERE FormNev = '{form.Name}'";
-                using (var cmd = new OleDbCommand(sql, conn))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string gombNev = reader["GombNev"].ToString();
-                        bool lathato = Convert.ToBoolean(reader["Lathato"]);
-                        var gomb = FindButtonByName(form, gombNev);
-                        if (gomb != null)
-                            gomb.Visible = lathato;
-                    }
-                }
-            }
-        }
-
-        // Segédfüggvény: gomb keresése név alapján, rekurzívan
-        private static Button FindButtonByName(Control parent, string name)
-        {
-            foreach (Control c in parent.Controls)
-            {
-                if (c is Button btn && btn.Name == name) return btn;
-                if (c.HasChildren)
-                {
-                    var found = FindButtonByName(c, name);
-                    if (found != null)
-                        return found;
-                }
-            }
-            return null;
         }
 
         /// <summary>
@@ -129,9 +95,14 @@ namespace Tisztito.Minden
             return items;
         }
 
+        /// <summary>
+        ///   Menü rekurzív bejárása
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
         private static List<ToolStripMenuItem> GetMenuItemsRecursive(ToolStripMenuItem parent)
         {
-            var items = new List<ToolStripMenuItem>();
+            List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
             foreach (ToolStripItem subItem in parent.DropDownItems)
             {
                 if (subItem is ToolStripMenuItem menuItem)
@@ -142,5 +113,6 @@ namespace Tisztito.Minden
             }
             return items;
         }
+
     }
 }

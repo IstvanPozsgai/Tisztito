@@ -53,22 +53,6 @@ namespace Tisztito.Ablakok
             Törölt.Checked = false;
         }
 
-        private Form MelyikAblak(string AblakNév)
-        {
-            Form Válasz = null;
-            foreach (Form form in Application.OpenForms)
-            {
-
-                if (form.Name == AblakNév)
-                {
-                    Válasz = form;
-                    return Válasz;
-                }
-
-            }
-            return Válasz;
-        }
-
         /// <summary>
         /// A kiválasztott ablak gombjainak listája
         /// </summary>
@@ -78,17 +62,12 @@ namespace Tisztito.Ablakok
             {
                 if (Ablaknév.Text.Trim() == "") return;
                 GombNév.Items.Clear();
-                // itt tartok
-
-
-
-                List<Button> gombok = AblakokGombok.GetAllButtons(MelyikAblak(Ablaknév.Text.Trim()));
+                List<Button> gombok = AblakokGombok.FormbanlévőGombok(Ablaknév.Text.Trim());
                 if (gombok == null) return;
                 GombNév.Items.Add("");
                 foreach (Button item in gombok)
-                {
                     GombNév.Items.Add(item.Name);
-                }
+
                 GombNév.Text = "";
             }
             catch (HibásBevittAdat ex)
