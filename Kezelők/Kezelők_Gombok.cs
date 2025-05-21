@@ -14,7 +14,7 @@ namespace Tisztito.Kezelők
     public class Kezelők_Gombok
     {
         readonly string hely = $@"{Application.StartupPath}\Adatok\Belépés.mdb";
-        readonly string jelszó = "lilaakác";
+        readonly string jelszó = "ForgalmiUtasítás";
         readonly string táblanév = "Tábla_Gombok";
 
         public Kezelők_Gombok()

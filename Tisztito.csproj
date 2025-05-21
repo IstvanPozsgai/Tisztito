@@ -137,6 +137,12 @@
     <Compile Include="Ablakok\Főoldal.Designer.cs">
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ablakok\JogKezeles\A_Felhasználó.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\JogKezeles\A_Felhasználó.designer.cs">
+      <DependentUpon>A_Felhasználó.cs</DependentUpon>
+    </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
     <Compile Include="Adatbázis\Adatbázis_Bejelentkezés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Járandóság.cs" />
@@ -183,6 +189,7 @@
     <Compile Include="Minden\Hibakezelés.cs" />
     <Compile Include="Minden\IDM_Dolgozó.cs" />
     <Compile Include="Minden\Függvény_Pdf.cs" />
+    <Compile Include="Minden\Jelszó.cs" />
     <Compile Include="Minden\Kezelő_Pdf.cs" />
     <Compile Include="Minden\Kezelő_Értékellenőrzés.cs" />
     <Compile Include="Minden\Kész_Excelek.cs" />
@@ -226,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Főoldal.resx">
       <DependentUpon>Főoldal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\JogKezeles\A_Felhasználó.resx">
+      <DependentUpon>A_Felhasználó.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

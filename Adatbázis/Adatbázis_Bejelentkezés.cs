@@ -9,7 +9,7 @@ namespace Tisztito.Adatbázis
         public static void Adatbázis_Bejelentkezés(string hely)
         {
             string szöveg;
-            string jelszó = "lilaakác";
+            string jelszó = "ForgalmiUtasítás";
             string táblanév;
 
             //Létrehozzuk az adatbázist és beállítunk jelszót
@@ -49,7 +49,7 @@ namespace Tisztito.Adatbázis
         public static void Adatbázis_Oldalak(string hely)
         {
             string szöveg;
-            string jelszó = "lilaakác";
+            string jelszó = "ForgalmiUtasítás";
 
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
@@ -68,7 +68,7 @@ namespace Tisztito.Adatbázis
         public static void Adatbázis_Gombok(string hely)
         {
             string szöveg;
-            string jelszó = "lilaakác";
+            string jelszó = "ForgalmiUtasítás";
 
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
@@ -87,12 +87,12 @@ namespace Tisztito.Adatbázis
         public static void Adatbázis_Users(string hely)
         {
             string szöveg;
-            string jelszó = "lilaakác";
+            string jelszó = "ForgalmiUtasítás";
 
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
 
-            string táblanév = "Users";
+            string táblanév = "Tábla_Users";
             szöveg = $"CREATE TABLE {táblanév} (";
             szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
             szöveg += "[UserName] CHAR(25),";
