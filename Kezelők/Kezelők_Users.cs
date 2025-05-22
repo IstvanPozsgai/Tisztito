@@ -47,9 +47,11 @@ namespace Bejelentkezés.Kezelők
                                         rekord["UserId"].ToÉrt_Int(),
                                         rekord["UserName"].ToStrTrim(),
                                         rekord["WinUserName"].ToStrTrim(),
+                                        rekord["Dolgozószám"].ToStrTrim(),
                                         rekord["Password"].ToStrTrim(),
+                                        rekord["Dátum"].ToÉrt_DaTeTime(),
+                                        rekord["Frissít"].ToÉrt_Bool(),
                                         rekord["Törölt"].ToÉrt_Bool());
-
                                 Adatok.Add(Adat);
                             }
                         }
@@ -85,8 +87,10 @@ namespace Bejelentkezés.Kezelők
         {
             try
             {
-                string szöveg = $"INSERT INTO {táblanév} (UserName,WinUserName, Password, Törölt) VALUES (";
-                szöveg += $"'{Adat.UserName}','{Adat.WinUserName}', '{Adat.Password}', {Adat.Törölt})";
+                string password = "123456";
+                bool frissít = true;
+                string szöveg = $"INSERT INTO {táblanév} (UserName, WinUserName, Dolgozószám, [Password], Dátum, frissít, Törölt) VALUES (";
+                szöveg += $"'{Adat.UserName}', '{Adat.WinUserName}', '{Adat.Dolgozószám}', '{password}', '{Adat.Dátum:yyyy.MM.dd}', {frissít}, {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -100,6 +104,7 @@ namespace Bejelentkezés.Kezelők
             }
         }
 
+
         public void Módosítás(Adat_Users Adat)
         {
             try
@@ -107,7 +112,10 @@ namespace Bejelentkezés.Kezelők
                 string szöveg = $"UPDATE {táblanév} SET ";
                 szöveg += $"UserName ='{Adat.UserName}', ";
                 szöveg += $"WinUserName ='{Adat.WinUserName}', ";
-                szöveg += $"Password ='{Adat.Password}', ";
+                szöveg += $"Dolgozószám ='{Adat.Dolgozószám}', ";
+                szöveg += $"[Password] ='{Adat.Password}', ";
+                szöveg += $"Dátum ='{Adat.Dátum:yyyy.MM.dd}', ";
+                szöveg += $"Frissít ={Adat.Frissít}, ";
                 szöveg += $"Törölt ={Adat.Törölt} ";
                 szöveg += $"WHERE UserId = {Adat.UserId}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);

@@ -1,5 +1,12 @@
-﻿using System;
+﻿using Bejelentkezés.Adatszerkezet;
+using Bejelentkezés.Kezelők;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Windows.Forms;
+using Tisztito.Adatszerkezet;
+using Tisztito.Kezelők;
 using MyE = Tisztito.Module_Excel;
 
 namespace Tisztito
@@ -7,32 +14,33 @@ namespace Tisztito
 
     public partial class AblakFelhasználó : Form
     {
-        string Másolnadó = "VENDÉG";
+        readonly Kezelők_Users Kéz = new Kezelők_Users();
+        readonly Kezelő_Dolgozó KézDolgozó = new Kezelő_Dolgozó();
+        List<Adat_Users> Adatok = new List<Adat_Users>();
+        List<Adat_Dolgozó> AdatokDolg = new List<Adat_Dolgozó>();
+        DataTable AdatTáblaALap = new DataTable();
 
+
+        #region Alap
         public AblakFelhasználó()
         {
             InitializeComponent();
+            Start();
+        }
+
+        private void Start()
+        {
+            Adatok = Kéz.Lista_Adatok();
+            AdatokDolg = KézDolgozó.Lista_Adatok().Where(a => a.Státus == true).ToList();
+            CombokFeltöltése();
+            Üres();
+
         }
 
         private void AblakFelhasználó_Load(object sender, EventArgs e)
         {
-            try
-            {
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
-
-
-        #region Alap
         private void BtnSugó_Click(object sender, EventArgs e)
         {
             try
@@ -52,5 +60,214 @@ namespace Tisztito
         }
         #endregion
 
+
+        #region Táblázat
+        private void TáblázatListázás()
+        {
+            try
+            {
+                Adatok = Kéz.Lista_Adatok();
+                Tábla.Visible = false;
+                Tábla.CleanFilterAndSort();
+                AlapTáblaFejléc();
+                AlapTáblaTartalom();
+                Tábla.DataSource = AdatTáblaALap;
+                AlapTáblaOszlopSzélesség();
+                Tábla.Visible = true;
+                Tábla.Refresh();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AlapTáblaFejléc()
+        {
+            try
+            {
+                AdatTáblaALap.Columns.Clear();
+                AdatTáblaALap.Columns.Add("Id");
+                AdatTáblaALap.Columns.Add("Felhasználó név");
+                AdatTáblaALap.Columns.Add("WinFelhasználó név");
+                AdatTáblaALap.Columns.Add("Dolgozószám");
+                AdatTáblaALap.Columns.Add("Dolgozó Név");
+                AdatTáblaALap.Columns.Add("Jelszó");
+                AdatTáblaALap.Columns.Add("Dátum");
+                AdatTáblaALap.Columns.Add("Frissít");
+                AdatTáblaALap.Columns.Add("Törölt");
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AlapTáblaTartalom()
+        {
+            AdatTáblaALap.Clear();
+
+
+            foreach (Adat_Users rekord in Adatok)
+            {
+                DataRow Soradat = AdatTáblaALap.NewRow();
+                Adat_Dolgozó Elem = (from a in AdatokDolg
+                                     where a.Dolgozószám == rekord.Dolgozószám
+                                     select a).FirstOrDefault();
+                string DolgozóNév = Elem == null ? "" : Elem.Dolgozónév;
+                Soradat["Id"] = rekord.UserId;
+                Soradat["Felhasználó név"] = rekord.UserName;
+                Soradat["WinFelhasználó név"] = rekord.WinUserName;
+                Soradat["Dolgozószám"] = rekord.Dolgozószám;
+                Soradat["Dolgozó Név"] = DolgozóNév;
+                Soradat["Jelszó"] = rekord.Password;
+                Soradat["Dátum"] = rekord.Dátum;
+                Soradat["Frissít"] = rekord.Frissít ? "Igen" : "Nem";
+                Soradat["Törölt"] = rekord.Törölt == true ? "Törölt" : "Aktív";
+                AdatTáblaALap.Rows.Add(Soradat);
+            }
+        }
+
+        private void AlapTáblaOszlopSzélesség()
+        {
+            Tábla.Columns["Id"].Width = 130;
+            Tábla.Columns["Felhasználó név"].Width = 130;
+            Tábla.Columns["WinFelhasználó név"].Width = 130;
+            Tábla.Columns["Dolgozószám"].Width = 130;
+            Tábla.Columns["Dolgozó Név"].Width = 130;
+            Tábla.Columns["Jelszó"].Width = 130;
+            Tábla.Columns["Dátum"].Width = 130;
+            Tábla.Columns["Frissít"].Width = 130;
+            Tábla.Columns["Törölt"].Width = 130;
+        }
+        #endregion
+
+
+        #region Gombok
+        /// <summary>
+        /// Beviteli mezőket üríti
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnÚj_Click(object sender, EventArgs e)
+        {
+            Üres();
+        }
+
+        /// <summary>
+        /// Rögzíti vagy módosítja az adatokat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRögzít_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(UserId.Text, out int Id)) Id = 0;
+                if (string.IsNullOrWhiteSpace(TextUserNév.Text)) throw new HibásBevittAdat("Kérem töltse ki az Felhasználó név mezőt!");
+                if (string.IsNullOrWhiteSpace(CmbDolgozószám.Text)) throw new HibásBevittAdat("Kérem töltse ki a Dolgozószám mezőt!");
+                if (Adatok.Any(a => a.UserName == TextUserNév.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A felhasználónév már létezik!");
+                if (TextWinUser.Text.Trim() != "" && Adatok.Any(a => a.WinUserName == TextWinUser.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A Windows felhasználónév már létezik egy másik felhasználónál!");
+                if (Adatok.Any(a => a.Dolgozószám == CmbDolgozószám.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A Dolgozószámhoz már létezik egy másik felhasználó!");
+
+                Adat_Users ADAT = new Adat_Users(
+                    Id,
+                    TextUserNév.Text.Trim(),
+                    TextWinUser.Text.Trim(),
+                    CmbDolgozószám.Text.Trim(),
+                    TxtPassword.Text.Trim(),
+                    DateTime.Now,
+                    Frissít.Checked,
+                    Törölt.Checked);
+                Kéz.Döntés(ADAT);
+                TáblázatListázás();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnFrissít_Click(object sender, EventArgs e)
+        {
+            TáblázatListázás();
+        }
+        #endregion
+
+
+        #region BeviteliMezők
+        private void Üres()
+        {
+            UserId.Text = "";
+            TextUserNév.Text = "";
+            TextWinUser.Text = "";
+            CmbDolgozószám.Text = "";
+            CmbDolgozónév.Text = "";
+            TxtPassword.Text = "123456";
+            Frissít.Checked = true;
+            Törölt.Checked = false;
+        }
+
+        private void CombokFeltöltése()
+        {
+            CmbDolgozószám.Items.Clear();
+            CmbDolgozónév.Items.Clear();
+            CmbDolgozószám.Items.Add("");
+            CmbDolgozónév.Items.Add("");
+            AdatokDolg.OrderBy(a => a.Dolgozószám).ToList();
+            foreach (Adat_Dolgozó elem in AdatokDolg)
+                CmbDolgozószám.Items.Add(elem.Dolgozószám);
+
+            AdatokDolg.OrderBy(a => a.Dolgozónév).ToList();
+            foreach (Adat_Dolgozó elem in AdatokDolg)
+                CmbDolgozónév.Items.Add(elem.Dolgozónév);
+
+        }
+        #endregion
+
+
+        #region ComboBoxok
+        private void CmbDolgozószám_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CmbDolgozószám.Text = CmbDolgozószám.Items[CmbDolgozószám.SelectedIndex].ToString();
+            if (CmbDolgozószám.Text.Trim() != "")
+            {
+                Adat_Dolgozó elem = (from a in AdatokDolg
+                                     where a.Dolgozószám == CmbDolgozószám.Text.Trim()
+                                     select a).FirstOrDefault();
+                if (elem != null) CmbDolgozónév.Text = elem.Dolgozónév; else CmbDolgozónév.Text = "";
+            }
+            else CmbDolgozónév.Text = "";
+        }
+
+        private void CmbDolgozónév_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CmbDolgozónév.Text = CmbDolgozónév.Items[CmbDolgozónév.SelectedIndex].ToString();
+            if (CmbDolgozónév.Text.Trim() != "")
+            {
+                Adat_Dolgozó elem = (from a in AdatokDolg
+                                     where a.Dolgozónév == CmbDolgozónév.Text.Trim()
+                                     select a).FirstOrDefault();
+                if (elem != null) CmbDolgozószám.Text = elem.Dolgozószám; else CmbDolgozószám.Text = "";
+            }
+            else CmbDolgozószám.Text = "";
+
+        }
+        #endregion
     }
 }

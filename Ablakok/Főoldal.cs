@@ -131,7 +131,7 @@ namespace Tisztito
 
         private void Új_AblakFelhasználó_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Új_Ablak_Gombok = null;
+            Új_AblakFelhasználó = null;
         }
         #endregion
         #endregion

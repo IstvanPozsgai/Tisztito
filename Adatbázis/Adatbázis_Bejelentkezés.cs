@@ -96,7 +96,10 @@ namespace Tisztito.Adatbázis
             szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
             szöveg += "[UserName] CHAR(25),";
             szöveg += "[WinUserName] CHAR(25),";
+            szöveg += "[Dolgozószám] CHAR(8),";
             szöveg += "[Password] CHAR(50),";
+            szöveg += "[Dátum] Date,";
+            szöveg += "[Frissít] yesno,";
             szöveg += "[Törölt] yesno)";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }
