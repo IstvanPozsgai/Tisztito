@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\Ablak_Jelszóváltoztatás.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Jelszóváltoztatás.designer.cs">
+      <DependentUpon>Ablak_Jelszóváltoztatás.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Ablak_Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,7 @@
     <Compile Include="Adatbázis\AdatBázis_kezelés.cs" />
     <Compile Include="Adatbázis\Adatbázis_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Alap_Beolvasás.cs" />
+    <Compile Include="Adatszerkezet\Adat_Belépés_Verzió.cs" />
     <Compile Include="Adatszerkezet\Adat_Igény.cs" />
     <Compile Include="Adatszerkezet\Adat_Jogosultságok.cs" />
     <Compile Include="Adatszerkezet\Adat_Járandóság.cs" />
@@ -182,6 +189,7 @@
     <Compile Include="Kezelők\Kezelők_Oldalok.cs" />
     <Compile Include="Kezelők\Kezelők_Users.cs" />
     <Compile Include="Kezelők\Kezelő_Alap_Beolvasás.cs" />
+    <Compile Include="Kezelők\Kezelő_Belépés_Verzió.cs" />
     <Compile Include="Kezelők\Kezelő_Járandóság.cs" />
     <Compile Include="Kezelők\Kezelő_Kép.cs" />
     <Compile Include="Kezelők\Kezelő_KészletNaplóRaktár.cs" />
@@ -205,11 +213,15 @@
     <Compile Include="Minden\Kezelő_Pdf.cs" />
     <Compile Include="Minden\Kezelő_Értékellenőrzés.cs" />
     <Compile Include="Minden\Kész_Excelek.cs" />
+    <Compile Include="Minden\KönyvtárEllenőr.cs" />
     <Compile Include="Minden\ListToDataTable.cs" />
     <Compile Include="Minden\ScreenshotHelper.cs" />
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\Ablak_Jelszóváltoztatás.resx">
+      <DependentUpon>Ablak_Jelszóváltoztatás.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Login.resx">
       <DependentUpon>Ablak_Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -341,6 +353,15 @@
     <COMReference Include="ADOX">
       <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
       <VersionMajor>6</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>

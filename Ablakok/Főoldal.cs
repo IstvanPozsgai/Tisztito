@@ -55,7 +55,7 @@ namespace Tisztito
 
         private void Főoldal_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Application.Exit();
         }
         #endregion
 

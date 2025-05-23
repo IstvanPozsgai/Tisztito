@@ -103,6 +103,20 @@ namespace Tisztito.Adatbázis
             szöveg += "[Törölt] yesno)";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }
+
+        public static void Adatbázis_Verzió(string hely)
+        {
+            string jelszó = "ForgalmiUtasítás";
+
+            //Létrehozzuk az adatbázist és beállítunk jelszót
+            AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
+
+            string táblanév = "Tábla_Verzió";
+            string szöveg = $"CREATE TABLE {táblanév} (";
+            szöveg += "[Id] AUTOINCREMENT PRIMARY KEY,";
+            szöveg += "[Verzió] double)";
+            AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
+        }
     }
 }
 
