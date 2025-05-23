@@ -10,13 +10,13 @@ using MyE = Tisztito.Module_Excel;
 
 namespace Tisztito.Ablakok
 {
-    public partial class Ablak_Gombok : Form
+    public partial class Ablak_Formok : Form
     {
-        readonly Kezelők_Gombok Kéz = new Kezelők_Gombok();
+        readonly Kezelők_Oldalok Kéz = new Kezelők_Oldalok();
         DataTable AdatTáblaALap = new DataTable();
-        List<Adat_Gombok> Adatok = new List<Adat_Gombok>();
+        List<Adat_Oldalak> Adatok = new List<Adat_Oldalak>();
 
-        public Ablak_Gombok()
+        public Ablak_Formok()
         {
             InitializeComponent();
             Start();
@@ -27,9 +27,10 @@ namespace Tisztito.Ablakok
         /// </summary>
         private void Start()
         {
-            GombokFeltöltése();
+            MenükFeltöltése();
             FormFeltöltése();
             Adatok = Kéz.Lista_Adatok();
+            Alap_tábla_író();
         }
 
         private void Ablak_Anyagok_Load(object sender, System.EventArgs e)
@@ -47,28 +48,27 @@ namespace Tisztito.Ablakok
         {
             TxtId.Text = "";
             Ablaknév.Text = "";
-            GombNév.Text = "";
-            GombFelirat.Text = "";
+            MenüNév.Text = "";
+            MenüFelirat.Text = "";
             Láthatóság.Checked = false;
             Törölt.Checked = false;
         }
 
         /// <summary>
-        /// A kiválasztott ablak gombjainak listája
+        /// Főoldalon lévő menük feltöltése a comboboxba
         /// </summary>
-        private void GombokFeltöltése()
+        private void MenükFeltöltése()
         {
             try
             {
-                if (Ablaknév.Text.Trim() == "") return;
-                GombNév.Items.Clear();
-                List<Button> gombok = AblakokGombok.FormbanlévőGombok(Ablaknév.Text.Trim());
-                if (gombok == null) return;
-                GombNév.Items.Add("");
-                foreach (Button item in gombok)
-                    GombNév.Items.Add(item.Name);
-
-                GombNév.Text = "";
+                MenüNév.Items.Add("");
+                MenüFelirat.Items.Add("");
+                foreach (ToolStripMenuItem item in Program.PostásMenü)
+                {
+                    MenüNév.Items.Add(item.Name);
+                    MenüFelirat.Items.Add(item.Text);
+                }
+                MenüNév.Text = "";
             }
             catch (HibásBevittAdat ex)
             {
@@ -115,13 +115,13 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                if (string.IsNullOrEmpty(GombNév.Text.Trim())) throw new HibásBevittAdat("Kérem adja meg a Menü nevét!");
+                if (string.IsNullOrEmpty(MenüNév.Text.Trim())) throw new HibásBevittAdat("Kérem adja meg a Menü nevét!");
 
-                Adat_Gombok adat = new Adat_Gombok(
+                Adat_Oldalak adat = new Adat_Oldalak(
                         TxtId.Text.ToÉrt_Int(),
                         Ablaknév.Text.ToStrTrim(),
-                        GombNév.Text.ToStrTrim(),
-                        GombFelirat.Text.ToStrTrim(),
+                        MenüNév.Text.ToStrTrim(),
+                        MenüFelirat.Text.ToStrTrim(),
                         Láthatóság.Checked,
                         Törölt.Checked);
 
@@ -183,14 +183,14 @@ namespace Tisztito.Ablakok
         private void AlapTáblaTartalom()
         {
             AdatTáblaALap.Clear();
-            foreach (Adat_Gombok rekord in Adatok)
+            foreach (Adat_Oldalak rekord in Adatok)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
-                Soradat["Oldal Id"] = rekord.GombokId;
+                Soradat["Oldal Id"] = rekord.OldalId;
                 Soradat["Form Név"] = rekord.FromName;
-                Soradat["Gomb Leírás"] = rekord.GombFelirat;
-                Soradat["Gomb Név"] = rekord.GombName;
+                Soradat["Menü Név"] = rekord.MenuName;
+                Soradat["Menü Felirat"] = rekord.MenuFelirat;
                 Soradat["Látható"] = rekord.Látható ? "Igen" : "Nem";
                 Soradat["Törölt"] = rekord.Törölt ? "Igen" : "Nem";
                 AdatTáblaALap.Rows.Add(Soradat);
@@ -206,8 +206,8 @@ namespace Tisztito.Ablakok
             {
                 AdatTáblaALap.Columns.Clear();
                 AdatTáblaALap.Columns.Add("Oldal Id");
-                AdatTáblaALap.Columns.Add("Gomb Leírás");
-                AdatTáblaALap.Columns.Add("Gomb Név");
+                AdatTáblaALap.Columns.Add("Menü Név");
+                AdatTáblaALap.Columns.Add("Menü Felirat");
                 AdatTáblaALap.Columns.Add("Form Név");
                 AdatTáblaALap.Columns.Add("Látható");
                 AdatTáblaALap.Columns.Add("Törölt");
@@ -230,8 +230,8 @@ namespace Tisztito.Ablakok
         {
             Tábla.Columns["Oldal Id"].Width = 130;
             Tábla.Columns["Form Név"].Width = 400;
-            Tábla.Columns["Gomb Leírás"].Width = 400;
-            Tábla.Columns["Gomb Név"].Width = 450;
+            Tábla.Columns["Menü Név"].Width = 400;
+            Tábla.Columns["Menü Felirat"].Width = 450;
             Tábla.Columns["Látható"].Width = 100;
             Tábla.Columns["Törölt"].Width = 100;
 
@@ -299,13 +299,13 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                Adat_Gombok adat = (from a in Adatok
-                                    where a.GombokId == ID
-                                    select a).FirstOrDefault();
+                Adat_Oldalak adat = (from a in Adatok
+                                     where a.OldalId == ID
+                                     select a).FirstOrDefault();
                 if (adat == null) return;
-                TxtId.Text = adat.GombokId.ToString();
-                GombFelirat.Text = adat.GombFelirat;
-                GombNév.Text = adat.GombName;
+                TxtId.Text = adat.OldalId.ToString();
+                MenüFelirat.Text = adat.MenuFelirat;
+                MenüNév.Text = adat.MenuName;
                 Ablaknév.Text = adat.FromName;
                 Láthatóság.Checked = adat.Látható;
                 Törölt.Checked = adat.Törölt;
@@ -321,9 +321,20 @@ namespace Tisztito.Ablakok
             }
         }
 
-        private void Ablaknév_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Ha választjuk a menü nevét utánna kiírja a nevét
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenüFelirat_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            GombokFeltöltése();
+            if (MenüFelirat.SelectedIndex < 1) return;
+            MenüFelirat.Text = MenüFelirat.Items[MenüFelirat.SelectedIndex].ToString();
+            ToolStripMenuItem item = Program.PostásMenü.Where(x => x.Text == MenüFelirat.Text).FirstOrDefault();
+            if (item != null)
+            {
+                MenüNév.Text = item.Name;
+            }
         }
     }
 }

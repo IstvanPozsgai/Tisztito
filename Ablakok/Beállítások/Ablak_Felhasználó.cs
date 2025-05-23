@@ -36,7 +36,7 @@ namespace Tisztito
             AdatokDolg = KézDolgozó.Lista_Adatok().Where(a => a.Státus == false).ToList();
             CombokFeltöltése();
             Üres();
-
+            TáblázatListázás();
         }
 
         private void AblakFelhasználó_Load(object sender, EventArgs e)

@@ -11,20 +11,13 @@ using MyF = Függvénygyűjtemény;
 
 namespace Tisztito.Ablakok
 {
-    public partial class Ablak_Járandóság : Form
+    public partial class Ablak_Anyagok : Form
     {
         readonly Kezelő_Anyag KézAnyag = new Kezelő_Anyag();
-        readonly Kezelő_Dolgozó KézDolgozó = new Kezelő_Dolgozó();
-        readonly Kezelő_Járandóság KézJár = new Kezelő_Járandóság();
-#pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
-#pragma warning restore IDE0044
+        List<Adat_Anyag> Adatok = new List<Adat_Anyag>();
 
-        List<Adat_Anyag> AdatokAnyag = new List<Adat_Anyag>();
-        List<Adat_Dolgozó> AdatokDolgozó = new List<Adat_Dolgozó>();
-        List<Adat_Járandóság> AdatokJárandóság = new List<Adat_Járandóság>();
-
-        public Ablak_Járandóság()
+        public Ablak_Anyagok()
         {
             InitializeComponent();
             Start();
@@ -35,13 +28,9 @@ namespace Tisztito.Ablakok
         /// </summary>
         private void Start()
         {
-
-            AdatokAnyag = KézAnyag.Lista_Adatok();
-            AdatokDolgozó = KézDolgozó.Lista_Adatok();
-            AdatokJárandóság = KézJár.Lista_Adatok();
             StátusokFeltöltése();
-            MunkakörFeltöltés();
-            CikkszámMegnevezésFeltöltés();
+            Adatok = KézAnyag.Lista_Adatok();
+            Alap_tábla_író();
         }
 
         private void Ablak_Anyagok_Load(object sender, System.EventArgs e)
@@ -51,11 +40,10 @@ namespace Tisztito.Ablakok
 
         private void Új_adat_Click(object sender, System.EventArgs e)
         {
-            Munkakör.Text = "";
-            Cikkszám.Text = "";
+            Cikkszámok.Text = "";
             Megnevezés.Text = "";
-            Mennyiség.Text = "0";
-            Gyakoriság.Text = "0";
+            MennyiségEgység.Text = "";
+            Rajzszám.Text = "";
             CmbStátus.Text = "Aktív";
         }
 
@@ -78,71 +66,22 @@ namespace Tisztito.Ablakok
             }
         }
 
-        private void MunkakörFeltöltés()
-        {
-            try
-            {
-                List<string> Adatok = (from a in AdatokDolgozó
-                                       where a.Státus == false
-                                       orderby a.Munkakör
-                                       select a.Munkakör).Distinct().ToList();
-                foreach (string adat in Adatok)
-                    Munkakör.Items.Add(adat);
-
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void CikkszámMegnevezésFeltöltés()
-        {
-            try
-            {
-                List<Adat_Anyag> Adatok = (from a in AdatokAnyag
-                                           orderby a.Cikkszám
-                                           select a).ToList();
-                foreach (Adat_Anyag adat in Adatok)
-                {
-                    Cikkszám.Items.Add(adat.Cikkszám);
-                    Megnevezés.Items.Add(adat.Megnevezés);
-                }
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void Alap_Rögzít_Click(object sender, EventArgs e)
         {
             try
             {
-                if (MyF.Szöveg_Tisztítás(Cikkszám.Text, 0, 10).Trim() == "") throw new HibásBevittAdat("Cikkszám mezőt ki kell tölteni.");
-                if (MyF.Szöveg_Tisztítás(Munkakör.Text, 0, 250).Trim() == "") throw new HibásBevittAdat("Munkakör mezőt ki kell tölteni.");
-                if (!(CmbStátus.Text.Trim() == "Aktív" || CmbStátus.Text.Trim() == "Törölt")) throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
-                if (!int.TryParse(Mennyiség.Text.Trim(), out int mennyiség)) throw new HibásBevittAdat("Mennyiség mező egész számot lehet csak írni");
-                if (!int.TryParse(Gyakoriság.Text.Trim(), out int gyakoriság)) throw new HibásBevittAdat("Gyakoriság mező egész számot lehet csak írni");
-
-                Adat_Járandóság ADAT = new Adat_Járandóság(
-                       MyF.Szöveg_Tisztítás(Munkakör.Text),
-                       MyF.Szöveg_Tisztítás(Cikkszám.Text),
-                       mennyiség,
-                       gyakoriság,
+                if (MyF.Szöveg_Tisztítás(Cikkszámok.Text, 0, 10).Trim() == "") throw new HibásBevittAdat("Cikkszám mezőt ki kell tölteni.");
+                if (MyF.Szöveg_Tisztítás(Megnevezés.Text, 0, 250).Trim() == "") throw new HibásBevittAdat("Megnevezés mezőt ki kell tölteni.");
+                if (MyF.Szöveg_Tisztítás(MennyiségEgység.Text, 0, 10).Trim() == "") throw new HibásBevittAdat("Mennyiség egység mezőt ki kell tölteni.");
+                if (CmbStátus.Text != "Aktív" || CmbStátus.Text == "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
+                Adat_Anyag ADAT = new Adat_Anyag(
+                       MyF.Szöveg_Tisztítás(Cikkszámok.Text),
+                       MyF.Szöveg_Tisztítás(Megnevezés.Text),
+                       MyF.Szöveg_Tisztítás(Rajzszám.Text),
+                       MyF.Szöveg_Tisztítás(MennyiségEgység.Text),
                        CmbStátus.Text != "Aktív");
-                KézJár.Döntés(ADAT);
-
+                KézAnyag.Döntés(ADAT);
+                Adatok = KézAnyag.Lista_Adatok();
                 Alap_tábla_író();
             }
             catch (HibásBevittAdat ex)
@@ -165,7 +104,7 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                AdatokJárandóság = KézJár.Lista_Adatok();
+                Adatok = KézAnyag.Lista_Adatok();
                 Tábla.Visible = false;
                 Tábla.CleanFilterAndSort();
                 AlapTáblaFejléc();
@@ -191,20 +130,14 @@ namespace Tisztito.Ablakok
             AdatTáblaALap.Clear();
 
 
-            foreach (Adat_Járandóság rekord in AdatokJárandóság)
+            foreach (Adat_Anyag rekord in Adatok)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
-                Soradat["Munkakör"] = rekord.Munkakör;
                 Soradat["Cikkszám"] = rekord.Cikkszám;
-                Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == rekord.Cikkszám);
-                if (EgyAnyag != null)
-                    Soradat["Megnevezés"] = EgyAnyag.Megnevezés;
-                else
-                    Soradat["Megnevezés"] = "";
-
-                Soradat["Mennyiség"] = rekord.Mennyiség;
-                Soradat["Gyakoriság"] = rekord.Gyakoriság;
+                Soradat["Megnevezés"] = rekord.Megnevezés;
+                Soradat["Rajzszám"] = rekord.Rajzszám;
+                Soradat["MennyiségEgység"] = rekord.MennyiségEgység;
                 Soradat["Státus"] = rekord.Státus == true ? "Törölt" : "Aktív";
                 AdatTáblaALap.Rows.Add(Soradat);
             }
@@ -217,11 +150,10 @@ namespace Tisztito.Ablakok
             try
             {
                 AdatTáblaALap.Columns.Clear();
-                AdatTáblaALap.Columns.Add("Munkakör");
                 AdatTáblaALap.Columns.Add("Cikkszám");
                 AdatTáblaALap.Columns.Add("Megnevezés");
-                AdatTáblaALap.Columns.Add("Mennyiség");
-                AdatTáblaALap.Columns.Add("Gyakoriság");
+                AdatTáblaALap.Columns.Add("Rajzszám");
+                AdatTáblaALap.Columns.Add("MennyiségEgység");
                 AdatTáblaALap.Columns.Add("Státus");
             }
             catch (HibásBevittAdat ex)
@@ -237,12 +169,12 @@ namespace Tisztito.Ablakok
 
         private void AlapTáblaOszlopSzélesség()
         {
-            Tábla.Columns["Munkakör"].Width = 300;
             Tábla.Columns["Cikkszám"].Width = 130;
-            Tábla.Columns["Megnevezés"].Width = 300;
-            Tábla.Columns["Mennyiség"].Width = 130;
-            Tábla.Columns["Gyakoriság"].Width = 130;
+            Tábla.Columns["Megnevezés"].Width = 500;
+            Tábla.Columns["Rajzszám"].Width = 200;
+            Tábla.Columns["MennyiségEgység"].Width = 150;
             Tábla.Columns["Státus"].Width = 70;
+
         }
 
         private void BtnExcel_Click(object sender, EventArgs e)
@@ -257,7 +189,7 @@ namespace Tisztito.Ablakok
                 {
                     InitialDirectory = "MyDocuments",
                     Title = "Listázott tartalom mentése Excel fájlba",
-                    FileName = $"Járandóságok_{Program.PostásNév}-{DateTime.Now:yyyyMMddHHmmss}",
+                    FileName = "Anyag_" + Program.PostásNév + "-" + DateTime.Now.ToString("yyyyMMddHHmmss"),
                     Filter = "Excel |*.xlsx"
                 };
                 // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
@@ -285,30 +217,23 @@ namespace Tisztito.Ablakok
         private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            string Cikkszám = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
-            string munkakör = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
-            Adatokkiírása(Cikkszám, munkakör);
+            string Cikkszám = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+            Adatokkiírása(Cikkszám);
 
         }
 
-        private void Adatokkiírása(string cikkszám, string munkakör)
+        private void Adatokkiírása(string Cikkszám)
         {
             try
             {
-                Adat_Járandóság adat = (from a in AdatokJárandóság
-                                        where a.Cikkszám == cikkszám
-                                        && a.Munkakör == munkakör
-                                        select a).FirstOrDefault();
+                Adat_Anyag adat = (from a in Adatok
+                                   where a.Cikkszám == Cikkszám
+                                   select a).FirstOrDefault();
                 if (adat == null) return;
-                Munkakör.Text = munkakör;
-                Cikkszám.Text = adat.Cikkszám;
-                Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == adat.Cikkszám);
-                if (EgyAnyag != null)
-                    Megnevezés.Text = EgyAnyag.Megnevezés;
-                else
-                    Megnevezés.Text = "";
-                Mennyiség.Text = adat.Mennyiség.ToString();
-                Gyakoriság.Text = adat.Gyakoriság.ToString();
+                Cikkszámok.Text = adat.Cikkszám;
+                Megnevezés.Text = adat.Megnevezés;
+                MennyiségEgység.Text = adat.MennyiségEgység;
+                Rajzszám.Text = adat.Rajzszám;
                 CmbStátus.Text = adat.Státus == true ? "Törölt" : "Aktív";
 
             }
@@ -321,26 +246,6 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void Cikkszám_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (Cikkszám.Text.Trim() == "") return;
-            Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszám.Text.Trim());
-            if (EgyAnyag != null)
-                Megnevezés.Text = EgyAnyag.Megnevezés;
-            else
-                Megnevezés.Text = "";
-        }
-
-        private void Megnevezés_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (Megnevezés.Text.Trim() == "") return;
-            Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Megnevezés == Megnevezés.Text.Trim());
-            if (EgyAnyag != null)
-                Cikkszám.Text = EgyAnyag.Cikkszám;
-            else
-                Cikkszám.Text = "";
         }
     }
 }

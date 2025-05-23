@@ -51,9 +51,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.Mozgás = new System.Windows.Forms.ComboBox();
-            this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Dátum = new System.Windows.Forms.DateTimePicker();
+            this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
@@ -323,18 +323,6 @@
             this.Mozgás.TabIndex = 245;
             this.Mozgás.SelectedIndexChanged += new System.EventHandler(this.Mozgás_SelectedIndexChanged);
             // 
-            // Megnevezések
-            // 
-            this.Megnevezések.DropDownHeight = 300;
-            this.Megnevezések.FormattingEnabled = true;
-            this.Megnevezések.IntegralHeight = false;
-            this.Megnevezések.Location = new System.Drawing.Point(628, 100);
-            this.Megnevezések.MaxLength = 20;
-            this.Megnevezések.Name = "Megnevezések";
-            this.Megnevezések.Size = new System.Drawing.Size(410, 28);
-            this.Megnevezések.TabIndex = 246;
-            this.Megnevezések.SelectionChangeCommitted += new System.EventHandler(this.Megnevezések_SelectionChangeCommitted);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -353,6 +341,18 @@
             this.Dátum.Name = "Dátum";
             this.Dátum.Size = new System.Drawing.Size(128, 26);
             this.Dátum.TabIndex = 248;
+            // 
+            // Megnevezések
+            // 
+            this.Megnevezések.DropDownHeight = 300;
+            this.Megnevezések.FormattingEnabled = true;
+            this.Megnevezések.IntegralHeight = false;
+            this.Megnevezések.Location = new System.Drawing.Point(628, 100);
+            this.Megnevezések.MaxLength = 20;
+            this.Megnevezések.Name = "Megnevezések";
+            this.Megnevezések.Size = new System.Drawing.Size(410, 28);
+            this.Megnevezések.TabIndex = 246;
+            this.Megnevezések.SelectionChangeCommitted += new System.EventHandler(this.Megnevezések_SelectionChangeCommitted);
             // 
             // tableLayoutPanel2
             // 

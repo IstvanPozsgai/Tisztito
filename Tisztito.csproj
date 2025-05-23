@@ -65,34 +65,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ablakok\Ablak_Jelszóváltoztatás.cs">
+    <Compile Include="Ablakok\Bejelentkezés\Ablak_Jelszóváltoztatás.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Jelszóváltoztatás.designer.cs">
+    <Compile Include="Ablakok\Bejelentkezés\Ablak_Jelszóváltoztatás.designer.cs">
       <DependentUpon>Ablak_Jelszóváltoztatás.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Login.cs">
+    <Compile Include="Ablakok\Bejelentkezés\Ablak_Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Login.Designer.cs">
+    <Compile Include="Ablakok\Bejelentkezés\Ablak_Login.Designer.cs">
       <DependentUpon>Ablak_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.designer.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.designer.cs">
       <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Gombok.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Gombok.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Gombok.Designer.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Gombok.Designer.cs">
       <DependentUpon>Ablak_Gombok.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Formok.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Formok.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Formok.Designer.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Formok.Designer.cs">
       <DependentUpon>Ablak_Formok.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Ablak_Igény.cs">
@@ -107,28 +107,28 @@
     <Compile Include="Ablakok\Ablak_Igények.Designer.cs">
       <DependentUpon>Ablak_Igények.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Járandóság.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Járandóság.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Járandóság.Designer.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Járandóság.Designer.cs">
       <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Beállítások.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Beállítások.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Beállítások.Designer.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Beállítások.Designer.cs">
       <DependentUpon>Ablak_Beállítások.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Dolgozók.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Dolgozók.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Dolgozók.Designer.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Dolgozók.Designer.cs">
       <DependentUpon>Ablak_Dolgozók.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Anyagok.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Anyagok.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Anyagok.Designer.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Anyagok.Designer.cs">
       <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Ablak_PDF_Feltöltés.cs">
@@ -137,16 +137,16 @@
     <Compile Include="Ablakok\Ablak_PDF_Feltöltés.Designer.cs">
       <DependentUpon>Ablak_PDF_Feltöltés.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Raktár.cs">
+    <Compile Include="Ablakok\Könyvelés\Ablak_Raktár.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Raktár.Designer.cs">
+    <Compile Include="Ablakok\Könyvelés\Ablak_Raktár.Designer.cs">
       <DependentUpon>Ablak_Raktár.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Szervezet.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Szervezet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Ablak_Szervezet.Designer.cs">
+    <Compile Include="Ablakok\AlapAdatok\Ablak_Szervezet.Designer.cs">
       <DependentUpon>Ablak_Szervezet.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Főoldal.cs">
@@ -155,10 +155,10 @@
     <Compile Include="Ablakok\Főoldal.Designer.cs">
       <DependentUpon>Főoldal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó.designer.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó.designer.cs">
       <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
     </Compile>
     <Compile Include="Adatbázis\Adatbázis.cs" />
@@ -219,19 +219,19 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Ablakok\Ablak_Jelszóváltoztatás.resx">
+    <EmbeddedResource Include="Ablakok\Bejelentkezés\Ablak_Jelszóváltoztatás.resx">
       <DependentUpon>Ablak_Jelszóváltoztatás.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Login.resx">
+    <EmbeddedResource Include="Ablakok\Bejelentkezés\Ablak_Login.resx">
       <DependentUpon>Ablak_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.resx">
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.resx">
       <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Gombok.resx">
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Gombok.resx">
       <DependentUpon>Ablak_Gombok.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Formok.resx">
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Formok.resx">
       <DependentUpon>Ablak_Formok.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_Igény.resx">
@@ -240,31 +240,31 @@
     <EmbeddedResource Include="Ablakok\Ablak_Igények.resx">
       <DependentUpon>Ablak_Igények.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Járandóság.resx">
+    <EmbeddedResource Include="Ablakok\AlapAdatok\Ablak_Járandóság.resx">
       <DependentUpon>Ablak_Járandóság.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Beállítások.resx">
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Beállítások.resx">
       <DependentUpon>Ablak_Beállítások.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Dolgozók.resx">
+    <EmbeddedResource Include="Ablakok\AlapAdatok\Ablak_Dolgozók.resx">
       <DependentUpon>Ablak_Dolgozók.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Anyagok.resx">
+    <EmbeddedResource Include="Ablakok\AlapAdatok\Ablak_Anyagok.resx">
       <DependentUpon>Ablak_Anyagok.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_PDF_Feltöltés.resx">
       <DependentUpon>Ablak_PDF_Feltöltés.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Raktár.resx">
+    <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Raktár.resx">
       <DependentUpon>Ablak_Raktár.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Ablak_Szervezet.resx">
+    <EmbeddedResource Include="Ablakok\AlapAdatok\Ablak_Szervezet.resx">
       <DependentUpon>Ablak_Szervezet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Főoldal.resx">
       <DependentUpon>Főoldal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Felhasználó.resx">
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Felhasználó.resx">
       <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

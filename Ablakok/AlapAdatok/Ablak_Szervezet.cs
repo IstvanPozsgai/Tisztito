@@ -30,8 +30,7 @@ namespace Tisztito.Ablakok
         private void Start()
         {
             StátusokFeltöltése();
-
-
+            Alap_tábla_író();
         }
 
         private void StátusokFeltöltése()

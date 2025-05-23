@@ -32,6 +32,7 @@ namespace Tisztito.Ablakok
             Adatok = KézDolgozó.Lista_Adatok();
             SzervezetekFeltöltése();
             MunkakörökFeltöltése();
+            Alap_tábla_író();
         }
 
         private void MunkakörökFeltöltése()

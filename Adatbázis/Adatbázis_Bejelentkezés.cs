@@ -15,14 +15,6 @@ namespace Tisztito.Adatbázis
             //Létrehozzuk az adatbázist és beállítunk jelszót
             AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
 
-            //string táblanév = "Users";
-            //szöveg = $"CREATE TABLE {táblanév} (";
-            //szöveg += "[UserId] AUTOINCREMENT PRIMARY KEY,";
-            //szöveg += "[UserName] CHAR(25),";
-            //szöveg += "[Password] CHAR(50),";
-            //szöveg += "[Törölt] yesno)";
-            //AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
-
 
 
             //táblanév = "Funkciók";
@@ -117,6 +109,8 @@ namespace Tisztito.Adatbázis
             szöveg += "[Verzió] double)";
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }
+
+
     }
 }
 
