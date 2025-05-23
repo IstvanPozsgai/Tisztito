@@ -48,6 +48,7 @@
             this.területiIgényekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Képkeret = new System.Windows.Forms.PictureBox();
+            this.JogKiosztMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +82,8 @@
             this.jogosultságBeállításToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AblakokBeállításaMenuItem,
             this.GombokBeállításaToolStripMenuItem,
-            this.FelhasználókMenuItem});
+            this.FelhasználókMenuItem,
+            this.JogKiosztMenuItem});
             this.jogosultságBeállításToolStripMenuItem.Name = "jogosultságBeállításToolStripMenuItem";
             this.jogosultságBeállításToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.jogosultságBeállításToolStripMenuItem.Text = "&Jogosultság beállítás";
@@ -210,6 +212,13 @@
             this.Képkeret.TabIndex = 28;
             this.Képkeret.TabStop = false;
             // 
+            // JogKiosztMenuItem
+            // 
+            this.JogKiosztMenuItem.Name = "JogKiosztMenuItem";
+            this.JogKiosztMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.JogKiosztMenuItem.Text = "Jogosultság kiosztás";
+            this.JogKiosztMenuItem.Click += new System.EventHandler(this.JogKiosztMenuItem_Click);
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,6 +261,7 @@
         private System.Windows.Forms.ToolStripMenuItem AblakokBeállításaMenuItem;
         private System.Windows.Forms.ToolStripMenuItem GombokBeállításaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FelhasználókMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem JogKiosztMenuItem;
     }
 }
 

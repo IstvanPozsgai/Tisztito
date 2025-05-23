@@ -77,11 +77,11 @@
     <Compile Include="Ablakok\Bejelentkezés\Ablak_Login.Designer.cs">
       <DependentUpon>Ablak_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.cs">
+    <Compile Include="Ablakok\Beállítások\Ablak_JogKiosztás.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.designer.cs">
-      <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
+    <Compile Include="Ablakok\Beállítások\Ablak_JogKiosztás.designer.cs">
+      <DependentUpon>Ablak_JogKiosztás.cs</DependentUpon>
     </Compile>
     <Compile Include="Ablakok\Beállítások\Ablak_Gombok.cs">
       <SubType>Form</SubType>
@@ -225,8 +225,8 @@
     <EmbeddedResource Include="Ablakok\Bejelentkezés\Ablak_Login.resx">
       <DependentUpon>Ablak_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Felhasználó - Copy.resx">
-      <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
+    <EmbeddedResource Include="Ablakok\Beállítások\Ablak_JogKiosztás.resx">
+      <DependentUpon>Ablak_JogKiosztás.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Gombok.resx">
       <DependentUpon>Ablak_Gombok.cs</DependentUpon>

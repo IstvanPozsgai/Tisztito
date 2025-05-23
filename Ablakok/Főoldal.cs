@@ -59,6 +59,7 @@ namespace Tisztito
         }
         #endregion
 
+
         #region Menük
         #region Beállítások
         #region Ablakok beállítása
@@ -132,6 +133,31 @@ namespace Tisztito
         private void Új_AblakFelhasználó_FormClosed(object sender, FormClosedEventArgs e)
         {
             Új_AblakFelhasználó = null;
+        }
+        #endregion
+
+
+        #region Jogosultság kiosztás   
+        Ablak_JogKiosztás Új_Ablak_JogKiosztás;
+        private void JogKiosztMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_JogKiosztás == null)
+            {
+                Új_Ablak_JogKiosztás = new Ablak_JogKiosztás();
+                Új_Ablak_JogKiosztás.FormClosed += Új_Ablak_JogKiosztás_FormClosed;
+                Új_Ablak_JogKiosztás.Show();
+            }
+            else
+            {
+                Új_Ablak_JogKiosztás.Activate();
+                Új_Ablak_JogKiosztás.WindowState = FormWindowState.Maximized;
+            }
+
+        }
+
+        private void Új_Ablak_JogKiosztás_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_JogKiosztás = null;
         }
         #endregion
         #endregion
@@ -320,6 +346,7 @@ namespace Tisztito
 
         #endregion
 
+
         #region Képkezelés
         private void Képetvált()
         {
@@ -399,6 +426,7 @@ namespace Tisztito
             }
         }
         #endregion
+
 
     }
 }
