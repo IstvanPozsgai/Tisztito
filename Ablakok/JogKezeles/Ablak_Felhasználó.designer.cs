@@ -263,6 +263,7 @@ namespace Tisztito
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Size = new System.Drawing.Size(192, 26);
             this.TxtPassword.TabIndex = 108;
+            this.TxtPassword.TextChanged += new System.EventHandler(this.TxtPassword_TextChanged);
             // 
             // Frissít
             // 
@@ -293,6 +294,7 @@ namespace Tisztito
             this.Tábla.Size = new System.Drawing.Size(860, 185);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 221;
+            this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
             // 
             // AblakFelhasználó
             // 

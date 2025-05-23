@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Tisztito.Minden
 {
-    public class Jelszó
+    public static class Jelszó
     {
         public static string HashPassword(string password)
         {

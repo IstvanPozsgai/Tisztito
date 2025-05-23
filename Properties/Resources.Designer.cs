@@ -193,6 +193,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap login_icon {
+            get {
+                object obj = ResourceManager.GetObject("login-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap My_Ebooks_01 {
             get {
                 object obj = ResourceManager.GetObject("My Ebooks-01", resourceCulture);

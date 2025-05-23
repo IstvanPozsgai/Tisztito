@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ablakok\Ablak_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Ablak_Login.Designer.cs">
+      <DependentUpon>Ablak_Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +210,9 @@
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ablakok\Ablak_Login.resx">
+      <DependentUpon>Ablak_Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\JogKezeles\Ablak_Felhasználó - Copy.resx">
       <DependentUpon>Ablak_Felhasználó - Copy.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +386,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\login-icon.png" />
     <None Include="Resources\Document Copy-01.ico" />
     <None Include="Resources\user_mindenjogtöröl.ico" />
     <None Include="Resources\user_vendég.ico" />

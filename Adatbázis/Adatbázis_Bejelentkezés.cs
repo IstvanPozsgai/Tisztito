@@ -97,7 +97,7 @@ namespace Tisztito.Adatbázis
             szöveg += "[UserName] CHAR(25),";
             szöveg += "[WinUserName] CHAR(25),";
             szöveg += "[Dolgozószám] CHAR(8),";
-            szöveg += "[Password] CHAR(50),";
+            szöveg += "[Password] CHAR(255),";
             szöveg += "[Dátum] Date,";
             szöveg += "[Frissít] yesno,";
             szöveg += "[Törölt] yesno)";

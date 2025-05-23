@@ -7,7 +7,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
+using Tisztito.Minden;
 using MyE = Tisztito.Module_Excel;
+
 
 namespace Tisztito
 {
@@ -31,7 +33,7 @@ namespace Tisztito
         private void Start()
         {
             Adatok = Kéz.Lista_Adatok();
-            AdatokDolg = KézDolgozó.Lista_Adatok().Where(a => a.Státus == true).ToList();
+            AdatokDolg = KézDolgozó.Lista_Adatok().Where(a => a.Státus == false).ToList();
             CombokFeltöltése();
             Üres();
 
@@ -131,7 +133,7 @@ namespace Tisztito
                 Soradat["Dolgozószám"] = rekord.Dolgozószám;
                 Soradat["Dolgozó Név"] = DolgozóNév;
                 Soradat["Jelszó"] = rekord.Password;
-                Soradat["Dátum"] = rekord.Dátum;
+                Soradat["Dátum"] = rekord.Dátum.ToShortDateString();
                 Soradat["Frissít"] = rekord.Frissít ? "Igen" : "Nem";
                 Soradat["Törölt"] = rekord.Törölt == true ? "Törölt" : "Aktív";
                 AdatTáblaALap.Rows.Add(Soradat);
@@ -140,15 +142,53 @@ namespace Tisztito
 
         private void AlapTáblaOszlopSzélesség()
         {
-            Tábla.Columns["Id"].Width = 130;
-            Tábla.Columns["Felhasználó név"].Width = 130;
-            Tábla.Columns["WinFelhasználó név"].Width = 130;
-            Tábla.Columns["Dolgozószám"].Width = 130;
-            Tábla.Columns["Dolgozó Név"].Width = 130;
-            Tábla.Columns["Jelszó"].Width = 130;
+            Tábla.Columns["Id"].Width = 80;
+            Tábla.Columns["Felhasználó név"].Width = 180;
+            Tábla.Columns["WinFelhasználó név"].Width = 180;
+            Tábla.Columns["Dolgozószám"].Width = 110;
+            Tábla.Columns["Dolgozó Név"].Width = 250;
+            Tábla.Columns["Jelszó"].Width = 250;
             Tábla.Columns["Dátum"].Width = 130;
-            Tábla.Columns["Frissít"].Width = 130;
-            Tábla.Columns["Törölt"].Width = 130;
+            Tábla.Columns["Frissít"].Width = 110;
+            Tábla.Columns["Törölt"].Width = 110;
+        }
+
+        private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            string DolgIDS = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+            if (!int.TryParse(DolgIDS, out int DolgID)) return;
+            Adatokkiírása(DolgID);
+        }
+
+        private void Adatokkiírása(int dolgID)
+        {
+
+            try
+            {
+                Adat_Users adat = (from a in Adatok
+                                   where a.UserId == dolgID
+                                   select a).FirstOrDefault();
+                if (adat == null) return;
+                UserId.Text = adat.UserId.ToString();
+                TextUserNév.Text = adat.UserName;
+                TextWinUser.Text = adat.WinUserName;
+                CmbDolgozószám.Text = adat.Dolgozószám;
+                CmbDolgozónév.Text = DolgozóNév(adat.Dolgozószám);
+                TxtPassword.Text = "";
+                Frissít.Checked = adat.Frissít;
+                Törölt.Checked = adat.Törölt;
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -176,16 +216,18 @@ namespace Tisztito
                 if (!int.TryParse(UserId.Text, out int Id)) Id = 0;
                 if (string.IsNullOrWhiteSpace(TextUserNév.Text)) throw new HibásBevittAdat("Kérem töltse ki az Felhasználó név mezőt!");
                 if (string.IsNullOrWhiteSpace(CmbDolgozószám.Text)) throw new HibásBevittAdat("Kérem töltse ki a Dolgozószám mezőt!");
+                TextUserNév.Text = TextUserNév.Text.ToLower();
                 if (Adatok.Any(a => a.UserName == TextUserNév.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A felhasználónév már létezik!");
                 if (TextWinUser.Text.Trim() != "" && Adatok.Any(a => a.WinUserName == TextWinUser.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A Windows felhasználónév már létezik egy másik felhasználónál!");
                 if (Adatok.Any(a => a.Dolgozószám == CmbDolgozószám.Text.Trim() && a.UserId != Id)) throw new HibásBevittAdat("A Dolgozószámhoz már létezik egy másik felhasználó!");
+                string jelszó = Jelszó.HashPassword(TxtPassword.Text.Trim());
 
                 Adat_Users ADAT = new Adat_Users(
                     Id,
                     TextUserNév.Text.Trim(),
                     TextWinUser.Text.Trim(),
                     CmbDolgozószám.Text.Trim(),
-                    TxtPassword.Text.Trim(),
+                    jelszó,
                     DateTime.Now,
                     Frissít.Checked,
                     Törölt.Checked);
@@ -238,6 +280,11 @@ namespace Tisztito
                 CmbDolgozónév.Items.Add(elem.Dolgozónév);
 
         }
+
+        private void TxtPassword_TextChanged(object sender, EventArgs e)
+        {
+            Frissít.Checked = true;
+        }
         #endregion
 
 
@@ -245,14 +292,34 @@ namespace Tisztito
         private void CmbDolgozószám_SelectionChangeCommitted(object sender, EventArgs e)
         {
             CmbDolgozószám.Text = CmbDolgozószám.Items[CmbDolgozószám.SelectedIndex].ToString();
-            if (CmbDolgozószám.Text.Trim() != "")
+            CmbDolgozónév.Text = DolgozóNév(CmbDolgozószám.Text.Trim());
+
+        }
+
+        private string DolgozóNév(string dolgozószám)
+        {
+            string válasz = "";
+            try
             {
-                Adat_Dolgozó elem = (from a in AdatokDolg
-                                     where a.Dolgozószám == CmbDolgozószám.Text.Trim()
-                                     select a).FirstOrDefault();
-                if (elem != null) CmbDolgozónév.Text = elem.Dolgozónév; else CmbDolgozónév.Text = "";
+                if (dolgozószám.Trim() != "")
+                {
+                    Adat_Dolgozó elem = (from a in AdatokDolg
+                                         where a.Dolgozószám == dolgozószám
+                                         select a).FirstOrDefault();
+                    if (elem != null) válasz = elem.Dolgozónév; else CmbDolgozónév.Text = "";
+                }
             }
-            else CmbDolgozónév.Text = "";
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return válasz;
         }
 
         private void CmbDolgozónév_SelectionChangeCommitted(object sender, EventArgs e)
@@ -268,6 +335,9 @@ namespace Tisztito
             else CmbDolgozószám.Text = "";
 
         }
+
         #endregion
+
+
     }
 }

@@ -87,10 +87,11 @@ namespace Bejelentkezés.Kezelők
         {
             try
             {
-                string password = "123456";
+                string pword = Adat.Password;
+                if (Adat.Password.Trim() == "") pword = "123456";
                 bool frissít = true;
                 string szöveg = $"INSERT INTO {táblanév} (UserName, WinUserName, Dolgozószám, [Password], Dátum, frissít, Törölt) VALUES (";
-                szöveg += $"'{Adat.UserName}', '{Adat.WinUserName}', '{Adat.Dolgozószám}', '{password}', '{Adat.Dátum:yyyy.MM.dd}', {frissít}, {Adat.Törölt})";
+                szöveg += $"'{Adat.UserName}', '{Adat.WinUserName}', '{Adat.Dolgozószám}', '{pword}', '{Adat.Dátum:yyyy.MM.dd}', {frissít}, {Adat.Törölt})";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -110,9 +111,7 @@ namespace Bejelentkezés.Kezelők
             try
             {
                 string szöveg = $"UPDATE {táblanév} SET ";
-                szöveg += $"UserName ='{Adat.UserName}', ";
                 szöveg += $"WinUserName ='{Adat.WinUserName}', ";
-                szöveg += $"Dolgozószám ='{Adat.Dolgozószám}', ";
                 szöveg += $"[Password] ='{Adat.Password}', ";
                 szöveg += $"Dátum ='{Adat.Dátum:yyyy.MM.dd}', ";
                 szöveg += $"Frissít ={Adat.Frissít}, ";
