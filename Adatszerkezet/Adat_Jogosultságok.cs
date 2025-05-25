@@ -2,21 +2,20 @@
 {
     public class Adat_Jogosultságok
     {
-        public int JogosultságId { get; private set; }
+
         public int UserId { get; private set; }
-        public string JogosultságName { get; private set; }
-        public bool JogosultságVisible { get; private set; }
-        public bool JogosultságEnabled { get; private set; }
-        public string JogosultságGombName { get; private set; }
+        public int OldalId { get; private set; }
+        public int GombokId { get; private set; }
+        public int SzervezetId { get; private set; }
         public bool Törölt { get; private set; }
-        public Adat_Jogosultságok(int jogosultságId, int userId, string jogosultságName, bool jogosultságVisible, bool jogosultságEnabled, string jogosultságGombName, bool törölt)
+
+        public Adat_Jogosultságok(int userId, int oldalId, int gombokId, int szervezetId, bool törölt)
         {
-            JogosultságId = jogosultságId;
+
             UserId = userId;
-            JogosultságName = jogosultságName;
-            JogosultságVisible = jogosultságVisible;
-            JogosultságEnabled = jogosultságEnabled;
-            JogosultságGombName = jogosultságGombName;
+            OldalId = oldalId;
+            GombokId = gombokId;
+            SzervezetId = szervezetId;
             Törölt = törölt;
         }
     }

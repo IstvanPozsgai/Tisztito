@@ -10,6 +10,7 @@ namespace Tisztito
         /// Aki bejelentkezett
         /// </summary>
         public static string PostásNév = "Próba";
+        public static int PostásNévId = 1;
         public static List<ToolStripMenuItem> PostásMenü = new List<ToolStripMenuItem>();
         /// <summary>
         /// The main entry point for the application.

@@ -90,7 +90,7 @@ namespace Tisztito.Ablakok
             try
             {
                 Ablaknév.Items.Add("");
-                List<Type> Adatok = AblakokGombok.FormokListázásaType();
+                List<Type> Adatok = AblakokGombok.FormokListázásaType().OrderBy(a => a.Name).ToList();
                 foreach (Type item in Adatok)
                 {
                     Ablaknév.Items.Add(item.Name);
@@ -184,6 +184,9 @@ namespace Tisztito.Ablakok
         private void AlapTáblaTartalom()
         {
             AdatTáblaALap.Clear();
+            Adatok = (from a in Adatok
+                      orderby a.FromName, a.GombName
+                      select a).ToList();
             foreach (Adat_Gombok rekord in Adatok)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
@@ -322,8 +325,9 @@ namespace Tisztito.Ablakok
             }
         }
 
-        private void Ablaknév_SelectedIndexChanged(object sender, EventArgs e)
+        private void Ablaknév_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            Ablaknév.Text = Ablaknév.Items[Ablaknév.SelectedIndex].ToString();
             GombokFeltöltése();
         }
     }

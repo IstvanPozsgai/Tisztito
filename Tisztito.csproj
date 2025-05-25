@@ -184,6 +184,7 @@
     <Compile Include="Adatszerkezet\Adat_Dolgozó.cs" />
     <Compile Include="Adatszerkezet\Adat_Anyag.cs" />
     <Compile Include="Adatszerkezet\Adat_Users.cs" />
+    <Compile Include="Minden\GombLathatosagKezelo.cs" />
     <Compile Include="Kezelők\Kezelők_Jogosultságok.cs" />
     <Compile Include="Kezelők\Kezelők_Gombok.cs" />
     <Compile Include="Kezelők\Kezelők_Oldalok.cs" />
@@ -407,6 +408,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\üres lista.ico" />
+    <None Include="Resources\mndent kijelöl.ico" />
     <None Include="Resources\login-icon.png" />
     <None Include="Resources\Document Copy-01.ico" />
     <None Include="Resources\user_mindenjogtöröl.ico" />

@@ -6,38 +6,6 @@ namespace Tisztito.Adatbázis
 {
     public static partial class Adatbázis_Létrehozás
     {
-        public static void Adatbázis_Bejelentkezés(string hely)
-        {
-            string szöveg;
-            string jelszó = "ForgalmiUtasítás";
-            string táblanév;
-
-            //Létrehozzuk az adatbázist és beállítunk jelszót
-            AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
-
-
-
-            //táblanév = "Funkciók";
-            //szöveg = $"CREATE TABLE {táblanév} (";
-            //szöveg += "[FunkciókId] AUTOINCREMENT PRIMARY KEY,";
-            //szöveg += "[FunkciókName] CHAR(100),";
-            //szöveg += "[FunkciókGombName] CHAR(255),";
-            //szöveg += "[Törölt] yesno)";
-            //AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);  
-
-            //táblanév = "Jogosultság";
-            //szöveg = $"CREATE TABLE {táblanév} (";
-            //szöveg += "[JogosultságId] AUTOINCREMENT PRIMARY KEY,";
-            //szöveg += "[UserId] short,";
-            //szöveg += "[OldalId] short,";
-            //szöveg += "[FunkciókId] short,";
-            //szöveg += "[FunkciókEnabled] yesno,"; ;
-            //szöveg += "[FunkciókGombName] CHAR(255),";
-            //szöveg += "[TelephelyId] short,";
-            //szöveg += "[Törölt] yesno)";
-            //AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
-        }
-
         public static void Adatbázis_Oldalak(string hely)
         {
             string szöveg;
@@ -110,7 +78,22 @@ namespace Tisztito.Adatbázis
             AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
         }
 
+        public static void Adatbázis_Jogosultság(string hely)
+        {
+            string jelszó = "ForgalmiUtasítás";
 
+            //Létrehozzuk az adatbázist és beállítunk jelszót
+            AdatBázis_kezelés.AB_Adat_Bázis_Létrehozás(hely, jelszó);
+
+            string táblanév = "Tábla_Jogosultság";
+            string szöveg = $"CREATE TABLE {táblanév} (";
+            szöveg += "[UserId] short,";
+            szöveg += "[OldalId] short,";
+            szöveg += "[GombokId] short,";
+            szöveg += "[SzervezetId] short,";
+            szöveg += "[Törölt] yesno)";
+            AdatBázis_kezelés.AB_Adat_Tábla_Létrehozás(hely, jelszó, szöveg, táblanév);
+        }
     }
 }
 

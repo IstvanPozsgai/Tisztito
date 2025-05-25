@@ -32,16 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Gombok));
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.GombFelirat = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtId = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.Törölt = new System.Windows.Forms.CheckBox();
+            this.Láthatóság = new System.Windows.Forms.CheckBox();
             this.Label2 = new System.Windows.Forms.Label();
+            this.Ablaknév = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
             this.GombNév = new System.Windows.Forms.ComboBox();
-            this.Ablaknév = new System.Windows.Forms.ComboBox();
-            this.Láthatóság = new System.Windows.Forms.CheckBox();
+            this.GombFelirat = new System.Windows.Forms.TextBox();
             this.Alap_Rögzít = new System.Windows.Forms.Button();
             this.Új_adat = new System.Windows.Forms.Button();
             this.BtnFrissít = new System.Windows.Forms.Button();
@@ -101,14 +101,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(786, 214);
             this.tableLayoutPanel1.TabIndex = 221;
             // 
-            // GombFelirat
-            // 
-            this.GombFelirat.Location = new System.Drawing.Point(173, 108);
-            this.GombFelirat.MaxLength = 255;
-            this.GombFelirat.Name = "GombFelirat";
-            this.GombFelirat.Size = new System.Drawing.Size(607, 26);
-            this.GombFelirat.TabIndex = 229;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -128,16 +120,6 @@
             this.TxtId.Size = new System.Drawing.Size(109, 26);
             this.TxtId.TabIndex = 219;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Silver;
-            this.label1.Location = new System.Drawing.Point(3, 105);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 20);
-            this.label1.TabIndex = 225;
-            this.label1.Text = "Gomb Funkció Leírás:";
-            // 
             // Törölt
             // 
             this.Törölt.AutoSize = true;
@@ -149,6 +131,17 @@
             this.Törölt.Text = "Törölt";
             this.Törölt.UseVisualStyleBackColor = false;
             // 
+            // Láthatóság
+            // 
+            this.Láthatóság.AutoSize = true;
+            this.Láthatóság.BackColor = System.Drawing.Color.Lime;
+            this.Láthatóság.Location = new System.Drawing.Point(173, 143);
+            this.Láthatóság.Name = "Láthatóság";
+            this.Láthatóság.Size = new System.Drawing.Size(109, 24);
+            this.Láthatóság.TabIndex = 222;
+            this.Láthatóság.Text = "Láthatóság";
+            this.Láthatóság.UseVisualStyleBackColor = false;
+            // 
             // Label2
             // 
             this.Label2.AutoSize = true;
@@ -158,6 +151,25 @@
             this.Label2.Size = new System.Drawing.Size(82, 20);
             this.Label2.TabIndex = 212;
             this.Label2.Text = "Ablak név:";
+            // 
+            // Ablaknév
+            // 
+            this.Ablaknév.FormattingEnabled = true;
+            this.Ablaknév.Location = new System.Drawing.Point(173, 38);
+            this.Ablaknév.Name = "Ablaknév";
+            this.Ablaknév.Size = new System.Drawing.Size(607, 28);
+            this.Ablaknév.TabIndex = 228;
+            this.Ablaknév.SelectionChangeCommitted += new System.EventHandler(this.Ablaknév_SelectionChangeCommitted);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Silver;
+            this.label1.Location = new System.Drawing.Point(3, 105);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(164, 20);
+            this.label1.TabIndex = 225;
+            this.label1.Text = "Gomb Funkció Leírás:";
             // 
             // Label4
             // 
@@ -177,25 +189,13 @@
             this.GombNév.Size = new System.Drawing.Size(607, 28);
             this.GombNév.TabIndex = 226;
             // 
-            // Ablaknév
+            // GombFelirat
             // 
-            this.Ablaknév.FormattingEnabled = true;
-            this.Ablaknév.Location = new System.Drawing.Point(173, 38);
-            this.Ablaknév.Name = "Ablaknév";
-            this.Ablaknév.Size = new System.Drawing.Size(607, 28);
-            this.Ablaknév.TabIndex = 228;
-            this.Ablaknév.SelectedIndexChanged += new System.EventHandler(this.Ablaknév_SelectedIndexChanged);
-            // 
-            // Láthatóság
-            // 
-            this.Láthatóság.AutoSize = true;
-            this.Láthatóság.BackColor = System.Drawing.Color.Lime;
-            this.Láthatóság.Location = new System.Drawing.Point(173, 143);
-            this.Láthatóság.Name = "Láthatóság";
-            this.Láthatóság.Size = new System.Drawing.Size(109, 24);
-            this.Láthatóság.TabIndex = 222;
-            this.Láthatóság.Text = "Láthatóság";
-            this.Láthatóság.UseVisualStyleBackColor = false;
+            this.GombFelirat.Location = new System.Drawing.Point(173, 108);
+            this.GombFelirat.MaxLength = 255;
+            this.GombFelirat.Name = "GombFelirat";
+            this.GombFelirat.Size = new System.Drawing.Size(607, 26);
+            this.GombFelirat.TabIndex = 229;
             // 
             // Alap_Rögzít
             // 

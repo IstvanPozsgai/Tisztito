@@ -75,6 +75,7 @@ namespace Tisztito
         private void Belépés(Adat_Users Elem)
         {
             Program.PostásNév = Elem.UserName;
+            Program.PostásNévId = Elem.UserId;
             //Valamint, hogy mire van jogosultsága
 
 

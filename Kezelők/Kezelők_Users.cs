@@ -1,6 +1,4 @@
-﻿
-
-using Bejelentkezés.Adatszerkezet;
+﻿using Bejelentkezés.Adatszerkezet;
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
@@ -104,7 +102,6 @@ namespace Bejelentkezés.Kezelők
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         public void Módosítás(Adat_Users Adat)
         {

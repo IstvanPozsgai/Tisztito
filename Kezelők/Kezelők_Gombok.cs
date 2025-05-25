@@ -61,7 +61,13 @@ namespace Tisztito.Kezelők
             try
             {
                 List<Adat_Gombok> Adatok = Lista_Adatok();
-                if (!Adatok.Any(a => a.GombokId == Adat.GombokId))
+                // Ha van ilyen gomb már a lapon akkor nem engedjük rögzíteni
+                Adat_Gombok gomb = (from a in Adatok
+                                    where a.GombName == Adat.GombName
+                                    && a.FromName == Adat.FromName
+                                    && a.Törölt == false
+                                    select a).FirstOrDefault();
+                if (gomb == null)
                     Rögzítés(Adat);
                 else
                     Módosítás(Adat);
@@ -107,7 +113,7 @@ namespace Tisztito.Kezelők
                 szöveg += $"GombFelirat ='{Adat.GombFelirat}', ";
                 szöveg += $"Látható ={Adat.Látható}, ";
                 szöveg += $"Törölt ={Adat.Törölt} ";
-                szöveg += $"WHERE OldalId = {Adat.GombokId}";
+                szöveg += $"WHERE GombokId = {Adat.GombokId}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)

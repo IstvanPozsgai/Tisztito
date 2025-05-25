@@ -203,6 +203,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mndent_kijelöl {
+            get {
+                object obj = ResourceManager.GetObject("mndent kijelöl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap My_Ebooks_01 {
             get {
                 object obj = ResourceManager.GetObject("My Ebooks-01", resourceCulture);
@@ -246,6 +256,16 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap pdf {
             get {
                 object obj = ResourceManager.GetObject("pdf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap üres_lista {
+            get {
+                object obj = ResourceManager.GetObject("üres lista", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
