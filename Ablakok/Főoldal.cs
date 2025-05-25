@@ -16,21 +16,28 @@ namespace Tisztito
     {
         readonly Kezelők_Oldalok KézOldal = new Kezelők_Oldalok();
         readonly Kezelők_Jogosultságok KézJog = new Kezelők_Jogosultságok();
-        List<Adat_Oldalak> OldalAdatok = new List<Adat_Oldalak>();
-        List<Adat_Jogosultságok> JogAdatok = new List<Adat_Jogosultságok>();
+
+
 
         public Főoldal()
         {
             InitializeComponent();
-            Képetvált();
+            Start();
         }
 
         #region Alap
+
+        private void Start()
+        {
+            Képetvált();
+            Program.PostásJogosultságok = KézJog.Lista_Adatok().Where(a => a.UserId == Program.PostásNévId).ToList();
+            Program.PostásMenü = AblakokGombok.MenüListaKészítés(MenuStrip);
+            Program.PostásOldalak = KézOldal.Lista_Adatok();
+            MenüBeállítása();
+        }
+
         private void Főoldal_Load(object sender, EventArgs e)
         {
-
-            Program.PostásMenü = AblakokGombok.MenüListaKészítés(MenuStrip);
-            MenüBeállítása();
         }
 
         private void MenüBeállítása()
@@ -38,21 +45,21 @@ namespace Tisztito
             try
             {
                 //Kikapcsoljuk a jogosultságtól függő ablakokat
-                OldalAdatok = KézOldal.Lista_Adatok();
+                Program.PostásOldalak = KézOldal.Lista_Adatok();
                 foreach (ToolStripMenuItem item in Program.PostásMenü)
                 {
-                    Adat_Oldalak Adat = OldalAdatok.FirstOrDefault(a => a.MenuName == item.Name);
+                    Adat_Oldalak Adat = Program.PostásOldalak.FirstOrDefault(a => a.MenuName == item.Name);
                     if (Adat != null) item.Enabled = Adat.Látható;
                 }
 
                 //Beállítjuk a jogosultságot amit felhasználóknak adtunk
-                JogAdatok = KézJog.Lista_Adatok().Where(a => a.UserId == Program.PostásNévId).ToList();
+                List<Adat_Jogosultságok> JogAdatok = Program.PostásJogosultságok;
                 if (JogAdatok == null) return;
 
                 List<int> JogIDék = JogAdatok.Select(a => a.OldalId).Distinct().ToList();
                 foreach (ToolStripMenuItem item in Program.PostásMenü)
                 {
-                    Adat_Oldalak OldalAdat = OldalAdatok.FirstOrDefault(a => a.MenuName == item.Name);
+                    Adat_Oldalak OldalAdat = Program.PostásOldalak.FirstOrDefault(a => a.MenuName == item.Name);
                     if (OldalAdat != null)
                     {
                         if (JogIDék.Contains(OldalAdat.OldalId)) item.Enabled = true;

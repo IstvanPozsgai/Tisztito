@@ -133,7 +133,7 @@ namespace Tisztito
                                                  && a.OldalId == AblakID
                                                  && a.SzervezetId == AdatokSzervezet[i].Id
                                                  select a).FirstOrDefault();
-                    if (EgyJog != null) LstChkGombok.SetItemChecked(i, true);
+                    if (EgyJog != null) LstChkSzervezet.SetItemChecked(i, true);
                 }
 
             }
@@ -242,6 +242,7 @@ namespace Tisztito
         }
         #endregion
 
+
         #region Gombok 
         /// <summary>
         /// Kilistázzuk a kiválaszo felhasználóhoz tartozó jogosultságokat.
@@ -279,7 +280,7 @@ namespace Tisztito
                 }
                 else
                 {
-                    if (LstChkGombok.CheckedItems.Count == 0) throw new HibásBevittAdat("Kérem válasszon legalább egy Ablak gombot!");
+                    if (LstChkGombok.CheckedItems.Count == 0) throw new HibásBevittAdat("Kérem válasszon legalább egy Gombot gombot!");
                     if (LstChkSzervezet.CheckedItems.Count == 0) throw new HibásBevittAdat("Kérem válasszon legalább egy Szervezetet!");
                     List<Adat_Jogosultságok> Adatok = new List<Adat_Jogosultságok>();
 
@@ -344,6 +345,7 @@ namespace Tisztito
                 LstChkSzervezet.SetItemChecked(i, false);
         }
         #endregion
+
 
         #region Táblázat
         private void TáblázatListázás()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bejelentkezés.Adatszerkezet;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,11 +30,34 @@ namespace Tisztito.Ablakok
         private void Start()
         {
             StátusokFeltöltése();
-            Adatok = KézDolgozó.Lista_Adatok();
             SzervezetekFeltöltése();
+            AdatokFeltöltése();
             MunkakörökFeltöltése();
             Alap_tábla_író();
             GombLathatosagKezelo.Beallit(this);
+        }
+
+        private void AdatokFeltöltése()
+        {
+            try
+            {
+                Adatok.Clear();
+                List<Adat_Dolgozó> Teljes = KézDolgozó.Lista_Adatok();
+                for (int i = 0; i < Szervezet.Items.Count; i++)
+                {
+                    List<Adat_Dolgozó> Rész = Teljes.Where(a => a.Szervezet == Szervezet.Items[i].ToString()).ToList();
+                    Adatok.AddRange(Rész);
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void MunkakörökFeltöltése()
@@ -63,12 +87,25 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                if (Adatok.Count == 0) return;
-                List<string> szövegek = (from a in Adatok
-                                         orderby a.Szervezet
-                                         select a.Szervezet).Distinct().ToList();
-                foreach (string Elem in szövegek)
-                    Szervezet.Items.Add(Elem);
+                Kezelő_Szervezet Kéz = new Kezelő_Szervezet();
+                List<Adat_Szervezet> SzervAdatok = Kéz.Lista_Adatok();
+
+                //Melyik oldalon vagyunk és annak mi az Id-je
+                Adat_Oldalak OldalAdat = (from a in Program.PostásOldalak
+                                          where a.FromName == this.Name
+                                          select a).FirstOrDefault();
+                if (OldalAdat == null) return;
+
+                //Azok a szervezetek, amikhez jogosultságunk van ezen az oldalon
+                List<Adat_Jogosultságok> Jogosultságok = Program.PostásJogosultságok
+                    .Where(x => x.OldalId == OldalAdat.OldalId && !x.Törölt)
+                    .ToList();
+
+                foreach (Adat_Szervezet Elem in SzervAdatok)
+                {
+                    if (Jogosultságok.Any(a => a.SzervezetId == Elem.Id))
+                        Szervezet.Items.Add(Elem.Szervezet);
+                }
 
             }
             catch (HibásBevittAdat ex)
@@ -84,7 +121,6 @@ namespace Tisztito.Ablakok
 
         private void Ablak_Dolgozók_Load(object sender, System.EventArgs e)
         {
-
         }
 
         private void Új_adat_Click(object sender, System.EventArgs e)
@@ -131,7 +167,7 @@ namespace Tisztito.Ablakok
                        MyF.Szöveg_Tisztítás(Szervezet.Text),
                        CmbStátus.Text != "Aktív");
                 KézDolgozó.Döntés(ADAT);
-                Adatok = KézDolgozó.Lista_Adatok();
+                AdatokFeltöltése();
                 Alap_tábla_író();
             }
             catch (HibásBevittAdat ex)
@@ -154,7 +190,7 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                Adatok = KézDolgozó.Lista_Adatok();
+                AdatokFeltöltése();
                 Tábla.Visible = false;
                 Tábla.CleanFilterAndSort();
                 AlapTáblaFejléc();

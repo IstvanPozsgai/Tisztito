@@ -311,8 +311,8 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                // írni kell: a stornozást
-                // írni kell: a könyvelés sorszámozását
+                // itt: a stornozást
+                // itt: a könyvelés sorszámozását
                 if (Mozgás.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva a mozgás.");
                 if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A könyvelés helyét meg kell adni.");
                 if (!(Hova.Text.Trim() == BázisRaktár || Honnan.Text.Trim() == BázisRaktár)) throw new HibásBevittAdat($"A {BázisRaktár}-nak szerepelnie kell valamelyik helyen.");

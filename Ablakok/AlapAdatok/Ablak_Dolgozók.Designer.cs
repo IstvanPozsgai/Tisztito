@@ -256,6 +256,7 @@
             // 
             // Szervezet
             // 
+            this.Szervezet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Szervezet.FormattingEnabled = true;
             this.Szervezet.Location = new System.Drawing.Point(151, 158);
             this.Szervezet.Name = "Szervezet";
