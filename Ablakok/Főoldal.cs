@@ -15,7 +15,9 @@ namespace Tisztito
     public partial class Főoldal : Form
     {
         readonly Kezelők_Oldalok KézOldal = new Kezelők_Oldalok();
+        readonly Kezelők_Jogosultságok KézJog = new Kezelők_Jogosultságok();
         List<Adat_Oldalak> OldalAdatok = new List<Adat_Oldalak>();
+        List<Adat_Jogosultságok> JogAdatok = new List<Adat_Jogosultságok>();
 
         public Főoldal()
         {
@@ -35,11 +37,40 @@ namespace Tisztito
         {
             try
             {
+                //Kikapcsoljuk a jogosultságtól függő ablakokat
                 OldalAdatok = KézOldal.Lista_Adatok();
                 foreach (ToolStripMenuItem item in Program.PostásMenü)
                 {
                     Adat_Oldalak Adat = OldalAdatok.FirstOrDefault(a => a.MenuName == item.Name);
                     if (Adat != null) item.Enabled = Adat.Látható;
+                }
+
+                //Beállítjuk a jogosultságot amit felhasználóknak adtunk
+                JogAdatok = KézJog.Lista_Adatok().Where(a => a.UserId == Program.PostásNévId).ToList();
+                if (JogAdatok == null) return;
+
+                List<int> JogIDék = JogAdatok.Select(a => a.OldalId).Distinct().ToList();
+                foreach (ToolStripMenuItem item in Program.PostásMenü)
+                {
+                    Adat_Oldalak OldalAdat = OldalAdatok.FirstOrDefault(a => a.MenuName == item.Name);
+                    if (OldalAdat != null)
+                    {
+                        if (JogIDék.Contains(OldalAdat.OldalId)) item.Enabled = true;
+                    }
+                }
+
+                //Admin felhasználó menüinek engedélyezése
+                if (Program.PostásNév != "admin")
+                {
+                    AblakokBeállításaMenuItem.Visible = false;
+                    GombokBeállításaToolStripMenuItem.Visible = false;
+                }
+                else
+                {
+                    AblakokBeállításaMenuItem.Visible = true;
+                    GombokBeállításaToolStripMenuItem.Visible = true;
+                    AblakokBeállításaMenuItem.Enabled = true;
+                    GombokBeállításaToolStripMenuItem.Enabled = true;
                 }
             }
             catch (HibásBevittAdat ex)

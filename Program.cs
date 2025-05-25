@@ -9,7 +9,7 @@ namespace Tisztito
         /// <summary>
         /// Aki bejelentkezett
         /// </summary>
-        public static string PostásNév = "Próba";
+        public static string PostásNév = "admin";
         public static int PostásNévId = 1;
         public static List<ToolStripMenuItem> PostásMenü = new List<ToolStripMenuItem>();
         /// <summary>
@@ -20,8 +20,8 @@ namespace Tisztito
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Főoldal());
-            //Application.Run(new Ablak_Login());
+            //Application.Run(new Főoldal());
+            Application.Run(new Ablak_Login());
         }
     }
 }

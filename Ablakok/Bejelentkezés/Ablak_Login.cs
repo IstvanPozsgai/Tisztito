@@ -36,6 +36,7 @@ namespace Tisztito
             Karbantartásellenőrzés();
             Adatok = Kéz.Lista_Adatok();
             AcceptButton = btnLogin;
+
         }
 
         private void BtnLogin_Click(object sender, System.EventArgs e)
@@ -47,6 +48,7 @@ namespace Tisztito
                                     && a.Törölt == false
                                     select a).FirstOrDefault() ?? throw new HibásBevittAdat("Hibás felhasználónév.");
 
+                if (Jelszó.HashPassword(txtPassword.Text.Trim()) != Belép.Password) throw new HibásBevittAdat("Hibás jelszó!");
                 if (Belép.Frissít)
                 {
                     MessageBox.Show("A jelszó még nem lett módosítva az alapbeállításról, a jelszó módosítani szükséges.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -100,6 +102,7 @@ namespace Tisztito
         private void Ablak_Login_Shown(object sender, EventArgs e)
         {
             if (Beléphet) WinVan();
+            txtUsername.Focus();
         }
 
         private void WinVan()
