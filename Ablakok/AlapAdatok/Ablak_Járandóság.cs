@@ -43,6 +43,7 @@ namespace Tisztito.Ablakok
             MunkakörFeltöltés();
             CikkszámMegnevezésFeltöltés();
             Alap_tábla_író();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         private void Ablak_Anyagok_Load(object sender, System.EventArgs e)

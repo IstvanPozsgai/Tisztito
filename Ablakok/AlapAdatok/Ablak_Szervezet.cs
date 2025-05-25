@@ -31,6 +31,7 @@ namespace Tisztito.Ablakok
         {
             StátusokFeltöltése();
             Alap_tábla_író();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         private void StátusokFeltöltése()

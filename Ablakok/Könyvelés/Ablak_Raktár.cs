@@ -43,7 +43,7 @@ namespace Tisztito.Ablakok
             AdatokAnyag = KézAnyag.Lista_Adatok().Where(a => a.Státus == false).ToList();
             AdatokRaktár = KézRaktár.Lista_Adatok();
             CikkszámokFeltöltése();
-
+            GombLathatosagKezelo.Beallit(this);
         }
 
 

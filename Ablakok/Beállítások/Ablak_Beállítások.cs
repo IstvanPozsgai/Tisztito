@@ -18,6 +18,7 @@ namespace Tisztito.Ablakok
         {
             InitializeComponent();
             CiklusTípusfeltöltés();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         private void Ablak_Beállítások_Load(object sender, EventArgs e)

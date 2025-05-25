@@ -33,6 +33,7 @@ namespace Tisztito.Ablakok
             SzervezetekFeltöltése();
             MunkakörökFeltöltése();
             Alap_tábla_író();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         private void MunkakörökFeltöltése()
