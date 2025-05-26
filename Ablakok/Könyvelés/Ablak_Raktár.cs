@@ -27,6 +27,8 @@ namespace Tisztito.Ablakok
         DataTable AdatTáblaALap = new DataTable();
 #pragma warning restore IDE0044
 
+        int KiválasztottStátusz = -1;
+
         public Ablak_Raktár()
         {
             InitializeComponent();
@@ -109,7 +111,7 @@ namespace Tisztito.Ablakok
                     HonnanHovaFeltöltés(99);
                 else
                 {
-                    int KiválasztottStátusz = (int)Enum.Parse(typeof(MyEn.Mozgás), Mozgás.Text);
+                    KiválasztottStátusz = (int)Enum.Parse(typeof(MyEn.Mozgás), Mozgás.Text);
                     HonnanHovaFeltöltés(KiválasztottStátusz);
                 }
             }
@@ -319,6 +321,18 @@ namespace Tisztito.Ablakok
                 if (!int.TryParse(Mennyiség.Text, out int darab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
                 if (!int.TryParse(HonnanMennyiség.Text, out int Honnandarab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
                 if (Honnan.Text.Trim() != "" && Honnandarab < darab) throw new HibásBevittAdat("A készleten lévő mennyiségnél nem lehet többet kiadni.");
+                if (KiválasztottStátusz == 0 && Bizonylatszám.Text.Trim() == "") throw new HibásBevittAdat("A beraktározási bizonylatszámot meg kell adni.");
+                switch (KiválasztottStátusz)
+                {
+                    case 0:      //Beérkezés
+                        break;
+                    case 3:      //Átadás
+                        break;
+                    case 5:      //Visszavétel az átadás negátja
+                        break;
+                    case 9:      //Storno a beérkezés negátja
+                        break;
+                }
 
                 Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
                      Cikkszámok.Text.Trim(),
@@ -705,6 +719,7 @@ namespace Tisztito.Ablakok
             }
         }
         #endregion
+
 
         #region PdfAblak
         Ablak_PDF_Feltöltés Új_Ablak_PDF_Feltöltés;

@@ -71,7 +71,7 @@ namespace Tisztito
                     }
                 }
 
-                //Admin felhasználó menüinek engedélyezése
+                //Admin felhasználó menüinek láthatósága
                 AblakokBeállításaMenuItem.Visible = false;
                 GombokBeállításaToolStripMenuItem.Visible = false;
             }

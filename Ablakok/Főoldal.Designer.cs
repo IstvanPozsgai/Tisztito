@@ -232,7 +232,7 @@
             // Menükinyitás
             // 
             this.Menükinyitás.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Menükinyitás.Image = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
+            this.Menükinyitás.Image = global::Tisztito.Properties.Resources.Filesystem_blockdevice_cubes;
             this.Menükinyitás.Location = new System.Drawing.Point(409, 23);
             this.Menükinyitás.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Menükinyitás.Name = "Menükinyitás";
