@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Ablakok;
+using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using Tisztito.Minden;
 
@@ -16,8 +17,13 @@ namespace Tisztito
     {
         readonly Kezelők_Oldalok KézOldal = new Kezelők_Oldalok();
         readonly Kezelők_Jogosultságok KézJog = new Kezelők_Jogosultságok();
+        readonly Kezelő_Belépés_Verzió Kéz_Belépés_Verzió = new Kezelő_Belépés_Verzió();
 
+        List<Adat_Belépés_Verzió> AdatokVerzó = new List<Adat_Belépés_Verzió>();
 
+        bool CTRL_le = false;
+        bool Shift_le = false;
+        bool Alt_le = false;
 
         public Főoldal()
         {
@@ -26,7 +32,6 @@ namespace Tisztito
         }
 
         #region Alap
-
         private void Start()
         {
             Képetvált();
@@ -67,18 +72,8 @@ namespace Tisztito
                 }
 
                 //Admin felhasználó menüinek engedélyezése
-                if (Program.PostásNév != "admin")
-                {
-                    AblakokBeállításaMenuItem.Visible = false;
-                    GombokBeállításaToolStripMenuItem.Visible = false;
-                }
-                else
-                {
-                    AblakokBeállításaMenuItem.Visible = true;
-                    GombokBeállításaToolStripMenuItem.Visible = true;
-                    AblakokBeállításaMenuItem.Enabled = true;
-                    GombokBeállításaToolStripMenuItem.Enabled = true;
-                }
+                AblakokBeállításaMenuItem.Visible = false;
+                GombokBeállításaToolStripMenuItem.Visible = false;
             }
             catch (HibásBevittAdat ex)
             {
@@ -94,6 +89,21 @@ namespace Tisztito
         private void Főoldal_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void AblakFőoldal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Shift) Shift_le = true;
+            if (e.Alt) Alt_le = true;
+            if (e.Control) CTRL_le = true;
+        }
+
+        private void AblakFőoldal_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Shift) Shift_le = false;
+            if (e.Alt) Alt_le = false;
+            if (e.Control) CTRL_le = false;
+
         }
         #endregion
 
@@ -466,5 +476,66 @@ namespace Tisztito
         #endregion
 
 
+        #region Verzió kezelés
+        private void VerzióListaFeltöltés()
+        {
+            try
+            {
+                AdatokVerzó.Clear();
+                AdatokVerzó = Kéz_Belépés_Verzió.Lista_Adatok();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Verziószám_kiírás()
+        {
+            VerzióListaFeltöltés();
+            Adat_Belépés_Verzió Elem = (from a in AdatokVerzó
+                                        where a.Id == 2
+                                        select a).FirstOrDefault();
+            if (Elem != null) TároltVerzió.Text = Elem.Verzió.ToString();
+        }
+
+        private void Verzió_Váltás_Click(object sender, EventArgs e)
+        {
+            // frissítjük a verziót
+            Adat_Belépés_Verzió Elem = (from a in AdatokVerzó
+                                        where a.Id == 2
+                                        select a).FirstOrDefault();
+            double verzió = double.Parse(Application.ProductVersion.Replace(".", ""));
+            Adat_Belépés_Verzió ADAT = new Adat_Belépés_Verzió(2, verzió);
+            if (Elem != null)
+                Kéz_Belépés_Verzió.Módosítás(ADAT);
+            else
+                Kéz_Belépés_Verzió.Rögzítés(ADAT);
+            Verziószám_kiírás();
+            MessageBox.Show("Az adatok rögzítése befejeződött!", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MenuStrip_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Rejtett.Visible = CTRL_le;
+            Verziószám_kiírás();
+        }
+        #endregion
+
+
+        #region Gombok
+        private void Menükinyitás_Click(object sender, EventArgs e)
+        {
+            AblakokBeállításaMenuItem.Visible = true;
+            GombokBeállításaToolStripMenuItem.Visible = true;
+            AblakokBeállításaMenuItem.Enabled = true;
+            GombokBeállításaToolStripMenuItem.Enabled = true;
+        }
+        #endregion
     }
 }

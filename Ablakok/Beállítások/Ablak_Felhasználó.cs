@@ -13,7 +13,6 @@ using MyE = Tisztito.Module_Excel;
 
 namespace Tisztito
 {
-
     public partial class AblakFelhasználó : Form
     {
         readonly Kezelők_Users Kéz = new Kezelők_Users();
