@@ -31,6 +31,7 @@ namespace Tisztito.Ablakok
 #pragma warning restore IDE0044
 
         int KiválasztottStátusz = -1;
+        int KijelöltSor = -1;
 
         public Ablak_Raktár()
         {
@@ -148,6 +149,8 @@ namespace Tisztito.Ablakok
                         Hova.Items.Add(BázisRaktár);
                         Hova.Text = BázisRaktár;
                         Hova.Enabled = false;
+                        Storno.Visible = false;
+                        Rögzít.Visible = true;
                         break;
                     case 3:
                         //Átadás
@@ -159,6 +162,8 @@ namespace Tisztito.Ablakok
                             Hova.Items.Add(Elem.Szervezet);
                         Hova.Text = "";
                         Hova.Enabled = true;
+                        Storno.Visible = false;
+                        Rögzít.Visible = true;
                         break;
                     case 5:
                         //Visszavétel
@@ -169,6 +174,8 @@ namespace Tisztito.Ablakok
                             Honnan.Items.Add(Elem.Szervezet);
                         Honnan.Text = "";
                         Honnan.Enabled = true;
+                        Storno.Visible = false;
+                        Rögzít.Visible = true;
                         break;
                     case 9:
                         //Stornó
@@ -182,7 +189,8 @@ namespace Tisztito.Ablakok
                             Hova.Items.Add(Elem.Szervezet);
                             Honnan.Items.Add(Elem.Szervezet);
                         }
-                        //TáblázatKönyvelés();
+                        Storno.Visible = true;
+                        Rögzít.Visible = false;
                         break;
 
                     default:
@@ -193,6 +201,9 @@ namespace Tisztito.Ablakok
                         Honnan.Items.Add("");
                         foreach (Adat_Szervezet Elem in AdatokSzervezet)
                             Honnan.Items.Add(Elem.Szervezet);
+
+                        Storno.Visible = false;
+                        Rögzít.Visible = false;
                         break;
                 }
                 TáblaKitöltés();
@@ -326,7 +337,6 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                // itt: a stornozást
                 // itt: a könyvelés sorszámozását
                 if (Mozgás.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva a mozgás.");
                 if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A könyvelés helyét meg kell adni.");
@@ -372,6 +382,42 @@ namespace Tisztito.Ablakok
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Stornózás gomb eseménykezelője
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Storno_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (KijelöltSor < 0) return;
+                //   if(Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim()!="") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
+                Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
+                     Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim(),
+                     Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
+                     Tábla.Rows[KijelöltSor].Cells[3].Value.ToStrTrim(),
+                     Tábla.Rows[KijelöltSor].Cells[4].Value.ToStrTrim(),
+                     Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim() + "S",
+                     Program.PostásNév,
+                     Dátum.Value,
+                     true,
+                     Program.PostásNév,
+                     DateTime.Now);
+                KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló);
+                TáblázatKönyvelés();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
 
@@ -392,6 +438,7 @@ namespace Tisztito.Ablakok
         private void TáblaKitöltés()
         {
             if (Mozgás.Text.Trim() == "") return;
+            KijelöltSor = -1;
             int KiválasztottStátusz = (int)Enum.Parse(typeof(MyEn.Mozgás), Mozgás.Text);
 
             switch (KiválasztottStátusz)
@@ -528,12 +575,20 @@ namespace Tisztito.Ablakok
         private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
+            KijelöltSor = e.RowIndex;
             switch (Tábla.Columns[0].Name.ToString())
             {
                 case "Cikkszám":
                     //Storno táblázat
-                    // itt: itt tartok
+                    Honnan.Text = Tábla.Rows[e.RowIndex].Cells[3].Value.ToStrTrim();
+                    Hova.Text = Tábla.Rows[e.RowIndex].Cells[4].Value.ToStrTrim();
+                    Cikkszámok.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+                    Megnevezések.Text = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
+                    HonnanMennyiség.Text = "<-->";
+                    HováMennyiség.Text = "<-->";
+                    Mennyiség.Text = Tábla.Rows[e.RowIndex].Cells[2].Value.ToStrTrim();
+                    Bizonylatszám.Text = Tábla.Rows[e.RowIndex].Cells[5].Value.ToStrTrim();
+                    Dátum.Value = DateTime.Parse(Tábla.Rows[e.RowIndex].Cells[7].Value.ToStrTrim()).ToÉrt_DaTeTime();
                     break;
 
                 case "Szervezet":
@@ -613,6 +668,7 @@ namespace Tisztito.Ablakok
         {
             try
             {
+
                 AdatokRaktár.Clear();
                 AdatTáblaALap.Clear();
                 AdatokRaktár = KézRaktár.Lista_Adatok();
@@ -678,9 +734,9 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Mennyiség"].Width = 100;
             Tábla.Columns["Szervezet Honnan"].Width = 250;
             Tábla.Columns["Szervezet Hova"].Width = 250;
-            Tábla.Columns["Bizonylat"].Width = 100;
+            Tábla.Columns["Bizonylat"].Width = 150;
             Tábla.Columns["Rögzítő"].Width = 100;
-            Tábla.Columns["Dátum"].Width = 180;
+            Tábla.Columns["Dátum"].Width = 150;
             Tábla.Columns["Storno"].Width = 120;
             Tábla.Columns["Storno Rögzítő"].Width = 100;
             Tábla.Columns["Storno Dátum"].Width = 180;
@@ -713,7 +769,7 @@ namespace Tisztito.Ablakok
                     Soradat["Szervezet Hova"] = rekord.SzervezetHova;
                     Soradat["Bizonylat"] = rekord.Bizonylat;
                     Soradat["Rögzítő"] = rekord.Rögzítő;
-                    Soradat["Dátum"] = rekord.Dátum;
+                    Soradat["Dátum"] = $"{rekord.Dátum:yyyy.MM.dd}";
                     Soradat["Storno"] = rekord.Storno ? "Stornózva" : "Rögzítés";
                     Soradat["Storno Rögzítő"] = rekord.Storno_Rögzítő;
                     Soradat["Storno Dátum"] = rekord.Storno_Dátum;
@@ -759,6 +815,7 @@ namespace Tisztito.Ablakok
         {
             Új_Ablak_PDF_Feltöltés = null;
         }
+
 
 
         #endregion

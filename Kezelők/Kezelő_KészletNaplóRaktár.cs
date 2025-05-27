@@ -114,6 +114,7 @@ namespace Tisztito.Kezelők
             {
                 FájlBeállítás(Év);
                 string szöveg = $"UPDATE {táblanév} SET ";
+                szöveg += $"Bizonylatszám='{Adat.Bizonylat}', ";
                 szöveg += $"Storno={true}, ";
                 szöveg += $"Storno_Rögzítő='{Adat.Storno_Rögzítő}', ";
                 szöveg += $"Storno_Dátum='{Adat.Storno_Dátum}' ";

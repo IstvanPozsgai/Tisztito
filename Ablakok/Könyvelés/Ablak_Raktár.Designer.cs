@@ -60,6 +60,7 @@
             this.PDFAblak = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Storno = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -365,6 +366,7 @@
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -418,6 +420,17 @@
             this.Rögzít.TabIndex = 229;
             this.Rögzít.UseVisualStyleBackColor = true;
             this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
+            // 
+            // Storno
+            // 
+            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
+            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Storno.Location = new System.Drawing.Point(3, 100);
+            this.Storno.Name = "Storno";
+            this.Storno.Size = new System.Drawing.Size(45, 45);
+            this.Storno.TabIndex = 233;
+            this.Storno.UseVisualStyleBackColor = true;
+            this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
             // Ablak_Raktár
             // 
@@ -473,5 +486,6 @@
         internal System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker Dátum;
         internal System.Windows.Forms.Button PDFAblak;
+        internal System.Windows.Forms.Button Storno;
     }
 }
