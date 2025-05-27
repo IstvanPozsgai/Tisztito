@@ -12,6 +12,9 @@ namespace Tisztito.Ablakok
 {
     public partial class Ablak_Raktár : Form
     {
+
+        // itt: PDF fájlt meg kellene jeleníteni miután feltöltésre került kettős funkció feltöltés/megjelenítés
+
         const string BázisRaktár = "Központi raktár";
 
         readonly Kezelő_Szervezet KézSzervezet = new Kezelő_Szervezet();
@@ -98,15 +101,14 @@ namespace Tisztito.Ablakok
         /// <summary>
         /// Kiválasztott elemnek megfelelően feltöltjük a Honnan és Hova comboboxokat
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Mozgás_SelectedIndexChanged(object sender, EventArgs e)
+        private void Mozgás_SelectionChangeCommitted(object sender, EventArgs e)
         {
             try
             {
                 //kiürítjük a comboboxokat
                 Honnan.Items.Clear();
                 Hova.Items.Clear();
+                Mozgás.Text = Mozgás.Items[Mozgás.SelectedIndex].ToStrTrim();
                 if (Mozgás.Text.Trim() == "")
                     HonnanHovaFeltöltés(99);
                 else
@@ -114,6 +116,7 @@ namespace Tisztito.Ablakok
                     KiválasztottStátusz = (int)Enum.Parse(typeof(MyEn.Mozgás), Mozgás.Text);
                     HonnanHovaFeltöltés(KiválasztottStátusz);
                 }
+
             }
             catch (HibásBevittAdat ex)
             {
@@ -179,7 +182,7 @@ namespace Tisztito.Ablakok
                             Hova.Items.Add(Elem.Szervezet);
                             Honnan.Items.Add(Elem.Szervezet);
                         }
-                        TáblázatKönyvelés();
+                        //TáblázatKönyvelés();
                         break;
 
                     default:
@@ -192,7 +195,7 @@ namespace Tisztito.Ablakok
                             Honnan.Items.Add(Elem.Szervezet);
                         break;
                 }
-
+                TáblaKitöltés();
             }
             catch (HibásBevittAdat ex)
             {
@@ -300,6 +303,16 @@ namespace Tisztito.Ablakok
             }
         }
 
+        /// <summary>
+        /// Ha ki van választva, akkor listázza a készletét
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Honnan_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Honnan.Text = Honnan.Items[Honnan.SelectedIndex].ToString();
+            TáblaKitöltés();
+        }
         #endregion
 
 
@@ -516,20 +529,20 @@ namespace Tisztito.Ablakok
         {
             if (e.RowIndex < 0) return;
 
-            if (Tábla.Columns[0].ToString() != "Szervezet")
+            switch (Tábla.Columns[0].Name.ToString())
             {
-                //Ez a képernyő a készlet lista
-                string cikkszám = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
-                Adatokkiírása(cikkszám);
-                Honnan.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+                case "Cikkszám":
+                    //Storno táblázat
+                    // itt: itt tartok
+                    break;
+
+                case "Szervezet":
+                    //Ez a képernyő a készlet lista
+                    string cikkszám = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
+                    Adatokkiírása(cikkszám);
+                    Honnan.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+                    break;
             }
-            else
-            {
-                // Ez a képernyő a napló lista
-            }
-
-
-
         }
 
         /// <summary>
@@ -747,7 +760,9 @@ namespace Tisztito.Ablakok
             Új_Ablak_PDF_Feltöltés = null;
         }
 
+
         #endregion
+
 
     }
 }

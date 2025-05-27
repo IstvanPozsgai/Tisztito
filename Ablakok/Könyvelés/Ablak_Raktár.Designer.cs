@@ -258,6 +258,7 @@
             this.Honnan.Size = new System.Drawing.Size(350, 28);
             this.Honnan.Sorted = true;
             this.Honnan.TabIndex = 218;
+            this.Honnan.SelectionChangeCommitted += new System.EventHandler(this.Honnan_SelectionChangeCommitted);
             // 
             // tableLayoutPanel1
             // 
@@ -321,7 +322,7 @@
             this.Mozgás.Size = new System.Drawing.Size(350, 28);
             this.Mozgás.Sorted = true;
             this.Mozgás.TabIndex = 245;
-            this.Mozgás.SelectedIndexChanged += new System.EventHandler(this.Mozgás_SelectedIndexChanged);
+            this.Mozgás.SelectionChangeCommitted += new System.EventHandler(this.Mozgás_SelectionChangeCommitted);
             // 
             // label4
             // 
