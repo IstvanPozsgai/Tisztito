@@ -388,6 +388,27 @@ namespace Tisztito
         {
             Új_Ablak_Raktár = null;
         }
+
+        Ablak_KiOszt Új_Ablak_KiOszt;
+        private void DolgozóiKiadásMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_KiOszt == null)
+            {
+                Új_Ablak_KiOszt = new Ablak_KiOszt();
+                Új_Ablak_KiOszt.FormClosed += Új_Ablak_KiOszt_FormClosed;
+                Új_Ablak_KiOszt.Show();
+            }
+            else
+            {
+                Új_Ablak_KiOszt.Activate();
+                Új_Ablak_KiOszt.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_KiOszt_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_KiOszt = null;
+        }
         #endregion
 
 
@@ -537,5 +558,7 @@ namespace Tisztito
             GombokBeállításaToolStripMenuItem.Enabled = true;
         }
         #endregion
+
+
     }
 }
