@@ -59,8 +59,8 @@
             this.MezőkÜrítése = new System.Windows.Forms.Button();
             this.PDFAblak = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Storno = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();

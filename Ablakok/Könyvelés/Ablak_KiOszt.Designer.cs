@@ -51,6 +51,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.TxtMennyiség = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.RaktárKészlet = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -60,7 +62,7 @@
             // 
             this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
             this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Location = new System.Drawing.Point(1101, 158);
+            this.Rögzít.Location = new System.Drawing.Point(1104, 208);
             this.Rögzít.Name = "Rögzít";
             this.Rögzít.Size = new System.Drawing.Size(45, 45);
             this.Rögzít.TabIndex = 229;
@@ -77,6 +79,7 @@
             this.GombokMinden.TabIndex = 106;
             this.toolTip1.SetToolTip(this.GombokMinden, "Minden kijeölése");
             this.GombokMinden.UseVisualStyleBackColor = true;
+            this.GombokMinden.Click += new System.EventHandler(this.GombokMinden_Click);
             // 
             // GombokSemmi
             // 
@@ -89,6 +92,7 @@
             this.GombokSemmi.TabIndex = 105;
             this.toolTip1.SetToolTip(this.GombokSemmi, "Minden kijelölést megszüntet");
             this.GombokSemmi.UseVisualStyleBackColor = true;
+            this.GombokSemmi.Click += new System.EventHandler(this.GombokSemmi_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -130,6 +134,7 @@
             this.CmbMunkakör.Name = "CmbMunkakör";
             this.CmbMunkakör.Size = new System.Drawing.Size(463, 28);
             this.CmbMunkakör.TabIndex = 248;
+            this.CmbMunkakör.SelectionChangeCommitted += new System.EventHandler(this.CmbMunkakör_SelectionChangeCommitted);
             // 
             // label1
             // 
@@ -156,6 +161,7 @@
             this.CmbSzervezet.Name = "CmbSzervezet";
             this.CmbSzervezet.Size = new System.Drawing.Size(463, 28);
             this.CmbSzervezet.TabIndex = 247;
+            this.CmbSzervezet.SelectionChangeCommitted += new System.EventHandler(this.CmbSzervezet_SelectionChangeCommitted);
             // 
             // ChkDolgozók
             // 
@@ -181,6 +187,7 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.41527F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.58473F));
+            this.tableLayoutPanel3.Controls.Add(this.RaktárKészlet, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.label7, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.LblJárandóság, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.CmbMegnevezés, 1, 1);
@@ -188,15 +195,17 @@
             this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.TxtMennyiség, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.TxtMennyiség, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 4);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(612, 12);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 140);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 176);
             this.tableLayoutPanel3.TabIndex = 244;
             // 
             // label7
@@ -204,9 +213,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 105);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 20);
+            this.label7.Size = new System.Drawing.Size(107, 35);
             this.label7.TabIndex = 251;
-            this.label7.Text = "Mennyiség:";
+            this.label7.Text = "Raktárkészlet:";
             // 
             // LblJárandóság
             // 
@@ -224,6 +233,7 @@
             this.CmbMegnevezés.Name = "CmbMegnevezés";
             this.CmbMegnevezés.Size = new System.Drawing.Size(416, 28);
             this.CmbMegnevezés.TabIndex = 249;
+            this.CmbMegnevezés.SelectionChangeCommitted += new System.EventHandler(this.CmbMegnevezés_SelectionChangeCommitted);
             // 
             // CmbCikkszámok
             // 
@@ -232,6 +242,7 @@
             this.CmbCikkszámok.Name = "CmbCikkszámok";
             this.CmbCikkszámok.Size = new System.Drawing.Size(219, 28);
             this.CmbCikkszámok.TabIndex = 248;
+            this.CmbCikkszámok.SelectionChangeCommitted += new System.EventHandler(this.CmbCikkszámok_SelectionChangeCommitted);
             // 
             // label5
             // 
@@ -262,10 +273,28 @@
             // 
             // TxtMennyiség
             // 
-            this.TxtMennyiség.Location = new System.Drawing.Point(118, 108);
+            this.TxtMennyiség.Location = new System.Drawing.Point(118, 143);
             this.TxtMennyiség.Name = "TxtMennyiség";
             this.TxtMennyiség.Size = new System.Drawing.Size(100, 26);
             this.TxtMennyiség.TabIndex = 252;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 140);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 20);
+            this.label8.TabIndex = 253;
+            this.label8.Text = "Mennyiség:";
+            // 
+            // RaktárKészlet
+            // 
+            this.RaktárKészlet.AutoSize = true;
+            this.RaktárKészlet.Location = new System.Drawing.Point(118, 105);
+            this.RaktárKészlet.Name = "RaktárKészlet";
+            this.RaktárKészlet.Size = new System.Drawing.Size(49, 20);
+            this.RaktárKészlet.TabIndex = 254;
+            this.RaktárKészlet.Text = "<< >>";
             // 
             // Ablak_KiOszt
             // 
@@ -315,5 +344,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox TxtMennyiség;
+        private System.Windows.Forms.Label RaktárKészlet;
+        private System.Windows.Forms.Label label8;
     }
 }
