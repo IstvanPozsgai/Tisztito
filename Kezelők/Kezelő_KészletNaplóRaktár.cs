@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatbázis;
 using Tisztito.Adatszerkezet;
@@ -153,6 +154,49 @@ namespace Tisztito.Kezelők
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Bizonylatszámot ad vissza amihez lehet rögzíteni az adott tételeket.
+        /// </summary>
+        /// <param name="Betűjel"></param>
+        /// <returns></returns>
+        public string Bizonylat(string Betűjel)
+        {
+            string Válasz = $"{Betűjel}_{DateTime.Today.Year}_";
+            try
+            {
+                FájlBeállítás(DateTime.Today.Year);
+                List<Adat_KészletNaplóRaktár> Adatok = Lista_Adatok(DateTime.Today.Year);
+                Adatok = (from a in Adatok
+                          where a.Bizonylat.Contains(Válasz)
+                          orderby a.Bizonylat
+                          select a).ToList();
+                if (Adatok == null || Adatok.Count == 0)
+                    Válasz += "1";
+                else
+                {
+                    int maximum = 1;
+                    foreach (Adat_KészletNaplóRaktár item in Adatok)
+                    {
+                        string[] darabol = item.Bizonylat.Split('_');
+                        int érték = darabol[2].ToÉrt_Int();
+                        if (érték < maximum) érték = maximum;
+                    }
+                    maximum++;   // beállítjuk a következő értéket
+                    Válasz += $"{maximum}";
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return Válasz;
         }
     }
 }

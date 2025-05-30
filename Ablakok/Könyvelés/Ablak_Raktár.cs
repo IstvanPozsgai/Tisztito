@@ -61,6 +61,12 @@ namespace Tisztito.Ablakok
         private void MezőkÜrítése_Click(object sender, EventArgs e)
         {
             Mozgás.Text = "";
+            Mezőkürítés();
+        }
+
+        private void Mezőkürítés()
+        {
+
             Honnan.Text = "";
             Hova.Text = "";
             Cikkszámok.Text = "";
@@ -71,7 +77,6 @@ namespace Tisztito.Ablakok
             Bizonylatszám.Text = "";
             Honnan.Enabled = true;
             Hova.Enabled = true;
-
         }
 
 
@@ -107,6 +112,7 @@ namespace Tisztito.Ablakok
             try
             {
                 //kiürítjük a comboboxokat
+                Mezőkürítés();
                 Honnan.Items.Clear();
                 Hova.Items.Clear();
                 Mozgás.Text = Mozgás.Items[Mozgás.SelectedIndex].ToStrTrim();
@@ -218,6 +224,18 @@ namespace Tisztito.Ablakok
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Ha máshova megy az anyag akkor a bizonylataszám eltérő
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Hova_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Bizonylatszám.Text = "";
+        }
+
+
         #endregion
 
 
@@ -316,12 +334,14 @@ namespace Tisztito.Ablakok
 
         /// <summary>
         /// Ha ki van választva, akkor listázza a készletét
+        /// és a bizonylatszámot üríti
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Honnan_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Honnan.Text = Honnan.Items[Honnan.SelectedIndex].ToString();
+            Bizonylatszám.Text = "";
             TáblaKitöltés();
         }
         #endregion
@@ -337,7 +357,6 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                // itt: a könyvelés sorszámozását
                 if (Mozgás.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva a mozgás.");
                 if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A könyvelés helyét meg kell adni.");
                 if (!(Hova.Text.Trim() == BázisRaktár || Honnan.Text.Trim() == BázisRaktár)) throw new HibásBevittAdat($"A {BázisRaktár}-nak szerepelnie kell valamelyik helyen.");
@@ -347,13 +366,13 @@ namespace Tisztito.Ablakok
                 if (KiválasztottStátusz == 0 && Bizonylatszám.Text.Trim() == "") throw new HibásBevittAdat("A beraktározási bizonylatszámot meg kell adni.");
                 switch (KiválasztottStátusz)
                 {
-                    case 0:      //Beérkezés
+                    case 3:
+                        //Átadás
+                        Bizonylatszám.Text = KézNaplóRaktár.Bizonylat("A");
                         break;
-                    case 3:      //Átadás
-                        break;
-                    case 5:      //Visszavétel az átadás negátja
-                        break;
-                    case 9:      //Storno a beérkezés negátja
+                    case 5:
+                        //Visszavétel az átadás negátja
+                        Bizonylatszám.Text = KézNaplóRaktár.Bizonylat("V");
                         break;
                 }
 
@@ -399,7 +418,7 @@ namespace Tisztito.Ablakok
                      Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
                      Tábla.Rows[KijelöltSor].Cells[3].Value.ToStrTrim(),
                      Tábla.Rows[KijelöltSor].Cells[4].Value.ToStrTrim(),
-                     Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim() + "S",
+                     "S" + Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim(),
                      Program.PostásNév,
                      Dátum.Value,
                      true,
@@ -444,6 +463,7 @@ namespace Tisztito.Ablakok
             switch (KiválasztottStátusz)
             {
                 case 0:
+                    Táblázat();
                     break;
                 case 3:
                     Táblázat();
@@ -533,10 +553,8 @@ namespace Tisztito.Ablakok
             try
             {
                 List<Adat_Raktár> Adatok = new List<Adat_Raktár>();
-                if (Honnan.Text.Trim() == "")
-                    Adatok = AdatokRaktár;
-                else
-                    Adatok = AdatokRaktár.Where(a => a.Szervezet == Honnan.Text.Trim()).ToList();
+                if (Honnan.Text.Trim() == "" && Hova.Text.Trim() == BázisRaktár) Adatok = AdatokRaktár.Where(a => a.Szervezet == BázisRaktár).ToList(); ;
+                if (Honnan.Text.Trim() != "") Adatok = AdatokRaktár.Where(a => a.Szervezet == Honnan.Text.Trim()).ToList();
 
                 AdatTáblaALap.Clear();
 
@@ -595,7 +613,7 @@ namespace Tisztito.Ablakok
                     //Ez a képernyő a készlet lista
                     string cikkszám = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
                     Adatokkiírása(cikkszám);
-                    Honnan.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+                    //   Honnan.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
                     break;
             }
         }
@@ -815,6 +833,7 @@ namespace Tisztito.Ablakok
         {
             Új_Ablak_PDF_Feltöltés = null;
         }
+
 
 
 

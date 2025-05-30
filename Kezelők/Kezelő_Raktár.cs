@@ -57,6 +57,7 @@ namespace Tisztito.Kezelők
         {
             try
             {
+                Adatok.Clear();
                 Adatok = Lista_Adatok();
                 Adat_Raktár Készlet = Adatok.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
                 if (Készlet == null)
