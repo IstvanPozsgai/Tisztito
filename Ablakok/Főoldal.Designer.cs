@@ -54,6 +54,7 @@
             this.Rejtett = new System.Windows.Forms.GroupBox();
             this.TároltVerzió = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
+            this.DolgozóiKiadásMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -184,7 +185,8 @@
             // könyvelésekToolStripMenuItem
             // 
             this.könyvelésekToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.raktárakKözöttiKönyvelésToolStripMenuItem});
+            this.raktárakKözöttiKönyvelésToolStripMenuItem,
+            this.DolgozóiKiadásMenuItem});
             this.könyvelésekToolStripMenuItem.Image = global::Tisztito.Properties.Resources.App_edit;
             this.könyvelésekToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.könyvelésekToolStripMenuItem.Name = "könyvelésekToolStripMenuItem";
@@ -290,6 +292,13 @@
             this.Label5.TabIndex = 27;
             this.Label5.Text = "Tárolt Verzió szám:";
             // 
+            // DolgozóiKiadásMenuItem
+            // 
+            this.DolgozóiKiadásMenuItem.Name = "DolgozóiKiadásMenuItem";
+            this.DolgozóiKiadásMenuItem.Size = new System.Drawing.Size(267, 24);
+            this.DolgozóiKiadásMenuItem.Text = "Dolgozói Kiadás";
+            this.DolgozóiKiadásMenuItem.Click += new System.EventHandler(this.DolgozóiKiadásMenuItem_Click);
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -346,6 +355,7 @@
         internal System.Windows.Forms.TextBox TároltVerzió;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.Button Verzió_Váltás;
+        private System.Windows.Forms.ToolStripMenuItem DolgozóiKiadásMenuItem;
     }
 }
 

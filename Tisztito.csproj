@@ -137,6 +137,12 @@
     <Compile Include="Ablakok\Ablak_PDF_Feltöltés.Designer.cs">
       <DependentUpon>Ablak_PDF_Feltöltés.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_KiOszt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_KiOszt.Designer.cs">
+      <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Könyvelés\Ablak_Raktár.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Ablak_PDF_Feltöltés.resx">
       <DependentUpon>Ablak_PDF_Feltöltés.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_KiOszt.resx">
+      <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Raktár.resx">
       <DependentUpon>Ablak_Raktár.cs</DependentUpon>
