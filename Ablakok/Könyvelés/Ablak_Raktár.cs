@@ -922,7 +922,7 @@ namespace Tisztito.Ablakok
                 PdfPage page = doc.AddPage();
                 XGraphics gfx = XGraphics.FromPdfPage(page);
                 XFont font = new XFont("Arial", 12);
-                XFont fontBold = new XFont("Arial", 30);
+                XFont fontBold = new XFont("Arial", 25, XFontStyleEx.Italic, new XPdfFontOptions(PdfFontEmbedding.EmbedCompleteFontFile));
                 double pageWidth = page.Width.Point;   // A lap teljes szélessége pontban:
 
                 int marginLeft = 40;
@@ -960,23 +960,21 @@ namespace Tisztito.Ablakok
 
 
                 szoveg = $"Szállítólevél";   // A szöveg, amit középre akarsz tenni:
-
-                // Ha pontosan 13 karakter szélességű helyet akarsz középre igazítani:
-                string helykitolto = new string(' ', Math.Max(0, 13 - szoveg.Length));
-                string kiirando = szoveg + helykitolto;
-
                 // A szöveg tényleges szélessége:
-                szovegSzelesseg = gfx.MeasureString(kiirando, fontBold).Width;
+                szovegSzelesseg = gfx.MeasureString(szoveg, fontBold).Width;
 
                 // A kezdő X pozíció (középre igazítva):
                 double kozepX = (pageWidth - szovegSzelesseg) / 2;
 
                 // Szöveg kiírása középre:
-                gfx.DrawString(kiirando, fontBold, XBrushes.Black, kozepX, y);
+                gfx.DrawString(szoveg, fontBold, XBrushes.Black, kozepX, y);
 
                 y += 30;
-                gfx.DrawString($"Honnan: {tételek[0].SzervezetHonnan}", font, XBrushes.Black, signatureX1, y);
-                gfx.DrawString($"Hova: {tételek[0].SzervezetHova}", font, XBrushes.Black, signatureX2, y);
+                gfx.DrawString($"Honnan:", font, XBrushes.Black, signatureX1, y);
+                gfx.DrawString($"Hova:", font, XBrushes.Black, signatureX2, y);
+                y += 15;
+                gfx.DrawString($"{tételek[0].SzervezetHonnan}", font, XBrushes.Black, signatureX1, y);
+                gfx.DrawString($"{tételek[0].SzervezetHova}", font, XBrushes.Black, signatureX2, y);
                 y += 30;
                 szoveg = $"Bizonylatszám: {bizonylatszám}";
                 gfx.DrawString(szoveg, font, XBrushes.Black, signatureX1, y);
