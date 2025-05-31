@@ -13,7 +13,9 @@ namespace Tisztito.Ablakok
     public partial class Ablak_Gombok : Form
     {
         readonly Kezelők_Gombok Kéz = new Kezelők_Gombok();
+#pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
+#pragma warning restore IDE0044
         List<Adat_Gombok> Adatok = new List<Adat_Gombok>();
 
         public Ablak_Gombok()

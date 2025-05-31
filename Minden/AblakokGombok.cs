@@ -39,8 +39,7 @@ namespace Tisztito.Minden
                 if (FormKiválasztott == null) return buttons;
 
                 // Példányosítjuk a formot, de nem jelenítjük meg
-                Form form = Activator.CreateInstance(FormKiválasztott) as Form;
-                if (form == null) return null;
+                if (!(Activator.CreateInstance(FormKiválasztott) is Form form)) return null;
 
                 // Lekérjük a gombokat
                 buttons = GetAllButtons(form);

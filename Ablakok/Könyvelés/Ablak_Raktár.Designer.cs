@@ -55,13 +55,14 @@
             this.Dátum = new System.Windows.Forms.DateTimePicker();
             this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.BtnExcel = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
             this.PDFAblak = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.BtnExcel = new System.Windows.Forms.Button();
+            this.Pdf_Készítés = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -370,6 +371,7 @@
             this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.Pdf_Készítés, 2, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -379,6 +381,18 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 202);
             this.tableLayoutPanel2.TabIndex = 242;
+            // 
+            // BtnExcel
+            // 
+            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
+            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnExcel.Location = new System.Drawing.Point(113, 3);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
+            this.BtnExcel.TabIndex = 249;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
+            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // Frissít
             // 
@@ -435,17 +449,16 @@
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
-            // BtnExcel
+            // Pdf_Készítés
             // 
-            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
-            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnExcel.Location = new System.Drawing.Point(113, 3);
-            this.BtnExcel.Name = "BtnExcel";
-            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
-            this.BtnExcel.TabIndex = 249;
-            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
-            this.BtnExcel.UseVisualStyleBackColor = true;
-            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
+            this.Pdf_Készítés.BackgroundImage = global::Tisztito.Properties.Resources.pdf_32;
+            this.Pdf_Készítés.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Pdf_Készítés.Location = new System.Drawing.Point(113, 154);
+            this.Pdf_Készítés.Name = "Pdf_Készítés";
+            this.Pdf_Készítés.Size = new System.Drawing.Size(45, 44);
+            this.Pdf_Készítés.TabIndex = 250;
+            this.Pdf_Készítés.UseVisualStyleBackColor = true;
+            this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
             // 
             // Ablak_Raktár
             // 
@@ -503,5 +516,6 @@
         internal System.Windows.Forms.Button PDFAblak;
         internal System.Windows.Forms.Button Storno;
         internal System.Windows.Forms.Button BtnExcel;
+        internal System.Windows.Forms.Button Pdf_Készítés;
     }
 }

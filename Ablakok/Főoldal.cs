@@ -270,7 +270,7 @@ namespace Tisztito
 
         #region Működési adatok
         Ablak_Beállítások Új_Ablak_Beállítások;
-        private void működésiAdatokToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MűködésiAdatokToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Új_Ablak_Beállítások == null)
             {
@@ -345,7 +345,7 @@ namespace Tisztito
 
         #region TerületiIgények
         Ablak_Igények Új_Ablak_Igények;
-        private void területiIgényekToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TerületiIgényekToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Új_Ablak_Igények == null)
             {
@@ -543,7 +543,7 @@ namespace Tisztito
 
         private void MenuStrip_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Rejtett.Visible = CTRL_le;
+            Rejtett.Visible = CTRL_le && Shift_le && Alt_le;
             Verziószám_kiírás();
         }
         #endregion

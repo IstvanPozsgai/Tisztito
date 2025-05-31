@@ -17,13 +17,14 @@ namespace Tisztito.Ablakok
         readonly Kezelő_Szervezet KézSzervezet = new Kezelő_Szervezet();
 #pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
+        List<Adat_Igény> AdatokIgény = new List<Adat_Igény>();
 #pragma warning restore IDE0044
 
         List<Adat_Anyag> AdatokAnyag = new List<Adat_Anyag>();
         List<Adat_Dolgozó> AdatokDolgozó = new List<Adat_Dolgozó>();
         List<Adat_Járandóság> AdatokJárandóság = new List<Adat_Járandóság>();
         List<Adat_Szervezet> AdatokSzervezet = new List<Adat_Szervezet>();
-        List<Adat_Igény> AdatokIgény = new List<Adat_Igény>();
+
         public Ablak_Igények()
         {
             InitializeComponent();

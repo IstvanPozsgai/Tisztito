@@ -881,11 +881,11 @@ namespace Tisztito
 
                 órad = ideig * 24;
                 óra = ((int)órad);
-                órad = órad - Convert.ToDecimal(óra);
+                órad -= Convert.ToDecimal(óra);
 
                 percd = órad * 60;
                 perc = (int)percd;
-                percd = percd - Convert.ToDecimal(perc);
+                percd -= Convert.ToDecimal(perc);
 
                 másodpercd = percd * 60;
                 másodperc = (int)másodpercd;

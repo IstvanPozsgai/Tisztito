@@ -19,7 +19,9 @@ namespace Tisztito
         readonly Kezelő_Dolgozó KézDolgozó = new Kezelő_Dolgozó();
         List<Adat_Users> Adatok = new List<Adat_Users>();
         List<Adat_Dolgozó> AdatokDolg = new List<Adat_Dolgozó>();
+#pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
+#pragma warning restore IDE0044
 
 
         #region Alap

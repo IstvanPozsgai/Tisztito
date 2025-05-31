@@ -13,7 +13,9 @@ namespace Tisztito.Ablakok
     public partial class Ablak_Szervezet : Form
     {
         readonly Kezelő_Szervezet KézSzervezet = new Kezelő_Szervezet();
+#pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
+#pragma warning restore IDE0044
         List<Adat_Szervezet> Adatok = new List<Adat_Szervezet>();
 
         public Ablak_Szervezet()

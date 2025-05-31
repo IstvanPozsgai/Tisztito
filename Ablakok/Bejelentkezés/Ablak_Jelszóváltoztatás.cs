@@ -9,7 +9,10 @@ namespace Tisztito
     public partial class AblakJelszóváltoztatás
     {
         readonly Kezelők_Users Kéz = new Kezelők_Users();
+
+#pragma warning disable IDE0044
         Adat_Users Adat;
+#pragma warning restore IDE0044
         public AblakJelszóváltoztatás(Adat_Users adat)
         {
             InitializeComponent();

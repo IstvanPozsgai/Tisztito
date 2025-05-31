@@ -131,7 +131,7 @@
             this.működésiAdatokToolStripMenuItem.Name = "működésiAdatokToolStripMenuItem";
             this.működésiAdatokToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.működésiAdatokToolStripMenuItem.Text = "&Működési Adatok";
-            this.működésiAdatokToolStripMenuItem.Click += new System.EventHandler(this.működésiAdatokToolStripMenuItem_Click);
+            this.működésiAdatokToolStripMenuItem.Click += new System.EventHandler(this.MűködésiAdatokToolStripMenuItem_Click);
             // 
             // alapAdatokToolStripMenuItem
             // 
@@ -223,7 +223,7 @@
             this.területiIgényekToolStripMenuItem.Name = "területiIgényekToolStripMenuItem";
             this.területiIgényekToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.területiIgényekToolStripMenuItem.Text = "Területi igények";
-            this.területiIgényekToolStripMenuItem.Click += new System.EventHandler(this.területiIgényekToolStripMenuItem_Click);
+            this.területiIgényekToolStripMenuItem.Click += new System.EventHandler(this.TerületiIgényekToolStripMenuItem_Click);
             // 
             // Verzió_Váltás
             // 

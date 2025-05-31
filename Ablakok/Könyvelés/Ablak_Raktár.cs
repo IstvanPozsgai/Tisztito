@@ -1,12 +1,19 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
+using Tisztito.Minden;
+using MyE = Tisztito.Module_Excel;
 using MyEn = Tisztito.Minden.Enumok;
 using MyF = Függvénygyűjtemény;
+
 
 namespace Tisztito.Ablakok
 {
@@ -14,6 +21,7 @@ namespace Tisztito.Ablakok
     {
 
         // itt: PDF fájlt meg kellene jeleníteni miután feltöltésre került kettős funkció feltöltés/megjelenítés
+
 
         const string BázisRaktár = "Központi raktár";
 
@@ -37,6 +45,7 @@ namespace Tisztito.Ablakok
         {
             InitializeComponent();
             Start();
+            PdfSharp.Fonts.GlobalFontSettings.FontResolver = new PDFhezBetű();
         }
 
         /// <summary>
@@ -698,6 +707,7 @@ namespace Tisztito.Ablakok
                 TáblaOszlopSzélességKönyvelés();
                 Tábla.Visible = true;
                 Tábla.Refresh();
+                SzínezdStornoSorokat();
 
             }
             catch (HibásBevittAdat ex)
@@ -768,6 +778,10 @@ namespace Tisztito.Ablakok
             try
             {
                 List<Adat_KészletNaplóRaktár> Adatok = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
+                //Csak a raktárak közötti mozgásokat írjuk ki
+                Adatok = (from a in Adatok
+                          where !(a.SzervezetHova == null || a.SzervezetHova.Trim() == "")
+                          select a).ToList();
                 if (Honnan.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHonnan == Honnan.Text.Trim()).ToList();
                 if (Hova.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHova == Hova.Text.Trim()).ToList();
 
@@ -805,6 +819,27 @@ namespace Tisztito.Ablakok
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Kiemeli a törölt elemeket
+        /// </summary>
+        private void SzínezdStornoSorokat()
+        {
+            if (!Tábla.Columns.Contains("Storno"))
+                return;
+
+            int stornoOszlopIndex = Tábla.Columns["Storno"].Index;
+            foreach (DataGridViewRow row in Tábla.Rows)
+            {
+                if (row.IsNewRow) continue;
+                var cellValue = row.Cells[stornoOszlopIndex].Value;
+                if (cellValue != null && cellValue.ToString() == "Stornózva")
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral; // világos piros
+                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.Yellow;     // sárga betű
+                }
+            }
+        }
         #endregion
 
 
@@ -833,16 +868,203 @@ namespace Tisztito.Ablakok
         {
             Új_Ablak_PDF_Feltöltés = null;
         }
-
-
-
-
-
         #endregion
 
         private void BtnExcel_Click(object sender, EventArgs e)
         {
-            // megjegyzés nincs kész a gomb
+            try
+            {
+                if (Tábla.Rows.Count <= 0) return;
+                string fájlexc;
+
+                // kimeneti fájl helye és neve
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Listázott tartalom mentése Excel fájlba",
+                    FileName = $"Raktárak_Között_{Program.PostásNév}-{DateTime.Now:yyyyMMddHHmmss}",
+                    Filter = "Excel |*.xlsx"
+                };
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (SaveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = SaveFileDialog1.FileName;
+                else
+                    return;
+
+                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                MyE.EXCELtábla(fájlexc, Tábla, false);
+                MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MyE.Megnyitás(fájlexc + ".xlsx");
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void KészítsSzállítóPDF(string bizonylatszám)
+        {
+            try
+            {
+
+                List<Adat_KészletNaplóRaktár> tételek = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year)
+                     .Where(a => a.Bizonylat == bizonylatszám)
+                     .ToList();
+
+                if (tételek.Count == 0) throw new HibásBevittAdat("Nincs ilyen bizonylatszámú tétel.");
+                PdfDocument doc = new PdfDocument();
+                doc.Info.Title = $"Szállítólevél - {bizonylatszám}";
+                PdfPage page = doc.AddPage();
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+                XFont font = new XFont("Arial", 12);
+                XFont fontBold = new XFont("Arial", 30);
+                double pageWidth = page.Width.Point;   // A lap teljes szélessége pontban:
+
+                int marginLeft = 40;
+                int marginTop = 40;
+                int y = marginTop;
+                int signatureWidth = 150;
+                int signatureGap = 100;
+                int signatureX1 = marginLeft;
+                int signatureX2 = marginLeft + signatureWidth + signatureGap;
+                string szoveg = "BKV ZRT.";
+                double szovegSzelesseg = gfx.MeasureString(szoveg, font).Width;
+
+                // --- Logó és "BKV zrt." szöveg ---
+                string logoPath = Path.Combine($@"{Application.StartupPath}\Adatok\Logo\", "BKV.png"); // Állítsd be a helyes elérési utat!
+                if (File.Exists(logoPath))
+                {
+                    XImage logo = XImage.FromFile(logoPath);
+                    int logoHeight = 40;
+                    int logoWidth = (int)(logo.PixelWidth * ((double)logoHeight / logo.PixelHeight));
+                    gfx.DrawImage(logo, marginLeft, y, logoWidth, logoHeight);
+
+                    double jobbX = pageWidth - 40 - szovegSzelesseg; // 40 a jobb oldali margó
+
+                    gfx.DrawString(szoveg, font, XBrushes.Black, jobbX, y + logoHeight / 2 + 5);
+                    y += logoHeight + 10;
+                }
+                else
+                {
+                    gfx.DrawString("BKV ZRT.", font, XBrushes.Black, marginLeft, y + 20);
+                    y += 40;
+                }
+                y += 30;
+
+
+
+
+                szoveg = $"Szállítólevél";   // A szöveg, amit középre akarsz tenni:
+
+                // Ha pontosan 13 karakter szélességű helyet akarsz középre igazítani:
+                string helykitolto = new string(' ', Math.Max(0, 13 - szoveg.Length));
+                string kiirando = szoveg + helykitolto;
+
+                // A szöveg tényleges szélessége:
+                szovegSzelesseg = gfx.MeasureString(kiirando, fontBold).Width;
+
+                // A kezdő X pozíció (középre igazítva):
+                double kozepX = (pageWidth - szovegSzelesseg) / 2;
+
+                // Szöveg kiírása középre:
+                gfx.DrawString(kiirando, fontBold, XBrushes.Black, kozepX, y);
+
+                y += 30;
+                gfx.DrawString($"Honnan: {tételek[0].SzervezetHonnan}", font, XBrushes.Black, signatureX1, y);
+                gfx.DrawString($"Hova: {tételek[0].SzervezetHova}", font, XBrushes.Black, signatureX2, y);
+                y += 30;
+                szoveg = $"Bizonylatszám: {bizonylatszám}";
+                gfx.DrawString(szoveg, font, XBrushes.Black, signatureX1, y);
+
+                // Táblázat oszlopok szélességei
+                y += 30;
+                int colCikkszám = 100;
+                int colMegnevezés = 220;
+                int colMennyiség = 80;
+
+                int tableWidth = colCikkszám + colMegnevezés + colMennyiség;
+                int rowHeight = 22;
+
+                // Fejléc
+                int x = marginLeft;
+                gfx.DrawRectangle(XPens.Black, x, y, tableWidth, rowHeight);
+                gfx.DrawLine(XPens.Black, x + colCikkszám, y, x + colCikkszám, y + rowHeight);
+                gfx.DrawLine(XPens.Black, x + colCikkszám + colMegnevezés, y, x + colCikkszám + colMegnevezés, y + rowHeight);
+
+                gfx.DrawString("Cikkszám", font, XBrushes.Black, x + 5, y + 16);
+                gfx.DrawString("Megnevezés", font, XBrushes.Black, x + colCikkszám + 5, y + 16);
+                gfx.DrawString("Mennyiség", font, XBrushes.Black, x + colCikkszám + colMegnevezés + 5, y + 16);
+
+                y += rowHeight;
+
+                // Tételek
+                foreach (var t in tételek)
+                {
+                    string megnevezes = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == t.Cikkszám)?.Megnevezés ?? "";
+
+                    // Sor keret
+                    gfx.DrawRectangle(XPens.Black, x, y, tableWidth, rowHeight);
+                    gfx.DrawLine(XPens.Black, x + colCikkszám, y, x + colCikkszám, y + rowHeight);
+                    gfx.DrawLine(XPens.Black, x + colCikkszám + colMegnevezés, y, x + colCikkszám + colMegnevezés, y + rowHeight);
+
+                    // Sor szövegek
+                    gfx.DrawString(t.Cikkszám, font, XBrushes.Black, x + 5, y + 16);
+                    gfx.DrawString(megnevezes, font, XBrushes.Black, x + colCikkszám + 5, y + 16);
+                    gfx.DrawString(t.Mennyiség.ToString(), font, XBrushes.Black, x + colCikkszám + colMegnevezés + 5, y + 16);
+
+                    y += rowHeight;
+
+                    // Oldaltörés, ha elfogy a hely
+                    if (y > page.Height.Point - marginTop - 120)
+                    {
+                        page = doc.AddPage();
+                        gfx = XGraphics.FromPdfPage(page);
+                        y = marginTop;
+                    }
+                }
+
+                y += 40;
+
+                //Dátum
+                // Átadó dátum szöveg
+                string datumSzoveg = $"{DateTime.Now.Year} év {DateTime.Now:MM} hó {DateTime.Now:dd} nap";
+                gfx.DrawString(datumSzoveg, font, XBrushes.Black, signatureX1, y);
+                datumSzoveg = $"{DateTime.Now.Year} év .............. hó ......... nap";
+                gfx.DrawString(datumSzoveg, font, XBrushes.Black, signatureX2, y);
+
+                y += 45;
+                gfx.DrawString(".............................", font, XBrushes.Black, signatureX1, y);
+                gfx.DrawString(".............................", font, XBrushes.Black, signatureX2, y);
+                // Aláírás szövegek
+                y += 15;
+                gfx.DrawString("Átadó aláírása", font, XBrushes.Black, signatureX1, y);
+                gfx.DrawString("Átvevő aláírása", font, XBrushes.Black, signatureX2, y);
+
+                // 3. Mentés és megnyitás
+                string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Szállító_{bizonylatszám}.pdf");
+                if (File.Exists(fileName)) File.Delete(fileName);
+                doc.Save(fileName);
+                Process.Start(fileName);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Pdf_Készítés_Click(object sender, EventArgs e)
+        {
+            if (Bizonylatszám.Text.Trim() != "") KészítsSzállítóPDF(Bizonylatszám.Text.Trim());
         }
     }
 }

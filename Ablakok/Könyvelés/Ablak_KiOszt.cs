@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
+using MyE = Tisztito.Module_Excel;
 
 namespace Tisztito.Ablakok
 {
@@ -22,8 +23,6 @@ namespace Tisztito.Ablakok
         List<Adat_Anyag> AdatokAnyag = new List<Adat_Anyag>();
         List<Adat_Járandóság> AdatokJárandóság = new List<Adat_Járandóság>();
         List<Adat_Dolgozó> AdatokDolgozók = new List<Adat_Dolgozó>();
-
-        int KijelöltSor = -1;
 
 #pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
@@ -48,6 +47,7 @@ namespace Tisztito.Ablakok
             AdatokRaktár = KézRaktár.Lista_Adatok();
             AdatokJárandóság = KézJárandóság.Lista_Adatok();
             AdatokDolgozók = KézDolgozó.Lista_Adatok();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         private void Ablak_Raktár_Load(object sender, System.EventArgs e)
@@ -402,7 +402,7 @@ namespace Tisztito.Ablakok
                 }
                 KézNaplóRaktár.Rögzítés(Dátum.Value.Year, AdatokGy);
 
-                MessageBox.Show("Kiadás és naplózás sikeres.", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TáblázatKönyvelés();
                 RaktárKészlet.Text = raktárAdat.Mennyiség.ToString();
             }
             catch (HibásBevittAdat ex)
@@ -451,6 +451,56 @@ namespace Tisztito.Ablakok
         {
             TáblázatKönyvelés();
         }
+
+        /// <summary>
+        /// A kiválaszotott tételeket, ha még nincs stornózva, akkor stornózza
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Storno_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Adat_KészletNaplóRaktár> stornózhatóTételek = new List<Adat_KészletNaplóRaktár>();
+
+                foreach (DataRow row in AdatTáblaALap.Rows)
+                {
+                    if (row["Storno Rögzítő"] != null && row["Storno Rögzítő"].ToString() == "Rögzítés")
+                    {
+                        string cikkszám = row["Cikkszám"]?.ToString() ?? "";
+                        if (!int.TryParse(row["Mennyiség"].ToStrTrim(), out int mennyiség)) mennyiség = 0;
+                        string szervezetHonnan = row["Szervezet Honnan"]?.ToString() ?? "";
+                        string dolgozószám = row["Dolgozószám"]?.ToString() ?? "";
+                        string rögzítő = row["Rögzítő"]?.ToString() ?? "";
+                        DateTime dátum = DateTime.Today;
+                        DateTime.TryParse(row["Dátum"]?.ToString(), out dátum);
+                        bool storno = true;
+                        string stornoRögzítő = Program.PostásNév;
+                        DateTime stornoDátum = DateTime.Now;
+
+
+                        Adat_KészletNaplóRaktár tétel = new Adat_KészletNaplóRaktár(
+                            mennyiség,
+                            cikkszám,
+                            szervezetHonnan,
+                            dolgozószám,
+                            rögzítő,
+                            dátum,
+                            storno,
+                            stornoRögzítő,
+                            stornoDátum
+                        );
+                        stornózhatóTételek.Add(tétel);
+                    }
+                }
+                KézNaplóRaktár.Módosítás(Dátum.Value.Year, stornózhatóTételek);
+                TáblázatKönyvelés();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Táblázat Készlet
@@ -473,6 +523,7 @@ namespace Tisztito.Ablakok
                 TáblaOszlopSzélességKönyvelés();
                 Tábla.Visible = true;
                 Tábla.Refresh();
+                SzínezdStornoSorokat();
 
             }
             catch (HibásBevittAdat ex)
@@ -589,16 +640,68 @@ namespace Tisztito.Ablakok
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Kiemeli a törölt elemeket
+        /// </summary>
+        private void SzínezdStornoSorokat()
+        {
+            if (!Tábla.Columns.Contains("Storno"))
+                return;
+
+            int stornoOszlopIndex = Tábla.Columns["Storno"].Index;
+            foreach (DataGridViewRow row in Tábla.Rows)
+            {
+                if (row.IsNewRow) continue;
+                var cellValue = row.Cells[stornoOszlopIndex].Value;
+                if (cellValue != null && cellValue.ToString() == "Stornózva")
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral; // világos piros
+                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.Yellow;     // sárga betű
+                }
+            }
+        }
         #endregion
 
         private void BtnExcel_Click(object sender, EventArgs e)
         {
-            // megjegyzés Nincs kész
+            try
+            {
+                if (Tábla.Rows.Count <= 0) return;
+                string fájlexc;
+
+                // kimeneti fájl helye és neve
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Listázott tartalom mentése Excel fájlba",
+                    FileName = $"Kiosztott_Anyagok_{Program.PostásNév}-{DateTime.Now:yyyyMMddHHmmss}",
+                    Filter = "Excel |*.xlsx"
+                };
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (SaveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = SaveFileDialog1.FileName;
+                else
+                    return;
+
+                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                MyE.EXCELtábla(fájlexc, Tábla, false);
+                MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MyE.Megnyitás(fájlexc + ".xlsx");
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void Storno_Click(object sender, EventArgs e)
-        {
-            // megjegyzés nincs kész
-        }
+
+
+
     }
 }

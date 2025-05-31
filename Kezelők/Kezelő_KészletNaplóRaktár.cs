@@ -168,6 +168,11 @@ namespace Tisztito.Kezelők
             }
         }
 
+        /// <summary>
+        /// Raktátak közötti mozgásokat egyenként lehet stornózni
+        /// </summary>
+        /// <param name="Év"></param>
+        /// <param name="Adat"></param>
         public void Módosítás(int Év, Adat_KészletNaplóRaktár Adat)
         {
             try
@@ -203,6 +208,52 @@ namespace Tisztito.Kezelők
                     KézRaktár.Döntés(ADAT);
                 }
 
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// A dolgozóknak történő kiadások stornózását listában végzi el.
+        /// </summary>
+        /// <param name="Év"></param>
+        /// <param name="Adat"></param>
+        public void Módosítás(int Év, List<Adat_KészletNaplóRaktár> Adatok)
+        {
+            try
+            {
+                FájlBeállítás(Év);
+                List<string> SzövegGy = new List<string>();
+                foreach (Adat_KészletNaplóRaktár Adat in Adatok)
+                {
+                    string szöveg = $"UPDATE {táblanév} SET ";
+                    szöveg += $"Bizonylatszám='{Adat.Bizonylat}', ";
+                    szöveg += $"Storno={true}, ";
+                    szöveg += $"Storno_Rögzítő='{Adat.Storno_Rögzítő}', ";
+                    szöveg += $"Storno_Dátum='{Adat.Storno_Dátum}' ";
+                    szöveg += $" WHERE ";
+                    szöveg += $"Cikkszám='{Adat.Cikkszám}' AND ";
+                    szöveg += $"SzervezetHonnan='{Adat.SzervezetHonnan}' AND ";
+                    szöveg += $"Dolgozószám='{Adat.Dolgozószám}' AND ";
+                    szöveg += $"Mennyiség={Adat.Mennyiség} AND ";
+                    szöveg += $"Storno={false}";
+                    SzövegGy.Add(szöveg);
+
+                    //Ahonnan könyveltünk de csak akkor ha nem beérkezés
+                    Adat_Raktár ADAT = new Adat_Raktár(
+                           Adat.Cikkszám,
+                           Adat.SzervezetHonnan,
+                           Adat.Mennyiség);
+                    KézRaktár.Döntés(ADAT);
+                }
+                MyA.ABMódosítás(hely, jelszó, SzövegGy);
             }
             catch (HibásBevittAdat ex)
             {

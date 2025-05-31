@@ -27,7 +27,9 @@ namespace Tisztito
         List<Adat_Dolgozó> AdatokDolgozó = new List<Adat_Dolgozó>();
         List<Adat_Jogosultságok> AdatokJogosultságok = new List<Adat_Jogosultságok>();
 
+#pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
+#pragma warning restore IDE0044
 
         //Kiválasztott felhasználó id-je
         int FelhasználóId = -1;

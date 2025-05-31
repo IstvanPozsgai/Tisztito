@@ -41,7 +41,7 @@ namespace Tisztito
 
             //Beírjuk a napi fájlba
             string szöveg = "\n=======================================================================\n";
-            szöveg += $"Idő: {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss")}\n";
+            szöveg += $"Idő: {DateTime.Now:yyyy.MM.dd HH.mm.ss}\n";
             szöveg += $"Felhasználó: {Program.PostásNév}\n";
             szöveg += $"hibaUzenet: {hibaUzenet}\n\n";
             szöveg += $"osztaly: {osztaly}\n";
