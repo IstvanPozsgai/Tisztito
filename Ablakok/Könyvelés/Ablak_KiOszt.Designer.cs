@@ -29,20 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_KiOszt));
             this.Rögzít = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.GombokMinden = new System.Windows.Forms.Button();
             this.GombokSemmi = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.CmbMunkakör = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.CmbSzervezet = new System.Windows.Forms.ComboBox();
             this.ChkDolgozók = new System.Windows.Forms.CheckedListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.Dátum = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.RaktárKészlet = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.LblJárandóság = new System.Windows.Forms.Label();
             this.CmbMegnevezés = new System.Windows.Forms.ComboBox();
@@ -52,28 +57,36 @@
             this.label6 = new System.Windows.Forms.Label();
             this.TxtMennyiség = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.RaktárKészlet = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.Frissít = new System.Windows.Forms.Button();
+            this.MezőkÜrítése = new System.Windows.Forms.Button();
+            this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
+            this.Storno = new System.Windows.Forms.Button();
+            this.BtnExcel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.SuspendLayout();
             // 
             // Rögzít
             // 
             this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
             this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Location = new System.Drawing.Point(1104, 208);
+            this.Rögzít.Location = new System.Drawing.Point(103, 103);
             this.Rögzít.Name = "Rögzít";
-            this.Rögzít.Size = new System.Drawing.Size(45, 45);
+            this.Rögzít.Size = new System.Drawing.Size(44, 44);
             this.Rögzít.TabIndex = 229;
             this.Rögzít.UseVisualStyleBackColor = true;
+            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
             // GombokMinden
             // 
             this.GombokMinden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GombokMinden.BackgroundImage = global::Tisztito.Properties.Resources.mndent_kijelöl;
             this.GombokMinden.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.GombokMinden.Location = new System.Drawing.Point(6, 3);
+            this.GombokMinden.Location = new System.Drawing.Point(3, 38);
             this.GombokMinden.Name = "GombokMinden";
             this.GombokMinden.Size = new System.Drawing.Size(45, 44);
             this.GombokMinden.TabIndex = 106;
@@ -86,7 +99,7 @@
             this.GombokSemmi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GombokSemmi.BackgroundImage = global::Tisztito.Properties.Resources.üres_lista;
             this.GombokSemmi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.GombokSemmi.Location = new System.Drawing.Point(57, 3);
+            this.GombokSemmi.Location = new System.Drawing.Point(57, 38);
             this.GombokSemmi.Name = "GombokSemmi";
             this.GombokSemmi.Size = new System.Drawing.Size(45, 44);
             this.GombokSemmi.TabIndex = 105;
@@ -96,36 +109,23 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.20202F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.79798F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.CmbMunkakör, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.CmbSzervezet, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ChkDolgozók, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.ChkDolgozók, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(594, 416);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(594, 304);
             this.tableLayoutPanel1.TabIndex = 243;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.GombokMinden);
-            this.panel1.Controls.Add(this.GombokSemmi);
-            this.panel1.Location = new System.Drawing.Point(123, 73);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(105, 54);
-            this.panel1.TabIndex = 244;
             // 
             // CmbMunkakör
             // 
@@ -168,15 +168,25 @@
             this.ChkDolgozók.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ChkDolgozók.FormattingEnabled = true;
-            this.ChkDolgozók.Location = new System.Drawing.Point(123, 133);
+            this.ChkDolgozók.Location = new System.Drawing.Point(123, 73);
             this.ChkDolgozók.Name = "ChkDolgozók";
-            this.ChkDolgozók.Size = new System.Drawing.Size(463, 277);
+            this.ChkDolgozók.Size = new System.Drawing.Size(463, 214);
             this.ChkDolgozók.TabIndex = 249;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.GombokMinden);
+            this.panel1.Controls.Add(this.GombokSemmi);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(3, 73);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(105, 84);
+            this.panel1.TabIndex = 244;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 130);
+            this.label3.Location = new System.Drawing.Point(3, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 20);
             this.label3.TabIndex = 246;
@@ -187,6 +197,8 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.41527F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.58473F));
+            this.tableLayoutPanel3.Controls.Add(this.Dátum, 1, 5);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 5);
             this.tableLayoutPanel3.Controls.Add(this.RaktárKészlet, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.label7, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.LblJárandóság, 1, 2);
@@ -199,14 +211,41 @@
             this.tableLayoutPanel3.Controls.Add(this.label8, 0, 4);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(612, 12);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 5;
+            this.tableLayoutPanel3.RowCount = 6;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 176);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 217);
             this.tableLayoutPanel3.TabIndex = 244;
+            // 
+            // Dátum
+            // 
+            this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.Dátum.Location = new System.Drawing.Point(118, 178);
+            this.Dátum.Name = "Dátum";
+            this.Dátum.Size = new System.Drawing.Size(128, 26);
+            this.Dátum.TabIndex = 256;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 175);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 20);
+            this.label9.TabIndex = 255;
+            this.label9.Text = "Dátum:";
+            // 
+            // RaktárKészlet
+            // 
+            this.RaktárKészlet.AutoSize = true;
+            this.RaktárKészlet.Location = new System.Drawing.Point(118, 105);
+            this.RaktárKészlet.Name = "RaktárKészlet";
+            this.RaktárKészlet.Size = new System.Drawing.Size(49, 20);
+            this.RaktárKészlet.TabIndex = 254;
+            this.RaktárKészlet.Text = "<< >>";
             // 
             // label7
             // 
@@ -287,24 +326,112 @@
             this.label8.TabIndex = 253;
             this.label8.Text = "Mennyiség:";
             // 
-            // RaktárKészlet
+            // tableLayoutPanel2
             // 
-            this.RaktárKészlet.AutoSize = true;
-            this.RaktárKészlet.Location = new System.Drawing.Point(118, 105);
-            this.RaktárKészlet.Name = "RaktárKészlet";
-            this.RaktárKészlet.Size = new System.Drawing.Size(49, 20);
-            this.RaktárKészlet.TabIndex = 254;
-            this.RaktárKészlet.Text = "<< >>";
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.Frissít, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(1155, 82);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 147);
+            this.tableLayoutPanel2.TabIndex = 245;
+            // 
+            // Frissít
+            // 
+            this.Frissít.BackgroundImage = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
+            this.Frissít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Frissít.Location = new System.Drawing.Point(3, 3);
+            this.Frissít.Name = "Frissít";
+            this.Frissít.Size = new System.Drawing.Size(44, 44);
+            this.Frissít.TabIndex = 233;
+            this.Frissít.UseVisualStyleBackColor = true;
+            this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
+            // 
+            // MezőkÜrítése
+            // 
+            this.MezőkÜrítése.BackgroundImage = global::Tisztito.Properties.Resources.New_gyűjtemény;
+            this.MezőkÜrítése.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.MezőkÜrítése.Location = new System.Drawing.Point(53, 3);
+            this.MezőkÜrítése.Name = "MezőkÜrítése";
+            this.MezőkÜrítése.Size = new System.Drawing.Size(44, 44);
+            this.MezőkÜrítése.TabIndex = 232;
+            this.MezőkÜrítése.UseVisualStyleBackColor = true;
+            this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
+            // 
+            // Tábla
+            // 
+            this.Tábla.AllowUserToAddRows = false;
+            this.Tábla.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.Tábla.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.Tábla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tábla.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.Tábla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Tábla.EnableHeadersVisualStyles = false;
+            this.Tábla.FilterAndSortEnabled = true;
+            this.Tábla.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+            this.Tábla.Location = new System.Drawing.Point(12, 322);
+            this.Tábla.MaxFilterButtonImageHeight = 23;
+            this.Tábla.Name = "Tábla";
+            this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Tábla.RowHeadersWidth = 62;
+            this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.Tábla.Size = new System.Drawing.Size(1293, 137);
+            this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+            this.Tábla.TabIndex = 246;
+            // 
+            // Storno
+            // 
+            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
+            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Storno.Location = new System.Drawing.Point(3, 103);
+            this.Storno.Name = "Storno";
+            this.Storno.Size = new System.Drawing.Size(44, 44);
+            this.Storno.TabIndex = 247;
+            this.Storno.UseVisualStyleBackColor = true;
+            this.Storno.Click += new System.EventHandler(this.Storno_Click);
+            // 
+            // BtnExcel
+            // 
+            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
+            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnExcel.Location = new System.Drawing.Point(103, 3);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
+            this.BtnExcel.TabIndex = 248;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
+            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // Ablak_KiOszt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1162, 440);
+            this.ClientSize = new System.Drawing.Size(1319, 471);
+            this.Controls.Add(this.Tábla);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.Rögzít);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -316,8 +443,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Tábla)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -346,5 +476,13 @@
         private System.Windows.Forms.TextBox TxtMennyiség;
         private System.Windows.Forms.Label RaktárKészlet;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DateTimePicker Dátum;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        internal Zuby.ADGV.AdvancedDataGridView Tábla;
+        internal System.Windows.Forms.Button Frissít;
+        internal System.Windows.Forms.Button MezőkÜrítése;
+        internal System.Windows.Forms.Button Storno;
+        internal System.Windows.Forms.Button BtnExcel;
     }
 }

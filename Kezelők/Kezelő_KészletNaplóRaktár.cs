@@ -53,7 +53,8 @@ namespace Tisztito.Kezelők
                                          rekord["Dátum"].ToÉrt_DaTeTime(),
                                          rekord["Storno"].ToÉrt_Bool(),
                                          rekord["Storno_Rögzítő"].ToStrTrim(),
-                                         rekord["Storno_Dátum"].ToÉrt_DaTeTime());
+                                         rekord["Storno_Dátum"].ToÉrt_DaTeTime(),
+                                         rekord["Dolgozószám"].ToStrTrim());
                                 Adatok.Add(Adat);
                             }
                         }
@@ -63,12 +64,18 @@ namespace Tisztito.Kezelők
             return Adatok;
         }
 
+        /// <summary>
+        /// Ez a változat akkor használatos, ha raktárak között történik a rögzítés, 
+        /// mint például a raktárak közötti átadás, vagy a raktárak közötti áthelyezés.
+        /// </summary>
+        /// <param name="Év"></param>
+        /// <param name="Adat"></param>
         public void Rögzítés(int Év, Adat_KészletNaplóRaktár Adat)
         {
             try
             {
                 FájlBeállítás(Év);
-                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Storno, Storno_Rögzítő, Storno_Dátum) VALUES ";
+                string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Storno, Storno_Rögzítő, Storno_Dátum, Dolgozószám) VALUES ";
                 szöveg += $"('{Adat.Cikkszám}', ";
                 szöveg += $"{Adat.Mennyiség}, ";
                 szöveg += $"'{Adat.SzervezetHonnan}', ";
@@ -78,7 +85,8 @@ namespace Tisztito.Kezelők
                 szöveg += $"'{Adat.Dátum}', ";
                 szöveg += $"{Adat.Storno}, ";
                 szöveg += $"'{Adat.Storno_Rögzítő}', ";
-                szöveg += $"'{Adat.Storno_Dátum}') ";
+                szöveg += $"'{Adat.Storno_Dátum}', ";
+                szöveg += $"'')";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
 
                 //Ahova könyvelünk
@@ -97,6 +105,57 @@ namespace Tisztito.Kezelők
                            -1 * Adat.Mennyiség);
                     KézRaktár.Döntés(ADAT);
                 }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Ez a változat akkor használatos, ha a rögzítés nem raktárak között történik, tehát a dolgozóknak kerül kiosztásra
+        /// </summary>
+        /// <param name="Év"></param>
+        /// <param name="Adat"></param>
+        public void Rögzítés(int Év, List<Adat_KészletNaplóRaktár> Adatok)
+        {
+            try
+            {
+                FájlBeállítás(Év);
+
+                List<string> SzövegGy = new List<string>();
+                int mennyiség = 0;
+                foreach (Adat_KészletNaplóRaktár Adat in Adatok)
+                {
+                    string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Storno, Storno_Rögzítő, Storno_Dátum, Dolgozószám) VALUES ";
+                    szöveg += $"('{Adat.Cikkszám}', ";
+                    szöveg += $"{Adat.Mennyiség}, ";
+                    szöveg += $"'{Adat.SzervezetHonnan}', ";
+                    szöveg += $"'{Adat.SzervezetHova}', ";
+                    szöveg += $"'{Adat.Bizonylat}', ";
+                    szöveg += $"'{Adat.Rögzítő}', ";
+                    szöveg += $"'{Adat.Dátum}', ";
+                    szöveg += $"{Adat.Storno}, ";
+                    szöveg += $"'{Adat.Storno_Rögzítő}', ";
+                    szöveg += $"'{Adat.Storno_Dátum}', ";
+                    szöveg += $"'{Adat.Dolgozószám}')";
+
+                    SzövegGy.Add(szöveg);
+                    mennyiség += Adat.Mennyiség;
+                }
+                MyA.ABMódosítás(hely, jelszó, SzövegGy);
+
+                //Ahova könyvelünk
+                Adat_Raktár ADAT = new Adat_Raktár(
+                    Adatok[0].Cikkszám,
+                    Adatok[0].SzervezetHonnan,
+                    -1 * mennyiség);
+                KézRaktár.Döntés(ADAT);
             }
             catch (HibásBevittAdat ex)
             {

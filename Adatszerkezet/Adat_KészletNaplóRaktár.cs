@@ -16,6 +16,8 @@ namespace Tisztito.Adatszerkezet
         public string Storno_Rögzítő { get; private set; }
         public DateTime Storno_Dátum { get; private set; }
 
+        public string Dolgozószám { get; private set; }
+
         public Adat_KészletNaplóRaktár(string cikkszám, int mennyiség, string szervezetHonnan, string szervezetHova, string bizonylat,
             string rögzítő, DateTime dátum, bool storno, string storno_Rögzítő, DateTime storno_Dátum)
         {
@@ -40,6 +42,36 @@ namespace Tisztito.Adatszerkezet
             Storno = storno;
             Storno_Rögzítő = storno_Rögzítő;
             Storno_Dátum = storno_Dátum;
+        }
+
+        public Adat_KészletNaplóRaktár(int mennyiség, string cikkszám, string szervezetHonnan, string dolgozószám,
+            string rögzítő, DateTime dátum, bool storno, string storno_Rögzítő, DateTime storno_Dátum)
+        {
+            Cikkszám = cikkszám;
+            Mennyiség = mennyiség;
+            SzervezetHonnan = szervezetHonnan;
+            Rögzítő = rögzítő;
+            Dátum = dátum;
+            Storno = storno;
+            Storno_Rögzítő = storno_Rögzítő;
+            Storno_Dátum = storno_Dátum;
+            Dolgozószám = dolgozószám;
+        }
+
+        public Adat_KészletNaplóRaktár(string cikkszám, int mennyiség, string szervezetHonnan, string szervezetHova, string bizonylat, string rögzítő, DateTime dátum, bool storno,
+            string storno_Rögzítő, DateTime storno_Dátum, string dolgozószám)
+        {
+            Cikkszám = cikkszám;
+            Mennyiség = mennyiség;
+            SzervezetHonnan = szervezetHonnan;
+            SzervezetHova = szervezetHova;
+            Bizonylat = bizonylat;
+            Rögzítő = rögzítő;
+            Dátum = dátum;
+            Storno = storno;
+            Storno_Rögzítő = storno_Rögzítő;
+            Storno_Dátum = storno_Dátum;
+            Dolgozószám = dolgozószám;
         }
     }
 }

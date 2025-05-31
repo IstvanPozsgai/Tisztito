@@ -61,6 +61,7 @@
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.BtnExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -363,6 +364,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.Frissít, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
@@ -433,6 +435,18 @@
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
+            // BtnExcel
+            // 
+            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
+            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnExcel.Location = new System.Drawing.Point(113, 3);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
+            this.BtnExcel.TabIndex = 249;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
+            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
+            // 
             // Ablak_Raktár
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -488,5 +502,6 @@
         private System.Windows.Forms.DateTimePicker Dátum;
         internal System.Windows.Forms.Button PDFAblak;
         internal System.Windows.Forms.Button Storno;
+        internal System.Windows.Forms.Button BtnExcel;
     }
 }

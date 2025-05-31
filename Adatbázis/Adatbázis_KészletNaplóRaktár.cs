@@ -15,6 +15,7 @@ namespace Tisztito.Adatbázis
             szöveg += "[Mennyiség]  Short,";
             szöveg += "[SzervezetHonnan]  char (200),";
             szöveg += "[SzervezetHova]  char (200),";
+            szöveg += "[Dolgozószám]  char (8),";
             szöveg += "[Bizonylatszám]  char (15),";
             szöveg += "[Rögzítő]  char (50),";
             szöveg += "[Dátum]  Date,";

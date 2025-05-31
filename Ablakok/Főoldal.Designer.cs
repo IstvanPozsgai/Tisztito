@@ -45,6 +45,7 @@
             this.ToolStripMenuItem_Járandóság = new System.Windows.Forms.ToolStripMenuItem();
             this.könyvelésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.raktárakKözöttiKönyvelésToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DolgozóiKiadásMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.területiIgényekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -54,7 +55,6 @@
             this.Rejtett = new System.Windows.Forms.GroupBox();
             this.TároltVerzió = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
-            this.DolgozóiKiadásMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -200,6 +200,13 @@
             this.raktárakKözöttiKönyvelésToolStripMenuItem.Text = "&Raktárak közötti könyvelés";
             this.raktárakKözöttiKönyvelésToolStripMenuItem.Click += new System.EventHandler(this.RaktárakKözöttiKönyvelésToolStripMenuItem_Click);
             // 
+            // DolgozóiKiadásMenuItem
+            // 
+            this.DolgozóiKiadásMenuItem.Name = "DolgozóiKiadásMenuItem";
+            this.DolgozóiKiadásMenuItem.Size = new System.Drawing.Size(267, 24);
+            this.DolgozóiKiadásMenuItem.Text = "&Dolgozói Kiadás";
+            this.DolgozóiKiadásMenuItem.Click += new System.EventHandler(this.DolgozóiKiadásMenuItem_Click);
+            // 
             // lekérdezésekToolStripMenuItem
             // 
             this.lekérdezésekToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -240,7 +247,7 @@
             this.Menükinyitás.Name = "Menükinyitás";
             this.Menükinyitás.Size = new System.Drawing.Size(45, 45);
             this.Menükinyitás.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.Menükinyitás, "Aktuális verziót állítja be a verzió számnak");
+            this.toolTip1.SetToolTip(this.Menükinyitás, "Admin felület");
             this.Menükinyitás.UseVisualStyleBackColor = true;
             this.Menükinyitás.Click += new System.EventHandler(this.Menükinyitás_Click);
             // 
@@ -291,13 +298,6 @@
             this.Label5.Size = new System.Drawing.Size(144, 20);
             this.Label5.TabIndex = 27;
             this.Label5.Text = "Tárolt Verzió szám:";
-            // 
-            // DolgozóiKiadásMenuItem
-            // 
-            this.DolgozóiKiadásMenuItem.Name = "DolgozóiKiadásMenuItem";
-            this.DolgozóiKiadásMenuItem.Size = new System.Drawing.Size(267, 24);
-            this.DolgozóiKiadásMenuItem.Text = "Dolgozói Kiadás";
-            this.DolgozóiKiadásMenuItem.Click += new System.EventHandler(this.DolgozóiKiadásMenuItem_Click);
             // 
             // Főoldal
             // 

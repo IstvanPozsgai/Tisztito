@@ -837,8 +837,12 @@ namespace Tisztito.Ablakok
 
 
 
+
         #endregion
 
-
+        private void BtnExcel_Click(object sender, EventArgs e)
+        {
+            // megjegyzés nincs kész a gomb
+        }
     }
 }
