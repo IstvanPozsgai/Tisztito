@@ -23,8 +23,8 @@ namespace Tisztito
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Főoldal());
-            //Application.Run(new Ablak_Login());
+            //Application.Run(new Főoldal());
+            Application.Run(new Ablak_Login());
         }
     }
 }

@@ -55,7 +55,6 @@
             this.Dátum = new System.Windows.Forms.DateTimePicker();
             this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
@@ -63,6 +62,7 @@
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
             this.Pdf_Készítés = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
