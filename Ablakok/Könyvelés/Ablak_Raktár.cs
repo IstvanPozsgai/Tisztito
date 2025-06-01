@@ -1,6 +1,11 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
@@ -903,7 +908,233 @@ namespace Tisztito.Ablakok
 
         private void Pdf_Készítés_Click(object sender, EventArgs e)
         {
-            // megjegyzés Ezt újra kell gondolni
+            if (Bizonylatszám.Text.Trim() != null) KészítsSzállítóPDF(Bizonylatszám.Text.Trim());
         }
+
+
+
+
+        private void KészítsSzállítóPDF(string bizonylatszám)
+        {
+            try
+            {
+
+                List<Adat_KészletNaplóRaktár> tételek = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year)
+                     .Where(a => a.Bizonylat == bizonylatszám)
+                     .ToList();
+                if (tételek.Count == 0) throw new HibásBevittAdat("Nincs ilyen bizonylatszámú tétel.");
+                string fontPath = Path.Combine(Application.StartupPath, @"Adatok\Fonts\arial.ttf");
+                string FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Szállító_{bizonylatszám}.pdf");
+                using (FileStream fs = new FileStream(FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Document doc = new Document(PageSize.A4.Rotate()))
+                {
+                    PdfWriter.GetInstance(doc, fs);
+                    doc.Open();
+
+                    // Kép beolvasása
+                    string logoPath1 = Path.Combine($@"{Application.StartupPath}\Adatok\Logo\", "BKV.png");
+                    iTextSharp.text.Image img1 = iTextSharp.text.Image.GetInstance(logoPath1);
+                    img1.ScaleToFit(100f, 100f);
+
+                    // Táblázat létrehozása 2 oszloppal
+                    PdfPTable table = new PdfPTable(2);
+                    table.WidthPercentage = 100;
+
+                    // Kép cella
+                    PdfPCell imageCell = new PdfPCell(img1, false);
+                    imageCell.VerticalAlignment = Element.ALIGN_TOP;
+                    imageCell.Border = Rectangle.NO_BORDER;
+
+                    // Szöveg cella
+                    string szoveg = "BKV Zrt.";
+                    PdfPCell textCell = new PdfPCell(new Phrase(szoveg));
+                    textCell.VerticalAlignment = Element.ALIGN_TOP;
+                    textCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    textCell.Border = Rectangle.NO_BORDER;
+
+                    table.AddCell(imageCell);
+                    table.AddCell(textCell);
+                    doc.Add(table);
+                    //Szállítólevél felirat
+                    BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
+                    iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                    iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.BOLD);
+                    Paragraph p = new Paragraph("Szállítólevél", font)
+                    {
+                        Alignment = Element.ALIGN_CENTER,
+                        SpacingBefore = 50f // 20 ponttal lejjebb
+                    };
+                    doc.Add(p);
+
+                    // Üres bekezdés, ami 20 pont térközt ad (növeld, ha több kell)
+                    Paragraph space = new Paragraph(" ")
+                    {
+                        SpacingBefore = 0f,
+                        SpacingAfter = 20f
+                    };
+                    doc.Add(space);
+
+                    // Honnan és Hova táblázat keret nélkül, igazításokkal
+                    PdfPTable table1 = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100,   // teljes szélesség
+                        HorizontalAlignment = Element.ALIGN_LEFT
+                    };
+
+                    // Fejléc: balra és jobbra igazítva, keret nélkül
+                    PdfPCell honnanHeader = new PdfPCell(new Phrase("Honnan:", headerFont))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_LEFT
+                    };
+                    PdfPCell hovaHeader = new PdfPCell(new Phrase("Hova:", headerFont))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_RIGHT
+                    };
+                    table1.AddCell(honnanHeader);
+                    table1.AddCell(hovaHeader);
+
+                    // Adatok: balra és jobbra igazítva, keret nélkül
+                    string honnan = tételek.First().SzervezetHonnan ?? "";
+                    string hova = tételek.First().SzervezetHova ?? "";
+                    PdfPCell honnanCell = new PdfPCell(new Phrase(honnan))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_LEFT
+                    };
+                    PdfPCell hovaCell = new PdfPCell(new Phrase(hova))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_RIGHT
+                    };
+                    table1.AddCell(honnanCell);
+                    table1.AddCell(hovaCell);
+                    doc.Add(table1);
+
+                    doc.Add(space);
+                    baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
+                    // Papírszélességű, háromoszlopos táblázat keretes fejléccel
+                    PdfPTable t = new PdfPTable(3);
+                    t.WidthPercentage = 100;
+                    t.SetWidths(new float[] { 2, 5, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
+
+                    // Fejléc cellák (kerettel, félkövérrel)
+                    PdfPCell cikkszamHeader = new PdfPCell(new Phrase("Cikkszám", headerFont));
+                    PdfPCell megnevezesHeader = new PdfPCell(new Phrase("Megnevezés", headerFont));
+                    PdfPCell mennyisegHeader = new PdfPCell(new Phrase("Mennyiség", headerFont));
+
+                    // Fejléc cellák igazítása (középre)
+                    cikkszamHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+                    megnevezesHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+                    mennyisegHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    // Fejléc cellák hozzáadása
+                    t.AddCell(cikkszamHeader);
+                    t.AddCell(megnevezesHeader);
+                    t.AddCell(mennyisegHeader);
+
+                    // Példa sorok hozzáadása (töltsd fel a saját adataiddal)
+                    foreach (var tetel in tételek)
+                    {
+                        string cikkszam = tetel.Cikkszám ?? "";
+                        string megnevezes = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == cikkszam)?.Megnevezés ?? "";
+                        string mennyiseg = tetel.Mennyiség.ToString();
+
+                        PdfPCell cikkszamCell = new PdfPCell(new Phrase(cikkszam, font));
+                        PdfPCell megnevezesCell = new PdfPCell(new Phrase(megnevezes, font));
+                        PdfPCell mennyisegCell = new PdfPCell(new Phrase(mennyiseg, font));
+
+                        cikkszamCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        megnevezesCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        mennyisegCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+                        t.AddCell(cikkszamCell);
+                        t.AddCell(megnevezesCell);
+                        t.AddCell(mennyisegCell);
+                    }
+                    doc.Add(t);
+
+                    doc.Add(space);
+                    //Dátum helye
+                    PdfPTable table2 = new PdfPTable(2);
+                    table2.WidthPercentage = 100;   // teljes szélesség
+                    table2.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                    // Fejléc: balra és jobbra igazítva, keret nélkül
+                    PdfPCell honnanDátum = new PdfPCell(new Phrase($"{DateTime.Now.Year} év {DateTime.Now:MM} hó {DateTime.Now:dd} nap", font))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_CENTER
+                    };
+                    PdfPCell hovaDátum = new PdfPCell(new Phrase($"{DateTime.Now.Year} év .............. hó ......... nap", font))
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_CENTER
+                    };
+                    table2.AddCell(honnanDátum);
+                    table2.AddCell(hovaDátum);
+                    doc.Add(table2);
+
+
+                    //Alírás helye
+                    doc.Add(space);
+                    doc.Add(space);
+
+                    // Aláírási sorok pontsorral, csak a szöveg fölött, kicsit szélesebben
+                    PdfPTable table3 = new PdfPTable(2);
+                    table3.WidthPercentage = 100;
+                    table3.SetWidths(new float[] { 1, 1 }); // két egyenlő szélességű oszlop
+
+                    // Átadó aláírása cella
+                    Phrase honnanAlairas = new Phrase();
+                    DottedLineSeparator dotted1 = new DottedLineSeparator();
+                    dotted1.LineWidth = 1f;
+                    dotted1.Gap = 2f;
+                    dotted1.Percentage = 60f; // a cella szélességének 70%-a (igény szerint állítható)
+                    honnanAlairas.Add(new Chunk(dotted1));
+                    honnanAlairas.Add(Chunk.NEWLINE);
+                    honnanAlairas.Add(new Chunk("Átadó aláírása", font));
+                    PdfPCell honnanAlairasCell = new PdfPCell(honnanAlairas)
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        PaddingTop = 10f
+                    };
+
+                    // Átvevő aláírása cella
+                    Phrase hovaAlairas = new Phrase();
+                    hovaAlairas.Add(new Chunk(dotted1));
+                    hovaAlairas.Add(Chunk.NEWLINE);
+                    hovaAlairas.Add(new Chunk("Átvevő aláírása", font));
+                    PdfPCell hovaAlairasCell = new PdfPCell(hovaAlairas)
+                    {
+                        Border = Rectangle.NO_BORDER,
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        PaddingTop = 10f
+                    };
+
+                    table3.AddCell(honnanAlairasCell);
+                    table3.AddCell(hovaAlairasCell);
+                    doc.Add(table3);
+
+
+                    doc.Close();
+                }
+
+                Process.Start(FileName);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
