@@ -61,7 +61,10 @@ namespace Tisztito.Kezelők
             {
                 List<Adat_Szervezet> Adatok = Lista_Adatok();
                 if (!Adatok.Any(a => a.Id == Adat.Id))
+                {
+                    if (Adatok.Any(a => a.Szervezet == Adat.Szervezet && a.Státus == false)) throw new HibásBevittAdat("Van már ilyen néven Szervezet létrehozva.");
                     Rögzítés(Adat);
+                }
                 else
                     Módosítás(Adat);
 

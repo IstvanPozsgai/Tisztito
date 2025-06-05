@@ -130,8 +130,8 @@ namespace Tisztito.Ablakok
                 SAPTábla.Columns[1].Width = 100;
                 SAPTábla.Columns[2].HeaderText = "Fejléc";
                 SAPTábla.Columns[2].Width = 400;
-                SAPTábla.Columns[3].HeaderText = "Beolvassuk";
-                SAPTábla.Columns[3].Width = 100;
+                SAPTábla.Columns[3].HeaderText = "Változónév";
+                SAPTábla.Columns[3].Width = 200;
 
                 foreach (Adat_Alap_Beolvasás rekord in AdatokBeolv)
                 {

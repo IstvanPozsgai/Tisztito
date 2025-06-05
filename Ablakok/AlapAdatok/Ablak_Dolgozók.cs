@@ -355,7 +355,7 @@ namespace Tisztito.Ablakok
                     return;
 
                 IDM_Dolgozó.Védő_beolvasás(fájlexc);
-
+                Alap_tábla_író();
                 MessageBox.Show("Az adat konvertálás befejeződött!", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (HibásBevittAdat ex)

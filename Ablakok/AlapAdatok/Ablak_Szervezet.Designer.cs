@@ -35,12 +35,12 @@
             this.Új_adat = new System.Windows.Forms.Button();
             this.Szervezet = new System.Windows.Forms.TextBox();
             this.BtnFrissít = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.TextBox();
-            this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CmbStátus = new System.Windows.Forms.ComboBox();
+            this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.SuspendLayout();
@@ -128,6 +128,35 @@
             this.BtnFrissít.UseVisualStyleBackColor = true;
             this.BtnFrissít.Click += new System.EventHandler(this.BtnFrissít_Click);
             // 
+            // BtnExcel
+            // 
+            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
+            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnExcel.Location = new System.Drawing.Point(859, 3);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(45, 44);
+            this.BtnExcel.TabIndex = 218;
+            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
+            // 
+            // Id
+            // 
+            this.Id.Location = new System.Drawing.Point(151, 53);
+            this.Id.MaxLength = 10;
+            this.Id.Name = "Id";
+            this.Id.Size = new System.Drawing.Size(202, 26);
+            this.Id.TabIndex = 219;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Silver;
+            this.label3.Location = new System.Drawing.Point(3, 85);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(142, 20);
+            this.label3.TabIndex = 225;
+            this.label3.Text = "Szervezeti egység:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -149,25 +178,6 @@
             this.CmbStátus.Size = new System.Drawing.Size(180, 28);
             this.CmbStátus.TabIndex = 217;
             // 
-            // BtnExcel
-            // 
-            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
-            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnExcel.Location = new System.Drawing.Point(859, 3);
-            this.BtnExcel.Name = "BtnExcel";
-            this.BtnExcel.Size = new System.Drawing.Size(45, 44);
-            this.BtnExcel.TabIndex = 218;
-            this.BtnExcel.UseVisualStyleBackColor = true;
-            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
-            // 
-            // Id
-            // 
-            this.Id.Location = new System.Drawing.Point(151, 53);
-            this.Id.MaxLength = 10;
-            this.Id.Name = "Id";
-            this.Id.Size = new System.Drawing.Size(202, 26);
-            this.Id.TabIndex = 219;
-            // 
             // Tábla
             // 
             this.Tábla.AllowUserToAddRows = false;
@@ -183,19 +193,11 @@
             this.Tábla.Name = "Tábla";
             this.Tábla.ReadOnly = true;
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Tábla.RowHeadersVisible = false;
             this.Tábla.Size = new System.Drawing.Size(912, 150);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 222;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Silver;
-            this.label3.Location = new System.Drawing.Point(3, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(142, 20);
-            this.label3.TabIndex = 225;
-            this.label3.Text = "Szervezeti egység:";
+            this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
             // 
             // Ablak_Szervezet
             // 

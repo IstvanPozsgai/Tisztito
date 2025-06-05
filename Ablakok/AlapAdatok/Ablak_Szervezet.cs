@@ -68,7 +68,7 @@ namespace Tisztito.Ablakok
             {
                 if (!int.TryParse(Id.Text, out int id)) id = 0;
                 if (MyF.Szöveg_Tisztítás(Szervezet.Text, 0, 200).Trim() == "") throw new HibásBevittAdat("Szervezet mezőt ki kell tölteni.");
-                if (CmbStátus.Text != "Aktív" || CmbStátus.Text == "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
+                if (!(CmbStátus.Text.Trim() == "Aktív" || CmbStátus.Text.Trim() == "Törölt")) throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
                 Adat_Szervezet ADAT = new Adat_Szervezet(
                     id,
                     MyF.Szöveg_Tisztítás(Szervezet.Text, 0, 200),
@@ -195,6 +195,14 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Id"].Width = 80;
             Tábla.Columns["Szervezet"].Width = 300;
             Tábla.Columns["státus"].Width = 70;
+        }
+
+        private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            Id.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
+            Szervezet.Text = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
+            CmbStátus.Text = Tábla.Rows[e.RowIndex].Cells[2].Value.ToStrTrim();
         }
     }
 }

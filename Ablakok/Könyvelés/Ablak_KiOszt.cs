@@ -400,7 +400,7 @@ namespace Tisztito.Ablakok
                         CmbSzervezet.Text.Trim(),
                         dolgozószám,
                         Program.PostásNév, // A postás neve, aki rögzíti
-                        DateTime.Now,
+                        Dátum.Value,
                         false,
                         "",
                         new DateTime(1900, 1, 1) // Storno dátum

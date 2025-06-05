@@ -41,6 +41,8 @@ namespace Tisztito
             GombLathatosagKezelo.Beallit(this);
         }
 
+        // megjegyzés: a felhasználó törlésekor a jogait is törölni kell
+
         private void AblakFelhasználó_Load(object sender, EventArgs e)
         {
         }
