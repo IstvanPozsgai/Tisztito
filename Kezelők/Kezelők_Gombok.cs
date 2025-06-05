@@ -82,6 +82,7 @@ namespace Tisztito.Kezelők
                     else
                         throw new HibásBevittAdat($"Ez a {gomb.GombokId} szám alatt már szerepel!");
                 }
+            }
             catch (HibásBevittAdat ex)
             {
                 MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);

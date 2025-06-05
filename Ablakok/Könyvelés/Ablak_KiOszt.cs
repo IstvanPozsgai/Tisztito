@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bejelentkezés.Adatszerkezet;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -67,9 +68,15 @@ namespace Tisztito.Ablakok
             {
 
                 AdatokSzervezet = KézSzervezet.Lista_Adatok().Where(a => a.Státus == false).OrderBy(a => a.Szervezet).ToList();
-
+                // OldalId lekkérdezése
+                Adat_Oldalak oldalId = (from a in Program.PostásOldalak
+                                        where a.FromName == this.Name
+                                        select a).FirstOrDefault() ?? throw new HibásBevittAdat("Az oldal nem található a jogosultságok között!");
                 //Felhasználó jogosultságok lekérése
-                List<int> ÜzemekId = Program.PostásJogosultságok.Select(j => j.SzervezetId).Distinct().ToList();
+                List<int> ÜzemekId = (from a in Program.PostásJogosultságok
+                                      where a.OldalId == oldalId.OldalId
+                                      select a.SzervezetId).Distinct().ToList();
+
                 CmbSzervezet.Items.Clear();
                 CmbSzervezet.Items.Add("");
                 for (int i = 0; i < ÜzemekId.Count; i++)
