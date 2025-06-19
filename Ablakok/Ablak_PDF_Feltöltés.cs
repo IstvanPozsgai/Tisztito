@@ -36,6 +36,7 @@ namespace Tisztito
                 Btn_Másolás.Visible = false;
                 ElemekListája();
                 this.Text = "PDF megjelenítés";
+                BeolvasásiHely = Hova;
             }
         }
 
@@ -103,6 +104,7 @@ namespace Tisztito
             try
             {
                 if (FájlLista.SelectedItems.Count == 0) return;
+
                 string hely = $@"{BeolvasásiHely}\{FájlLista.SelectedItems[0]}";
                 if (!Exists(hely)) throw new HibásBevittAdat("Nem létezik a betölteni kívánt pdf.");
 

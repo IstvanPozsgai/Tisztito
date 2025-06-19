@@ -191,6 +191,15 @@ namespace Tisztito.Ablakok
                         Storno.Visible = false;
                         Rögzít.Visible = true;
                         break;
+                    case 6:
+                        //Selejtezés
+                        Honnan.Text = BázisRaktár;
+                        Honnan.Enabled = false;
+                        Hova.Text = "Selejtezés";
+                        Hova.Enabled = false;
+                        Storno.Visible = false;
+                        Rögzít.Visible = true;
+                        break;
                     case 9:
                         //Stornó
                         Honnan.Text = "";
@@ -381,6 +390,10 @@ namespace Tisztito.Ablakok
                     case 5:
                         //Visszavétel az átadás negátja
                         Bizonylatszám.Text = KézNaplóRaktár.Bizonylat("V");
+                        break;
+                    case 6:
+                        //Selejtezés
+                        Bizonylatszám.Text = KézNaplóRaktár.Bizonylat("B");
                         break;
                 }
 
@@ -846,21 +859,60 @@ namespace Tisztito.Ablakok
         Ablak_PDF_Feltöltés Új_Ablak_PDF_Feltöltés;
         private void PDFAblak_Click(object sender, EventArgs e)
         {
-            if (Bizonylatszám.Text.Trim() == "") throw new HibásBevittAdat("A bizonylatszám mező nem lehet üres.");
-            string hely = $@"{Application.StartupPath}\Adatok\PDF".KönyvSzerk();
-            Bizonylatszám.Text = MyF.Szöveg_Tisztítás(Bizonylatszám.Text);
-            if (Új_Ablak_PDF_Feltöltés == null)
+            try
             {
-                Új_Ablak_PDF_Feltöltés = new Ablak_PDF_Feltöltés(Bizonylatszám.Text, hely, false, Dátum.Value);
+                if (Bizonylatszám.Text.Trim() == "") throw new HibásBevittAdat("A bizonylatszám mező nem lehet üres.");
+                string hely = $@"{Application.StartupPath}\Adatok\PDF".KönyvSzerk();
+                Bizonylatszám.Text = MyF.Szöveg_Tisztítás(Bizonylatszám.Text);
+                if (Új_Ablak_PDF_Feltöltés == null)
+                {
+                    Új_Ablak_PDF_Feltöltés = new Ablak_PDF_Feltöltés(Bizonylatszám.Text, hely, false, Dátum.Value);
+                    Új_Ablak_PDF_Feltöltés.FormClosed += Új_Ablak_PDF_Feltöltés_FormClosed;
+                    Új_Ablak_PDF_Feltöltés.Show();
+                }
+                else
+                {
+                    Új_Ablak_PDF_Feltöltés.Activate();
+                    Új_Ablak_PDF_Feltöltés.WindowState = FormWindowState.Maximized;
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PDFNéz_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Új_Ablak_PDF_Feltöltés?.Close();
+
+                string hely = $@"{Application.StartupPath}\Adatok\PDF".KönyvSzerk();
+                Új_Ablak_PDF_Feltöltés = new Ablak_PDF_Feltöltés(Bizonylatszám.Text, hely, true, Dátum.Value)
+                {
+                    StartPosition = FormStartPosition.CenterScreen
+                };
+
+
                 Új_Ablak_PDF_Feltöltés.FormClosed += Új_Ablak_PDF_Feltöltés_FormClosed;
                 Új_Ablak_PDF_Feltöltés.Show();
+                //  Új_Ablak_PDF_Feltöltés.Változás += Pdflistázása;
             }
-            else
+            catch (HibásBevittAdat ex)
             {
-                Új_Ablak_PDF_Feltöltés.Activate();
-                Új_Ablak_PDF_Feltöltés.WindowState = FormWindowState.Maximized;
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Új_Ablak_PDF_Feltöltés_FormClosed(object sender, FormClosedEventArgs e)
@@ -1135,6 +1187,7 @@ namespace Tisztito.Ablakok
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
     }
 }

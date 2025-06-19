@@ -13,6 +13,7 @@
             Beérkezés = 0,
             Átadás = 3,
             VisszaVétel = 5,
+            Selejtezés = 6,
             Storno = 9
         };
 

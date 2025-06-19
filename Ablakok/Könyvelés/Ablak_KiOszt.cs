@@ -98,34 +98,73 @@ namespace Tisztito.Ablakok
         }
 
         /// <summary>
-        /// Szervezethez tartozó munkakörök feltöltése
+        /// Szervezethez tartozó munkakörök feltöltése és Dolgozók feltöltése
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CmbSzervezet_SelectionChangeCommitted(object sender, EventArgs e)
         {
             CmbSzervezet.Text = CmbSzervezet.Items[CmbSzervezet.SelectedIndex].ToString();
-            string szervezet = CmbSzervezet.Text.Trim();
             CmbMunkakör.Text = "";
             CmbMunkakör.Items.Clear();
             ChkDolgozók.Items.Clear();
-            if (string.IsNullOrEmpty(szervezet)) return;
+            CmbDolgozó.Items.Clear();
+            if (string.IsNullOrEmpty(CmbSzervezet.Text.Trim())) return;
+            MunkakörFeltöltés();
+            DolgozóFeltöltés();
+        }
 
+
+        /// <summary>
+        ///   Szervezethez tartozó munkakörök feltöltése
+        /// </summary>
+        private void MunkakörFeltöltés()
+        {
             try
             {
                 // Munkakörök feltöltése
                 List<string> munkakörök = KézDolgozó.Lista_Adatok()
-                     .Where(d => d.Szervezet == szervezet && d.Státus == false)
+                     .Where(d => d.Szervezet == CmbSzervezet.Text.Trim() && d.Státus == false)
                      .OrderBy(d => d.Munkakör)
                      .Select(d => d.Munkakör)
                      .Distinct()
                      .ToList();
 
-                foreach (var munkakör in munkakörök)
+                foreach (string munkakör in munkakörök)
                     CmbMunkakör.Items.Add(munkakör);
 
                 int készlet = Készlet(CmbCikkszámok.Text.Trim(), CmbSzervezet.Text.Trim());
                 RaktárKészlet.Text = készlet.ToString();
+
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        /// <summary>
+        /// Szervezethez tartozó dolgozók feltöltése
+        /// </summary>
+        private void DolgozóFeltöltés()
+        {
+            try
+            {
+                // Dolgozók feltöltése
+                List<Adat_Dolgozó> dolgozók = AdatokDolgozók
+                    .Where(d => d.Szervezet == CmbSzervezet.Text.Trim() && d.Státus == false)
+                    .OrderBy(d => d.Dolgozónév)
+                    .ToList();
+                CmbDolgozó.Items.Clear();
+                CmbDolgozó.Items.Add(""); // Üres elem az elejére
+                foreach (Adat_Dolgozó dolgozó in dolgozók)
+                    CmbDolgozó.Items.Add($"{dolgozó.Dolgozószám} - {dolgozó.Dolgozónév}");
             }
             catch (HibásBevittAdat ex)
             {
@@ -151,16 +190,29 @@ namespace Tisztito.Ablakok
             ChkDolgozók.Items.Clear();
 
             if (string.IsNullOrEmpty(szervezet) || string.IsNullOrEmpty(munkakör)) return;
+            MunkakörKiválasztásaDolgozókFeltöltése();
+        }
 
+        private void MunkakörKiválasztásaDolgozókFeltöltése()
+        {
             try
             {
+                string szervezet = CmbSzervezet.Text.Trim();
+                string munkakör = CmbMunkakör.Text.Trim();
+                ChkDolgozók.Items.Clear();
+
                 List<Adat_Dolgozó> dolgozók = AdatokDolgozók
                     .Where(d => d.Szervezet == szervezet && d.Munkakör == munkakör && d.Státus == false)
                     .OrderBy(d => d.Dolgozónév)
                     .ToList();
-
+                int i = 0;
                 foreach (Adat_Dolgozó dolgozó in dolgozók)
-                    ChkDolgozók.Items.Add($"{dolgozó.Dolgozószám} - {dolgozó.Dolgozónév}");
+                {
+                    string szöveg = $"{dolgozó.Dolgozószám} - {dolgozó.Dolgozónév}";
+                    ChkDolgozók.Items.Add(szöveg);
+                    if (szöveg == CmbDolgozó.Text.Trim()) ChkDolgozók.SetItemChecked(i, true);
+                    i++;
+                }
 
                 FrissítJárandóság();
             }
@@ -173,6 +225,7 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         /// <summary>
@@ -320,13 +373,18 @@ namespace Tisztito.Ablakok
                 return;
             }
 
-            Adat_Járandóság járandóság = AdatokJárandóság
-                .FirstOrDefault(j => j.Cikkszám == cikkszám && j.Munkakör == munkakör);
+            Adat_Járandóság járandóság = AdatokJárandóság.FirstOrDefault(j => j.Cikkszám == cikkszám && j.Munkakör == munkakör);
 
             if (járandóság != null)
+            {
                 LblJárandóság.Text = járandóság.Mennyiség.ToString();
+                Gyakoriság.Text = járandóság.Gyakoriság.ToString();
+            }
             else
+            {
                 LblJárandóság.Text = "0";
+                Gyakoriság.Text = "0";
+            }
         }
 
         /// <summary>
@@ -369,6 +427,7 @@ namespace Tisztito.Ablakok
                 if (string.IsNullOrEmpty(CmbCikkszámok.Text.Trim())) throw new HibásBevittAdat("Kérem válasszon cikkszámot!");
                 if (!int.TryParse(TxtMennyiség.Text.Trim(), out int mennyiség) || mennyiség <= 0) throw new HibásBevittAdat("A mennyiség csak pozitív egész szám lehet!");
                 if (ChkDolgozók.CheckedItems.Count == 0) throw new HibásBevittAdat("Nincs kiválasztott dolgozó!");
+                if (!int.TryParse(Gyakoriság.Text, out int gyakoriság)) gyakoriság = 0;
 
                 // Kiválasztott dolgozók
                 List<string> dolgozószámok = new List<string>();
@@ -383,6 +442,24 @@ namespace Tisztito.Ablakok
                 // Járandóság ellenőrzése
                 if (!int.TryParse(LblJárandóság.Text.Trim(), out int járandóság)) járandóság = 0;
                 if (mennyiség > járandóság) throw new HibásBevittAdat("A megadott mennyiség nagyobb, mint a járandóság! A kiadás nem lehetséges.");
+
+                //Leellenőrizzük, hogy kapott-e előtte már az időnek megfelelően
+                List<Adat_KészletNaplóRaktár> Adatoknapló = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
+                List<Adat_KészletNaplóRaktár> AdatoknaplóElőző = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year - 1);
+                Adatoknapló.AddRange(AdatoknaplóElőző);
+
+                Adat_Anyag anyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == CmbCikkszámok.Text.Trim() && a.Státus == false);
+
+                foreach (string dolgozószám in dolgozószámok)
+                {
+                    Adat_KészletNaplóRaktár Elem = (from a in Adatoknapló
+                                                    where a.Dolgozószám == dolgozószám
+                                                    && a.Dátum > Dátum.Value.AddMonths(-1 * gyakoriság)
+                                                    select a).FirstOrDefault();
+
+                    if (Elem != null) throw new HibásBevittAdat($"Az {dolgozószám} dolgozószámú dolgozó\nkapott már az elmúlt időben ilyen járandóságot!");
+                }
+
 
                 // Raktárkészlet ellenőrzése
                 Adat_Raktár raktárAdat = AdatokRaktár.FirstOrDefault(a => a.Cikkszám == CmbCikkszámok.Text.Trim() && a.Szervezet == CmbSzervezet.Text.Trim());
@@ -708,7 +785,43 @@ namespace Tisztito.Ablakok
         }
 
 
+        /// <summary>
+        /// Ha üres a text tartalma akkor lehet munkakörre szűrni,
+        /// ha van benne név akkor megkeresi a munkakörét és a nevét a listában
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CmbDolgozó_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            try
+            {
+                CmbDolgozó.Text = CmbDolgozó.Items[CmbDolgozó.SelectedIndex].ToString();
+                //Ha van kiválasztott dolgozó, akkor a munkakör és a dolgozók listája nem módosítható
+                CmbMunkakör.Enabled = string.IsNullOrEmpty(CmbDolgozó.Text.Trim());
+                ChkDolgozók.Enabled = string.IsNullOrEmpty(CmbDolgozó.Text.Trim());
 
+                // ha van kiválasztott dolgozó, akkor a munkakörét beállítjuk és kijelöljük a listában
+                if (!string.IsNullOrEmpty(CmbDolgozó.Text.Trim()))
+                {
+                    string[] parts = CmbDolgozó.Text.Trim().Split('-');
+                    Adat_Dolgozó dolgozók = (from a in AdatokDolgozók
+                                             where a.Dolgozószám == parts[0].Trim()
+                                             select a).FirstOrDefault();
+                    if (dolgozók == null) return;
 
+                    CmbMunkakör.Text = dolgozók.Munkakör;
+                    MunkakörKiválasztásaDolgozókFeltöltése();
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

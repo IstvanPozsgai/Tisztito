@@ -46,23 +46,27 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.Dátum = new System.Windows.Forms.DateTimePicker();
-            this.label9 = new System.Windows.Forms.Label();
-            this.RaktárKészlet = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.Gyakoriság = new System.Windows.Forms.Label();
             this.LblJárandóság = new System.Windows.Forms.Label();
             this.CmbMegnevezés = new System.Windows.Forms.ComboBox();
             this.CmbCikkszámok = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.TxtMennyiség = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.Dátum = new System.Windows.Forms.DateTimePicker();
+            this.TxtMennyiség = new System.Windows.Forms.TextBox();
+            this.RaktárKészlet = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Storno = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.CmbDolgozó = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -124,6 +128,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.20202F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.79798F));
+            this.tableLayoutPanel1.Controls.Add(this.CmbDolgozó, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.CmbMunkakör, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -132,10 +138,11 @@
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 193F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(594, 304);
             this.tableLayoutPanel1.TabIndex = 243;
             // 
@@ -182,7 +189,7 @@
             this.ChkDolgozók.FormattingEnabled = true;
             this.ChkDolgozók.Location = new System.Drawing.Point(123, 73);
             this.ChkDolgozók.Name = "ChkDolgozók";
-            this.ChkDolgozók.Size = new System.Drawing.Size(463, 214);
+            this.ChkDolgozók.Size = new System.Drawing.Size(463, 172);
             this.ChkDolgozók.TabIndex = 249;
             // 
             // panel1
@@ -209,64 +216,41 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.41527F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.58473F));
-            this.tableLayoutPanel3.Controls.Add(this.Dátum, 1, 5);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 5);
-            this.tableLayoutPanel3.Controls.Add(this.RaktárKészlet, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.Gyakoriság, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.LblJárandóság, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.CmbMegnevezés, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.CmbCikkszámok, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.TxtMennyiség, 1, 4);
-            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 6);
+            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 5);
+            this.tableLayoutPanel3.Controls.Add(this.Dátum, 1, 6);
+            this.tableLayoutPanel3.Controls.Add(this.TxtMennyiség, 1, 5);
+            this.tableLayoutPanel3.Controls.Add(this.RaktárKészlet, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 3);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(612, 12);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 6;
+            this.tableLayoutPanel3.RowCount = 7;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 217);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 264);
             this.tableLayoutPanel3.TabIndex = 244;
             // 
-            // Dátum
+            // Gyakoriság
             // 
-            this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.Dátum.Location = new System.Drawing.Point(118, 178);
-            this.Dátum.Name = "Dátum";
-            this.Dátum.Size = new System.Drawing.Size(128, 26);
-            this.Dátum.TabIndex = 256;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 175);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 20);
-            this.label9.TabIndex = 255;
-            this.label9.Text = "Dátum:";
-            // 
-            // RaktárKészlet
-            // 
-            this.RaktárKészlet.AutoSize = true;
-            this.RaktárKészlet.Location = new System.Drawing.Point(118, 105);
-            this.RaktárKészlet.Name = "RaktárKészlet";
-            this.RaktárKészlet.Size = new System.Drawing.Size(49, 20);
-            this.RaktárKészlet.TabIndex = 254;
-            this.RaktárKészlet.Text = "<< >>";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 105);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 35);
-            this.label7.TabIndex = 251;
-            this.label7.Text = "Raktárkészlet:";
+            this.Gyakoriság.AutoSize = true;
+            this.Gyakoriság.Location = new System.Drawing.Point(118, 105);
+            this.Gyakoriság.Name = "Gyakoriság";
+            this.Gyakoriság.Size = new System.Drawing.Size(49, 20);
+            this.Gyakoriság.TabIndex = 258;
+            this.Gyakoriság.Text = "<< >>";
             // 
             // LblJárandóság
             // 
@@ -322,21 +306,65 @@
             this.label6.TabIndex = 247;
             this.label6.Text = "Járandóság:";
             // 
-            // TxtMennyiség
+            // label9
             // 
-            this.TxtMennyiség.Location = new System.Drawing.Point(118, 143);
-            this.TxtMennyiség.Name = "TxtMennyiség";
-            this.TxtMennyiség.Size = new System.Drawing.Size(100, 26);
-            this.TxtMennyiség.TabIndex = 252;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 210);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 20);
+            this.label9.TabIndex = 255;
+            this.label9.Text = "Dátum:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 140);
+            this.label8.Location = new System.Drawing.Point(3, 175);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 20);
             this.label8.TabIndex = 253;
             this.label8.Text = "Mennyiség:";
+            // 
+            // Dátum
+            // 
+            this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.Dátum.Location = new System.Drawing.Point(118, 213);
+            this.Dátum.Name = "Dátum";
+            this.Dátum.Size = new System.Drawing.Size(128, 26);
+            this.Dátum.TabIndex = 256;
+            // 
+            // TxtMennyiség
+            // 
+            this.TxtMennyiség.Location = new System.Drawing.Point(118, 178);
+            this.TxtMennyiség.Name = "TxtMennyiség";
+            this.TxtMennyiség.Size = new System.Drawing.Size(100, 26);
+            this.TxtMennyiség.TabIndex = 252;
+            // 
+            // RaktárKészlet
+            // 
+            this.RaktárKészlet.AutoSize = true;
+            this.RaktárKészlet.Location = new System.Drawing.Point(118, 140);
+            this.RaktárKészlet.Name = "RaktárKészlet";
+            this.RaktárKészlet.Size = new System.Drawing.Size(49, 20);
+            this.RaktárKészlet.TabIndex = 254;
+            this.RaktárKészlet.Text = "<< >>";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 140);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 35);
+            this.label7.TabIndex = 251;
+            this.label7.Text = "Raktárkészlet:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 105);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 20);
+            this.label10.TabIndex = 257;
+            this.label10.Text = "Gyakoriság:";
             // 
             // tableLayoutPanel2
             // 
@@ -418,16 +446,34 @@
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersWidth = 25;
             this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.Tábla.Size = new System.Drawing.Size(1293, 137);
+            this.Tábla.Size = new System.Drawing.Size(1293, 203);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 246;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 263);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(72, 20);
+            this.label11.TabIndex = 250;
+            this.label11.Text = "Dolgozó:";
+            // 
+            // CmbDolgozó
+            // 
+            this.CmbDolgozó.FormattingEnabled = true;
+            this.CmbDolgozó.Location = new System.Drawing.Point(123, 266);
+            this.CmbDolgozó.Name = "CmbDolgozó";
+            this.CmbDolgozó.Size = new System.Drawing.Size(463, 28);
+            this.CmbDolgozó.TabIndex = 251;
+            this.CmbDolgozó.SelectionChangeCommitted += new System.EventHandler(this.CmbDolgozó_SelectionChangeCommitted);
             // 
             // Ablak_KiOszt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1319, 471);
+            this.ClientSize = new System.Drawing.Size(1319, 537);
             this.Controls.Add(this.Tábla);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel3);
@@ -484,5 +530,9 @@
         internal System.Windows.Forms.Button MezőkÜrítése;
         internal System.Windows.Forms.Button Storno;
         internal System.Windows.Forms.Button BtnExcel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label Gyakoriság;
+        private System.Windows.Forms.ComboBox CmbDolgozó;
+        private System.Windows.Forms.Label label11;
     }
 }
