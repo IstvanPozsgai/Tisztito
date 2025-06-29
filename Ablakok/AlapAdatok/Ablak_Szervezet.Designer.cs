@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Szervezet));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label34 = new System.Windows.Forms.Label();
@@ -41,8 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
+            this.KötésiOsztály = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KötésiOsztály)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -217,6 +220,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KötésiOsztály)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,5 +239,6 @@
         internal System.Windows.Forms.TextBox Id;
         private Zuby.ADGV.AdvancedDataGridView Tábla;
         internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.BindingSource KötésiOsztály;
     }
 }

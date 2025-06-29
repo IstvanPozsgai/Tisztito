@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
@@ -26,13 +27,12 @@ namespace Tisztito.Ablakok
 
         private void Ablak_Szervezet_Load(object sender, System.EventArgs e)
         {
-
+            Alap_tábla_író();
         }
 
         private void Start()
         {
             StátusokFeltöltése();
-            Alap_tábla_író();
             GombLathatosagKezelo.Beallit(this);
         }
 
@@ -139,10 +139,35 @@ namespace Tisztito.Ablakok
                 Tábla.CleanFilterAndSort();
                 AlapTáblaFejléc();
                 AlapTáblaTartalom();
-                Tábla.DataSource = AdatTáblaALap;
+                KötésiOsztály.DataSource = AdatTáblaALap;
+                Tábla.DataSource = KötésiOsztály;
                 AlapTáblaOszlopSzélesség();
+                TáblaSzínezés();
                 Tábla.Visible = true;
                 Tábla.Refresh();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TáblaSzínezés()
+        {
+            try
+            {
+                if (Tábla.Rows.Count < 1) return;
+
+                foreach (DataGridViewRow Sor in Tábla.Rows)
+                {
+                    if (Sor.Cells["Státus"].Value.ToStrTrim() == "Törölt")
+                        Sor.Cells["Státus"].Style.BackColor = Color.OrangeRed;
+                }
             }
             catch (HibásBevittAdat ex)
             {
