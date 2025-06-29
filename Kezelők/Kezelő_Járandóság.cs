@@ -99,6 +99,30 @@ namespace Tisztito.Kezelők
             }
         }
 
+        public void Rögzítés(List<Adat_Járandóság> Adatok)
+        {
+            try
+            {
+                List<string> SzövegGy = new List<string>();
+                foreach (Adat_Járandóság Adat in Adatok)
+                {
+                    string szöveg = $"INSERT INTO {táblanév} (Munkakör, Cikkszám, Mennyiség, Gyakoriság, státus) VALUES ";
+                    szöveg += $"('{Adat.Munkakör}', '{Adat.Cikkszám}', {Adat.Mennyiség}, {Adat.Gyakoriság}, {Adat.Státus})";
+                    SzövegGy.Add(szöveg);
+                }
+                MyA.ABMódosítás(hely, jelszó, SzövegGy);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void Módosítás(Adat_Járandóság Adat)
         {
             try

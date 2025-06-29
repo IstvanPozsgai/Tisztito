@@ -269,7 +269,7 @@ namespace Tisztito.Ablakok
                     return;
 
                 fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
-                MyE.DataGridViewToExcel(fájlexc, Tábla, true);
+                MyE.DataGridViewToExcel(fájlexc, Tábla);
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MyE.Megnyitás(fájlexc + ".xlsx");
             }
@@ -396,11 +396,107 @@ namespace Tisztito.Ablakok
 
         private void AdatokFeltölése_Click(object sender, EventArgs e)
         {
-
             try
             {
 
+                // megpróbáljuk megnyitni az excel táblát.
+                OpenFileDialog OpenFileDialog1 = new OpenFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Járandóság Adatok betöltése",
+                    FileName = "",
+                    Filter = "Excel |*.xlsx"
+                };
+                string fájlexc;
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (OpenFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = OpenFileDialog1.FileName;
+                else
+                    return;
 
+                AdatokAnyag = KézAnyag.Lista_Adatok();
+                AdatokDolgozó = KézDolgozó.Lista_Adatok();
+                AdatokJárandóság = KézJár.Lista_Adatok();
+
+                MyE.ExcelMegnyitás(fájlexc);
+                string munkalap = "Munka1";
+                bool hiba = false;
+                int sormax = MyE.Utolsósor(munkalap);
+                List<Adat_Járandóság> BeAdatok = new List<Adat_Járandóság>();
+                for (int sor = 2; sor <= sormax; sor++)
+                {
+                    string Munkakör = MyF.Szöveg_Tisztítás(MyE.Beolvas($"A{sor}").Trim(), 0, 250);
+                    string Cikkszám = MyF.Szöveg_Tisztítás(MyE.Beolvas($"B{sor}").Trim(), 0, 10);
+                    int Mennyiség = MyE.Beolvas($"C{sor}").ToÉrt_Int();
+                    int Gyakoriság = MyE.Beolvas($"D{sor}").ToÉrt_Int();
+                    bool státus = false;
+
+                    bool SorHiba = false;
+                    //Ellenőrzés
+                    if (Munkakör.Trim() == "")
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"A{sor}", System.Drawing.Color.Red);
+                    }
+                    if (Cikkszám.Trim() == "")
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"B{sor}", System.Drawing.Color.Red);
+                    }
+                    //Ha nem létezik az anyag akkor hibát jelez
+                    Adat_Anyag EgyCikk = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszám);
+                    if (EgyCikk == null)
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"B{sor}", System.Drawing.Color.Red);
+                    }
+
+                    if (Mennyiség < 1)
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"C{sor}", System.Drawing.Color.Red);
+                    }
+                    if (Gyakoriság < 1)
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"D{sor}", System.Drawing.Color.Red);
+                    }
+
+                    //Ha van már ilyen akár törölt is akkor nem rögzíti
+                    Adat_Járandóság EgyAdat = AdatokJárandóság.FirstOrDefault(a => a.Cikkszám == Cikkszám && a.Munkakör == Munkakör);
+                    if (EgyAdat != null)
+                    {
+                        SorHiba = true;
+                        hiba = true;
+                        MyE.Háttérszín($"A{sor}:D{sor}", System.Drawing.Color.Red);
+                    }
+
+                    if (!SorHiba)
+                    {
+                        Adat_Járandóság Adat = new Adat_Járandóság(Munkakör, Cikkszám, Mennyiség, Gyakoriság, státus);
+                        BeAdatok.Add(Adat);
+                    }
+                    Holtart.Lép();
+                }
+                if (BeAdatok.Count > 0) KézJár.Rögzítés(BeAdatok);
+                Holtart.Ki();
+                if (hiba)
+                {
+                    MyE.ExcelMentés();                  //Ha volt hiba benne akkor mentjük
+                    MyE.ExcelBezárás();
+                    MessageBox.Show("Az adatok betöltése elkészült,\nde voltak benne hibák mely piros színnel kerültek kiemelésre.", "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else
+                {
+                    MyE.ExcelBezárás();
+                    System.IO.File.Delete(fájlexc);
+                    MessageBox.Show("Az adatok betöltése elkészült", "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
             }
             catch (HibásBevittAdat ex)
             {
