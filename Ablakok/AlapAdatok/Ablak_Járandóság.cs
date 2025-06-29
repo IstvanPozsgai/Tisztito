@@ -206,7 +206,7 @@ namespace Tisztito.Ablakok
                     Soradat["Megnevezés"] = "";
 
                 Soradat["Mennyiség"] = rekord.Mennyiség;
-                Soradat["Gyakoriság"] = rekord.Gyakoriság;
+                Soradat["Esedékesség gyakorisága (hó):"] = rekord.Gyakoriság;
                 Soradat["Státus"] = rekord.Státus == true ? "Törölt" : "Aktív";
                 AdatTáblaALap.Rows.Add(Soradat);
             }
@@ -223,7 +223,7 @@ namespace Tisztito.Ablakok
                 AdatTáblaALap.Columns.Add("Cikkszám");
                 AdatTáblaALap.Columns.Add("Megnevezés");
                 AdatTáblaALap.Columns.Add("Mennyiség");
-                AdatTáblaALap.Columns.Add("Gyakoriság");
+                AdatTáblaALap.Columns.Add("Esedékesség gyakorisága (hó):");
                 AdatTáblaALap.Columns.Add("Státus");
             }
             catch (HibásBevittAdat ex)
@@ -243,7 +243,7 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Cikkszám"].Width = 130;
             Tábla.Columns["Megnevezés"].Width = 300;
             Tábla.Columns["Mennyiség"].Width = 130;
-            Tábla.Columns["Gyakoriság"].Width = 130;
+            Tábla.Columns["Esedékesség gyakorisága (hó):"].Width = 130;
             Tábla.Columns["Státus"].Width = 70;
         }
 
