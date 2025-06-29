@@ -104,14 +104,18 @@ namespace Tisztito.Ablakok
         /// <param name="e"></param>
         private void CmbSzervezet_SelectionChangeCommitted(object sender, EventArgs e)
         {
+
             CmbSzervezet.Text = CmbSzervezet.Items[CmbSzervezet.SelectedIndex].ToString();
+            GombLathatosagKezelo.BeallitSzervezet(this, CmbSzervezet.Text);
             CmbMunkakör.Text = "";
             CmbMunkakör.Items.Clear();
             ChkDolgozók.Items.Clear();
             CmbDolgozó.Items.Clear();
+
+            DolgozóFeltöltés();
             if (string.IsNullOrEmpty(CmbSzervezet.Text.Trim())) return;
             MunkakörFeltöltés();
-            DolgozóFeltöltés();
+
         }
 
 
@@ -156,15 +160,20 @@ namespace Tisztito.Ablakok
         {
             try
             {
+
                 // Dolgozók feltöltése
                 List<Adat_Dolgozó> dolgozók = AdatokDolgozók
-                    .Where(d => d.Szervezet == CmbSzervezet.Text.Trim() && d.Státus == false)
+                    .Where(d => d.Státus == false)
                     .OrderBy(d => d.Dolgozónév)
                     .ToList();
+                if (CmbSzervezet.Text.Trim() != "")
+                    dolgozók = dolgozók
+                     .Where(d => d.Szervezet == CmbSzervezet.Text.Trim())
+                     .ToList();
                 CmbDolgozó.Items.Clear();
                 CmbDolgozó.Items.Add(""); // Üres elem az elejére
                 foreach (Adat_Dolgozó dolgozó in dolgozók)
-                    CmbDolgozó.Items.Add($"{dolgozó.Dolgozószám} - {dolgozó.Dolgozónév}");
+                    CmbDolgozó.Items.Add($"{dolgozó.Dolgozónév} = {dolgozó.Dolgozószám}");
             }
             catch (HibásBevittAdat ex)
             {
@@ -208,7 +217,7 @@ namespace Tisztito.Ablakok
                 int i = 0;
                 foreach (Adat_Dolgozó dolgozó in dolgozók)
                 {
-                    string szöveg = $"{dolgozó.Dolgozószám} - {dolgozó.Dolgozónév}";
+                    string szöveg = $"{dolgozó.Dolgozónév} = {dolgozó.Dolgozószám}";
                     ChkDolgozók.Items.Add(szöveg);
                     if (szöveg == CmbDolgozó.Text.Trim()) ChkDolgozók.SetItemChecked(i, true);
                     i++;
@@ -434,9 +443,9 @@ namespace Tisztito.Ablakok
                 foreach (string checkedItem in ChkDolgozók.CheckedItems)
                 {
                     // Feltételezve: "Dolgozószám - Dolgozónév" formátum
-                    string[] parts = checkedItem.ToString().Split('-');
+                    string[] parts = checkedItem.ToString().Split('=');
                     if (parts.Length > 0)
-                        dolgozószámok.Add(parts[0].Trim());
+                        dolgozószámok.Add(parts[1].Trim());
                 }
 
                 // Járandóság ellenőrzése
@@ -452,12 +461,16 @@ namespace Tisztito.Ablakok
 
                 foreach (string dolgozószám in dolgozószámok)
                 {
-                    Adat_KészletNaplóRaktár Elem = (from a in Adatoknapló
-                                                    where a.Dolgozószám == dolgozószám
-                                                    && a.Dátum > Dátum.Value.AddMonths(-1 * gyakoriság)
-                                                    select a).FirstOrDefault();
-
-                    if (Elem != null) throw new HibásBevittAdat($"Az {dolgozószám} dolgozószámú dolgozó\nkapott már az elmúlt időben ilyen járandóságot!");
+                    List<Adat_KészletNaplóRaktár> Elemek = (from a in Adatoknapló
+                                                            where a.Dolgozószám == dolgozószám
+                                                            && a.Cikkszám == CmbCikkszámok.Text.Trim()
+                                                            && a.Dátum > Dátum.Value.AddMonths(-1 * gyakoriság)
+                                                            && !a.Storno
+                                                            select a).ToList();
+                    int kapott = Elemek.Sum(a => a.Mennyiség);
+                    if (mennyiség + kapott > járandóság) throw new HibásBevittAdat($"A {dolgozószám} dolgozószámú dolgozó\n" +
+                        $"kapott már {kapott} db-ot az elmúlt időszakban ilyen járandóságot.\n" +
+                        $"Még kaphat {járandóság - kapott} darabot.");
                 }
 
 
@@ -545,19 +558,20 @@ namespace Tisztito.Ablakok
         {
             try
             {
+                if (Tábla.SelectedRows.Count < 1) return;
                 List<Adat_KészletNaplóRaktár> stornózhatóTételek = new List<Adat_KészletNaplóRaktár>();
 
-                foreach (DataRow row in AdatTáblaALap.Rows)
+                foreach (DataGridViewRow row in Tábla.SelectedRows)
                 {
-                    if (row["Storno Rögzítő"] != null && row["Storno Rögzítő"].ToString() == "Rögzítés")
+                    if (row.Cells["Storno"].Value.ToString() == "Rögzítés")
                     {
-                        string cikkszám = row["Cikkszám"]?.ToString() ?? "";
-                        if (!int.TryParse(row["Mennyiség"].ToStrTrim(), out int mennyiség)) mennyiség = 0;
-                        string szervezetHonnan = row["Szervezet Honnan"]?.ToString() ?? "";
-                        string dolgozószám = row["Dolgozószám"]?.ToString() ?? "";
-                        string rögzítő = row["Rögzítő"]?.ToString() ?? "";
+                        string cikkszám = row.Cells["Cikkszám"].Value?.ToString() ?? "";
+                        if (!int.TryParse(row.Cells["Mennyiség"].Value.ToStrTrim(), out int mennyiség)) mennyiség = 0;
+                        string szervezetHonnan = row.Cells["Szervezet Honnan"].Value?.ToString() ?? "";
+                        string dolgozószám = row.Cells["Dolgozószám"].Value?.ToString() ?? "";
+                        string rögzítő = row.Cells["Rögzítő"].Value?.ToString() ?? "";
                         DateTime dátum = DateTime.Today;
-                        DateTime.TryParse(row["Dátum"]?.ToString(), out dátum);
+                        DateTime.TryParse(row.Cells["Dátum"].Value?.ToString(), out dátum);
                         bool storno = true;
                         string stornoRögzítő = Program.PostásNév;
                         DateTime stornoDátum = DateTime.Now;
@@ -803,13 +817,15 @@ namespace Tisztito.Ablakok
                 // ha van kiválasztott dolgozó, akkor a munkakörét beállítjuk és kijelöljük a listában
                 if (!string.IsNullOrEmpty(CmbDolgozó.Text.Trim()))
                 {
-                    string[] parts = CmbDolgozó.Text.Trim().Split('-');
+                    string[] parts = CmbDolgozó.Text.Trim().Split('=');
                     Adat_Dolgozó dolgozók = (from a in AdatokDolgozók
-                                             where a.Dolgozószám == parts[0].Trim()
+                                             where a.Dolgozószám == parts[1].Trim()
                                              select a).FirstOrDefault();
                     if (dolgozók == null) return;
 
                     CmbMunkakör.Text = dolgozók.Munkakör;
+                    CmbSzervezet.Text = dolgozók.Szervezet;
+                    GombLathatosagKezelo.BeallitSzervezet(this, CmbSzervezet.Text);
                     MunkakörKiválasztásaDolgozókFeltöltése();
                 }
             }

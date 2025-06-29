@@ -463,7 +463,7 @@
             this.Tábla.Name = "Tábla";
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersWidth = 25;
-            this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Tábla.Size = new System.Drawing.Size(1289, 203);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 246;

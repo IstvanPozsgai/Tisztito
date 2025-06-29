@@ -139,10 +139,10 @@ namespace Tisztito.Kezelők
                     szöveg += $"'{Adat.SzervezetHova}', ";
                     szöveg += $"'{Adat.Bizonylat}', ";
                     szöveg += $"'{Adat.Rögzítő}', ";
-                    szöveg += $"'{Adat.Dátum}', ";
+                    szöveg += $"'{Adat.Dátum:yyyy.MM.dd}', ";
                     szöveg += $"{Adat.Storno}, ";
                     szöveg += $"'{Adat.Storno_Rögzítő}', ";
-                    szöveg += $"'{Adat.Storno_Dátum}', ";
+                    szöveg += $"'{Adat.Storno_Dátum:yyyy.MM.dd}', ";
                     szöveg += $"'{Adat.Dolgozószám}')";
 
                     SzövegGy.Add(szöveg);
@@ -243,6 +243,7 @@ namespace Tisztito.Kezelők
                     szöveg += $"SzervezetHonnan='{Adat.SzervezetHonnan}' AND ";
                     szöveg += $"Dolgozószám='{Adat.Dolgozószám}' AND ";
                     szöveg += $"Mennyiség={Adat.Mennyiség} AND ";
+                    szöveg += $"Dátum=#{Adat.Dátum:MM-dd-yyyy}# AND ";
                     szöveg += $"Storno={false}";
                     SzövegGy.Add(szöveg);
 
