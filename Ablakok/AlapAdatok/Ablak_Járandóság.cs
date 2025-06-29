@@ -269,7 +269,7 @@ namespace Tisztito.Ablakok
                     return;
 
                 fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
-                MyE.EXCELtábla(fájlexc, Tábla, true);
+                MyE.DataGridViewToExcel(fájlexc, Tábla, true);
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MyE.Megnyitás(fájlexc + ".xlsx");
             }
@@ -343,6 +343,74 @@ namespace Tisztito.Ablakok
                 Cikkszám.Text = EgyAnyag.Cikkszám;
             else
                 Cikkszám.Text = "";
+        }
+
+        private void FeltöltésiTábla_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string fájlexc;
+
+                // kimeneti fájl helye és neve
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Excel tábla készítés adatok beolvasásához",
+                    FileName = $"Beolvasó_{DateTime.Now.ToString("yyyyMMddHHmmss")}",
+                    Filter = "Excel |*.xlsx"
+                };
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (SaveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = SaveFileDialog1.FileName;
+                else
+                    return;
+
+                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                MyE.ExcelLétrehozás();
+
+                MyE.Kiir("Munkakör", "A1");
+                MyE.Kiir("Cikkszám", "B1");
+                MyE.Kiir("Mennyiség", "C1");
+                MyE.Kiir("Esedékesség gyakorisága (hó)", "D1");
+                MyE.Oszlopszélesség("Munka1", "A:D");
+                MyE.Rácsoz("a1:D5");
+                MyE.NyomtatásiTerület_részletes("Munka1", "A1:D5", "", "", true);
+                MyE.ExcelMentés(fájlexc);
+                MyE.ExcelBezárás();
+
+                MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Module_Excel.Megnyitás(fájlexc + ".xlsx");
+
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AdatokFeltölése_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
