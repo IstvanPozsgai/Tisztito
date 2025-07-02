@@ -226,6 +226,7 @@
     <Compile Include="Minden\Kezelő_Értékellenőrzés.cs" />
     <Compile Include="Minden\KönyvtárEllenőr.cs" />
     <Compile Include="Minden\ListToDataTable.cs" />
+    <Compile Include="Minden\SAP_Raktár.cs" />
     <Compile Include="Minden\ScreenshotHelper.cs" />
     <Compile Include="Minden\Számkonverter.cs" />
     <Compile Include="Program.cs" />
@@ -427,6 +428,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="community_users.ico" />
+    <None Include="Resources\SAP.ico" />
+    <None Include="Resources\Document Microsoft Excel-01.ico" />
     <None Include="Resources\Custom-Icon-Design-Flatastic-1-Import.ico" />
     <None Include="Resources\Custom-Icon-Design-Flatastic-1-Export.ico" />
     <None Include="Resources\App-dict.ico" />

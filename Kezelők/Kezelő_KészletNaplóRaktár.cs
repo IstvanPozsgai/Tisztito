@@ -118,6 +118,56 @@ namespace Tisztito.Kezelők
         }
 
         /// <summary>
+        /// Ez a változat akkor használatos, ha raktárak között történik a rögzítés és SAPBól jön az adat.
+        /// </summary>
+        /// <param name="Adatok"></param>
+        /// <param name="Év"></param>
+        public void Rögzítés(List<Adat_KészletNaplóRaktár> Adatok, int Év)
+        {
+            try
+            {
+                FájlBeállítás(Év);
+                List<string> SzövegGy = new List<string>();
+                List<Adat_Raktár> AdatKészlet = new List<Adat_Raktár>();
+                foreach (Adat_KészletNaplóRaktár Adat in Adatok)
+                {
+                    string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Mennyiség, SzervezetHonnan, SzervezetHova, Bizonylatszám, Rögzítő, Dátum, Storno, Storno_Rögzítő, Storno_Dátum, Dolgozószám) VALUES ";
+                    szöveg += $"('{Adat.Cikkszám}', ";
+                    szöveg += $"{Adat.Mennyiség}, ";
+                    szöveg += $"'{Adat.SzervezetHonnan}', ";
+                    szöveg += $"'{Adat.SzervezetHova}', ";
+                    szöveg += $"'{Adat.Bizonylat}', ";
+                    szöveg += $"'{Adat.Rögzítő}', ";
+                    szöveg += $"'{Adat.Dátum}', ";
+                    szöveg += $"{Adat.Storno}, ";
+                    szöveg += $"'{Adat.Storno_Rögzítő}', ";
+                    szöveg += $"'{Adat.Storno_Dátum}', ";
+                    szöveg += $"'')";
+                    SzövegGy.Add(szöveg);
+
+                    //Ahova könyvelünk
+                    Adat_Raktár ADAT = new Adat_Raktár(
+                        Adat.Cikkszám,
+                        Adat.SzervezetHova,
+                        Adat.Mennyiség);
+                    AdatKészlet.Add(ADAT);
+                }
+                MyA.ABMódosítás(hely, jelszó, SzövegGy);
+                if (AdatKészlet.Count > 0) KézRaktár.Döntés(AdatKészlet);
+
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
         /// Ez a változat akkor használatos, ha a rögzítés nem raktárak között történik, tehát a dolgozóknak kerül kiosztásra
         /// </summary>
         /// <param name="Év"></param>

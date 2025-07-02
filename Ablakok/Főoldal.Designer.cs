@@ -32,11 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Főoldal));
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.beállításokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.jogosultságBeállításToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AblakokBeállításaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GombokBeállításaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.FelhasználókMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.JogKiosztMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.működésiAdatokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alapAdatokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Anyag = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,8 @@
             this.Rejtett = new System.Windows.Forms.GroupBox();
             this.TároltVerzió = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Figyelmeztetés = new System.Windows.Forms.Label();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -79,7 +82,12 @@
             // beállításokToolStripMenuItem
             // 
             this.beállításokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.jogosultságBeállításToolStripMenuItem,
+            this.AblakokBeállításaMenuItem,
+            this.GombokBeállításaToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.FelhasználókMenuItem,
+            this.JogKiosztMenuItem,
+            this.toolStripSeparator2,
             this.működésiAdatokToolStripMenuItem});
             this.beállításokToolStripMenuItem.Image = global::Tisztito.Properties.Resources.Action_configure;
             this.beállításokToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,49 +95,44 @@
             this.beállításokToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.beállításokToolStripMenuItem.Text = "&Beállítások";
             // 
-            // jogosultságBeállításToolStripMenuItem
-            // 
-            this.jogosultságBeállításToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AblakokBeállításaMenuItem,
-            this.GombokBeállításaToolStripMenuItem,
-            this.FelhasználókMenuItem,
-            this.JogKiosztMenuItem});
-            this.jogosultságBeállításToolStripMenuItem.Name = "jogosultságBeállításToolStripMenuItem";
-            this.jogosultságBeállításToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-            this.jogosultságBeállításToolStripMenuItem.Text = "&Jogosultság beállítás";
-            // 
             // AblakokBeállításaMenuItem
             // 
             this.AblakokBeállításaMenuItem.Name = "AblakokBeállításaMenuItem";
             this.AblakokBeállításaMenuItem.Size = new System.Drawing.Size(311, 24);
             this.AblakokBeállításaMenuItem.Text = "Ablakok beállítása";
-            this.AblakokBeállításaMenuItem.Click += new System.EventHandler(this.AblakokBeállításaMenuItem_Click);
             // 
             // GombokBeállításaToolStripMenuItem
             // 
             this.GombokBeállításaToolStripMenuItem.Name = "GombokBeállításaToolStripMenuItem";
             this.GombokBeállításaToolStripMenuItem.Size = new System.Drawing.Size(311, 24);
             this.GombokBeállításaToolStripMenuItem.Text = "Gombok beállítása";
-            this.GombokBeállításaToolStripMenuItem.Click += new System.EventHandler(this.GombokBeállításaToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(308, 6);
             // 
             // FelhasználókMenuItem
             // 
             this.FelhasználókMenuItem.Name = "FelhasználókMenuItem";
             this.FelhasználókMenuItem.Size = new System.Drawing.Size(311, 24);
             this.FelhasználókMenuItem.Text = "Felhasználók létrehozása törlése";
-            this.FelhasználókMenuItem.Click += new System.EventHandler(this.FelhasználókMenuItem_Click);
             // 
             // JogKiosztMenuItem
             // 
             this.JogKiosztMenuItem.Name = "JogKiosztMenuItem";
             this.JogKiosztMenuItem.Size = new System.Drawing.Size(311, 24);
             this.JogKiosztMenuItem.Text = "Jogosultság kiosztás";
-            this.JogKiosztMenuItem.Click += new System.EventHandler(this.JogKiosztMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(308, 6);
             // 
             // működésiAdatokToolStripMenuItem
             // 
             this.működésiAdatokToolStripMenuItem.Name = "működésiAdatokToolStripMenuItem";
-            this.működésiAdatokToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
+            this.működésiAdatokToolStripMenuItem.Size = new System.Drawing.Size(311, 24);
             this.működésiAdatokToolStripMenuItem.Text = "&Működési Adatok";
             this.működésiAdatokToolStripMenuItem.Click += new System.EventHandler(this.MűködésiAdatokToolStripMenuItem_Click);
             // 
@@ -271,7 +274,7 @@
             this.Rejtett.Controls.Add(this.TároltVerzió);
             this.Rejtett.Controls.Add(this.Label5);
             this.Rejtett.Controls.Add(this.Verzió_Váltás);
-            this.Rejtett.Location = new System.Drawing.Point(59, 71);
+            this.Rejtett.Location = new System.Drawing.Point(13, 134);
             this.Rejtett.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Rejtett.Name = "Rejtett";
             this.Rejtett.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -299,12 +302,31 @@
             this.Label5.TabIndex = 27;
             this.Label5.Text = "Tárolt Verzió szám:";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // Figyelmeztetés
+            // 
+            this.Figyelmeztetés.BackColor = System.Drawing.Color.LightSalmon;
+            this.Figyelmeztetés.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Figyelmeztetés.Location = new System.Drawing.Point(12, 43);
+            this.Figyelmeztetés.Name = "Figyelmeztetés";
+            this.Figyelmeztetés.Size = new System.Drawing.Size(136, 86);
+            this.Figyelmeztetés.TabIndex = 31;
+            this.Figyelmeztetés.Text = "A program karbantartás miatt ki fogja léptetni!";
+            this.Figyelmeztetés.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Figyelmeztetés.Visible = false;
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tan;
             this.ClientSize = new System.Drawing.Size(656, 299);
+            this.Controls.Add(this.Figyelmeztetés);
             this.Controls.Add(this.Rejtett);
             this.Controls.Add(this.Képkeret);
             this.Controls.Add(this.MenuStrip);
@@ -340,22 +362,25 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Dolgozó;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Szervezet;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Járandóság;
-        private System.Windows.Forms.ToolStripMenuItem jogosultságBeállításToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem működésiAdatokToolStripMenuItem;
         internal System.Windows.Forms.PictureBox Képkeret;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem területiIgényekToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem raktárakKözöttiKönyvelésToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem AblakokBeállításaMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem GombokBeállításaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem FelhasználókMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem JogKiosztMenuItem;
         internal System.Windows.Forms.GroupBox Rejtett;
         internal System.Windows.Forms.Button Menükinyitás;
         internal System.Windows.Forms.TextBox TároltVerzió;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.Button Verzió_Váltás;
         private System.Windows.Forms.ToolStripMenuItem DolgozóiKiadásMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AblakokBeállításaMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem GombokBeállításaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem FelhasználókMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem JogKiosztMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Timer timer1;
+        internal System.Windows.Forms.Label Figyelmeztetés;
     }
 }
 

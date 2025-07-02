@@ -55,6 +55,7 @@
             this.Dátum = new System.Windows.Forms.DateTimePicker();
             this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.SAPbeolvasás = new System.Windows.Forms.Button();
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
@@ -240,14 +241,14 @@
             this.Tábla.EnableHeadersVisualStyles = false;
             this.Tábla.FilterAndSortEnabled = true;
             this.Tábla.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-            this.Tábla.Location = new System.Drawing.Point(12, 220);
+            this.Tábla.Location = new System.Drawing.Point(12, 237);
             this.Tábla.MaxFilterButtonImageHeight = 23;
             this.Tábla.Name = "Tábla";
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersVisible = false;
             this.Tábla.RowHeadersWidth = 62;
             this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.Tábla.Size = new System.Drawing.Size(1227, 208);
+            this.Tábla.Size = new System.Drawing.Size(1227, 191);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 224;
             this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
@@ -366,6 +367,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel2.Controls.Add(this.SAPbeolvasás, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.Frissít, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
@@ -378,11 +380,22 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 202);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 219);
             this.tableLayoutPanel2.TabIndex = 242;
+            // 
+            // SAPbeolvasás
+            // 
+            this.SAPbeolvasás.BackgroundImage = global::Tisztito.Properties.Resources.SAP;
+            this.SAPbeolvasás.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SAPbeolvasás.Location = new System.Drawing.Point(3, 58);
+            this.SAPbeolvasás.Name = "SAPbeolvasás";
+            this.SAPbeolvasás.Size = new System.Drawing.Size(45, 45);
+            this.SAPbeolvasás.TabIndex = 252;
+            this.SAPbeolvasás.UseVisualStyleBackColor = true;
+            this.SAPbeolvasás.Click += new System.EventHandler(this.SAPbeolvasás_Click);
             // 
             // BtnExcel
             // 
@@ -422,7 +435,7 @@
             // 
             this.PDFAblak.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
             this.PDFAblak.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PDFAblak.Location = new System.Drawing.Point(3, 154);
+            this.PDFAblak.Location = new System.Drawing.Point(3, 168);
             this.PDFAblak.Name = "PDFAblak";
             this.PDFAblak.Size = new System.Drawing.Size(45, 45);
             this.PDFAblak.TabIndex = 232;
@@ -433,7 +446,7 @@
             // 
             this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
             this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Location = new System.Drawing.Point(113, 100);
+            this.Rögzít.Location = new System.Drawing.Point(113, 113);
             this.Rögzít.Name = "Rögzít";
             this.Rögzít.Size = new System.Drawing.Size(45, 45);
             this.Rögzít.TabIndex = 229;
@@ -444,7 +457,7 @@
             // 
             this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
             this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Storno.Location = new System.Drawing.Point(3, 100);
+            this.Storno.Location = new System.Drawing.Point(3, 113);
             this.Storno.Name = "Storno";
             this.Storno.Size = new System.Drawing.Size(45, 45);
             this.Storno.TabIndex = 233;
@@ -455,7 +468,7 @@
             // 
             this.Pdf_Készítés.BackgroundImage = global::Tisztito.Properties.Resources.pdf_32;
             this.Pdf_Készítés.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Pdf_Készítés.Location = new System.Drawing.Point(113, 154);
+            this.Pdf_Készítés.Location = new System.Drawing.Point(113, 168);
             this.Pdf_Készítés.Name = "Pdf_Készítés";
             this.Pdf_Készítés.Size = new System.Drawing.Size(45, 45);
             this.Pdf_Készítés.TabIndex = 250;
@@ -466,7 +479,7 @@
             // 
             this.PDFNéz.BackgroundImage = global::Tisztito.Properties.Resources.App_dict;
             this.PDFNéz.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PDFNéz.Location = new System.Drawing.Point(58, 154);
+            this.PDFNéz.Location = new System.Drawing.Point(58, 168);
             this.PDFNéz.Name = "PDFNéz";
             this.PDFNéz.Size = new System.Drawing.Size(45, 45);
             this.PDFNéz.TabIndex = 251;
@@ -531,5 +544,6 @@
         internal System.Windows.Forms.Button BtnExcel;
         internal System.Windows.Forms.Button Pdf_Készítés;
         internal System.Windows.Forms.Button PDFNéz;
+        internal System.Windows.Forms.Button SAPbeolvasás;
     }
 }

@@ -30,11 +30,11 @@ namespace Tisztito
                 List<Adat_Alap_Beolvasás> oszlopnév = KézBeolvasás.Lista_Adatok();
 
                 //Meghatározzuk a beolvasó tábla elnevezéseit
-                string oszlopHR = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Dolgozószám" select a.Fejléc).FirstOrDefault();
-                string oszlopMunka = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Munkakör" select a.Fejléc).FirstOrDefault();
-                string oszlopNév = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Dolgozónév" select a.Fejléc).FirstOrDefault();
-                string oszlopStátus = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Státusz" select a.Fejléc).FirstOrDefault();
-                string oszlopSzerv = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Törölt == false && a.Kell == "Szervezet" select a.Fejléc).FirstOrDefault();
+                string oszlopHR = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Státusz == false && a.Változónév == "Dolgozószám" select a.Fejléc).FirstOrDefault();
+                string oszlopMunka = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Státusz == false && a.Változónév == "Munkakör" select a.Fejléc).FirstOrDefault();
+                string oszlopNév = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Státusz == false && a.Változónév == "Dolgozónév" select a.Fejléc).FirstOrDefault();
+                string oszlopStátus = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Státusz == false && a.Változónév == "Státusz" select a.Fejléc).FirstOrDefault();
+                string oszlopSzerv = (from a in oszlopnév where a.Csoport == "Dolgozó" && a.Státusz == false && a.Változónév == "Szervezet" select a.Fejléc).FirstOrDefault();
                 if (oszlopHR == null || oszlopMunka == null || oszlopNév == null || oszlopStátus == null || oszlopSzerv == null) throw new HibásBevittAdat("Nincs helyesen beállítva a beolvasótábla! ");
 
                 // Minden dolgozót feltöltünk

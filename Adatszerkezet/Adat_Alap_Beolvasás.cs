@@ -6,16 +6,17 @@
         public string Csoport { get; private set; }
         public int Oszlop { get; private set; }
         public string Fejléc { get; private set; }
-        public bool Törölt { get; private set; }
-        public string Kell { get; private set; }
+        public bool Státusz { get; private set; }
+        public string Változónév { get; private set; }
 
-        public Adat_Alap_Beolvasás(string csoport, int oszlop, string fejléc, bool törölt, string kell)
+        public Adat_Alap_Beolvasás(string csoport, int oszlop, string fejléc, bool státusz, string változónév)
         {
             Csoport = csoport;
             Oszlop = oszlop;
             Fejléc = fejléc;
-            Törölt = törölt;
-            Kell = kell;
+            Státusz = státusz;
+            Változónév = változónév;
         }
     }
 }
+

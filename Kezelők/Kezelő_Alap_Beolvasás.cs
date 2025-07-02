@@ -44,8 +44,8 @@ namespace Tisztito.Kezelők
                                         rekord["csoport"].ToStrTrim(),
                                         rekord["oszlop"].ToÉrt_Int(),
                                         rekord["fejléc"].ToStrTrim(),
-                                        rekord["törölt"].ToÉrt_Bool(),
-                                        rekord["kell"].ToStrTrim()
+                                        rekord["státus"].ToÉrt_Bool(),
+                                        rekord["Változónév"].ToStrTrim()
                                      );
                                 Adatok.Add(Adat);
                             }
@@ -59,11 +59,26 @@ namespace Tisztito.Kezelők
         public void Rögzítés(Adat_Alap_Beolvasás Adat)
         {
             string szöveg = $"INSERT INTO {táblanév} ";
-            szöveg += " ( csoport, oszlop, fejléc, törölt, kell)";
+            szöveg += " ( csoport, oszlop, fejléc, státus, Változónév)";
             szöveg += " VALUES ";
-            szöveg += $" ('{Adat.Csoport}', {Adat.Oszlop}, '{Adat.Fejléc}', {Adat.Törölt}, '{Adat.Kell}')";
+            szöveg += $" ('{Adat.Csoport}', {Adat.Oszlop}, '{Adat.Fejléc}', {Adat.Státusz}, '{Adat.Változónév}')";
             MyA.ABMódosítás(hely, jelszó, szöveg);
         }
+
+        public void Rögzítés(List<Adat_Alap_Beolvasás> Adatok)
+        {
+            List<string> szövegek = new List<string>();
+            foreach (Adat_Alap_Beolvasás Adat in Adatok)
+            {
+                string szöveg = $"INSERT INTO {táblanév} ";
+                szöveg += " ( csoport, oszlop, fejléc, státus , Változónév )";
+                szöveg += " VALUES ";
+                szöveg += $" ('{Adat.Csoport}', {Adat.Oszlop}, '{Adat.Fejléc}', {Adat.Státusz}, '{Adat.Változónév}')";
+                szövegek.Add(szöveg);
+            }
+            MyA.ABMódosítás(hely, jelszó, szövegek);
+        }
+
 
         public void Módosítás(Adat_Alap_Beolvasás Adat)
         {
@@ -71,9 +86,9 @@ namespace Tisztito.Kezelők
             {
                 string szöveg = $"UPDATE  {táblanév} SET ";
                 szöveg += $" fejléc='{Adat.Fejléc}', ";
-                szöveg += $" kell='{Adat.Kell}'";
+                szöveg += $" Változónév='{Adat.Változónév}'";
                 szöveg += $" WHERE [csoport]= '{Adat.Csoport}' and [oszlop]={Adat.Oszlop}";
-                szöveg += $" and [törölt]={Adat.Törölt}";
+                szöveg += $" and [státus]={Adat.Státusz}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)
@@ -95,7 +110,7 @@ namespace Tisztito.Kezelők
                 string szöveg = "UPDATE  {táblanév} SET ";
                 szöveg += $" törölt=true ";
                 szöveg += $" WHERE [csoport]= '{Adat.Csoport}'  and [oszlop]={Adat.Oszlop}";
-                szöveg += $" and [törölt]={Adat.Törölt}";
+                szöveg += $" and [strátus]={Adat.Státusz}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
             }
             catch (HibásBevittAdat ex)

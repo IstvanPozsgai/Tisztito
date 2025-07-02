@@ -173,6 +173,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Document_Microsoft_Excel_01 {
+            get {
+                object obj = ResourceManager.GetObject("Document Microsoft Excel-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Excel_gyűjtő {
             get {
                 object obj = ResourceManager.GetObject("Excel gyűjtő", resourceCulture);
@@ -306,6 +316,16 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap pdf_32 {
             get {
                 object obj = ResourceManager.GetObject("pdf 32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SAP {
+            get {
+                object obj = ResourceManager.GetObject("SAP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

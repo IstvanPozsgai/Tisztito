@@ -70,7 +70,7 @@ namespace Tisztito.Ablakok
             {
                 List<Adat_Alap_Beolvasás> AdatokBeolvÖ = KézBeolv.Lista_Adatok();
                 List<string> AdatokBeolv = (from a in AdatokBeolvÖ
-                                            where a.Törölt == false
+                                            where a.Státusz == false
                                             orderby a.Csoport
                                             select a.Csoport).Distinct().ToList();
                 SAPCsoport.Items.Clear();
@@ -114,7 +114,7 @@ namespace Tisztito.Ablakok
                 List<Adat_Alap_Beolvasás> AdatokBeolvÖ = KézBeolv.Lista_Adatok();
                 List<Adat_Alap_Beolvasás> AdatokBeolv = (from a in AdatokBeolvÖ
                                                          where a.Csoport == SAPCsoport.Text.Trim()
-                                                         && a.Törölt == false
+                                                         && a.Státusz == false
                                                          orderby a.Oszlop
                                                          select a).ToList();
                 SAPTábla.Rows.Clear();
@@ -140,7 +140,7 @@ namespace Tisztito.Ablakok
                     SAPTábla.Rows[i].Cells[0].Value = rekord.Csoport;
                     SAPTábla.Rows[i].Cells[1].Value = rekord.Oszlop;
                     SAPTábla.Rows[i].Cells[2].Value = rekord.Fejléc;
-                    SAPTábla.Rows[i].Cells[3].Value = rekord.Kell;
+                    SAPTábla.Rows[i].Cells[3].Value = rekord.Változónév;
                 }
                 SAPTábla.Refresh();
                 SAPTábla.Visible = true;
@@ -158,6 +158,11 @@ namespace Tisztito.Ablakok
         }
 
         private void Command1_Click(object sender, EventArgs e)
+        {
+            Listázás();
+        }
+
+        private void Listázás()
         {
             try
             {
@@ -218,7 +223,7 @@ namespace Tisztito.Ablakok
                 List<Adat_Alap_Beolvasás> AdatokBeolv = KézBeolv.Lista_Adatok();
 
                 Adat_Alap_Beolvasás Elem = (from a in AdatokBeolv
-                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == false
+                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Státusz == false
                                             select a).FirstOrDefault();
 
                 Adat_Alap_Beolvasás Adat = new Adat_Alap_Beolvasás(SAPCsoport.Text.Trim(),
@@ -260,7 +265,7 @@ namespace Tisztito.Ablakok
                 List<Adat_Alap_Beolvasás> AdatokBeolv = KézBeolv.Lista_Adatok();
 
                 Adat_Alap_Beolvasás Elem = (from a in AdatokBeolv
-                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Törölt == false
+                                            where a.Csoport == SAPCsoport.Text.Trim() && a.Oszlop == SAPoszlop && a.Státusz == false
                                             select a).FirstOrDefault();
 
                 if (Elem != null)
@@ -304,6 +309,58 @@ namespace Tisztito.Ablakok
             }
         }
 
+        /// <summary>
+        /// Beolvassa az excel fájlt és a fejlécet beírja a kiválasztott csoportba
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FejlécBeolvasása_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SAPCsoport.Text.Trim() == "") throw new HibásBevittAdat("Beolvasási mező nincs kiválasztva.");
+                if (SAPCsoport.Items.Contains(SAPCsoport.Text.Trim())) throw new HibásBevittAdat("Van már ilyen csoport létrehozva.");
+                // megpróbáljuk megnyitni az excel táblát.
+                OpenFileDialog OpenFileDialog1 = new OpenFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "IDM-s Adatok betöltése",
+                    FileName = "",
+                    Filter = "Excel |*.xlsx"
+                };
+                string fájlexc;
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (OpenFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = OpenFileDialog1.FileName;
+                else
+                    return;
+
+                DataTable Tábla = MyF.Excel_Tábla_Beolvas(fájlexc);
+
+                List<Adat_Alap_Beolvasás> AdatokGy = new List<Adat_Alap_Beolvasás>();
+                for (int i = 0; i < Tábla.Columns.Count; i++)
+                {
+                    Adat_Alap_Beolvasás ADAT = new Adat_Alap_Beolvasás(
+                           SAPCsoport.Text.Trim(),
+                           i + 1,
+                           Tábla.Columns[i].ColumnName.ToStrTrim(),
+                           false,
+                           "0");
+                    AdatokGy.Add(ADAT);
+                }
+                KézBeolv.Rögzítés(AdatokGy);
+                Listázás();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }

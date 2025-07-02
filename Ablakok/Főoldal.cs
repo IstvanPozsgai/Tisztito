@@ -1,6 +1,7 @@
 ﻿using Bejelentkezés.Adatszerkezet;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Tisztito
         readonly Kezelő_Belépés_Verzió Kéz_Belépés_Verzió = new Kezelő_Belépés_Verzió();
 
         List<Adat_Belépés_Verzió> AdatokVerzó = new List<Adat_Belépés_Verzió>();
+
+        private static PerformanceCounter myCounter;
 
         bool CTRL_le = false;
         bool Shift_le = false;
@@ -557,8 +560,91 @@ namespace Tisztito
             AblakokBeállításaMenuItem.Enabled = true;
             GombokBeállításaToolStripMenuItem.Enabled = true;
         }
+
         #endregion
 
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // 5 percenként frissíti az üzeneteket, stb.
+                // beállítása a tulajdonságokban  5 perc=300000 érték
+                Képetvált();
 
+                // ha látszódik a figyelmeztetés, akkor kiléptetjük
+                if (Figyelmeztetés.Visible == true)
+                {
+                    if (!PerformanceCounterCategory.Exists("Processor"))
+                    {
+                        if (MessageBox.Show("Az objektumfeldolgozó nem létezik! Kilép a program.", "A program karbantartás miatt kiléptet.", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            Close();
+                        }
+                        else
+                        {
+                            Close();
+                        }
+                    }
+
+                    if (!PerformanceCounterCategory.CounterExists("% Processor Time", "Processor"))
+                    {
+                        if (MessageBox.Show("Számláló % Processzoridő nem létezik! Kilép a program.", "A program karbantartás miatt kiléptet.", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            Close();
+                        }
+                        else
+                        {
+                            Close();
+                        }
+                    }
+                    myCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+
+                    if ((int)Math.Round(myCounter.NextValue()) < 2)
+                        Close();
+                }
+
+
+                // ha létezik a fájl akkor megjelenítjük a figyelmeztető üzenetet
+                string hely = Application.StartupPath + @"\Adatok\a.txt";
+                if (File.Exists(hely))
+                {
+                    // ha épp dolgozik akkor figyelmezetjük, hogy ki kell lépni
+                    FigyKiírás($"Karbantartás miatt a program\n ~{DateTime.Now.AddMinutes(1):HH:mm}- kor\n kiléptet.");
+                    timer1.Enabled = false;
+                    timer1.Interval = 60000;
+                    timer1.Enabled = true;
+                }
+
+                Verziószám_kiírás();
+                // Verzió váltás  akkor megjelenítjük a figyelmeztető üzenetet
+                if (Convert.ToDouble(TároltVerzió.Text.Trim()) > Convert.ToDouble(Application.ProductVersion.Replace(".", "").Trim()))
+                {
+                    FigyKiírás($"Elavult a program verzió,\n ezért a program ki fog léptetni\n ~{DateTime.Now.AddMinutes(5d):HH:mm}- kor.");
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                if (!ex.Message.Contains("Meghatározatlan hiba"))
+                {
+                    HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                    MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FigyKiírás(string szöveg)
+        {
+            Figyelmeztetés.Left = 10;
+            Figyelmeztetés.Top = 20;
+            Figyelmeztetés.Width = this.Width - 20;
+            Figyelmeztetés.Height = this.Height - 40;
+            Figyelmeztetés.Text = szöveg;
+            Figyelmeztetés.Visible = true;
+        }
     }
 }
+

@@ -68,7 +68,7 @@ public static partial class Függvénygyűjtemény
             List<Adat_Alap_Beolvasás> Adatok = KézBeolvasás.Lista_Adatok();
             Adatok = (from a in Adatok
                       where a.Csoport == Melyik.Trim()
-                      && a.Törölt == false
+                      && a.Státusz == false
                       orderby a.Oszlop
                       select a).ToList();
 

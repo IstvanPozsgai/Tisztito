@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
+using Tisztito.Minden;
 using MyE = Tisztito.Module_Excel;
 using MyEn = Tisztito.Minden.Enumok;
 using MyF = Függvénygyűjtemény;
@@ -1189,5 +1190,27 @@ namespace Tisztito.Ablakok
         }
 
 
+        private void SAPbeolvasás_Click(object sender, EventArgs e)
+        {
+            // megpróbáljuk megnyitni az excel táblát.
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = "MyDocuments",
+                Title = "SAP-s Beraktározási adatok betöltése",
+                FileName = "",
+                Filter = "Excel |*.xlsx"
+            };
+            string fájlexc;
+
+            // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+            if (OpenFileDialog1.ShowDialog() != DialogResult.Cancel)
+                fájlexc = OpenFileDialog1.FileName;
+            else
+                return;
+
+            SAP_Raktár.Raktár_beolvasás(fájlexc);
+            TáblaKitöltés();
+            MessageBox.Show("Az adat konvertálás befejeződött!", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

@@ -77,6 +77,36 @@ namespace Tisztito.Kezelők
             }
         }
 
+        public void Döntés(List<Adat_Raktár> AdatokR)
+        {
+            try
+            {
+                Adatok.Clear();
+                Adatok = Lista_Adatok();
+                List<Adat_Raktár> AdatokGyűjtR = new List<Adat_Raktár>();
+                List<Adat_Raktár> AdatokGyűjtM = new List<Adat_Raktár>();
+                foreach (Adat_Raktár Adat in AdatokR)
+                {
+                    Adat_Raktár Készlet = Adatok.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
+                    if (Készlet == null)
+                        AdatokGyűjtR.Add(Adat);
+                    else
+                        AdatokGyűjtM.Add(Adat);
+                }
+                if (AdatokGyűjtR.Count > 0) Rögzítés(AdatokGyűjtR);
+                if (AdatokGyűjtM.Count > 0) Módosítás(AdatokGyűjtR);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void Rögzítés(Adat_Raktár Adat)
         {
             try
@@ -96,6 +126,29 @@ namespace Tisztito.Kezelők
             }
         }
 
+        public void Rögzítés(List<Adat_Raktár> Adatok)
+        {
+            try
+            {
+                List<string> SzövegGy = new List<string>();
+                foreach (Adat_Raktár Adat in Adatok)
+                {
+                    string szöveg = $"INSERT INTO {táblanév} (Cikkszám, Szervezet, Mennyiség) VALUES ";
+                    szöveg += $"('{Adat.Cikkszám}', '{Adat.Szervezet}', {Adat.Mennyiség})";
+                    SzövegGy.Add(szöveg);
+                }
+                MyA.ABMódosítás(hely, jelszó, SzövegGy);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         public void Módosítás(Adat_Raktár Adat, int készlet)
         {
@@ -120,6 +173,27 @@ namespace Tisztito.Kezelők
             }
         }
 
+        public void Módosítás(List<Adat_Raktár> Adatok)
+        {
+            try
+            {
+                foreach (Adat_Raktár Adat in Adatok)
+                {
+                    List<Adat_Raktár> AdatokKész = Lista_Adatok();
+                    Adat_Raktár Készlet = Adatok.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
+                    Módosítás(Adat, Készlet.Mennyiség);
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }
