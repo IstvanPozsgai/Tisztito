@@ -1,7 +1,10 @@
 ﻿using Bejelentkezés.Adatszerkezet;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
@@ -10,7 +13,7 @@ using MyE = Tisztito.Module_Excel;
 
 namespace Tisztito.Ablakok
 {
-    public partial class Ablak_KiOszt : Form
+    public partial class Ablak_Járandóság : Form
     {
         readonly Kezelő_Szervezet KézSzervezet = new Kezelő_Szervezet();
         readonly Kezelő_Dolgozó KézDolgozó = new Kezelő_Dolgozó();
@@ -28,9 +31,10 @@ namespace Tisztito.Ablakok
 #pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
 #pragma warning restore IDE0044
+        readonly DataTable AdatKioszt = new DataTable();
 
         #region Alap
-        public Ablak_KiOszt()
+        public Ablak_Járandóság()
         {
             InitializeComponent();
             Start();
@@ -601,6 +605,7 @@ namespace Tisztito.Ablakok
         }
         #endregion
 
+
         #region Táblázat Készlet
         /// <summary>
         /// Táblázat összeállítása könyvelési adatoknak megfelelően
@@ -828,6 +833,180 @@ namespace Tisztito.Ablakok
                     GombLathatosagKezelo.BeallitSzervezet(this, CmbSzervezet.Text);
                     MunkakörKiválasztásaDolgozókFeltöltése();
                 }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Osztási_PDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ChkDolgozók.CheckedItems.Count < 1) return;
+                string fájlnév;
+                // kimeneti fájl helye és neve
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Listázott tartalom mentése Excel fájlba",
+                    FileName = $"Kiosztott_Anyagok_{Program.PostásNév}-{DateTime.Now:yyyyMMddHHmmss}",
+                    Filter = "PDF |*.pdf"
+                };
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (SaveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlnév = SaveFileDialog1.FileName;
+                else
+                    return;
+
+                FejlécTábla();
+                TartalomTábla();
+
+
+
+                using (FileStream stream = new FileStream(fájlnév, FileMode.Create))
+                {
+                    Document pdfDoc = new Document(PageSize.A4.Rotate(), 10f, 10f, 20f, 20f);
+                    PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    // Betűtípus betöltése (Arial, Unicode támogatás)
+                    string betutipusUt = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+                    BaseFont alapFont = BaseFont.CreateFont(betutipusUt, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+                    // Fejléc betűtípus - fekete, vastag
+                    iTextSharp.text.Font fejlecBetu = new iTextSharp.text.Font(alapFont, 10f, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+
+                    PdfPTable pdfTable = new PdfPTable(AdatKioszt.Columns.Count);
+                    pdfTable.WidthPercentage = 100;
+
+
+                    // Fejléc hozzáadása, egységes fekete háttérrel (vagy tetszőleges színnel)
+                    for (int oszlop = 0; oszlop < AdatKioszt.Columns.Count; oszlop++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(AdatKioszt.Columns[oszlop].ColumnName, fejlecBetu));
+                        cell.BackgroundColor = new BaseColor(240, 240, 240);
+                        pdfTable.AddCell(cell);
+                    }
+
+                    for (int sor = 0; sor < AdatKioszt.Rows.Count; sor++)
+                    {
+                        for (int oszlop = 0; oszlop < AdatKioszt.Columns.Count; oszlop++)
+                        {
+                            // Cella szövegének lekérése
+                            string szöveg = AdatKioszt.Rows[sor][oszlop].ToStrTrim() ?? "";
+                            // Színek lekérése az InheritedStyle-ból (ez tartalmazza a tényleges megjelenő színt)
+                            BaseColor háttérSzín = BaseColor.WHITE;
+                            BaseColor szovegSzín = BaseColor.BLACK;
+                            // Betűtípus az adott cella szövegszínével
+                            iTextSharp.text.Font betű = new iTextSharp.text.Font(alapFont, 10f, iTextSharp.text.Font.NORMAL, szovegSzín);
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(szöveg, betű))
+                            {
+                                BackgroundColor = háttérSzín
+                            };
+                            pdfTable.AddCell(pdfCell);
+                        }
+
+                    }
+
+                    pdfDoc.Add(pdfTable);
+                    pdfDoc.Close();
+                    stream.Close();
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FejlécTábla()
+        {
+            AdatKioszt.Columns.Clear();
+            AdatKioszt.Columns.Add("Szervezet");
+            AdatKioszt.Columns.Add("HR azonosító");
+            AdatKioszt.Columns.Add("Név");
+            AdatKioszt.Columns.Add("Munkakör");
+            AdatKioszt.Columns.Add("Cikkszám");
+            AdatKioszt.Columns.Add("Megnevezés");
+            AdatKioszt.Columns.Add("Járandóság");
+            AdatKioszt.Columns.Add("Felvett mennyiség");
+            AdatKioszt.Columns.Add("Felvétel Dátuma");
+            AdatKioszt.Columns.Add("Az átvétel elismerése");
+        }
+
+        /// <summary>
+        /// A chkDolgozók listájában lévő dolgozókat és a hozzájuk tartozó adatokkal készít egy táblát
+        /// </summary>
+        private void TartalomTábla()
+        {
+            try
+            {
+                if (ChkDolgozók.CheckedItems.Count < 1) throw new HibásBevittAdat("Nincs kijelölve dolgozó");
+                AdatKioszt.Clear();
+
+                for (int i = 0; i < ChkDolgozók.CheckedItems.Count; i++)
+                {
+                    string[] darabol = ChkDolgozók.CheckedItems[i].ToString().Split('=');
+                    if (darabol.Length == 2)
+                    {
+                        //Dolgozó adatok leszűrése
+                        Adat_Dolgozó Dolgozó = (from a in AdatokDolgozók
+                                                where a.Dolgozószám == darabol[1].ToStrTrim()
+                                                select a).FirstOrDefault();
+
+                        List<Adat_Járandóság> járandóságok = (from a in AdatokJárandóság
+                                                              where !a.Státus
+                                                              && a.Munkakör == CmbMunkakör.Text.Trim()
+                                                              orderby a.Cikkszám
+                                                              select a).ToList();
+
+                        foreach (Adat_Járandóság rekord in járandóságok)
+                        {
+                            DataRow Soradat = AdatKioszt.NewRow();
+                            Soradat["Név"] = darabol[0].ToStrTrim();
+                            Soradat["HR azonosító"] = darabol[1].ToStrTrim();
+                            Soradat["Felvett mennyiség"] = "";
+                            Soradat["Felvétel Dátuma"] = "";
+                            Soradat["Az átvétel elismerése"] = "";
+                            if (Dolgozó != null)
+                            {
+                                Soradat["Szervezet"] = Dolgozó.Szervezet.Trim();
+                                Soradat["Munkakör"] = Dolgozó.Munkakör.Trim();
+                            }
+                            else
+                            {
+                                Soradat["Szervezet"] = "";
+                                Soradat["Munkakör"] = "";
+                            }
+
+                            Soradat["Járandóság"] = rekord.Mennyiség.ToString();
+                            Soradat["Cikkszám"] = rekord.Cikkszám.Trim();
+
+                            Adat_Anyag Anyag = (from a in AdatokAnyag
+                                                where a.Cikkszám == rekord.Cikkszám
+                                                select a).FirstOrDefault();
+                            if (Anyag != null) Soradat["Megnevezés"] = Anyag.Megnevezés.Trim();
+
+                            AdatKioszt.Rows.Add(Soradat);
+                        }
+                    }
+                }
+
+
+
+
             }
             catch (HibásBevittAdat ex)
             {

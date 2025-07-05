@@ -392,7 +392,7 @@ namespace Tisztito
             Új_Ablak_Raktár = null;
         }
 
-        Ablak_KiOszt Új_Ablak_KiOszt;
+        Ablak_Járandóság Új_Ablak_KiOszt;
         private void DolgozóiKiadásMenuItem_Click(object sender, EventArgs e)
         {
             if (Új_Ablak_KiOszt == null)

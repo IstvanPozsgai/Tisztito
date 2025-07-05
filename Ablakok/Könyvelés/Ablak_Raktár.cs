@@ -1089,7 +1089,7 @@ namespace Tisztito.Ablakok
                     t.AddCell(mennyisegHeader);
 
                     // Példa sorok hozzáadása (töltsd fel a saját adataiddal)
-                    foreach (var tetel in tételek)
+                    foreach (Adat_KészletNaplóRaktár tetel in tételek)
                     {
                         string cikkszam = tetel.Cikkszám ?? "";
                         string megnevezes = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == cikkszam)?.Megnevezés ?? "";
