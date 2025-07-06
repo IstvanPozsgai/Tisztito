@@ -23,7 +23,7 @@ namespace Tisztito
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Főoldal());
+            //Application.Run(new Tisztito.Ablakok.Lekérdezés.Ablak_OsztásNyomtatvány());
             Application.Run(new Ablak_Login());
         }
     }

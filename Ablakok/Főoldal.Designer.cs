@@ -49,6 +49,7 @@
             this.DolgozóiKiadásMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.területiIgényekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KiosztásiNyomtatványMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Verzió_Váltás = new System.Windows.Forms.Button();
             this.Menükinyitás = new System.Windows.Forms.Button();
@@ -100,12 +101,14 @@
             this.AblakokBeállításaMenuItem.Name = "AblakokBeállításaMenuItem";
             this.AblakokBeállításaMenuItem.Size = new System.Drawing.Size(311, 24);
             this.AblakokBeállításaMenuItem.Text = "Ablakok beállítása";
+            this.AblakokBeállításaMenuItem.Click += new System.EventHandler(this.AblakokBeállításaMenuItem_Click);
             // 
             // GombokBeállításaToolStripMenuItem
             // 
             this.GombokBeállításaToolStripMenuItem.Name = "GombokBeállításaToolStripMenuItem";
             this.GombokBeállításaToolStripMenuItem.Size = new System.Drawing.Size(311, 24);
             this.GombokBeállításaToolStripMenuItem.Text = "Gombok beállítása";
+            this.GombokBeállításaToolStripMenuItem.Click += new System.EventHandler(this.GombokBeállításaToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -117,12 +120,14 @@
             this.FelhasználókMenuItem.Name = "FelhasználókMenuItem";
             this.FelhasználókMenuItem.Size = new System.Drawing.Size(311, 24);
             this.FelhasználókMenuItem.Text = "Felhasználók létrehozása törlése";
+            this.FelhasználókMenuItem.Click += new System.EventHandler(this.FelhasználókMenuItem_Click);
             // 
             // JogKiosztMenuItem
             // 
             this.JogKiosztMenuItem.Name = "JogKiosztMenuItem";
             this.JogKiosztMenuItem.Size = new System.Drawing.Size(311, 24);
             this.JogKiosztMenuItem.Text = "Jogosultság kiosztás";
+            this.JogKiosztMenuItem.Click += new System.EventHandler(this.JogKiosztMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -213,7 +218,8 @@
             // lekérdezésekToolStripMenuItem
             // 
             this.lekérdezésekToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.területiIgényekToolStripMenuItem});
+            this.területiIgényekToolStripMenuItem,
+            this.KiosztásiNyomtatványMenuItem});
             this.lekérdezésekToolStripMenuItem.Image = global::Tisztito.Properties.Resources.Aha_Soft_Large_Seo_SEO;
             this.lekérdezésekToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lekérdezésekToolStripMenuItem.Name = "lekérdezésekToolStripMenuItem";
@@ -224,9 +230,16 @@
             // 
             this.területiIgényekToolStripMenuItem.Image = global::Tisztito.Properties.Resources.App_spreadsheet;
             this.területiIgényekToolStripMenuItem.Name = "területiIgényekToolStripMenuItem";
-            this.területiIgényekToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.területiIgényekToolStripMenuItem.Size = new System.Drawing.Size(236, 24);
             this.területiIgényekToolStripMenuItem.Text = "Területi igények";
             this.területiIgényekToolStripMenuItem.Click += new System.EventHandler(this.TerületiIgényekToolStripMenuItem_Click);
+            // 
+            // KiosztásiNyomtatványMenuItem
+            // 
+            this.KiosztásiNyomtatványMenuItem.Name = "KiosztásiNyomtatványMenuItem";
+            this.KiosztásiNyomtatványMenuItem.Size = new System.Drawing.Size(236, 24);
+            this.KiosztásiNyomtatványMenuItem.Text = "Kiosztási Nyomtatvány";
+            this.KiosztásiNyomtatványMenuItem.Click += new System.EventHandler(this.KiosztásiNyomtatványMenuItem_Click);
             // 
             // Verzió_Váltás
             // 
@@ -381,6 +394,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Timer timer1;
         internal System.Windows.Forms.Label Figyelmeztetés;
+        private System.Windows.Forms.ToolStripMenuItem KiosztásiNyomtatványMenuItem;
     }
 }
 

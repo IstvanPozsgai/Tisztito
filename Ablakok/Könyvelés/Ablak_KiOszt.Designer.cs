@@ -1,6 +1,6 @@
 ﻿namespace Tisztito.Ablakok
 {
-    partial class Ablak_Járandóság
+    partial class Ablak_KiOszt
     {
         /// <summary>
         /// Required designer variable.
@@ -31,12 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Járandóság));
-            this.Rögzít = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_KiOszt));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.BtnExcel = new System.Windows.Forms.Button();
             this.GombokMinden = new System.Windows.Forms.Button();
             this.GombokSemmi = new System.Windows.Forms.Button();
-            this.BtnExcel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.CmbDolgozó = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -63,11 +62,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Storno = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
+            this.Storno = new System.Windows.Forms.Button();
+            this.Rögzít = new System.Windows.Forms.Button();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
-            this.Osztási_PDF = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -75,16 +74,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.SuspendLayout();
             // 
-            // Rögzít
+            // BtnExcel
             // 
-            this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
-            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Location = new System.Drawing.Point(103, 203);
-            this.Rögzít.Name = "Rögzít";
-            this.Rögzít.Size = new System.Drawing.Size(44, 44);
-            this.Rögzít.TabIndex = 229;
-            this.Rögzít.UseVisualStyleBackColor = true;
-            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
+            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
+            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnExcel.Location = new System.Drawing.Point(3, 103);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
+            this.BtnExcel.TabIndex = 248;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
+            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // GombokMinden
             // 
@@ -111,18 +111,6 @@
             this.toolTip1.SetToolTip(this.GombokSemmi, "Minden kijelölést megszüntet");
             this.GombokSemmi.UseVisualStyleBackColor = true;
             this.GombokSemmi.Click += new System.EventHandler(this.GombokSemmi_Click);
-            // 
-            // BtnExcel
-            // 
-            this.BtnExcel.BackgroundImage = global::Tisztito.Properties.Resources.Excel_gyűjtő;
-            this.BtnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnExcel.Location = new System.Drawing.Point(3, 103);
-            this.BtnExcel.Name = "BtnExcel";
-            this.BtnExcel.Size = new System.Drawing.Size(44, 44);
-            this.BtnExcel.TabIndex = 248;
-            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenetet készít a táblázat adatai alapján");
-            this.BtnExcel.UseVisualStyleBackColor = true;
-            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -396,7 +384,6 @@
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.Osztási_PDF, 2, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1151, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
@@ -407,17 +394,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 264);
             this.tableLayoutPanel2.TabIndex = 245;
-            // 
-            // Storno
-            // 
-            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
-            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Storno.Location = new System.Drawing.Point(3, 203);
-            this.Storno.Name = "Storno";
-            this.Storno.Size = new System.Drawing.Size(44, 44);
-            this.Storno.TabIndex = 247;
-            this.Storno.UseVisualStyleBackColor = true;
-            this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
             // Frissít
             // 
@@ -440,6 +416,28 @@
             this.MezőkÜrítése.TabIndex = 232;
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
+            // 
+            // Storno
+            // 
+            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
+            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Storno.Location = new System.Drawing.Point(3, 203);
+            this.Storno.Name = "Storno";
+            this.Storno.Size = new System.Drawing.Size(44, 44);
+            this.Storno.TabIndex = 247;
+            this.Storno.UseVisualStyleBackColor = true;
+            this.Storno.Click += new System.EventHandler(this.Storno_Click);
+            // 
+            // Rögzít
+            // 
+            this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
+            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Rögzít.Location = new System.Drawing.Point(103, 203);
+            this.Rögzít.Name = "Rögzít";
+            this.Rögzít.Size = new System.Drawing.Size(44, 44);
+            this.Rögzít.TabIndex = 229;
+            this.Rögzít.UseVisualStyleBackColor = true;
+            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
             // Tábla
             // 
@@ -471,18 +469,6 @@
             this.Tábla.Size = new System.Drawing.Size(1289, 203);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 246;
-            // 
-            // Osztási_PDF
-            // 
-            this.Osztási_PDF.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
-            this.Osztási_PDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Osztási_PDF.Location = new System.Drawing.Point(103, 103);
-            this.Osztási_PDF.Name = "Osztási_PDF";
-            this.Osztási_PDF.Size = new System.Drawing.Size(44, 44);
-            this.Osztási_PDF.TabIndex = 249;
-            this.toolTip1.SetToolTip(this.Osztási_PDF, "Felvételi aláírási lapot készít");
-            this.Osztási_PDF.UseVisualStyleBackColor = true;
-            this.Osztási_PDF.Click += new System.EventHandler(this.Osztási_PDF_Click);
             // 
             // Ablak_KiOszt
             // 
@@ -550,6 +536,5 @@
         private System.Windows.Forms.Label Gyakoriság;
         private System.Windows.Forms.ComboBox CmbDolgozó;
         private System.Windows.Forms.Label label11;
-        internal System.Windows.Forms.Button Osztási_PDF;
     }
 }

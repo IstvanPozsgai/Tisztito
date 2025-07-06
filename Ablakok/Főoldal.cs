@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Ablakok;
+using Tisztito.Ablakok.Lekérdezés;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using Tisztito.Minden;
@@ -392,7 +393,7 @@ namespace Tisztito
             Új_Ablak_Raktár = null;
         }
 
-        Ablak_Járandóság Új_Ablak_KiOszt;
+        Ablak_KiOszt Új_Ablak_KiOszt;
         private void DolgozóiKiadásMenuItem_Click(object sender, EventArgs e)
         {
             if (Új_Ablak_KiOszt == null)
@@ -414,7 +415,28 @@ namespace Tisztito
         }
         #endregion
 
+        #region Lekérdezések
+        Ablak_OsztásNyomtatvány Új_Ablak_OsztásNyomtatvány;
+        private void KiosztásiNyomtatványMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_OsztásNyomtatvány == null)
+            {
+                Új_Ablak_OsztásNyomtatvány = new Ablak_OsztásNyomtatvány();
+                Új_Ablak_OsztásNyomtatvány.FormClosed += Új_Ablak_OsztásNyomtatványt_FormClosed;
+                Új_Ablak_OsztásNyomtatvány.Show();
+            }
+            else
+            {
+                Új_Ablak_OsztásNyomtatvány.Activate();
+                Új_Ablak_OsztásNyomtatvány.WindowState = FormWindowState.Maximized;
+            }
+        }
 
+        private void Új_Ablak_OsztásNyomtatványt_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_OsztásNyomtatvány = null;
+        }
+        #endregion
 
         #endregion
 
@@ -645,6 +667,8 @@ namespace Tisztito
             Figyelmeztetés.Text = szöveg;
             Figyelmeztetés.Visible = true;
         }
+
+
     }
 }
 
