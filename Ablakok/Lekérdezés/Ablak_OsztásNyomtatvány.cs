@@ -222,7 +222,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                             pdfTable.LockedWidth = true;
                             float[] widths = new float[] { 100f, 45f, 100f, 100f, 60f, 80f, 20f, 50f, 50f, 50f };
                             pdfTable.SetWidths(widths);
-
+                            pdfTable.HeaderRows = 1;
                             // Fejléc hozzáadása, egységes fekete háttérrel (vagy tetszőleges színnel)
                             for (int oszlop = 0; oszlop < AdatKioszt.Columns.Count; oszlop++)
                             {
