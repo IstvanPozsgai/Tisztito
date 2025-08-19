@@ -71,7 +71,7 @@ namespace Tisztito.Minden
                         }
                     }
                 }
-                if (AdatokGY.Count > 0) KézNaplóRaktár.Rögzítés(DateTime.Now.Year, AdatokGY);
+                if (AdatokGY.Count > 0) KézNaplóRaktár.Rögzítés( AdatokGY, DateTime.Now.Year);
                 // kitöröljük a betöltött fájlt
                 File.Delete(Excel_hely);
             }
