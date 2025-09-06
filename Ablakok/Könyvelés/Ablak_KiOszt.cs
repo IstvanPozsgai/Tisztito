@@ -501,7 +501,8 @@ namespace Tisztito.Ablakok
                 KézNaplóRaktár.Rögzítés(Dátum.Value.Year, AdatokGy);
 
                 TáblázatKönyvelés();
-                RaktárKészlet.Text = raktárAdat.Mennyiség.ToString();
+                int készlet = Készlet(CmbCikkszámok.Text.Trim(), CmbSzervezet.Text.Trim());
+                RaktárKészlet.Text = készlet.ToString();
             }
             catch (HibásBevittAdat ex)
             {
@@ -592,8 +593,10 @@ namespace Tisztito.Ablakok
                         stornózhatóTételek.Add(tétel);
                     }
                 }
-                KézNaplóRaktár.Módosítás(Dátum.Value.Year, stornózhatóTételek);
+                if (stornózhatóTételek.Count > 0) KézNaplóRaktár.Módosítás(Dátum.Value.Year, stornózhatóTételek);
                 TáblázatKönyvelés();
+                int készlet = Készlet(CmbCikkszámok.Text.Trim(), CmbSzervezet.Text.Trim());
+                RaktárKészlet.Text = készlet.ToString();
             }
             catch (Exception ex)
             {
