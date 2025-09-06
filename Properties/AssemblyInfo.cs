@@ -29,6 +29,11 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
+<<<<<<< HEAD
 [assembly: AssemblyVersion("25.09.06.0")]
 [assembly: AssemblyFileVersion("25.09.06.0")]
+=======
+[assembly: AssemblyVersion("25.08.19.0")]
+[assembly: AssemblyFileVersion("25.08.19.0")]
+>>>>>>> 4d2f8fdff998b456941246fbe7d60a5d45d9679b
 [assembly: NeutralResourcesLanguage("hu-HU")]
