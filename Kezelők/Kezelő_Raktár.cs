@@ -94,7 +94,7 @@ namespace Tisztito.Kezelők
                         AdatokGyűjtM.Add(Adat);
                 }
                 if (AdatokGyűjtR.Count > 0) Rögzítés(AdatokGyűjtR);
-                if (AdatokGyűjtM.Count > 0) Módosítás(AdatokGyűjtR);
+                if (AdatokGyűjtM.Count > 0) Módosítás(AdatokGyűjtM);
             }
             catch (HibásBevittAdat ex)
             {

@@ -45,6 +45,7 @@
             this.DolgozóSemmi = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.Osztási_PDF = new System.Windows.Forms.Button();
+            this.Súgó = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -124,7 +125,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(591, 577);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(585, 577);
             this.tableLayoutPanel1.TabIndex = 251;
             // 
             // ChkMunkakör
@@ -240,19 +241,31 @@
             this.Osztási_PDF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Osztási_PDF.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
             this.Osztási_PDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Osztási_PDF.Location = new System.Drawing.Point(609, 12);
+            this.Osztási_PDF.Location = new System.Drawing.Point(603, 12);
             this.Osztási_PDF.Name = "Osztási_PDF";
             this.Osztási_PDF.Size = new System.Drawing.Size(44, 44);
             this.Osztási_PDF.TabIndex = 252;
             this.Osztási_PDF.UseVisualStyleBackColor = true;
             this.Osztási_PDF.Click += new System.EventHandler(this.Osztási_PDF_Click);
             // 
+            // Súgó
+            // 
+            this.Súgó.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Súgó.BackgroundImage = global::Tisztito.Properties.Resources.Help_Support;
+            this.Súgó.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Súgó.Location = new System.Drawing.Point(655, 12);
+            this.Súgó.Name = "Súgó";
+            this.Súgó.Size = new System.Drawing.Size(44, 44);
+            this.Súgó.TabIndex = 253;
+            this.Súgó.UseVisualStyleBackColor = true;
+            // 
             // Ablak_OsztásNyomtatvány
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Aqua;
-            this.ClientSize = new System.Drawing.Size(665, 601);
+            this.ClientSize = new System.Drawing.Size(711, 601);
+            this.Controls.Add(this.Súgó);
             this.Controls.Add(this.Osztási_PDF);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -290,5 +303,6 @@
         internal System.Windows.Forms.Button DolgozóSemmi;
         private System.Windows.Forms.Label label2;
         internal System.Windows.Forms.Button Osztási_PDF;
+        internal System.Windows.Forms.Button Súgó;
     }
 }

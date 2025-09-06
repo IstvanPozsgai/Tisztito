@@ -305,8 +305,7 @@ namespace Tisztito.Ablakok
                 }
                 Cikkszámok.Text = Cikkszámok.Items[Cikkszámok.SelectedIndex].ToString();
                 Megnevezések.Text = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszámok.Text).Megnevezés;
-                HonnanMennyiség.Text = Készlet(Cikkszámok.Text, Honnan.Text).ToString();
-                HováMennyiség.Text = Készlet(Cikkszámok.Text, Hova.Text).ToString();
+                KészletekKiírása();
             }
             catch (HibásBevittAdat ex)
             {
@@ -336,8 +335,7 @@ namespace Tisztito.Ablakok
                 }
                 Megnevezések.Text = Megnevezések.Items[Megnevezések.SelectedIndex].ToString();
                 Cikkszámok.Text = AdatokAnyag.FirstOrDefault(a => a.Megnevezés == Megnevezések.Text).Cikkszám;
-                HonnanMennyiség.Text = Készlet(Cikkszámok.Text, Honnan.Text).ToString();
-                HováMennyiség.Text = Készlet(Cikkszámok.Text, Hova.Text).ToString();
+                KészletekKiírása();
             }
             catch (HibásBevittAdat ex)
             {
@@ -348,6 +346,13 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void KészletekKiírása()
+        {
+
+            HonnanMennyiség.Text = Készlet(Cikkszámok.Text, Honnan.Text).ToString();
+            HováMennyiség.Text = Készlet(Cikkszámok.Text, Hova.Text).ToString();
         }
 
         /// <summary>
@@ -376,7 +381,8 @@ namespace Tisztito.Ablakok
             try
             {
                 if (Mozgás.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva a mozgás.");
-                if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A könyvelés helyét meg kell adni.");
+                if (Mozgás.Text.Trim() != "Beérkezés" && Honnan.Text.Trim() == "") throw new HibásBevittAdat("A Honnan könyvelés helyét meg kell adni.");
+                if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A Hova könyvelés helyét meg kell adni.");
                 if (!(Hova.Text.Trim() == BázisRaktár || Honnan.Text.Trim() == BázisRaktár)) throw new HibásBevittAdat($"A {BázisRaktár}-nak szerepelnie kell valamelyik helyen.");
                 if (!int.TryParse(Mennyiség.Text, out int darab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
                 if (!int.TryParse(HonnanMennyiség.Text, out int Honnandarab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
@@ -398,10 +404,14 @@ namespace Tisztito.Ablakok
                         break;
                 }
 
+                string HonnanKönyv = Honnan.Text.Trim();
+                if (Mozgás.Text.Trim() == "Beérkezés" && Honnan.Text.Trim() == "") HonnanKönyv = "Érkeztetés";
+
+
                 Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
                      Cikkszámok.Text.Trim(),
                      darab,
-                     Honnan.Text.Trim() == "" ? "Érkeztetés" : BázisRaktár,
+                     HonnanKönyv,
                      Hova.Text.Trim(),
                      Bizonylatszám.Text.Trim(),
                      Program.PostásNév,
@@ -412,6 +422,8 @@ namespace Tisztito.Ablakok
                 KézNaplóRaktár.Rögzítés(DateTime.Now.Year, AdatNapló);
 
                 Táblázat();
+                KészletekKiírása();
+
             }
             catch (HibásBevittAdat ex)
             {
@@ -448,6 +460,7 @@ namespace Tisztito.Ablakok
                      DateTime.Now);
                 KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló);
                 TáblázatKönyvelés();
+                KészletekKiírása();
             }
             catch (HibásBevittAdat ex)
             {
