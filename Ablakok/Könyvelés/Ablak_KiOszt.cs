@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using MyE = Tisztito.Module_Excel;
+using MyF = Függvénygyűjtemény;
 
 namespace Tisztito.Ablakok
 {
@@ -462,10 +463,38 @@ namespace Tisztito.Ablakok
 
                 foreach (string dolgozószám in dolgozószámok)
                 {
+                    DateTime dátumtól = Dátum.Value.AddMonths(-1 * gyakoriság);
+                    DateTime dátumig = Dátum.Value;
+                    //ha negyedévente kapja
+                    if (gyakoriság == 3)
+                    {
+                        dátumtól = MyF.Negyedév_elsőnapja(Dátum.Value);
+                        dátumig = MyF.Negyedév_utolsónapja(Dátum.Value);
+                    }
+                    // félévente
+                    else if (gyakoriság == 6)
+                    {
+                        dátumtól = MyF.Félév_elsőnapja(Dátum.Value);
+                        dátumig = MyF.Félév_utolsónapja(Dátum.Value);
+                    }
+                    // évente
+                    else if (gyakoriság == 12)
+                    {
+                        dátumtól = new DateTime(Dátum.Value.Year, 1, 1);
+                        dátumig = new DateTime(Dátum.Value.Year, 12, 31);
+                    }
+                    //négyhavi
+                    else if (gyakoriság == 4)
+                    {
+                        dátumtól = MyF.Négyhónap_elsőnapja(Dátum.Value);
+                        dátumig = MyF.Négyhónap_utolsónapja(Dátum.Value);
+                    }
+
                     List<Adat_KészletNaplóRaktár> Elemek = (from a in Adatoknapló
                                                             where a.Dolgozószám == dolgozószám
                                                             && a.Cikkszám == CmbCikkszámok.Text.Trim()
-                                                            && a.Dátum > Dátum.Value.AddMonths(-1 * gyakoriság)
+                                                            && a.Dátum >= dátumtól
+                                                            && a.Dátum <= dátumig
                                                             && !a.Storno
                                                             select a).ToList();
                     int kapott = Elemek.Sum(a => a.Mennyiség);
