@@ -413,6 +413,28 @@ namespace Tisztito
         {
             Új_Ablak_KiOszt = null;
         }
+
+
+        Ablak_Selejtezés Új_Ablak_Selejtezés;
+        private void KészletSelejtezésToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Selejtezés == null)
+            {
+                Új_Ablak_Selejtezés = new Ablak_Selejtezés();
+                Új_Ablak_Selejtezés.FormClosed += Új_Ablak_Selejtezés_FormClosed;
+                Új_Ablak_Selejtezés.Show();
+            }
+            else
+            {
+                Új_Ablak_Selejtezés.Activate();
+                Új_Ablak_Selejtezés.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_Selejtezés_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Selejtezés = null;
+        }
         #endregion
 
         #region Lekérdezések

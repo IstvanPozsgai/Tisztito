@@ -147,6 +147,12 @@
     <Compile Include="Ablakok\Könyvelés\Ablak_KiOszt.Designer.cs">
       <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_Selejtezés.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_Selejtezés.Designer.cs">
+      <DependentUpon>Ablak_Selejtezés.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Könyvelés\Ablak_Raktár.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_KiOszt.resx">
       <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Selejtezés.resx">
+      <DependentUpon>Ablak_Selejtezés.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Raktár.resx">
       <DependentUpon>Ablak_Raktár.cs</DependentUpon>
