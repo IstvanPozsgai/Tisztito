@@ -55,15 +55,12 @@
             this.Dátum = new System.Windows.Forms.DateTimePicker();
             this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.SAPbeolvasás = new System.Windows.Forms.Button();
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
-            this.PDFAblak = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
             this.Pdf_Készítés = new System.Windows.Forms.Button();
-            this.PDFNéz = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -196,7 +193,6 @@
             this.Hova.Size = new System.Drawing.Size(350, 28);
             this.Hova.Sorted = true;
             this.Hova.TabIndex = 219;
-            this.Hova.SelectionChangeCommitted += new System.EventHandler(this.Hova_SelectionChangeCommitted);
             // 
             // Label18
             // 
@@ -328,7 +324,6 @@
             this.Mozgás.Size = new System.Drawing.Size(350, 28);
             this.Mozgás.Sorted = true;
             this.Mozgás.TabIndex = 245;
-            this.Mozgás.SelectionChangeCommitted += new System.EventHandler(this.Mozgás_SelectionChangeCommitted);
             // 
             // label4
             // 
@@ -367,15 +362,12 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
-            this.tableLayoutPanel2.Controls.Add(this.SAPbeolvasás, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.Frissít, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.Pdf_Készítés, 2, 3);
-            this.tableLayoutPanel2.Controls.Add(this.PDFNéz, 1, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -385,17 +377,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 219);
             this.tableLayoutPanel2.TabIndex = 242;
-            // 
-            // SAPbeolvasás
-            // 
-            this.SAPbeolvasás.BackgroundImage = global::Tisztito.Properties.Resources.SAP;
-            this.SAPbeolvasás.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SAPbeolvasás.Location = new System.Drawing.Point(3, 58);
-            this.SAPbeolvasás.Name = "SAPbeolvasás";
-            this.SAPbeolvasás.Size = new System.Drawing.Size(45, 45);
-            this.SAPbeolvasás.TabIndex = 252;
-            this.SAPbeolvasás.UseVisualStyleBackColor = true;
-            this.SAPbeolvasás.Click += new System.EventHandler(this.SAPbeolvasás_Click);
             // 
             // BtnExcel
             // 
@@ -431,17 +412,6 @@
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
             // 
-            // PDFAblak
-            // 
-            this.PDFAblak.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
-            this.PDFAblak.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PDFAblak.Location = new System.Drawing.Point(3, 168);
-            this.PDFAblak.Name = "PDFAblak";
-            this.PDFAblak.Size = new System.Drawing.Size(45, 45);
-            this.PDFAblak.TabIndex = 232;
-            this.PDFAblak.UseVisualStyleBackColor = true;
-            this.PDFAblak.Click += new System.EventHandler(this.PDFAblak_Click);
-            // 
             // Rögzít
             // 
             this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
@@ -474,17 +444,6 @@
             this.Pdf_Készítés.TabIndex = 250;
             this.Pdf_Készítés.UseVisualStyleBackColor = true;
             this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
-            // 
-            // PDFNéz
-            // 
-            this.PDFNéz.BackgroundImage = global::Tisztito.Properties.Resources.App_dict;
-            this.PDFNéz.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PDFNéz.Location = new System.Drawing.Point(58, 168);
-            this.PDFNéz.Name = "PDFNéz";
-            this.PDFNéz.Size = new System.Drawing.Size(45, 45);
-            this.PDFNéz.TabIndex = 251;
-            this.PDFNéz.UseVisualStyleBackColor = true;
-            this.PDFNéz.Click += new System.EventHandler(this.PDFNéz_Click);
             // 
             // Ablak_Selejtezés
             // 
@@ -539,11 +498,8 @@
         internal System.Windows.Forms.ComboBox Megnevezések;
         internal System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker Dátum;
-        internal System.Windows.Forms.Button PDFAblak;
         internal System.Windows.Forms.Button Storno;
         internal System.Windows.Forms.Button BtnExcel;
         internal System.Windows.Forms.Button Pdf_Készítés;
-        internal System.Windows.Forms.Button PDFNéz;
-        internal System.Windows.Forms.Button SAPbeolvasás;
     }
 }
