@@ -76,7 +76,6 @@ namespace Tisztito.Ablakok
 
         private void Mezőkürítés()
         {
-
             Honnan.Text = "";
             Hova.Text = "";
             Cikkszámok.Text = "";
@@ -167,7 +166,6 @@ namespace Tisztito.Ablakok
                 Hova.Enabled = false;
                 Storno.Enabled = false;
                 Rögzít.Enabled = true;
-                TáblaKitöltés();
             }
             catch (HibásBevittAdat ex)
             {
@@ -802,13 +800,14 @@ namespace Tisztito.Ablakok
         {
             try
             {
-
+                if (Tábla.SelectedRows.Count < 1) throw new HibásBevittAdat("Nincs kijelölve érvényes sor.");
+                if (Honnan.Text.Trim() == "") throw new HibásBevittAdat("Nincs kijelölve szervezet.");
                 List<Adat_KészletNaplóRaktár> tételek = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year)
                      .Where(a => a.Bizonylat == bizonylatszám)
                      .ToList();
                 if (tételek.Count == 0) throw new HibásBevittAdat("Nincs ilyen bizonylatszámú tétel.");
                 string fontPath = Path.Combine(Application.StartupPath, @"Adatok\Fonts\arial.ttf");
-                string FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Szállító_{bizonylatszám}.pdf");
+                string FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Selejtezés_{bizonylatszám}.pdf");
                 using (FileStream fs = new FileStream(FileName, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (Document doc = new Document(PageSize.A4.Rotate()))
                 {
@@ -843,7 +842,7 @@ namespace Tisztito.Ablakok
                     BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
                     iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.BOLD);
-                    Paragraph p = new Paragraph("Szállítólevél", font)
+                    Paragraph p = new Paragraph("Selejtezési Bizonylat", font)
                     {
                         Alignment = Element.ALIGN_CENTER,
                         SpacingBefore = 50f // 20 ponttal lejjebb
@@ -880,8 +879,8 @@ namespace Tisztito.Ablakok
                     table1.AddCell(hovaHeader);
 
                     // Adatok: balra és jobbra igazítva, keret nélkül
-                    string honnan = tételek.First().SzervezetHonnan ?? "";
-                    string hova = tételek.First().SzervezetHova ?? "";
+                    string honnan = Honnan.Text.Trim();
+                    string hova = Hova.Text.Trim();
                     PdfPCell honnanCell = new PdfPCell(new Phrase(honnan))
                     {
                         Border = Rectangle.NO_BORDER,
@@ -920,11 +919,11 @@ namespace Tisztito.Ablakok
                     t.AddCell(mennyisegHeader);
 
                     // Példa sorok hozzáadása (töltsd fel a saját adataiddal)
-                    foreach (Adat_KészletNaplóRaktár tetel in tételek)
+                    foreach (DataGridViewRow tetel in Tábla.SelectedRows)
                     {
-                        string cikkszam = tetel.Cikkszám ?? "";
+                        string cikkszam = tetel.Cells["Cikkszám"].Value.ToStrTrim() ?? "";
                         string megnevezes = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == cikkszam)?.Megnevezés ?? "";
-                        string mennyiseg = tetel.Mennyiség.ToString();
+                        string mennyiseg = tetel.Cells["Mennyiség"].Value.ToString();
 
                         PdfPCell cikkszamCell = new PdfPCell(new Phrase(cikkszam, font));
                         PdfPCell megnevezesCell = new PdfPCell(new Phrase(megnevezes, font));
