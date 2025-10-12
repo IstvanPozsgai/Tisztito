@@ -448,5 +448,10 @@ namespace Tisztito.Ablakok.Lekérdezés
             DolgozóFeltöltés();
         }
         #endregion
+
+        private void Súgó_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

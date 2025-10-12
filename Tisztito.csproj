@@ -177,6 +177,12 @@
     <Compile Include="Ablakok\Beállítások\Ablak_Felhasználó.designer.cs">
       <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ablakok\Lekérdezés\Ablak_Lekérdezés.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Lekérdezés\Ablak_Lekérdezés.Designer.cs">
+      <DependentUpon>Ablak_Lekérdezés.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Lekérdezés\Ablak_OsztásNyomtatvány.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -296,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Beállítások\Ablak_Felhasználó.resx">
       <DependentUpon>Ablak_Felhasználó.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Lekérdezés\Ablak_Lekérdezés.resx">
+      <DependentUpon>Ablak_Lekérdezés.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Lekérdezés\Ablak_OsztásNyomtatvány.resx">
       <DependentUpon>Ablak_OsztásNyomtatvány.cs</DependentUpon>

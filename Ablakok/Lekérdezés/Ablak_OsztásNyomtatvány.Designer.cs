@@ -258,6 +258,7 @@
             this.Súgó.Size = new System.Drawing.Size(44, 44);
             this.Súgó.TabIndex = 253;
             this.Súgó.UseVisualStyleBackColor = true;
+            this.Súgó.Click += new System.EventHandler(this.Súgó_Click);
             // 
             // Ablak_OsztásNyomtatvány
             // 

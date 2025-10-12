@@ -26,6 +26,7 @@ namespace Tisztito.Kezelők
 
         public List<Adat_Raktár> Lista_Adatok()
         {
+            Adatok.Clear();
             string szöveg = $"SELECT * FROM {táblanév}";
             string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
 

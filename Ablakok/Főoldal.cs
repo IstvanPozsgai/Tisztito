@@ -437,6 +437,7 @@ namespace Tisztito
         }
         #endregion
 
+
         #region Lekérdezések
         Ablak_OsztásNyomtatvány Új_Ablak_OsztásNyomtatvány;
         private void KiosztásiNyomtatványMenuItem_Click(object sender, EventArgs e)
@@ -458,8 +459,28 @@ namespace Tisztito
         {
             Új_Ablak_OsztásNyomtatvány = null;
         }
-        #endregion
 
+        Ablak_Lekérdezés Új_Ablak_Lekérdezés;
+        private void LekérdezésToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Lekérdezés == null)
+            {
+                Új_Ablak_Lekérdezés = new Ablak_Lekérdezés();
+                Új_Ablak_Lekérdezés.FormClosed += Új_Ablak_Lekérdezés_FormClosed;
+                Új_Ablak_Lekérdezés.Show();
+            }
+            else
+            {
+                Új_Ablak_Lekérdezés.Activate();
+                Új_Ablak_Lekérdezés.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_Lekérdezés_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Lekérdezés = null;
+        }
+        #endregion
         #endregion
 
 
