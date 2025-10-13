@@ -33,21 +33,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Dolgozói_Lekérdezés));
             this.CmbDolgozó = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.CmbMunkakör = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.CmbSzervezet = new System.Windows.Forms.ComboBox();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.Frissít = new System.Windows.Forms.Button();
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Súgó = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Dátum = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.SuspendLayout();
             // 
             // CmbDolgozó
             // 
             this.CmbDolgozó.FormattingEnabled = true;
-            this.CmbDolgozó.Location = new System.Drawing.Point(132, 85);
+            this.CmbDolgozó.Location = new System.Drawing.Point(132, 46);
             this.CmbDolgozó.Name = "CmbDolgozó";
             this.CmbDolgozó.Size = new System.Drawing.Size(463, 28);
             this.CmbDolgozó.TabIndex = 257;
@@ -55,19 +55,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 82);
+            this.label11.Location = new System.Drawing.Point(12, 54);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(72, 20);
             this.label11.TabIndex = 256;
             this.label11.Text = "Dolgozó:";
-            // 
-            // CmbMunkakör
-            // 
-            this.CmbMunkakör.FormattingEnabled = true;
-            this.CmbMunkakör.Location = new System.Drawing.Point(132, 47);
-            this.CmbMunkakör.Name = "CmbMunkakör";
-            this.CmbMunkakör.Size = new System.Drawing.Size(463, 28);
-            this.CmbMunkakör.TabIndex = 255;
             // 
             // label1
             // 
@@ -78,15 +70,6 @@
             this.label1.TabIndex = 252;
             this.label1.Text = "Szervezet:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 20);
-            this.label2.TabIndex = 253;
-            this.label2.Text = "Munkakör:";
-            // 
             // CmbSzervezet
             // 
             this.CmbSzervezet.FormattingEnabled = true;
@@ -94,6 +77,7 @@
             this.CmbSzervezet.Name = "CmbSzervezet";
             this.CmbSzervezet.Size = new System.Drawing.Size(463, 28);
             this.CmbSzervezet.TabIndex = 254;
+            this.CmbSzervezet.SelectionChangeCommitted += new System.EventHandler(this.CmbSzervezet_SelectionChangeCommitted);
             // 
             // Tábla
             // 
@@ -116,13 +100,13 @@
             this.Tábla.EnableHeadersVisualStyles = false;
             this.Tábla.FilterAndSortEnabled = true;
             this.Tábla.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-            this.Tábla.Location = new System.Drawing.Point(12, 131);
+            this.Tábla.Location = new System.Drawing.Point(12, 120);
             this.Tábla.MaxFilterButtonImageHeight = 23;
             this.Tábla.Name = "Tábla";
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersWidth = 25;
             this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Tábla.Size = new System.Drawing.Size(735, 189);
+            this.Tábla.Size = new System.Drawing.Size(735, 298);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 258;
             // 
@@ -135,6 +119,7 @@
             this.Frissít.Size = new System.Drawing.Size(44, 44);
             this.Frissít.TabIndex = 259;
             this.Frissít.UseVisualStyleBackColor = true;
+            this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
             // 
             // BtnExcel
             // 
@@ -156,27 +141,45 @@
             this.Súgó.TabIndex = 261;
             this.Súgó.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 86);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 20);
+            this.label9.TabIndex = 262;
+            this.label9.Text = "Dátum:";
+            // 
+            // Dátum
+            // 
+            this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.Dátum.Location = new System.Drawing.Point(132, 80);
+            this.Dátum.Name = "Dátum";
+            this.Dátum.Size = new System.Drawing.Size(128, 26);
+            this.Dátum.TabIndex = 263;
+            // 
             // Ablak_Dolgozói_Lekérdezés
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LimeGreen;
-            this.ClientSize = new System.Drawing.Size(753, 326);
+            this.ClientSize = new System.Drawing.Size(753, 424);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Dátum);
             this.Controls.Add(this.Súgó);
             this.Controls.Add(this.Frissít);
             this.Controls.Add(this.BtnExcel);
             this.Controls.Add(this.Tábla);
             this.Controls.Add(this.CmbDolgozó);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.CmbMunkakör);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.CmbSzervezet);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Ablak_Dolgozói_Lekérdezés";
             this.Text = "Lekérdezés Dolgozók";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Ablak_Dolgozói_Lekérdezés_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).EndInit();
             this.ResumeLayout(false);
@@ -188,13 +191,13 @@
 
         private System.Windows.Forms.ComboBox CmbDolgozó;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox CmbMunkakör;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox CmbSzervezet;
         internal Zuby.ADGV.AdvancedDataGridView Tábla;
         internal System.Windows.Forms.Button Frissít;
         internal System.Windows.Forms.Button BtnExcel;
         internal System.Windows.Forms.Button Súgó;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DateTimePicker Dátum;
     }
 }

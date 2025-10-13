@@ -39,6 +39,7 @@ namespace Tisztito.Ablakok.Lekérdezés
             AdatokRaktár = KézRaktár.Lista_Adatok();
             CikkszámokFeltöltése();
             SzervezetFeltöltés();
+            GombLathatosagKezelo.Beallit(this);
         }
 
         /// <summary>
