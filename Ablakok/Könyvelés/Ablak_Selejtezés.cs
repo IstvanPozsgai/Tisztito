@@ -44,8 +44,9 @@ namespace Tisztito.Ablakok
         public Ablak_Selejtezés()
         {
             InitializeComponent();
-            Start();
+        
         }
+
 
         /// <summary>
         /// Betöltjük a comboboxba a listákat
@@ -65,7 +66,7 @@ namespace Tisztito.Ablakok
 
         private void Ablak_Raktár_Load(object sender, System.EventArgs e)
         {
-
+            Start();
         }
 
         private void MezőkÜrítése_Click(object sender, EventArgs e)
