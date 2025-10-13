@@ -62,6 +62,7 @@
             this.Label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Figyelmeztetés = new System.Windows.Forms.Label();
+            this.dolgozóiLekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -237,7 +238,8 @@
             this.lekérdezésekToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.területiIgényekToolStripMenuItem,
             this.KiosztásiNyomtatványMenuItem,
-            this.LekérdezésToolStripMenuItem});
+            this.LekérdezésToolStripMenuItem,
+            this.dolgozóiLekérdezésekToolStripMenuItem});
             this.lekérdezésekToolStripMenuItem.Image = global::Tisztito.Properties.Resources.Aha_Soft_Large_Seo_SEO;
             this.lekérdezésekToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lekérdezésekToolStripMenuItem.Name = "lekérdezésekToolStripMenuItem";
@@ -358,6 +360,13 @@
             this.Figyelmeztetés.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Figyelmeztetés.Visible = false;
             // 
+            // dolgozóiLekérdezésekToolStripMenuItem
+            // 
+            this.dolgozóiLekérdezésekToolStripMenuItem.Name = "dolgozóiLekérdezésekToolStripMenuItem";
+            this.dolgozóiLekérdezésekToolStripMenuItem.Size = new System.Drawing.Size(271, 24);
+            this.dolgozóiLekérdezésekToolStripMenuItem.Text = "Dolgozói Lekérdezések";
+            this.dolgozóiLekérdezésekToolStripMenuItem.Click += new System.EventHandler(this.DolgozóiLekérdezésekToolStripMenuItem_Click);
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -423,6 +432,7 @@
         private System.Windows.Forms.ToolStripMenuItem készletSelejtezésToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem LekérdezésToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dolgozóiLekérdezésekToolStripMenuItem;
     }
 }
 

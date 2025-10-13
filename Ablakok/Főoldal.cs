@@ -480,6 +480,27 @@ namespace Tisztito
         {
             Új_Ablak_Lekérdezés = null;
         }
+
+        Ablak_Dolgozói_Lekérdezés Új_Ablak_Dolgozói_Lekérdezés;
+        private void DolgozóiLekérdezésekToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Dolgozói_Lekérdezés == null)
+            {
+                Új_Ablak_Dolgozói_Lekérdezés = new Ablak_Dolgozói_Lekérdezés();
+                Új_Ablak_Dolgozói_Lekérdezés.FormClosed += Új_Ablak_Dolgozói_Lekérdezés_FormClosed;
+                Új_Ablak_Dolgozói_Lekérdezés.Show();
+            }
+            else
+            {
+                Új_Ablak_Dolgozói_Lekérdezés.Activate();
+                Új_Ablak_Dolgozói_Lekérdezés.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Új_Ablak_Dolgozói_Lekérdezés_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Dolgozói_Lekérdezés = null;
+        }
         #endregion
         #endregion
 

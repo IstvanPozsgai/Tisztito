@@ -29,7 +29,7 @@ namespace Tisztito.Ablakok.Lekérdezés
         public Ablak_Lekérdezés()
         {
             InitializeComponent();
-     
+            Start();
         }
 
         private void Start()
@@ -160,7 +160,7 @@ namespace Tisztito.Ablakok.Lekérdezés
 
         private void Ablak_Lekérdezés_Load(object sender, EventArgs e)
         {
-            Start();
+
         }
         #endregion
 
