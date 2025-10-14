@@ -255,44 +255,85 @@ namespace Tisztito.Ablakok.Lekérdezés
                 if (CmbSzervezet.Text.Trim() == "") return;
                 List<Adat_Dolgozó> Adatok_Dolgozók = AdatokDolgozók.Where(d => d.Szervezet == CmbSzervezet.Text.Trim()).ToList();
 
+                List<Adat_Dolgozó> Adatok_Dolg = Adatok_Dolgozók;
+
                 List<Adat_KészletNaplóRaktár> Adatok = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
                 //Csak azok a rekordok amik dolgozói rögzítések
                 Adatok = (from a in Adatok
                           where !(a.Dolgozószám == null || a.Dolgozószám.Trim() == "")
                           && a.Storno == false
                           select a).ToList();
-                Adatok = Adatok.Where(a => a.SzervezetHonnan == CmbSzervezet.Text.Trim()).ToList();
+
+                Adatok_Dolg = Adatok_Dolg.Where(a => a.Szervezet == CmbSzervezet.Text.Trim()).ToList();
                 if (CmbDolgozó.Text.Trim() != "")
                 {
                     string[] darabol = CmbDolgozó.Text.Split('=');
-                    Adatok = Adatok.Where(a => a.Dolgozószám == darabol[1].Trim()).ToList();
+                    Adatok_Dolg = Adatok_Dolg.Where(a => a.Dolgozószám.Trim () == darabol[1].Trim()).ToList();
                 }
 
-                foreach (Adat_Dolgozó rekord in Adatok_Dolgozók)
+                List<Adat_KészletNaplóRaktár> Adatoknapló = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year, false);
+
+                foreach (Adat_Dolgozó rekord in Adatok_Dolg)
                 {
                     List<Adat_KészletNaplóRaktár> AdatokSzűrt = (from a in Adatok
                                                                  where a.Dolgozószám == rekord.Dolgozószám
                                                                  select a).ToList();
-                    foreach (Adat_KészletNaplóRaktár Elem in AdatokSzűrt)
+
+     
+
+                    List<Adat_Járandóság> JárAdatok = AdatokJárandóság.Where(j => j.Munkakör == rekord.Munkakör).ToList();
+                    if (JárAdatok == null)
                     {
                         DataRow Soradat = AdatTáblaALap.NewRow();
                         Soradat["Dolgozószám"] = rekord.Dolgozószám;
                         Soradat["Dolgozónév"] = rekord.Dolgozónév;
                         Soradat["Munkakör"] = rekord.Munkakör;
                         Soradat["Szervezet"] = CmbSzervezet.Text.Trim();
-                        Soradat["Cikkszám"] = Elem.Cikkszám;
-                        Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Elem.Cikkszám);
-                        if (EgyAnyag != null)
-                            Soradat["Megnevezés"] = EgyAnyag.Megnevezés;
-                        else
-                            Soradat["Megnevezés"] = "";
-                        int jár = Járandóság(Elem.Cikkszám, rekord.Munkakör);
-                        Soradat["Járandóság"] = jár;
-                        Soradat["Kiadott"] = Elem.Mennyiség;
-                        Soradat["Különbözet"] = Elem.Mennyiség - jár;
-
-                        AdatTáblaALap.Rows.Add(Soradat);
+                        Soradat["Cikkszám"] = "?";
+                        Soradat["Megnevezés"] = "?";
+                        Soradat["Járandóság"] = 0;
+                        Soradat["Kiadott"] = 0;
+                        Soradat["Különbözet"] = 0;
+                        AdatTáblaALap.Rows.Add(Soradat); 
                     }
+                    foreach (Adat_Járandóság Elem in JárAdatok)
+                    {
+                        if (Elem.Mennyiség > 0)
+                        {
+                            DataRow Soradat = AdatTáblaALap.NewRow();
+                            Soradat["Dolgozószám"] = rekord.Dolgozószám;
+                            Soradat["Dolgozónév"] = rekord.Dolgozónév;
+                            Soradat["Munkakör"] = rekord.Munkakör;
+                            Soradat["Szervezet"] = CmbSzervezet.Text.Trim();
+                            Soradat["Cikkszám"] = "?";
+                            Soradat["Megnevezés"] = "?";
+                            Soradat["Járandóság"] = 0;
+                            Soradat["Kiadott"] = 0;
+                            Soradat["Különbözet"] = 0;
+                            Soradat["Cikkszám"] = Elem.Cikkszám;
+                            Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Elem.Cikkszám);
+                            if (EgyAnyag != null)
+                                Soradat["Megnevezés"] = EgyAnyag.Megnevezés;
+                            else
+                                Soradat["Megnevezés"] = "?";
+
+                            Soradat["Járandóság"] = Elem.Mennyiség;
+                            List<Adat_KészletNaplóRaktár> Dolgozói = (from a in Adatoknapló
+                                                                      where a.Dolgozószám.Trim() == ""
+                                                                      select a).ToList();
+                            if (Dolgozói != null)
+                            {
+                                int kapott = (from a in AdatokSzűrt
+                                              where a.Cikkszám == Elem.Cikkszám
+                                              select a.Mennyiség).Sum();
+
+                                Soradat["Kiadott"] = kapott;
+                                Soradat["Különbözet"] = kapott - Elem.Mennyiség;
+                            }
+                            AdatTáblaALap.Rows.Add(Soradat);
+                        }
+                    }
+
                 }
             }
             catch (HibásBevittAdat ex)
@@ -305,6 +346,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         /// <summary>
         /// Kiemeli a törölt elemeket

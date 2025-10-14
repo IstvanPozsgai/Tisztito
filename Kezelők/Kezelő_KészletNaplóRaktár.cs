@@ -25,11 +25,13 @@ namespace Tisztito.Kezelők
 
         }
 
-        public List<Adat_KészletNaplóRaktár> Lista_Adatok(int Év)
+        public List<Adat_KészletNaplóRaktár> Lista_Adatok(int Év, bool stornóval=true  )
         {
             FájlBeállítás(Év);
             List<Adat_KészletNaplóRaktár> Adatok = new List<Adat_KészletNaplóRaktár>();
             string szöveg = $"SELECT * FROM {táblanév}";
+            if (!stornóval) szöveg += " WHERE Storno=False";
+
             string kapcsolatiszöveg = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='{hely}'; Jet Oledb:Database Password={jelszó}";
 
             using (OleDbConnection Kapcsolat = new OleDbConnection(kapcsolatiszöveg))
