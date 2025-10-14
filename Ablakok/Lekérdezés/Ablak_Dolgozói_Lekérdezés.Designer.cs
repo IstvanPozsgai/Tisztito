@@ -130,6 +130,7 @@
             this.BtnExcel.Size = new System.Drawing.Size(44, 44);
             this.BtnExcel.TabIndex = 260;
             this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // Súgó
             // 

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
+using MyE = Tisztito.Module_Excel;
+using MyF = Függvénygyűjtemény;
 
 namespace Tisztito.Ablakok.Lekérdezés
 {
@@ -325,6 +327,8 @@ namespace Tisztito.Ablakok.Lekérdezés
                             {
                                 int kapott = (from a in AdatokSzűrt
                                               where a.Cikkszám == Elem.Cikkszám
+                                              && a.Dátum >=MyF. Negyedév_elsőnapja(Dátum.Value )
+                                              && a.Dátum <= MyF.Negyedév_utolsónapja(Dátum.Value)
                                               select a.Mennyiség).Sum();
 
                                 Soradat["Kiadott"] = kapott;
@@ -385,5 +389,42 @@ namespace Tisztito.Ablakok.Lekérdezés
             return válasz;
         }
         #endregion
+
+        private void BtnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Tábla.Rows.Count <= 0) return;
+                string fájlexc;
+
+                // kimeneti fájl helye és neve
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog
+                {
+                    InitialDirectory = "MyDocuments",
+                    Title = "Listázott tartalom mentése Excel fájlba",
+                    FileName = $"Kiosztott_Anyagok_{Program.PostásNév}-{DateTime.Now:yyyyMMddHHmmss}",
+                    Filter = "Excel |*.xlsx"
+                };
+                // bekérjük a fájl nevét és helyét ha mégse, akkor kilép
+                if (SaveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    fájlexc = SaveFileDialog1.FileName;
+                else
+                    return;
+
+                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                MyE.DataGridViewToExcel(fájlexc, Tábla);
+                MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MyE.Megnyitás(fájlexc + ".xlsx");
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
