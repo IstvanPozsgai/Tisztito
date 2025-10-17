@@ -53,6 +53,7 @@
             this.területiIgényekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KiosztásiNyomtatványMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LekérdezésToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dolgozóiLekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Verzió_Váltás = new System.Windows.Forms.Button();
             this.Menükinyitás = new System.Windows.Forms.Button();
@@ -62,7 +63,6 @@
             this.Label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Figyelmeztetés = new System.Windows.Forms.Label();
-            this.dolgozóiLekérdezésekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -268,6 +268,13 @@
             this.LekérdezésToolStripMenuItem.Text = "Raktár készlet Lekérdezés ";
             this.LekérdezésToolStripMenuItem.Click += new System.EventHandler(this.LekérdezésToolStripMenuItem_Click);
             // 
+            // dolgozóiLekérdezésekToolStripMenuItem
+            // 
+            this.dolgozóiLekérdezésekToolStripMenuItem.Name = "dolgozóiLekérdezésekToolStripMenuItem";
+            this.dolgozóiLekérdezésekToolStripMenuItem.Size = new System.Drawing.Size(271, 24);
+            this.dolgozóiLekérdezésekToolStripMenuItem.Text = "Dolgozói Lekérdezések";
+            this.dolgozóiLekérdezésekToolStripMenuItem.Click += new System.EventHandler(this.DolgozóiLekérdezésekToolStripMenuItem_Click);
+            // 
             // Verzió_Váltás
             // 
             this.Verzió_Váltás.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -299,6 +306,7 @@
             this.Képkeret.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Képkeret.Image = global::Tisztito.Properties.Resources.BKV_háttér;
             this.Képkeret.Location = new System.Drawing.Point(0, 27);
             this.Képkeret.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Képkeret.Name = "Képkeret";
@@ -360,18 +368,11 @@
             this.Figyelmeztetés.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Figyelmeztetés.Visible = false;
             // 
-            // dolgozóiLekérdezésekToolStripMenuItem
-            // 
-            this.dolgozóiLekérdezésekToolStripMenuItem.Name = "dolgozóiLekérdezésekToolStripMenuItem";
-            this.dolgozóiLekérdezésekToolStripMenuItem.Size = new System.Drawing.Size(271, 24);
-            this.dolgozóiLekérdezésekToolStripMenuItem.Text = "Dolgozói Lekérdezések";
-            this.dolgozóiLekérdezésekToolStripMenuItem.Click += new System.EventHandler(this.DolgozóiLekérdezésekToolStripMenuItem_Click);
-            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(656, 299);
             this.Controls.Add(this.Figyelmeztetés);
             this.Controls.Add(this.Rejtett);

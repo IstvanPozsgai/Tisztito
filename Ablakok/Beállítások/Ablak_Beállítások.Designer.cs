@@ -41,11 +41,11 @@
             this.SAPCsoport = new System.Windows.Forms.ComboBox();
             this.Label69 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.FejlécBeolvasása = new System.Windows.Forms.Button();
             this.SAPRögzít = new System.Windows.Forms.Button();
             this.SAPTöröl = new System.Windows.Forms.Button();
             this.SAPExcel = new System.Windows.Forms.Button();
             this.SAPFrissít = new System.Windows.Forms.Button();
+            this.FejlécBeolvasása = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SAPTábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -187,18 +187,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(777, 211);
             this.tableLayoutPanel1.TabIndex = 112;
             // 
-            // FejlécBeolvasása
-            // 
-            this.FejlécBeolvasása.BackColor = System.Drawing.SystemColors.Control;
-            this.FejlécBeolvasása.BackgroundImage = global::Tisztito.Properties.Resources.Document_Microsoft_Excel_01;
-            this.FejlécBeolvasása.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.FejlécBeolvasása.Location = new System.Drawing.Point(795, 171);
-            this.FejlécBeolvasása.Name = "FejlécBeolvasása";
-            this.FejlécBeolvasása.Size = new System.Drawing.Size(45, 45);
-            this.FejlécBeolvasása.TabIndex = 113;
-            this.FejlécBeolvasása.UseVisualStyleBackColor = false;
-            this.FejlécBeolvasása.Click += new System.EventHandler(this.FejlécBeolvasása_Click);
-            // 
             // SAPRögzít
             // 
             this.SAPRögzít.BackColor = System.Drawing.SystemColors.Control;
@@ -247,11 +235,23 @@
             this.SAPFrissít.UseVisualStyleBackColor = false;
             this.SAPFrissít.Click += new System.EventHandler(this.Command1_Click);
             // 
+            // FejlécBeolvasása
+            // 
+            this.FejlécBeolvasása.BackColor = System.Drawing.SystemColors.Control;
+            this.FejlécBeolvasása.BackgroundImage = global::Tisztito.Properties.Resources.Document_Microsoft_Excel_01;
+            this.FejlécBeolvasása.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.FejlécBeolvasása.Location = new System.Drawing.Point(795, 171);
+            this.FejlécBeolvasása.Name = "FejlécBeolvasása";
+            this.FejlécBeolvasása.Size = new System.Drawing.Size(45, 45);
+            this.FejlécBeolvasása.TabIndex = 113;
+            this.FejlécBeolvasása.UseVisualStyleBackColor = false;
+            this.FejlécBeolvasása.Click += new System.EventHandler(this.FejlécBeolvasása_Click);
+            // 
             // Ablak_Beállítások
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SandyBrown;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(959, 495);
             this.Controls.Add(this.FejlécBeolvasása);
             this.Controls.Add(this.tableLayoutPanel1);

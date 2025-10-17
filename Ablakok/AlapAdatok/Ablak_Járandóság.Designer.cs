@@ -33,17 +33,17 @@
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label34 = new System.Windows.Forms.Label();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.Label2 = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
-            this.CmbStátus = new System.Windows.Forms.ComboBox();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.Label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.Munkakör = new System.Windows.Forms.ComboBox();
+            this.Cikkszám = new System.Windows.Forms.ComboBox();
+            this.Megnevezés = new System.Windows.Forms.ComboBox();
             this.Mennyiség = new System.Windows.Forms.TextBox();
             this.Gyakoriság = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Munkakör = new System.Windows.Forms.ComboBox();
-            this.Megnevezés = new System.Windows.Forms.ComboBox();
-            this.Cikkszám = new System.Windows.Forms.ComboBox();
+            this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Új_adat = new System.Windows.Forms.Button();
             this.Alap_Rögzít = new System.Windows.Forms.Button();
@@ -117,15 +117,15 @@
             this.Label34.TabIndex = 211;
             this.Label34.Text = "Munkakör:";
             // 
-            // Label3
+            // Label4
             // 
-            this.Label3.AutoSize = true;
-            this.Label3.BackColor = System.Drawing.Color.Silver;
-            this.Label3.Location = new System.Drawing.Point(3, 105);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(89, 20);
-            this.Label3.TabIndex = 213;
-            this.Label3.Text = "Mennyiség:";
+            this.Label4.AutoSize = true;
+            this.Label4.BackColor = System.Drawing.Color.Silver;
+            this.Label4.Location = new System.Drawing.Point(3, 35);
+            this.Label4.Name = "Label4";
+            this.Label4.Size = new System.Drawing.Size(77, 20);
+            this.Label4.TabIndex = 214;
+            this.Label4.Text = "Cikkszám";
             // 
             // Label2
             // 
@@ -137,26 +137,25 @@
             this.Label2.TabIndex = 212;
             this.Label2.Text = "Megnevezés:";
             // 
-            // Label4
+            // Label3
             // 
-            this.Label4.AutoSize = true;
-            this.Label4.BackColor = System.Drawing.Color.Silver;
-            this.Label4.Location = new System.Drawing.Point(3, 35);
-            this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(77, 20);
-            this.Label4.TabIndex = 214;
-            this.Label4.Text = "Cikkszám";
+            this.Label3.AutoSize = true;
+            this.Label3.BackColor = System.Drawing.Color.Silver;
+            this.Label3.Location = new System.Drawing.Point(3, 105);
+            this.Label3.Name = "Label3";
+            this.Label3.Size = new System.Drawing.Size(89, 20);
+            this.Label3.TabIndex = 213;
+            this.Label3.Text = "Mennyiség:";
             // 
-            // CmbStátus
+            // label5
             // 
-            this.CmbStátus.DropDownHeight = 300;
-            this.CmbStátus.FormattingEnabled = true;
-            this.CmbStátus.IntegralHeight = false;
-            this.CmbStátus.Location = new System.Drawing.Point(240, 178);
-            this.CmbStátus.MaxLength = 20;
-            this.CmbStátus.Name = "CmbStátus";
-            this.CmbStátus.Size = new System.Drawing.Size(180, 28);
-            this.CmbStátus.TabIndex = 217;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Silver;
+            this.label5.Location = new System.Drawing.Point(3, 140);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(231, 20);
+            this.label5.TabIndex = 221;
+            this.label5.Text = "Esedékesség gyakorisága (hó):";
             // 
             // label1
             // 
@@ -167,6 +166,44 @@
             this.label1.Size = new System.Drawing.Size(60, 20);
             this.label1.TabIndex = 216;
             this.label1.Text = "Státus:";
+            // 
+            // Munkakör
+            // 
+            this.Munkakör.DropDownHeight = 300;
+            this.Munkakör.FormattingEnabled = true;
+            this.Munkakör.IntegralHeight = false;
+            this.Munkakör.Location = new System.Drawing.Point(240, 3);
+            this.Munkakör.MaxLength = 20;
+            this.Munkakör.Name = "Munkakör";
+            this.Munkakör.Size = new System.Drawing.Size(518, 28);
+            this.Munkakör.Sorted = true;
+            this.Munkakör.TabIndex = 222;
+            // 
+            // Cikkszám
+            // 
+            this.Cikkszám.DropDownHeight = 300;
+            this.Cikkszám.FormattingEnabled = true;
+            this.Cikkszám.IntegralHeight = false;
+            this.Cikkszám.Location = new System.Drawing.Point(240, 38);
+            this.Cikkszám.MaxLength = 20;
+            this.Cikkszám.Name = "Cikkszám";
+            this.Cikkszám.Size = new System.Drawing.Size(224, 28);
+            this.Cikkszám.Sorted = true;
+            this.Cikkszám.TabIndex = 224;
+            this.Cikkszám.SelectionChangeCommitted += new System.EventHandler(this.Cikkszám_SelectionChangeCommitted);
+            // 
+            // Megnevezés
+            // 
+            this.Megnevezés.DropDownHeight = 300;
+            this.Megnevezés.FormattingEnabled = true;
+            this.Megnevezés.IntegralHeight = false;
+            this.Megnevezés.Location = new System.Drawing.Point(240, 73);
+            this.Megnevezés.MaxLength = 20;
+            this.Megnevezés.Name = "Megnevezés";
+            this.Megnevezés.Size = new System.Drawing.Size(635, 28);
+            this.Megnevezés.Sorted = true;
+            this.Megnevezés.TabIndex = 223;
+            this.Megnevezés.SelectionChangeCommitted += new System.EventHandler(this.Megnevezés_SelectionChangeCommitted);
             // 
             // Mennyiség
             // 
@@ -184,53 +221,16 @@
             this.Gyakoriság.Size = new System.Drawing.Size(180, 26);
             this.Gyakoriság.TabIndex = 220;
             // 
-            // label5
+            // CmbStátus
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Silver;
-            this.label5.Location = new System.Drawing.Point(3, 140);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(231, 20);
-            this.label5.TabIndex = 221;
-            this.label5.Text = "Esedékesség gyakorisága (hó):";
-            // 
-            // Munkakör
-            // 
-            this.Munkakör.DropDownHeight = 300;
-            this.Munkakör.FormattingEnabled = true;
-            this.Munkakör.IntegralHeight = false;
-            this.Munkakör.Location = new System.Drawing.Point(240, 3);
-            this.Munkakör.MaxLength = 20;
-            this.Munkakör.Name = "Munkakör";
-            this.Munkakör.Size = new System.Drawing.Size(518, 28);
-            this.Munkakör.Sorted = true;
-            this.Munkakör.TabIndex = 222;
-            // 
-            // Megnevezés
-            // 
-            this.Megnevezés.DropDownHeight = 300;
-            this.Megnevezés.FormattingEnabled = true;
-            this.Megnevezés.IntegralHeight = false;
-            this.Megnevezés.Location = new System.Drawing.Point(240, 73);
-            this.Megnevezés.MaxLength = 20;
-            this.Megnevezés.Name = "Megnevezés";
-            this.Megnevezés.Size = new System.Drawing.Size(635, 28);
-            this.Megnevezés.Sorted = true;
-            this.Megnevezés.TabIndex = 223;
-            this.Megnevezés.SelectionChangeCommitted += new System.EventHandler(this.Megnevezés_SelectionChangeCommitted);
-            // 
-            // Cikkszám
-            // 
-            this.Cikkszám.DropDownHeight = 300;
-            this.Cikkszám.FormattingEnabled = true;
-            this.Cikkszám.IntegralHeight = false;
-            this.Cikkszám.Location = new System.Drawing.Point(240, 38);
-            this.Cikkszám.MaxLength = 20;
-            this.Cikkszám.Name = "Cikkszám";
-            this.Cikkszám.Size = new System.Drawing.Size(224, 28);
-            this.Cikkszám.Sorted = true;
-            this.Cikkszám.TabIndex = 224;
-            this.Cikkszám.SelectionChangeCommitted += new System.EventHandler(this.Cikkszám_SelectionChangeCommitted);
+            this.CmbStátus.DropDownHeight = 300;
+            this.CmbStátus.FormattingEnabled = true;
+            this.CmbStátus.IntegralHeight = false;
+            this.CmbStátus.Location = new System.Drawing.Point(240, 178);
+            this.CmbStátus.MaxLength = 20;
+            this.CmbStátus.Name = "CmbStátus";
+            this.CmbStátus.Size = new System.Drawing.Size(180, 28);
+            this.CmbStátus.TabIndex = 217;
             // 
             // Új_adat
             // 
@@ -340,7 +340,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1133, 470);
             this.Controls.Add(this.Holtart);
             this.Controls.Add(this.tableLayoutPanel2);

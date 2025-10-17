@@ -463,6 +463,7 @@
     <None Include="Resources\Filesystem-blockdevice-cubes.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Adatok\képek\BKV háttér.jpg" />
     <Content Include="community_users.ico" />
     <None Include="Resources\SAP.ico" />
     <None Include="Resources\Document Microsoft Excel-01.ico" />

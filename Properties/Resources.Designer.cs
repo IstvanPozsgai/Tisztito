@@ -133,6 +133,16 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BKV_háttér {
+            get {
+                object obj = ResourceManager.GetObject("BKV háttér", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap community_users {
             get {
                 object obj = ResourceManager.GetObject("community_users", resourceCulture);
