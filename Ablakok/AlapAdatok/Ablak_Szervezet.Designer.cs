@@ -99,6 +99,7 @@
             this.Alap_Rögzít.Name = "Alap_Rögzít";
             this.Alap_Rögzít.Size = new System.Drawing.Size(45, 44);
             this.Alap_Rögzít.TabIndex = 206;
+            this.toolTip1.SetToolTip(this.Alap_Rögzít, "Rögzítés");
             this.Alap_Rögzít.UseVisualStyleBackColor = true;
             this.Alap_Rögzít.Click += new System.EventHandler(this.Alap_Rögzít_Click);
             // 
@@ -110,6 +111,7 @@
             this.Új_adat.Name = "Új_adat";
             this.Új_adat.Size = new System.Drawing.Size(44, 44);
             this.Új_adat.TabIndex = 209;
+            this.toolTip1.SetToolTip(this.Új_adat, "Új adat");
             this.Új_adat.UseVisualStyleBackColor = true;
             this.Új_adat.Click += new System.EventHandler(this.Új_adat_Click);
             // 
@@ -129,6 +131,7 @@
             this.BtnFrissít.Name = "BtnFrissít";
             this.BtnFrissít.Size = new System.Drawing.Size(45, 44);
             this.BtnFrissít.TabIndex = 215;
+            this.toolTip1.SetToolTip(this.BtnFrissít, "Frissítés");
             this.BtnFrissít.UseVisualStyleBackColor = true;
             this.BtnFrissít.Click += new System.EventHandler(this.BtnFrissít_Click);
             // 

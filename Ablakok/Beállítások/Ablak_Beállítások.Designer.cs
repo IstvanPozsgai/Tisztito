@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,6 +47,7 @@
             this.SAPExcel = new System.Windows.Forms.Button();
             this.SAPFrissít = new System.Windows.Forms.Button();
             this.FejlécBeolvasása = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SAPTábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -196,6 +198,7 @@
             this.SAPRögzít.Name = "SAPRögzít";
             this.SAPRögzít.Size = new System.Drawing.Size(45, 45);
             this.SAPRögzít.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.SAPRögzít, "Rögzítés");
             this.SAPRögzít.UseVisualStyleBackColor = false;
             this.SAPRögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
@@ -208,6 +211,7 @@
             this.SAPTöröl.Name = "SAPTöröl";
             this.SAPTöröl.Size = new System.Drawing.Size(45, 45);
             this.SAPTöröl.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.SAPTöröl, "Törli az adatokat");
             this.SAPTöröl.UseVisualStyleBackColor = false;
             this.SAPTöröl.Click += new System.EventHandler(this.Töröl_Click);
             // 
@@ -220,6 +224,7 @@
             this.SAPExcel.Name = "SAPExcel";
             this.SAPExcel.Size = new System.Drawing.Size(45, 45);
             this.SAPExcel.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.SAPExcel, "Excel kimenet készítés");
             this.SAPExcel.UseVisualStyleBackColor = false;
             this.SAPExcel.Click += new System.EventHandler(this.Excel_Click);
             // 
@@ -232,6 +237,7 @@
             this.SAPFrissít.Name = "SAPFrissít";
             this.SAPFrissít.Size = new System.Drawing.Size(45, 45);
             this.SAPFrissít.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.SAPFrissít, "Frissítés");
             this.SAPFrissít.UseVisualStyleBackColor = false;
             this.SAPFrissít.Click += new System.EventHandler(this.Command1_Click);
             // 
@@ -244,6 +250,7 @@
             this.FejlécBeolvasása.Name = "FejlécBeolvasása";
             this.FejlécBeolvasása.Size = new System.Drawing.Size(45, 45);
             this.FejlécBeolvasása.TabIndex = 113;
+            this.toolTip1.SetToolTip(this.FejlécBeolvasása, "Beolvasási fejléc beolvasása");
             this.FejlécBeolvasása.UseVisualStyleBackColor = false;
             this.FejlécBeolvasása.Click += new System.EventHandler(this.FejlécBeolvasása_Click);
             // 
@@ -285,5 +292,6 @@
         internal System.Windows.Forms.Button SAPRögzít;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         internal System.Windows.Forms.Button FejlécBeolvasása;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -382,8 +382,8 @@
             this.tableLayoutPanel2.Controls.Add(this.Frissít, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.BtnExcel, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 4);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1151, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
@@ -403,6 +403,7 @@
             this.Frissít.Name = "Frissít";
             this.Frissít.Size = new System.Drawing.Size(44, 44);
             this.Frissít.TabIndex = 233;
+            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
             this.Frissít.UseVisualStyleBackColor = true;
             this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
             // 
@@ -414,6 +415,7 @@
             this.MezőkÜrítése.Name = "MezőkÜrítése";
             this.MezőkÜrítése.Size = new System.Drawing.Size(44, 44);
             this.MezőkÜrítése.TabIndex = 232;
+            this.toolTip1.SetToolTip(this.MezőkÜrítése, "Új adat");
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
             // 
@@ -425,6 +427,7 @@
             this.Storno.Name = "Storno";
             this.Storno.Size = new System.Drawing.Size(44, 44);
             this.Storno.TabIndex = 247;
+            this.toolTip1.SetToolTip(this.Storno, "Stornózza a könyvelést");
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
@@ -436,6 +439,7 @@
             this.Rögzít.Name = "Rögzít";
             this.Rögzít.Size = new System.Drawing.Size(44, 44);
             this.Rögzít.TabIndex = 229;
+            this.toolTip1.SetToolTip(this.Rögzít, "Rögzítés");
             this.Rögzít.UseVisualStyleBackColor = true;
             this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 

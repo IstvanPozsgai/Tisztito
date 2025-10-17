@@ -30,11 +30,13 @@ namespace Tisztito
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_PDF_Feltöltés));
             this.FájlLista = new System.Windows.Forms.ListBox();
             this.Pdftöltő = new PdfiumViewer.PdfViewer();
             this.Btn_Másolás = new System.Windows.Forms.Button();
             this.Btn_PDFNyitó = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // FájlLista
@@ -73,6 +75,7 @@ namespace Tisztito
             this.Btn_Másolás.Name = "Btn_Másolás";
             this.Btn_Másolás.Size = new System.Drawing.Size(45, 45);
             this.Btn_Másolás.TabIndex = 255;
+            this.toolTip1.SetToolTip(this.Btn_Másolás, "Rögzítés");
             this.Btn_Másolás.UseVisualStyleBackColor = true;
             this.Btn_Másolás.Click += new System.EventHandler(this.Btn_Másolás_Click);
             // 
@@ -85,6 +88,7 @@ namespace Tisztito
             this.Btn_PDFNyitó.Name = "Btn_PDFNyitó";
             this.Btn_PDFNyitó.Size = new System.Drawing.Size(45, 45);
             this.Btn_PDFNyitó.TabIndex = 254;
+            this.toolTip1.SetToolTip(this.Btn_PDFNyitó, "Könyvtárakban tallóz");
             this.Btn_PDFNyitó.UseVisualStyleBackColor = true;
             this.Btn_PDFNyitó.Click += new System.EventHandler(this.Btn_PDFNyitó_Click);
             // 
@@ -113,5 +117,6 @@ namespace Tisztito
         private PdfiumViewer.PdfViewer Pdftöltő;
         internal System.Windows.Forms.Button Btn_Másolás;
         internal System.Windows.Forms.Button Btn_PDFNyitó;
+        private ToolTip toolTip1;
     }
 }

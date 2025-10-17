@@ -454,7 +454,7 @@ namespace Tisztito.Ablakok
                         MyE.Háttérszín($"B{sor}", System.Drawing.Color.Red);
                     }
 
-                    if (Mennyiség < 1)
+                    if (Mennyiség < 0)
                     {
                         SorHiba = true;
                         hiba = true;

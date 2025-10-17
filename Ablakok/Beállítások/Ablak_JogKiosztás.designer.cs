@@ -88,7 +88,7 @@ namespace Tisztito
             this.SzervezetMinden.Name = "SzervezetMinden";
             this.SzervezetMinden.Size = new System.Drawing.Size(45, 44);
             this.SzervezetMinden.TabIndex = 104;
-            this.ToolTip1.SetToolTip(this.SzervezetMinden, "Minden kijeölése");
+            this.ToolTip1.SetToolTip(this.SzervezetMinden, "Minden kijelölése");
             this.SzervezetMinden.UseVisualStyleBackColor = true;
             this.SzervezetMinden.Click += new System.EventHandler(this.SzervezetMinden_Click);
             // 
@@ -114,7 +114,7 @@ namespace Tisztito
             this.GombokMinden.Name = "GombokMinden";
             this.GombokMinden.Size = new System.Drawing.Size(45, 44);
             this.GombokMinden.TabIndex = 104;
-            this.ToolTip1.SetToolTip(this.GombokMinden, "Minden kijeölése");
+            this.ToolTip1.SetToolTip(this.GombokMinden, "Minden kijelölése");
             this.GombokMinden.UseVisualStyleBackColor = true;
             this.GombokMinden.Click += new System.EventHandler(this.GombokMinden_Click);
             // 
@@ -153,7 +153,7 @@ namespace Tisztito
             this.BtnSugó.Name = "BtnSugó";
             this.BtnSugó.Size = new System.Drawing.Size(45, 45);
             this.BtnSugó.TabIndex = 2;
-            this.ToolTip1.SetToolTip(this.BtnSugó, "Online sugó megjelenítése");
+            this.ToolTip1.SetToolTip(this.BtnSugó, "Online súgó megjelenítése");
             this.BtnSugó.UseVisualStyleBackColor = true;
             // 
             // Label1

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MunkakörMinden = new System.Windows.Forms.Button();
             this.MunkakörSemmi = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Osztási_PDF = new System.Windows.Forms.Button();
             this.Súgó = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -71,6 +73,7 @@
             this.MunkakörMinden.Name = "MunkakörMinden";
             this.MunkakörMinden.Size = new System.Drawing.Size(45, 44);
             this.MunkakörMinden.TabIndex = 106;
+            this.toolTip1.SetToolTip(this.MunkakörMinden, "Mindent kijelöl");
             this.MunkakörMinden.UseVisualStyleBackColor = true;
             this.MunkakörMinden.Click += new System.EventHandler(this.MunkakörMinden_Click);
             // 
@@ -83,6 +86,7 @@
             this.MunkakörSemmi.Name = "MunkakörSemmi";
             this.MunkakörSemmi.Size = new System.Drawing.Size(45, 44);
             this.MunkakörSemmi.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.MunkakörSemmi, "Minden kijelölést töröl");
             this.MunkakörSemmi.UseVisualStyleBackColor = true;
             this.MunkakörSemmi.Click += new System.EventHandler(this.MunkakörSemmi_Click);
             // 
@@ -169,6 +173,7 @@
             this.SzervezetMinden.Name = "SzervezetMinden";
             this.SzervezetMinden.Size = new System.Drawing.Size(45, 44);
             this.SzervezetMinden.TabIndex = 106;
+            this.toolTip1.SetToolTip(this.SzervezetMinden, "Mindent kijelöl");
             this.SzervezetMinden.UseVisualStyleBackColor = true;
             this.SzervezetMinden.Click += new System.EventHandler(this.SzervezetMinden_Click);
             // 
@@ -181,6 +186,7 @@
             this.SzervezetSemmi.Name = "SzervezetSemmi";
             this.SzervezetSemmi.Size = new System.Drawing.Size(45, 44);
             this.SzervezetSemmi.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.SzervezetSemmi, "Minden kijelölést töröl");
             this.SzervezetSemmi.UseVisualStyleBackColor = true;
             this.SzervezetSemmi.Click += new System.EventHandler(this.SzervezetSemmi_Click);
             // 
@@ -212,6 +218,7 @@
             this.DolgozóMinden.Name = "DolgozóMinden";
             this.DolgozóMinden.Size = new System.Drawing.Size(45, 44);
             this.DolgozóMinden.TabIndex = 106;
+            this.toolTip1.SetToolTip(this.DolgozóMinden, "Mindent kijelöl");
             this.DolgozóMinden.UseVisualStyleBackColor = true;
             this.DolgozóMinden.Click += new System.EventHandler(this.DolgozóMinden_Click);
             // 
@@ -224,6 +231,7 @@
             this.DolgozóSemmi.Name = "DolgozóSemmi";
             this.DolgozóSemmi.Size = new System.Drawing.Size(45, 44);
             this.DolgozóSemmi.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.DolgozóSemmi, "Minden kijelölést töröl");
             this.DolgozóSemmi.UseVisualStyleBackColor = true;
             this.DolgozóSemmi.Click += new System.EventHandler(this.DolgozóSemmi_Click);
             // 
@@ -245,6 +253,7 @@
             this.Osztási_PDF.Name = "Osztási_PDF";
             this.Osztási_PDF.Size = new System.Drawing.Size(44, 44);
             this.Osztási_PDF.TabIndex = 252;
+            this.toolTip1.SetToolTip(this.Osztási_PDF, "Átvételi nyomtatványt generál");
             this.Osztási_PDF.UseVisualStyleBackColor = true;
             this.Osztási_PDF.Click += new System.EventHandler(this.Osztási_PDF_Click);
             // 
@@ -257,6 +266,7 @@
             this.Súgó.Name = "Súgó";
             this.Súgó.Size = new System.Drawing.Size(44, 44);
             this.Súgó.TabIndex = 253;
+            this.toolTip1.SetToolTip(this.Súgó, "Online súgó megjelenítése");
             this.Súgó.UseVisualStyleBackColor = true;
             this.Súgó.Click += new System.EventHandler(this.Súgó_Click);
             // 
@@ -305,5 +315,6 @@
         private System.Windows.Forms.Label label2;
         internal System.Windows.Forms.Button Osztási_PDF;
         internal System.Windows.Forms.Button Súgó;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

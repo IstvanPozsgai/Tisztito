@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Lekérdezés));
@@ -43,6 +44,7 @@
             this.Megnevezések = new System.Windows.Forms.ComboBox();
             this.MezőkÜrítése = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +57,7 @@
             this.Súgó.Name = "Súgó";
             this.Súgó.Size = new System.Drawing.Size(44, 44);
             this.Súgó.TabIndex = 254;
+            this.toolTip1.SetToolTip(this.Súgó, "Online súgó megjelenítése");
             this.Súgó.UseVisualStyleBackColor = true;
             this.Súgó.Click += new System.EventHandler(this.Súgó_Click);
             // 
@@ -66,6 +69,7 @@
             this.Frissít.Name = "Frissít";
             this.Frissít.Size = new System.Drawing.Size(45, 45);
             this.Frissít.TabIndex = 255;
+            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
             this.Frissít.UseVisualStyleBackColor = true;
             this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
             // 
@@ -77,6 +81,7 @@
             this.BtnExcel.Name = "BtnExcel";
             this.BtnExcel.Size = new System.Drawing.Size(44, 44);
             this.BtnExcel.TabIndex = 256;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenet készítés");
             this.BtnExcel.UseVisualStyleBackColor = true;
             this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
@@ -189,6 +194,7 @@
             this.MezőkÜrítése.Name = "MezőkÜrítése";
             this.MezőkÜrítése.Size = new System.Drawing.Size(45, 45);
             this.MezőkÜrítése.TabIndex = 264;
+            this.toolTip1.SetToolTip(this.MezőkÜrítése, "Új adat");
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
             // 
@@ -252,5 +258,6 @@
         internal System.Windows.Forms.ComboBox Megnevezések;
         internal System.Windows.Forms.Button MezőkÜrítése;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

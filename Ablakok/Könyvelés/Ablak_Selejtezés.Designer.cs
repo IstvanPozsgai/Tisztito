@@ -397,6 +397,7 @@
             this.Frissít.Name = "Frissít";
             this.Frissít.Size = new System.Drawing.Size(45, 45);
             this.Frissít.TabIndex = 231;
+            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
             this.Frissít.UseVisualStyleBackColor = true;
             this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
             // 
@@ -408,6 +409,7 @@
             this.MezőkÜrítése.Name = "MezőkÜrítése";
             this.MezőkÜrítése.Size = new System.Drawing.Size(45, 45);
             this.MezőkÜrítése.TabIndex = 230;
+            this.toolTip1.SetToolTip(this.MezőkÜrítése, "Új adat");
             this.MezőkÜrítése.UseVisualStyleBackColor = true;
             this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
             // 
@@ -419,6 +421,7 @@
             this.Rögzít.Name = "Rögzít";
             this.Rögzít.Size = new System.Drawing.Size(45, 45);
             this.Rögzít.TabIndex = 229;
+            this.toolTip1.SetToolTip(this.Rögzít, "Rögzítés");
             this.Rögzít.UseVisualStyleBackColor = true;
             this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
@@ -430,6 +433,7 @@
             this.Storno.Name = "Storno";
             this.Storno.Size = new System.Drawing.Size(45, 45);
             this.Storno.TabIndex = 233;
+            this.toolTip1.SetToolTip(this.Storno, "Stornózza a kijelölt könyvelést");
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
@@ -441,6 +445,7 @@
             this.Pdf_Készítés.Name = "Pdf_Készítés";
             this.Pdf_Készítés.Size = new System.Drawing.Size(45, 45);
             this.Pdf_Készítés.TabIndex = 250;
+            this.toolTip1.SetToolTip(this.Pdf_Készítés, "Selejtezési bizonylatot készít");
             this.Pdf_Készítés.UseVisualStyleBackColor = true;
             this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
             // 

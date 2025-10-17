@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ablak_Dolgozói_Lekérdezés));
@@ -41,6 +42,7 @@
             this.Súgó = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.Dátum = new System.Windows.Forms.DateTimePicker();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,6 +120,7 @@
             this.Frissít.Name = "Frissít";
             this.Frissít.Size = new System.Drawing.Size(44, 44);
             this.Frissít.TabIndex = 259;
+            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
             this.Frissít.UseVisualStyleBackColor = true;
             this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
             // 
@@ -129,6 +132,7 @@
             this.BtnExcel.Name = "BtnExcel";
             this.BtnExcel.Size = new System.Drawing.Size(44, 44);
             this.BtnExcel.TabIndex = 260;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenet készítés");
             this.BtnExcel.UseVisualStyleBackColor = true;
             this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
@@ -140,6 +144,7 @@
             this.Súgó.Name = "Súgó";
             this.Súgó.Size = new System.Drawing.Size(44, 44);
             this.Súgó.TabIndex = 261;
+            this.toolTip1.SetToolTip(this.Súgó, "Online súgó megjelenítése");
             this.Súgó.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -200,5 +205,6 @@
         internal System.Windows.Forms.Button Súgó;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DateTimePicker Dátum;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
