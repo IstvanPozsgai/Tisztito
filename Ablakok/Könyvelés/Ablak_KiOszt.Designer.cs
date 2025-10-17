@@ -36,6 +36,10 @@
             this.BtnExcel = new System.Windows.Forms.Button();
             this.GombokMinden = new System.Windows.Forms.Button();
             this.GombokSemmi = new System.Windows.Forms.Button();
+            this.Frissít = new System.Windows.Forms.Button();
+            this.MezőkÜrítése = new System.Windows.Forms.Button();
+            this.Storno = new System.Windows.Forms.Button();
+            this.Rögzít = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.CmbDolgozó = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -62,10 +66,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Frissít = new System.Windows.Forms.Button();
-            this.MezőkÜrítése = new System.Windows.Forms.Button();
-            this.Storno = new System.Windows.Forms.Button();
-            this.Rögzít = new System.Windows.Forms.Button();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -111,6 +111,54 @@
             this.toolTip1.SetToolTip(this.GombokSemmi, "Minden kijelölést megszüntet");
             this.GombokSemmi.UseVisualStyleBackColor = true;
             this.GombokSemmi.Click += new System.EventHandler(this.GombokSemmi_Click);
+            // 
+            // Frissít
+            // 
+            this.Frissít.BackgroundImage = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
+            this.Frissít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Frissít.Location = new System.Drawing.Point(3, 3);
+            this.Frissít.Name = "Frissít";
+            this.Frissít.Size = new System.Drawing.Size(44, 44);
+            this.Frissít.TabIndex = 233;
+            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
+            this.Frissít.UseVisualStyleBackColor = true;
+            this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
+            // 
+            // MezőkÜrítése
+            // 
+            this.MezőkÜrítése.BackgroundImage = global::Tisztito.Properties.Resources.New_gyűjtemény;
+            this.MezőkÜrítése.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.MezőkÜrítése.Location = new System.Drawing.Point(53, 3);
+            this.MezőkÜrítése.Name = "MezőkÜrítése";
+            this.MezőkÜrítése.Size = new System.Drawing.Size(44, 44);
+            this.MezőkÜrítése.TabIndex = 232;
+            this.toolTip1.SetToolTip(this.MezőkÜrítése, "Új adat");
+            this.MezőkÜrítése.UseVisualStyleBackColor = true;
+            this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
+            // 
+            // Storno
+            // 
+            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
+            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Storno.Location = new System.Drawing.Point(3, 203);
+            this.Storno.Name = "Storno";
+            this.Storno.Size = new System.Drawing.Size(44, 44);
+            this.Storno.TabIndex = 247;
+            this.toolTip1.SetToolTip(this.Storno, "Stornózza a könyvelést");
+            this.Storno.UseVisualStyleBackColor = true;
+            this.Storno.Click += new System.EventHandler(this.Storno_Click);
+            // 
+            // Rögzít
+            // 
+            this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
+            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Rögzít.Location = new System.Drawing.Point(103, 203);
+            this.Rögzít.Name = "Rögzít";
+            this.Rögzít.Size = new System.Drawing.Size(44, 44);
+            this.Rögzít.TabIndex = 229;
+            this.toolTip1.SetToolTip(this.Rögzít, "Rögzítés");
+            this.Rögzít.UseVisualStyleBackColor = true;
+            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -394,54 +442,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 264);
             this.tableLayoutPanel2.TabIndex = 245;
-            // 
-            // Frissít
-            // 
-            this.Frissít.BackgroundImage = global::Tisztito.Properties.Resources.frissít_gyűjtemény;
-            this.Frissít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Frissít.Location = new System.Drawing.Point(3, 3);
-            this.Frissít.Name = "Frissít";
-            this.Frissít.Size = new System.Drawing.Size(44, 44);
-            this.Frissít.TabIndex = 233;
-            this.toolTip1.SetToolTip(this.Frissít, "Frissítés");
-            this.Frissít.UseVisualStyleBackColor = true;
-            this.Frissít.Click += new System.EventHandler(this.Frissít_Click);
-            // 
-            // MezőkÜrítése
-            // 
-            this.MezőkÜrítése.BackgroundImage = global::Tisztito.Properties.Resources.New_gyűjtemény;
-            this.MezőkÜrítése.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.MezőkÜrítése.Location = new System.Drawing.Point(53, 3);
-            this.MezőkÜrítése.Name = "MezőkÜrítése";
-            this.MezőkÜrítése.Size = new System.Drawing.Size(44, 44);
-            this.MezőkÜrítése.TabIndex = 232;
-            this.toolTip1.SetToolTip(this.MezőkÜrítése, "Új adat");
-            this.MezőkÜrítése.UseVisualStyleBackColor = true;
-            this.MezőkÜrítése.Click += new System.EventHandler(this.MezőkÜrítése_Click);
-            // 
-            // Storno
-            // 
-            this.Storno.BackgroundImage = global::Tisztito.Properties.Resources.Orange_System_Icon_05;
-            this.Storno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Storno.Location = new System.Drawing.Point(3, 203);
-            this.Storno.Name = "Storno";
-            this.Storno.Size = new System.Drawing.Size(44, 44);
-            this.Storno.TabIndex = 247;
-            this.toolTip1.SetToolTip(this.Storno, "Stornózza a könyvelést");
-            this.Storno.UseVisualStyleBackColor = true;
-            this.Storno.Click += new System.EventHandler(this.Storno_Click);
-            // 
-            // Rögzít
-            // 
-            this.Rögzít.BackgroundImage = global::Tisztito.Properties.Resources.Ok_gyűjtemény;
-            this.Rögzít.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Rögzít.Location = new System.Drawing.Point(103, 203);
-            this.Rögzít.Name = "Rögzít";
-            this.Rögzít.Size = new System.Drawing.Size(44, 44);
-            this.Rögzít.TabIndex = 229;
-            this.toolTip1.SetToolTip(this.Rögzít, "Rögzítés");
-            this.Rögzít.UseVisualStyleBackColor = true;
-            this.Rögzít.Click += new System.EventHandler(this.Rögzít_Click);
             // 
             // Tábla
             // 

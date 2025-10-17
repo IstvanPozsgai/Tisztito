@@ -325,10 +325,24 @@ namespace Tisztito.Ablakok.Lekérdezés
                                                                       select a).ToList();
                             if (Dolgozói != null)
                             {
-                                int kapott = (from a in AdatokSzűrt
+                                int kapott = 0;
+                                if (Elem.Gyakoriság == 3)
+                                    kapott = (from a in AdatokSzűrt
                                               where a.Cikkszám == Elem.Cikkszám
                                               && a.Dátum >= MyF.Negyedév_elsőnapja(Dátum.Value)
                                               && a.Dátum <= MyF.Negyedév_utolsónapja(Dátum.Value)
+                                              select a.Mennyiség).Sum();
+                                if (Elem.Gyakoriság == 6)
+                                    kapott = (from a in AdatokSzűrt
+                                              where a.Cikkszám == Elem.Cikkszám
+                                              && a.Dátum >= MyF.Félév_elsőnapja(Dátum.Value)
+                                              && a.Dátum <= MyF.Félév_utolsónapja(Dátum.Value)
+                                              select a.Mennyiség).Sum();
+                                if (Elem.Gyakoriság == 12)
+                                    kapott = (from a in AdatokSzűrt
+                                              where a.Cikkszám == Elem.Cikkszám
+                                              && a.Dátum >= MyF.Év_elsőnapja(Dátum.Value)
+                                              && a.Dátum <= MyF.Év_utolsónapja(Dátum.Value)
                                               select a.Mennyiség).Sum();
 
                                 Soradat["Kiadott"] = kapott;
