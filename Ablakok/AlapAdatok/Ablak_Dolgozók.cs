@@ -160,7 +160,7 @@ namespace Tisztito.Ablakok
                 if (MyF.Szöveg_Tisztítás(Dolgozónév.Text, 0, 200).Trim() == "") throw new HibásBevittAdat("Dolgozó neve mezőt ki kell tölteni.");
                 if (MyF.Szöveg_Tisztítás(Munkakör.Text, 0, 200).Trim() == "") throw new HibásBevittAdat("Munkakör mezőt ki kell tölteni.");
                 if (MyF.Szöveg_Tisztítás(Szervezet.Text, 0, 200).Trim() == "") throw new HibásBevittAdat("Szervezet mezőt ki kell tölteni.");
-                if (CmbStátus.Text != "Aktív" || CmbStátus.Text == "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
+                if (CmbStátus.Text != "Aktív" && CmbStátus.Text != "Törölt") throw new HibásBevittAdat("Státus mezőben csak Aktív/Törölt értékeket vehetnek fel.");
                 Adat_Dolgozó ADAT = new Adat_Dolgozó(
                        MyF.Szöveg_Tisztítás(Dolgozószám.Text),
                        MyF.Szöveg_Tisztítás(Dolgozónév.Text),
@@ -284,10 +284,10 @@ namespace Tisztito.Ablakok
                 else
                     return;
 
-                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                fájlexc = fájlexc.Substring(0, fájlexc.Length);
                 MyE.DataGridViewToExcel(fájlexc, Tábla);
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MyE.Megnyitás(fájlexc + ".xlsx");
+                MyE.Megnyitás(fájlexc);
             }
             catch (HibásBevittAdat ex)
             {

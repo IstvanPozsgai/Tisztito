@@ -268,10 +268,10 @@ namespace Tisztito.Ablakok
                 else
                     return;
 
-                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                fájlexc = fájlexc.Substring(0, fájlexc.Length);
                 MyE.DataGridViewToExcel(fájlexc, Tábla);
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MyE.Megnyitás(fájlexc + ".xlsx");
+                MyE.Megnyitás(fájlexc);
             }
             catch (HibásBevittAdat ex)
             {
@@ -366,7 +366,7 @@ namespace Tisztito.Ablakok
                 else
                     return;
 
-                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                fájlexc = fájlexc.Substring(0, fájlexc.Length);
                 MyE.ExcelLétrehozás();
 
                 MyE.Kiir("Munkakör", "A1");
@@ -380,7 +380,7 @@ namespace Tisztito.Ablakok
                 MyE.ExcelBezárás();
 
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Module_Excel.Megnyitás(fájlexc + ".xlsx");
+                Module_Excel.Megnyitás(fájlexc);
 
             }
             catch (HibásBevittAdat ex)

@@ -43,6 +43,7 @@
             this.CmbStátus = new System.Windows.Forms.ComboBox();
             this.Tábla = new Zuby.ADGV.AdvancedDataGridView();
             this.KötésiOsztály = new System.Windows.Forms.BindingSource(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.KötésiOsztály)).BeginInit();
@@ -240,5 +241,6 @@
         private Zuby.ADGV.AdvancedDataGridView Tábla;
         internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.BindingSource KötésiOsztály;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

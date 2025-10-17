@@ -270,7 +270,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                 if (CmbDolgozó.Text.Trim() != "")
                 {
                     string[] darabol = CmbDolgozó.Text.Split('=');
-                    Adatok_Dolg = Adatok_Dolg.Where(a => a.Dolgozószám.Trim () == darabol[1].Trim()).ToList();
+                    Adatok_Dolg = Adatok_Dolg.Where(a => a.Dolgozószám.Trim() == darabol[1].Trim()).ToList();
                 }
 
                 List<Adat_KészletNaplóRaktár> Adatoknapló = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year, false);
@@ -281,7 +281,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                                                                  where a.Dolgozószám == rekord.Dolgozószám
                                                                  select a).ToList();
 
-     
+
 
                     List<Adat_Járandóság> JárAdatok = AdatokJárandóság.Where(j => j.Munkakör == rekord.Munkakör).ToList();
                     if (JárAdatok == null)
@@ -296,7 +296,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                         Soradat["Járandóság"] = 0;
                         Soradat["Kiadott"] = 0;
                         Soradat["Különbözet"] = 0;
-                        AdatTáblaALap.Rows.Add(Soradat); 
+                        AdatTáblaALap.Rows.Add(Soradat);
                     }
                     foreach (Adat_Járandóság Elem in JárAdatok)
                     {
@@ -327,7 +327,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                             {
                                 int kapott = (from a in AdatokSzűrt
                                               where a.Cikkszám == Elem.Cikkszám
-                                              && a.Dátum >=MyF. Negyedév_elsőnapja(Dátum.Value )
+                                              && a.Dátum >= MyF.Negyedév_elsőnapja(Dátum.Value)
                                               && a.Dátum <= MyF.Negyedév_utolsónapja(Dátum.Value)
                                               select a.Mennyiség).Sum();
 
@@ -411,10 +411,10 @@ namespace Tisztito.Ablakok.Lekérdezés
                 else
                     return;
 
-                fájlexc = fájlexc.Substring(0, fájlexc.Length - 5);
+                fájlexc = fájlexc.Substring(0, fájlexc.Length);
                 MyE.DataGridViewToExcel(fájlexc, Tábla);
                 MessageBox.Show("Elkészült az Excel tábla: " + fájlexc, "Tájékoztatás", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MyE.Megnyitás(fájlexc + ".xlsx");
+                MyE.Megnyitás(fájlexc);
             }
             catch (HibásBevittAdat ex)
             {
