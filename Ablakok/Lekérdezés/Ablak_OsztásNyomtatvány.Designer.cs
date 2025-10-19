@@ -104,6 +104,7 @@
             // 
             this.ChkDolgozók.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkDolgozók.CheckOnClick = true;
             this.ChkDolgozók.FormattingEnabled = true;
             this.ChkDolgozók.Location = new System.Drawing.Point(114, 291);
             this.ChkDolgozók.Name = "ChkDolgozók";
@@ -137,6 +138,7 @@
             // 
             this.ChkMunkakör.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkMunkakör.CheckOnClick = true;
             this.ChkMunkakör.FormattingEnabled = true;
             this.ChkMunkakör.Location = new System.Drawing.Point(114, 147);
             this.ChkMunkakör.Name = "ChkMunkakör";
@@ -148,6 +150,7 @@
             // 
             this.ChkSzervezet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkSzervezet.CheckOnClick = true;
             this.ChkSzervezet.FormattingEnabled = true;
             this.ChkSzervezet.Location = new System.Drawing.Point(114, 3);
             this.ChkSzervezet.Name = "ChkSzervezet";
