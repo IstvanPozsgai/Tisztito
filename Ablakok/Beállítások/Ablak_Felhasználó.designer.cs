@@ -74,7 +74,7 @@ namespace Tisztito
             this.BtnRögzít.Name = "BtnRögzít";
             this.BtnRögzít.Size = new System.Drawing.Size(45, 45);
             this.BtnRögzít.TabIndex = 97;
-            this.ToolTip1.SetToolTip(this.BtnRögzít, "Hozzákötjük a felhasználónévhez  a Windows profilt");
+            this.ToolTip1.SetToolTip(this.BtnRögzít, "Adatok rögzítése");
             this.BtnRögzít.UseVisualStyleBackColor = true;
             this.BtnRögzít.Click += new System.EventHandler(this.BtnRögzít_Click);
             // 
@@ -99,7 +99,7 @@ namespace Tisztito
             this.BtnÚj.Name = "BtnÚj";
             this.BtnÚj.Size = new System.Drawing.Size(45, 45);
             this.BtnÚj.TabIndex = 222;
-            this.ToolTip1.SetToolTip(this.BtnÚj, "Hozzákötjük a felhasználónévhez  a Windows profilt");
+            this.ToolTip1.SetToolTip(this.BtnÚj, "Új felhasználó készítéséhez üríti a mezőket");
             this.BtnÚj.UseVisualStyleBackColor = true;
             this.BtnÚj.Click += new System.EventHandler(this.BtnÚj_Click);
             // 
@@ -111,7 +111,7 @@ namespace Tisztito
             this.BtnFrissít.Name = "BtnFrissít";
             this.BtnFrissít.Size = new System.Drawing.Size(45, 45);
             this.BtnFrissít.TabIndex = 223;
-            this.ToolTip1.SetToolTip(this.BtnFrissít, "Hozzákötjük a felhasználónévhez  a Windows profilt");
+            this.ToolTip1.SetToolTip(this.BtnFrissít, "Frissítjük a táblázati kiírást");
             this.BtnFrissít.UseVisualStyleBackColor = true;
             this.BtnFrissít.Click += new System.EventHandler(this.BtnFrissít_Click);
             // 

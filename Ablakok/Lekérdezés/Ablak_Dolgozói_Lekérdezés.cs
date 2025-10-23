@@ -51,6 +51,8 @@ namespace Tisztito.Ablakok.Lekérdezés
             AdatokJárandóság = KézJárandóság.Lista_Adatok();
             AdatokAnyag = KézAnyag.Lista_Adatok();
             GombLathatosagKezelo.Beallit(this);
+
+            DolgozóFeltöltés();
         }
         #endregion
 
@@ -440,5 +442,6 @@ namespace Tisztito.Ablakok.Lekérdezés
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }

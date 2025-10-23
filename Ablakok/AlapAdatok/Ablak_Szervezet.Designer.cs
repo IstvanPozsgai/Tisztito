@@ -143,6 +143,7 @@
             this.BtnExcel.Name = "BtnExcel";
             this.BtnExcel.Size = new System.Drawing.Size(45, 44);
             this.BtnExcel.TabIndex = 218;
+            this.toolTip1.SetToolTip(this.BtnExcel, "Excel kimenet készítés");
             this.BtnExcel.UseVisualStyleBackColor = true;
             this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
