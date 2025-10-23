@@ -204,7 +204,7 @@ namespace Tisztito.Kezelők
                 if (AdatokGy.Count == 0) return;
                 List<Adat_Dolgozó> AdatokGyM = new List<Adat_Dolgozó>();
                 List<Adat_Dolgozó> AdatokGyR = new List<Adat_Dolgozó>();
-                Módosítás(AdatokGy[0].Szervezet);  //kitöröljük az összes dolgozót és csak ami aktív azokat visszaíródnak
+                Módosítás(AdatokGy[0].Szervezet);  //státust állítunk azoknál a dolgozóknál akik a szervezethez tartoznak és csak ami aktív azokat visszaíródnak 
                 List<Adat_Dolgozó> Adatok = Lista_Adatok();
                 foreach (Adat_Dolgozó adat in AdatokGy)
                 {

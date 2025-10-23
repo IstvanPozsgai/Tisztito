@@ -24,7 +24,7 @@ namespace Tisztito
 
                 //beolvassuk az excel táblát és megnézzük, hogy megegyezik-e a két fejléc
                 DataTable Tábla = MyF.Excel_Tábla_Beolvas(Excel_hely);
-                if (!MyF.Betöltéshelyes("Dolgozó", Tábla)) throw new HibásBevittAdat("Nem megfelelő a betölteni kívánt adatok formátuma ! ");
+                if (MyF.Betöltéshelyes("Dolgozó", Tábla)) throw new HibásBevittAdat("Nem megfelelő a betölteni kívánt adatok formátuma ! ");
 
                 // Beolvasni kívánt oszlopok
                 List<Adat_Alap_Beolvasás> oszlopnév = KézBeolvasás.Lista_Adatok();
