@@ -49,6 +49,8 @@
             this.Osztási_PDF = new System.Windows.Forms.Button();
             this.Súgó = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.Dátum = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -250,10 +252,9 @@
             // 
             // Osztási_PDF
             // 
-            this.Osztási_PDF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Osztási_PDF.BackgroundImage = global::Tisztito.Properties.Resources.pdf;
             this.Osztási_PDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Osztási_PDF.Location = new System.Drawing.Point(603, 12);
+            this.Osztási_PDF.Location = new System.Drawing.Point(603, 15);
             this.Osztási_PDF.Name = "Osztási_PDF";
             this.Osztási_PDF.Size = new System.Drawing.Size(44, 44);
             this.Osztási_PDF.TabIndex = 252;
@@ -266,7 +267,7 @@
             this.Súgó.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Súgó.BackgroundImage = global::Tisztito.Properties.Resources.Help_Support;
             this.Súgó.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Súgó.Location = new System.Drawing.Point(655, 12);
+            this.Súgó.Location = new System.Drawing.Point(752, 12);
             this.Súgó.Name = "Súgó";
             this.Súgó.Size = new System.Drawing.Size(44, 44);
             this.Súgó.TabIndex = 253;
@@ -274,12 +275,31 @@
             this.Súgó.UseVisualStyleBackColor = true;
             this.Súgó.Click += new System.EventHandler(this.Súgó_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(603, 142);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 20);
+            this.label4.TabIndex = 254;
+            this.label4.Text = "Dátum:";
+            // 
+            // Dátum
+            // 
+            this.Dátum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.Dátum.Location = new System.Drawing.Point(603, 165);
+            this.Dátum.Name = "Dátum";
+            this.Dátum.Size = new System.Drawing.Size(123, 26);
+            this.Dátum.TabIndex = 255;
+            // 
             // Ablak_OsztásNyomtatvány
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(711, 601);
+            this.ClientSize = new System.Drawing.Size(808, 601);
+            this.Controls.Add(this.Dátum);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.Súgó);
             this.Controls.Add(this.Osztási_PDF);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -297,6 +317,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -321,5 +342,7 @@
         internal System.Windows.Forms.Button Osztási_PDF;
         internal System.Windows.Forms.Button Súgó;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker Dátum;
     }
 }

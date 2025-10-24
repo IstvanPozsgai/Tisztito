@@ -38,7 +38,7 @@ namespace Tisztito.Ablakok
         DataTable AdatTáblaALap = new DataTable();
 #pragma warning restore IDE0044
 
-        int KiválasztottStátusz = -1;
+
         int KijelöltSor = -1;
 
         public Ablak_Selejtezés()
@@ -821,20 +821,26 @@ namespace Tisztito.Ablakok
                     img1.ScaleToFit(100f, 100f);
 
                     // Táblázat létrehozása 2 oszloppal
-                    PdfPTable table = new PdfPTable(2);
-                    table.WidthPercentage = 100;
+                    PdfPTable table = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100
+                    };
 
                     // Kép cella
-                    PdfPCell imageCell = new PdfPCell(img1, false);
-                    imageCell.VerticalAlignment = Element.ALIGN_TOP;
-                    imageCell.Border = Rectangle.NO_BORDER;
+                    PdfPCell imageCell = new PdfPCell(img1, false)
+                    {
+                        VerticalAlignment = Element.ALIGN_TOP,
+                        Border = Rectangle.NO_BORDER
+                    };
 
                     // Szöveg cella
                     string szoveg = "BKV Zrt.";
-                    PdfPCell textCell = new PdfPCell(new Phrase(szoveg));
-                    textCell.VerticalAlignment = Element.ALIGN_TOP;
-                    textCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    textCell.Border = Rectangle.NO_BORDER;
+                    PdfPCell textCell = new PdfPCell(new Phrase(szoveg))
+                    {
+                        VerticalAlignment = Element.ALIGN_TOP,
+                        HorizontalAlignment = Element.ALIGN_LEFT,
+                        Border = Rectangle.NO_BORDER
+                    };
 
                     table.AddCell(imageCell);
                     table.AddCell(textCell);
@@ -900,8 +906,10 @@ namespace Tisztito.Ablakok
                     baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                     font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
                     // Papírszélességű, háromoszlopos táblázat keretes fejléccel
-                    PdfPTable t = new PdfPTable(3);
-                    t.WidthPercentage = 100;
+                    PdfPTable t = new PdfPTable(3)
+                    {
+                        WidthPercentage = 100
+                    };
                     t.SetWidths(new float[] { 2, 5, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
 
                     // Fejléc cellák (kerettel, félkövérrel)
@@ -942,9 +950,11 @@ namespace Tisztito.Ablakok
 
                     doc.Add(space);
                     //Dátum helye
-                    PdfPTable table2 = new PdfPTable(2);
-                    table2.WidthPercentage = 100;   // teljes szélesség
-                    table2.HorizontalAlignment = Element.ALIGN_LEFT;
+                    PdfPTable table2 = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100,   // teljes szélesség
+                        HorizontalAlignment = Element.ALIGN_LEFT
+                    };
 
                     // Fejléc: balra és jobbra igazítva, keret nélkül
                     PdfPCell honnanDátum = new PdfPCell(new Phrase($"{DateTime.Now.Year} év {DateTime.Now:MM} hó {DateTime.Now:dd} nap", font))
@@ -967,16 +977,20 @@ namespace Tisztito.Ablakok
                     doc.Add(space);
 
                     // Aláírási sorok pontsorral, csak a szöveg fölött, kicsit szélesebben
-                    PdfPTable table3 = new PdfPTable(2);
-                    table3.WidthPercentage = 100;
+                    PdfPTable table3 = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100
+                    };
                     table3.SetWidths(new float[] { 1, 1 }); // két egyenlő szélességű oszlop
 
                     // Átadó aláírása cella
                     Phrase honnanAlairas = new Phrase();
-                    DottedLineSeparator dotted1 = new DottedLineSeparator();
-                    dotted1.LineWidth = 1f;
-                    dotted1.Gap = 2f;
-                    dotted1.Percentage = 60f; // a cella szélességének 70%-a (igény szerint állítható)
+                    DottedLineSeparator dotted1 = new DottedLineSeparator
+                    {
+                        LineWidth = 1f,
+                        Gap = 2f,
+                        Percentage = 60f // a cella szélességének 70%-a (igény szerint állítható)
+                    };
                     honnanAlairas.Add(new Chunk(dotted1));
                     honnanAlairas.Add(Chunk.NEWLINE);
                     honnanAlairas.Add(new Chunk("Átadó aláírása", font));
@@ -988,10 +1002,12 @@ namespace Tisztito.Ablakok
                     };
 
                     // Átvevő aláírása cella
-                    Phrase hovaAlairas = new Phrase();
-                    hovaAlairas.Add(new Chunk(dotted1));
-                    hovaAlairas.Add(Chunk.NEWLINE);
-                    hovaAlairas.Add(new Chunk("Átvevő aláírása", font));
+                    Phrase hovaAlairas = new Phrase
+                    {
+                        new Chunk(dotted1),
+                        Chunk.NEWLINE,
+                        new Chunk("Átvevő aláírása", font)
+                    };
                     PdfPCell hovaAlairasCell = new PdfPCell(hovaAlairas)
                     {
                         Border = Rectangle.NO_BORDER,

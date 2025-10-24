@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using MyE = Tisztito.Module_Excel;
+using MyF = Függvénygyűjtemény;
 
 namespace Tisztito.Ablakok.Lekérdezés
 {
@@ -28,6 +29,7 @@ namespace Tisztito.Ablakok.Lekérdezés
         List<Adat_Anyag> AdatokAnyag = new List<Adat_Anyag>();
         List<Adat_Járandóság> AdatokJárandóság = new List<Adat_Járandóság>();
         List<Adat_Dolgozó> AdatokDolgozók = new List<Adat_Dolgozó>();
+        List<Adat_KészletNaplóRaktár> AdatokNaptár = new List<Adat_KészletNaplóRaktár>();
         #region Alap
         public Ablak_OsztásNyomtatvány()
         {
@@ -37,15 +39,16 @@ namespace Tisztito.Ablakok.Lekérdezés
 
         private void Start()
         {
-
             AdatokAnyag = KézAnyag.Lista_Adatok();
             AdatokRaktár = KézRaktár.Lista_Adatok();
             AdatokJárandóság = KézJárandóság.Lista_Adatok();
             AdatokDolgozók = KézDolgozó.Lista_Adatok();
+            AdatokNaptár = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
             DolgozóFeltöltés();
             MunkakörFeltöltés();
             SzervezetFeltöltés();
-            //    GombLathatosagKezelo.Beallit(this);
+            GombLathatosagKezelo.Beallit(this);
+            Dátum.Value = DateTime.Now;
         }
 
         private void Ablak_OsztásNyomtatvány_Load(object sender, EventArgs e)
@@ -338,7 +341,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                                 DataRow Soradat = AdatKioszt.NewRow();
                                 Soradat["Név"] = darabol[0].ToStrTrim();
                                 Soradat["HR azonosító"] = darabol[1].ToStrTrim();
-                                Soradat["Felvett mennyiség"] = "";
+                                Soradat["Felvett mennyiség"] = Felvette(darabol[1].ToStrTrim(), rekord.Gyakoriság, rekord.Cikkszám.Trim());
                                 Soradat["Felvétel Dátuma"] = "";
                                 Soradat["Az átvétel elismerése"] = "";
                                 if (Dolgozó != null)
@@ -366,10 +369,6 @@ namespace Tisztito.Ablakok.Lekérdezés
                         }
                     }
                 }
-
-
-
-
             }
             catch (HibásBevittAdat ex)
             {
@@ -380,6 +379,36 @@ namespace Tisztito.Ablakok.Lekérdezés
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string Felvette(string HRAzonosító, int gyakoriság, string cikkszám)
+        {
+            string válasz = "";
+            List<Adat_KészletNaplóRaktár> AdatokSzűrt = (from a in AdatokNaptár
+                                                         where a.Dolgozószám == HRAzonosító
+                                                         select a).ToList();
+            int kapott = 0;
+            if (gyakoriság == 3)
+                kapott = (from a in AdatokSzűrt
+                          where a.Cikkszám == cikkszám
+                          && a.Dátum >= MyF.Negyedév_elsőnapja(Dátum.Value)
+                          && a.Dátum <= MyF.Negyedév_utolsónapja(Dátum.Value)
+                          select a.Mennyiség).Sum();
+            if (gyakoriság == 6)
+                kapott = (from a in AdatokSzűrt
+                          where a.Cikkszám == cikkszám
+                          && a.Dátum >= MyF.Félév_elsőnapja(Dátum.Value)
+                          && a.Dátum <= MyF.Félév_utolsónapja(Dátum.Value)
+                          select a.Mennyiség).Sum();
+            if (gyakoriság == 12)
+                kapott = (from a in AdatokSzűrt
+                          where a.Cikkszám == cikkszám
+                          && a.Dátum >= MyF.Év_elsőnapja(Dátum.Value)
+                          && a.Dátum <= MyF.Év_utolsónapja(Dátum.Value)
+                          select a.Mennyiség).Sum();
+            if (kapott != 0) válasz = kapott.ToString();
+
+            return válasz;
         }
         #endregion
 

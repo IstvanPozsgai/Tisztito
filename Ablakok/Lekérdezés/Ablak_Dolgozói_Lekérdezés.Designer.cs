@@ -57,6 +57,7 @@
             this.CmbDolgozó.Name = "CmbDolgozó";
             this.CmbDolgozó.Size = new System.Drawing.Size(463, 28);
             this.CmbDolgozó.TabIndex = 257;
+            this.CmbDolgozó.SelectionChangeCommitted += new System.EventHandler(this.CmbDolgozó_SelectionChangeCommitted);
             // 
             // label11
             // 

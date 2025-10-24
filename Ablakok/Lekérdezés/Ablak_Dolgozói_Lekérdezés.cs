@@ -135,38 +135,6 @@ namespace Tisztito.Ablakok.Lekérdezés
             }
         }
 
-
-        /// <summary>
-        /// Szervezetnél fellelhető készlet lekérdezése
-        /// </summary>
-        /// <param name="cikkszám"></param>
-        /// <param name="szervezet"></param>
-        /// <returns></returns>
-        private int Készlet(string cikkszám, string szervezet)
-        {
-            int válasz = 0;
-            try
-            {
-                if (cikkszám.Trim() != "" && szervezet.Trim() != "")
-                {
-                    Adat_Raktár Adat = (from a in AdatokRaktár
-                                        where a.Cikkszám == cikkszám
-                                        && a.Szervezet == szervezet
-                                        select a).FirstOrDefault();
-                    if (Adat != null) válasz = Adat.Mennyiség;
-                }
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return válasz;
-        }
         #endregion
 
 
@@ -388,22 +356,6 @@ namespace Tisztito.Ablakok.Lekérdezés
                 }
             }
         }
-
-        /// <summary>
-        /// Kiírja a járandóságokat
-        /// </summary>
-        private int Járandóság(string cikkszám, string munkakör)
-        {
-            int válasz = 0;
-            if (munkakör.Trim() == "?") return válasz;
-            if (string.IsNullOrEmpty(cikkszám)) return válasz;
-
-            Adat_Járandóság járandóság = AdatokJárandóság.FirstOrDefault(j => j.Cikkszám == cikkszám && j.Munkakör == munkakör);
-
-            if (járandóság != null)
-                válasz = járandóság.Mennyiség;
-            return válasz;
-        }
         #endregion
 
         private void BtnExcel_Click(object sender, EventArgs e)
@@ -443,5 +395,21 @@ namespace Tisztito.Ablakok.Lekérdezés
             }
         }
 
+        private void CmbDolgozó_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CmbDolgozó.Text = CmbDolgozó.Items[CmbDolgozó.SelectedIndex].ToString();
+            if (CmbDolgozó.Text.Trim() == "")
+            {
+                CmbSzervezet.Text = "";
+                return;
+            }
+            CmbSzervezet.Text = "";
+            string[] darabol = CmbDolgozó.Text.Trim().Split('=');
+            Adat_Dolgozó Adatok_Dolgozók = AdatokDolgozók.Where(d => d.Dolgozószám == darabol[1].Trim()).FirstOrDefault();
+            if (Adatok_Dolgozók != null)
+            {
+                CmbSzervezet.Text = Adatok_Dolgozók.Szervezet;
+            }
+        }
     }
 }
