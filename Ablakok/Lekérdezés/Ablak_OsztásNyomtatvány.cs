@@ -43,7 +43,7 @@ namespace Tisztito.Ablakok.Lekérdezés
             AdatokRaktár = KézRaktár.Lista_Adatok();
             AdatokJárandóság = KézJárandóság.Lista_Adatok();
             AdatokDolgozók = KézDolgozó.Lista_Adatok();
-            AdatokNaptár = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
+            AdatokNaptár = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year, false);
             DolgozóFeltöltés();
             MunkakörFeltöltés();
             SzervezetFeltöltés();
@@ -342,7 +342,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                                 Soradat["Név"] = darabol[0].ToStrTrim();
                                 Soradat["HR azonosító"] = darabol[1].ToStrTrim();
                                 Soradat["Felvett mennyiség"] = Felvette(darabol[1].ToStrTrim(), rekord.Gyakoriság, rekord.Cikkszám.Trim());
-                                Soradat["Felvétel Dátuma"] = "";
+                                Soradat["Felvétel Dátuma"] = Mikorvette(darabol[1].ToStrTrim(), rekord.Gyakoriság, rekord.Cikkszám.Trim());
                                 Soradat["Az átvétel elismerése"] = "";
                                 if (Dolgozó != null)
                                 {
@@ -407,6 +407,39 @@ namespace Tisztito.Ablakok.Lekérdezés
                           && a.Dátum <= MyF.Év_utolsónapja(Dátum.Value)
                           select a.Mennyiség).Sum();
             if (kapott != 0) válasz = kapott.ToString();
+
+            return válasz;
+        }
+
+        private string Mikorvette(string HRAzonosító, int gyakoriság, string cikkszám)
+        {
+            string válasz = "";
+            List<Adat_KészletNaplóRaktár> AdatokSzűrt = (from a in AdatokNaptár
+                                                         where a.Dolgozószám == HRAzonosító
+                                                         select a).ToList();
+            DateTime MikorKapta = new DateTime(1, 1, 1);
+            if (gyakoriság == 3)
+                MikorKapta = (from a in AdatokSzűrt
+                              where a.Cikkszám == cikkszám
+                              && a.Dátum >= MyF.Negyedév_elsőnapja(Dátum.Value)
+                              && a.Dátum <= MyF.Negyedév_utolsónapja(Dátum.Value)
+                              orderby a.Dátum descending
+                              select a.Dátum).FirstOrDefault();
+            if (gyakoriság == 6)
+                MikorKapta = (from a in AdatokSzűrt
+                              where a.Cikkszám == cikkszám
+                              && a.Dátum >= MyF.Félév_elsőnapja(Dátum.Value)
+                              && a.Dátum <= MyF.Félév_utolsónapja(Dátum.Value)
+                              orderby a.Dátum descending
+                              select a.Dátum).FirstOrDefault();
+            if (gyakoriság == 12)
+                MikorKapta = (from a in AdatokSzűrt
+                              where a.Cikkszám == cikkszám
+                              && a.Dátum >= MyF.Év_elsőnapja(Dátum.Value)
+                              && a.Dátum <= MyF.Év_utolsónapja(Dátum.Value)
+                              orderby a.Dátum descending
+                              select a.Dátum).FirstOrDefault();
+            if (MikorKapta != new DateTime(1, 1, 1)) válasz = MikorKapta.ToString("yyyy.MM.dd");
 
             return válasz;
         }
