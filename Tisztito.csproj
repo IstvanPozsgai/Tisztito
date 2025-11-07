@@ -147,6 +147,12 @@
     <Compile Include="Ablakok\Könyvelés\Ablak_KiOszt.Designer.cs">
       <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_Bizonylat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ablakok\Könyvelés\Ablak_Bizonylat.Designer.cs">
+      <DependentUpon>Ablak_Bizonylat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ablakok\Könyvelés\Ablak_Selejtezés.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_KiOszt.resx">
       <DependentUpon>Ablak_KiOszt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Bizonylat.resx">
+      <DependentUpon>Ablak_Bizonylat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ablakok\Könyvelés\Ablak_Selejtezés.resx">
       <DependentUpon>Ablak_Selejtezés.cs</DependentUpon>
