@@ -73,7 +73,7 @@
             this.Tábla.Name = "Tábla";
             this.Tábla.ReadOnly = true;
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Tábla.Size = new System.Drawing.Size(1109, 222);
+            this.Tábla.Size = new System.Drawing.Size(1095, 222);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 220;
             this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
@@ -317,7 +317,7 @@
             this.tableLayoutPanel2.Controls.Add(this.BtnFrissít, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.FeltöltésiTábla, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.AdatokFeltölése, 2, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(923, 15);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(912, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
@@ -330,9 +330,9 @@
             // 
             this.Holtart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Holtart.Location = new System.Drawing.Point(79, 220);
+            this.Holtart.Location = new System.Drawing.Point(73, 237);
             this.Holtart.Name = "Holtart";
-            this.Holtart.Size = new System.Drawing.Size(975, 30);
+            this.Holtart.Size = new System.Drawing.Size(961, 30);
             this.Holtart.TabIndex = 223;
             this.Holtart.Visible = false;
             // 
@@ -341,7 +341,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1133, 470);
+            this.ClientSize = new System.Drawing.Size(1119, 470);
             this.Controls.Add(this.Holtart);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);

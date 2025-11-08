@@ -191,9 +191,10 @@ namespace Tisztito.Ablakok
         private void AlapTáblaTartalom()
         {
             AdatTáblaALap.Clear();
+            List<Adat_Járandóság> AdatokSzűrt = AdatokJárandóság;
+            AdatokSzűrt = AdatokSzűrt.Where(x => x.Státus == (CmbStátus.Text.Trim() == "Törölt")).ToList();
 
-
-            foreach (Adat_Járandóság rekord in AdatokJárandóság)
+            foreach (Adat_Járandóság rekord in AdatokSzűrt)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
