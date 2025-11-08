@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
@@ -184,7 +185,10 @@ namespace Tisztito.Ablakok
         {
             AdatTáblaALap.Clear();
 
-            foreach (Adat_Szervezet rekord in Adatok)
+            List<Adat_Szervezet> AdatokSzűrt = Adatok;
+            AdatokSzűrt = AdatokSzűrt.Where(x => x.Státus == (CmbStátus.Text.Trim() == "Törölt")).ToList();
+
+            foreach (Adat_Szervezet rekord in AdatokSzűrt)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
