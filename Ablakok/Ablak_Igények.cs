@@ -122,11 +122,32 @@ namespace Tisztito.Ablakok
             try
             {
                 AdatokIgény.Clear();
-                foreach (Adat_Járandóság Jár in AdatokJárandóság)
+                List<Adat_Járandóság> AdatokJÁr = new List<Adat_Járandóság>();
+
+                if (Munkakör.Text.Trim() == "")
                 {
+                    AdatokJÁr = AdatokJárandóság;
+                }
+                else
+                {
+                    AdatokJÁr = (from a in AdatokJárandóság
+                                 where a.Munkakör.Trim() == Munkakör.Text.Trim()
+                                 select a).ToList();
+                }
+                AdatokJÁr = AdatokJÁr.Where(x => x.Mennyiség != 0).ToList();
+                if (Cikkszám.Text.Trim() != "") AdatokJÁr = AdatokJÁr.Where(y => y.Cikkszám.Trim() == Cikkszám.Text.Trim()).ToList();
+
+
+                foreach (Adat_Járandóság Jár in AdatokJÁr)
+                {
+
                     List<Adat_Dolgozó> SzűrtDolgozó = (from a in AdatokDolgozó
                                                        where a.Munkakör == Jár.Munkakör
                                                        select a).ToList();
+                    if (Szervezet.Text.Trim() != "") SzűrtDolgozó = SzűrtDolgozó.Where(y => y.Szervezet.Trim() == Szervezet.Text.Trim()).ToList();
+
+
+
                     foreach (Adat_Dolgozó Dolg in SzűrtDolgozó)
                     {
                         Adat_Igény ADAT = new Adat_Igény(
@@ -138,8 +159,6 @@ namespace Tisztito.Ablakok
                         AdatokIgény.Add(ADAT);
                     }
                 }
-
-
             }
             catch (HibásBevittAdat ex)
             {
@@ -230,7 +249,7 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Megnevezés"].Width = 300;
             Tábla.Columns["Mennyiség"].Width = 130;
             Tábla.Columns["Dolgozószám"].Width = 130;
-            Tábla.Columns["Szervezet"].Width = 70;
+            Tábla.Columns["Szervezet"].Width = 250;
         }
 
         private void BtnExcel_Click(object sender, EventArgs e)
@@ -272,6 +291,7 @@ namespace Tisztito.Ablakok
 
         private void Cikkszám_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            Cikkszám.Text = Cikkszám.Items[Cikkszám.SelectedIndex].ToString();
             if (Cikkszám.Text.Trim() == "") return;
             Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszám.Text.Trim());
             if (EgyAnyag != null)
@@ -282,6 +302,7 @@ namespace Tisztito.Ablakok
 
         private void Megnevezés_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            Megnevezés.Text = Megnevezés.Items[Megnevezés.SelectedIndex].ToString();
             if (Megnevezés.Text.Trim() == "") return;
             Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Megnevezés == Megnevezés.Text.Trim());
             if (EgyAnyag != null)
