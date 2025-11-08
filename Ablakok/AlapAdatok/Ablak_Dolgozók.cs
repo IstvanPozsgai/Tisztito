@@ -215,8 +215,10 @@ namespace Tisztito.Ablakok
         private void AlapTáblaTartalom()
         {
             AdatTáblaALap.Clear();
+            List<Adat_Dolgozó> AdatokSzűrt = Adatok;
+            AdatokSzűrt = AdatokSzűrt.Where(x => x.Státus == (CmbStátus.Text.Trim() == "Törölt")).ToList();
 
-            foreach (Adat_Dolgozó rekord in Adatok)
+            foreach (Adat_Dolgozó rekord in AdatokSzűrt)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
@@ -227,8 +229,6 @@ namespace Tisztito.Ablakok
                 Soradat["Státus"] = rekord.Státus == true ? "Törölt" : "Aktív";
                 AdatTáblaALap.Rows.Add(Soradat);
             }
-
-
         }
 
         private void AlapTáblaFejléc()
