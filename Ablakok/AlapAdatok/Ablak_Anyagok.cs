@@ -131,9 +131,10 @@ namespace Tisztito.Ablakok
         private void AlapTáblaTartalom()
         {
             AdatTáblaALap.Clear();
+            List<Adat_Anyag> AdatokSzűrt = Adatok;
+            AdatokSzűrt = AdatokSzűrt.Where(x => x.Státus == (CmbStátus.Text.Trim() == "Törölt")).ToList();
 
-
-            foreach (Adat_Anyag rekord in Adatok)
+            foreach (Adat_Anyag rekord in AdatokSzűrt)
             {
                 DataRow Soradat = AdatTáblaALap.NewRow();
 
