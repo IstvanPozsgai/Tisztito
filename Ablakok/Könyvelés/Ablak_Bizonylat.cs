@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using Tisztito.Adatszerkezet;
 using Tisztito.Kezelők;
 using MyE = Tisztito.Module_Excel;
-using MyEn = Tisztito.Minden.Enumok;
+using MyF = Függvénygyűjtemény;
 
 
 namespace Tisztito.Ablakok
@@ -38,10 +38,7 @@ namespace Tisztito.Ablakok
         DataTable AdatTáblaALap = new DataTable();
 #pragma warning restore IDE0044
 
-
-        int KijelöltSor = -1;
-
-        public Ablak_Selejtezés()
+        public Ablak_Bizonylat()
         {
             InitializeComponent();
             Start();
@@ -53,14 +50,14 @@ namespace Tisztito.Ablakok
         /// </summary>
         private void Start()
         {
-            MozgásokFeltöltése();
             AdatokSzervezet = KézSzervezet.Lista_Adatok();
             AdatokAnyag = KézAnyag.Lista_Adatok().Where(a => a.Státus == false).ToList();
             AdatokRaktár = KézRaktár.Lista_Adatok();
             SzervezetFeltöltés();
-            HovaFeltöltés();
             CikkszámokFeltöltése();
             GombLathatosagKezelo.Beallit(this);
+            Dátumtól.Value = MyF.Év_elsőnapja(DateTime.Now);
+            Dátumig.Value = MyF.Év_utolsónapja(DateTime.Now);
         }
 
 
@@ -69,53 +66,8 @@ namespace Tisztito.Ablakok
 
         }
 
-        private void MezőkÜrítése_Click(object sender, EventArgs e)
-        {
-            Mozgás.Text = "";
-            Mezőkürítés();
-        }
-
-        private void Mezőkürítés()
-        {
-            Honnan.Text = "";
-            Hova.Text = "";
-            Cikkszámok.Text = "";
-            Megnevezések.Text = "";
-            HonnanMennyiség.Text = "<-->";
-            HováMennyiség.Text = "<-->";
-            Mennyiség.Text = "";
-            Bizonylatszám.Text = "";
-            Honnan.Enabled = true;
-            Hova.Enabled = true;
-        }
-
 
         #region Mozgások és szervezetek
-        /// <summary>
-        /// Feltöltjük a comboboxba enumként tárolt mozgásokat
-        /// </summary>
-        private void MozgásokFeltöltése()
-        {
-            try
-            {
-                Mozgás.Items.Add("");
-                foreach (string adat in Enum.GetNames(typeof(MyEn.Mozgás)))
-                    Mozgás.Items.Add(adat);
-                Mozgás.Text = "Selejtezés";
-                Mozgás.Enabled = false;
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
         /// <summary>
         /// Feltöltjük, hogy melyik szervezetnek engedjük meg a módosítást
         /// </summary>
@@ -136,37 +88,19 @@ namespace Tisztito.Ablakok
 
                 Honnan.Items.Clear();
                 Honnan.Items.Add("");
+                Honnan.Items.Add("Selejtezés");
+                Hova.Items.Clear();
+                Hova.Items.Add("");
+                Hova.Items.Add("Selejtezés");
                 for (int i = 0; i < ÜzemekId.Count; i++)
                 {
                     Adat_Szervezet szervezet = AdatokSzervezet.FirstOrDefault(s => s.Id == ÜzemekId[i]);
-                    if (szervezet != null) Honnan.Items.Add(szervezet.Szervezet);
+                    if (szervezet != null)
+                    {
+                        Honnan.Items.Add(szervezet.Szervezet);
+                        Hova.Items.Add(szervezet.Szervezet);
+                    }
                 }
-
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        /// <summary>
-        /// Mozgásnak megfelelően töltjük fel a Honnan és Hova comboboxokat
-        /// Üríteni nem kell, mert a Mozgás_SelectedIndexChanged már kiürítette
-        /// </summary>
-        private void HovaFeltöltés()
-        {
-            try
-            {
-                Hova.Text = "Selejtezés";
-                Hova.Enabled = false;
-                Storno.Enabled = false;
-                Rögzít.Enabled = true;
             }
             catch (HibásBevittAdat ex)
             {
@@ -229,9 +163,6 @@ namespace Tisztito.Ablakok
                 }
                 Cikkszámok.Text = Cikkszámok.Items[Cikkszámok.SelectedIndex].ToString();
                 Megnevezések.Text = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszámok.Text).Megnevezés;
-                KészletekKiírása();
-                Storno.Enabled = false;
-                Rögzít.Enabled = true;
             }
             catch (HibásBevittAdat ex)
             {
@@ -261,7 +192,6 @@ namespace Tisztito.Ablakok
                 }
                 Megnevezések.Text = Megnevezések.Items[Megnevezések.SelectedIndex].ToString();
                 Cikkszámok.Text = AdatokAnyag.FirstOrDefault(a => a.Megnevezés == Megnevezések.Text).Cikkszám;
-                KészletekKiírása();
             }
             catch (HibásBevittAdat ex)
             {
@@ -274,12 +204,6 @@ namespace Tisztito.Ablakok
             }
         }
 
-        private void KészletekKiírása()
-        {
-
-            HonnanMennyiség.Text = Készlet(Cikkszámok.Text, Honnan.Text).ToString();
-            HováMennyiség.Text = Készlet(Cikkszámok.Text, Hova.Text).ToString();
-        }
 
         /// <summary>
         /// Ha ki van választva, akkor listázza a készletét
@@ -290,97 +214,7 @@ namespace Tisztito.Ablakok
         private void Honnan_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Honnan.Text = Honnan.Items[Honnan.SelectedIndex].ToString();
-            Bizonylatszám.Text = "";
             TáblaKitöltés();
-            Storno.Enabled = false;
-            Rögzít.Enabled = true;
-        }
-        #endregion
-
-
-        #region Könyvelés
-        /// <summary>
-        /// Az anyagok rögzítése a raktárakba
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Rögzít_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Mozgás.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva a mozgás.");
-                if (Mozgás.Text.Trim() != "Beérkezés" && Honnan.Text.Trim() == "") throw new HibásBevittAdat("A Honnan könyvelés helyét meg kell adni.");
-                if (Hova.Text.Trim() == "") throw new HibásBevittAdat("A Hova könyvelés helyét meg kell adni.");
-                if (!int.TryParse(Mennyiség.Text, out int darab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
-                if (!int.TryParse(HonnanMennyiség.Text, out int Honnandarab)) throw new HibásBevittAdat("A mennyiség csak szám lehet!");
-                if (Honnan.Text.Trim() != "" && Honnandarab < darab) throw new HibásBevittAdat("A készleten lévő mennyiségnél nem lehet többet kiadni.");
-                //Selejtezés
-                Bizonylatszám.Text = KézNaplóRaktár.Bizonylat("B");
-                string HonnanKönyv = Honnan.Text.Trim();
-
-                Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
-                     Cikkszámok.Text.Trim(),
-                     darab,
-                     HonnanKönyv,
-                     Hova.Text.Trim(),
-                     Bizonylatszám.Text.Trim(),
-                     Program.PostásNév,
-                     Dátum.Value,
-                     false,
-                     "",
-                     new DateTime(1900, 1, 1));
-                KézNaplóRaktár.Rögzítés(DateTime.Now.Year, AdatNapló);
-
-                Táblázat();
-                KészletekKiírása();
-
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Stornózás gomb eseménykezelője
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Storno_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (KijelöltSor < 0) return;
-                //   if(Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim()!="") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
-                Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
-                     Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim(),
-                     Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
-                     Tábla.Rows[KijelöltSor].Cells[3].Value.ToStrTrim(),
-                     Tábla.Rows[KijelöltSor].Cells[4].Value.ToStrTrim(),
-                     "S" + Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim(),
-                     Program.PostásNév,
-                     Dátum.Value,
-                     true,
-                     Program.PostásNév,
-                     DateTime.Now);
-                KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló);
-                TáblázatKönyvelés();
-                KészletekKiírása();
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
         #endregion
 
@@ -401,8 +235,6 @@ namespace Tisztito.Ablakok
         /// </summary>
         private void TáblaKitöltés()
         {
-            if (Mozgás.Text.Trim() == "") return;
-            KijelöltSor = -1;
             TáblázatKönyvelés();
         }
 
@@ -511,58 +343,6 @@ namespace Tisztito.Ablakok
             }
         }
 
-        /// <summary>
-        /// Kiválasztott sorra kattintva kiírja a szervezet készlet adatait
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            KijelöltSor = e.RowIndex;
-
-            //Storno táblázat
-            Honnan.Text = Tábla.Rows[e.RowIndex].Cells[3].Value.ToStrTrim();
-            Hova.Text = Tábla.Rows[e.RowIndex].Cells[4].Value.ToStrTrim();
-            Cikkszámok.Text = Tábla.Rows[e.RowIndex].Cells[0].Value.ToStrTrim();
-            Megnevezések.Text = Tábla.Rows[e.RowIndex].Cells[1].Value.ToStrTrim();
-            HonnanMennyiség.Text = "<-->";
-            HováMennyiség.Text = "<-->";
-            Mennyiség.Text = Tábla.Rows[e.RowIndex].Cells[2].Value.ToStrTrim();
-            Bizonylatszám.Text = Tábla.Rows[e.RowIndex].Cells[5].Value.ToStrTrim();
-            Dátum.Value = DateTime.Parse(Tábla.Rows[e.RowIndex].Cells[7].Value.ToStrTrim()).ToÉrt_DaTeTime();
-            Storno.Enabled = true;
-            Rögzít.Enabled = false;
-        }
-
-        /// <summary>
-        /// Kiírja a kiválasztott cikkszámhoz tartozó adatokat
-        /// </summary>
-        /// <param name="cikkszám"></param>
-        private void Adatokkiírása(string cikkszám)
-        {
-            try
-            {
-                Adat_Raktár adat = (from a in AdatokRaktár
-                                    where a.Cikkszám == cikkszám
-                                    select a).FirstOrDefault();
-                if (adat == null) return;
-
-                Cikkszámok.Text = adat.Cikkszám;
-                HonnanMennyiség.Text = Készlet(adat.Cikkszám, Honnan.Text.Trim()).ToString();
-                HováMennyiség.Text = Készlet(adat.Cikkszám, Hova.Text.Trim()).ToString();
-                Megnevezések.Text = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == Cikkszámok.Text).Megnevezés;
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         #endregion
 
 
@@ -615,6 +395,7 @@ namespace Tisztito.Ablakok
                 TáblaOszlopSzélességKönyvelés();
                 Tábla.Visible = true;
                 Tábla.Refresh();
+                Tábla.ClearSelection();
                 SzínezdStornoSorokat();
 
             }
@@ -685,7 +466,16 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                List<Adat_KészletNaplóRaktár> Adatok = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year);
+                List<Adat_KészletNaplóRaktár> Adatok = KézNaplóRaktár.Lista_Adatok(Dátumtól.Value.Year);
+                if (Dátumtól.Value.Year < Dátumig.Value.Year)
+                {
+                    for (int i = Dátumtól.Value.Year + 1; i < Dátumig.Value.Year; i++)
+                    {
+                        List<Adat_KészletNaplóRaktár> AdatokIdeig = KézNaplóRaktár.Lista_Adatok(i);
+                        Adatok.AddRange(AdatokIdeig);
+                    }
+                }
+
                 //Csak a raktárak közötti mozgásokat írjuk ki
                 Adatok = (from a in Adatok
                           where !(a.SzervezetHova == null || a.SzervezetHova.Trim() == "")
@@ -791,24 +581,28 @@ namespace Tisztito.Ablakok
 
         private void Pdf_Készítés_Click(object sender, EventArgs e)
         {
-            if (Bizonylatszám.Text.Trim() != null) KészítsSzállítóPDF(Bizonylatszám.Text.Trim());
+            KészítsSzállítóPDF();
         }
 
 
 
 
-        private void KészítsSzállítóPDF(string bizonylatszám)
+        private void KészítsSzállítóPDF()
         {
             try
             {
                 if (Tábla.SelectedRows.Count < 1) throw new HibásBevittAdat("Nincs kijelölve érvényes sor.");
-                if (Honnan.Text.Trim() == "") throw new HibásBevittAdat("Nincs kijelölve szervezet.");
-                List<Adat_KészletNaplóRaktár> tételek = KézNaplóRaktár.Lista_Adatok(Dátum.Value.Year)
-                     .Where(a => a.Bizonylat == bizonylatszám)
-                     .ToList();
-                if (tételek.Count == 0) throw new HibásBevittAdat("Nincs ilyen bizonylatszámú tétel.");
-                string fontPath = Path.Combine(Application.StartupPath, @"Adatok\Fonts\arial.ttf");
+                if (Honnan.Text.Trim() == "") throw new HibásBevittAdat("Nincs kijelölve a Honnan szervezet.");
+                if (Hova.Text.Trim() == "") throw new HibásBevittAdat("Nincs kijelölve a Hova szervezet.");
+
+
+                string bizonylatszám = Tábla.SelectedRows[0].Cells["Bizonylat"].Value.ToStrTrim();
+
                 string FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Selejtezés_{bizonylatszám}.pdf");
+                if (Hova.Text.Trim() == "Selejtezés")
+                    FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Szállító_{bizonylatszám}.pdf");
+
+                string fontPath = Path.Combine(Application.StartupPath, @"Adatok\Fonts\arial.ttf");
                 using (FileStream fs = new FileStream(FileName, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (Document doc = new Document(PageSize.A4.Rotate()))
                 {
@@ -849,12 +643,25 @@ namespace Tisztito.Ablakok
                     BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
                     iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.BOLD);
-                    Paragraph p = new Paragraph("Selejtezési Bizonylat", font)
+
+                    if (Hova.Text.Trim() == "Selejtezés")
                     {
-                        Alignment = Element.ALIGN_CENTER,
-                        SpacingBefore = 50f // 20 ponttal lejjebb
-                    };
-                    doc.Add(p);
+                        Paragraph p = new Paragraph("Selejtezési Bizonylat", font)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 50f // 20 ponttal lejjebb
+                        };
+                        doc.Add(p);
+                    }
+                    else
+                    {
+                        Paragraph p = new Paragraph("Szállítólevél", font)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 50f // 20 ponttal lejjebb
+                        };
+                        doc.Add(p);
+                    }
 
                     // Üres bekezdés, ami 20 pont térközt ad (növeld, ha több kell)
                     Paragraph space = new Paragraph(" ")

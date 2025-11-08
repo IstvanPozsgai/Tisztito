@@ -62,7 +62,6 @@
             this.PDFAblak = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
-            this.Pdf_Készítés = new System.Windows.Forms.Button();
             this.PDFNéz = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
@@ -374,7 +373,6 @@
             this.tableLayoutPanel2.Controls.Add(this.PDFAblak, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.Pdf_Készítés, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.PDFNéz, 1, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -470,18 +468,6 @@
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
-            // Pdf_Készítés
-            // 
-            this.Pdf_Készítés.BackgroundImage = global::Tisztito.Properties.Resources.pdf_32;
-            this.Pdf_Készítés.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Pdf_Készítés.Location = new System.Drawing.Point(113, 168);
-            this.Pdf_Készítés.Name = "Pdf_Készítés";
-            this.Pdf_Készítés.Size = new System.Drawing.Size(45, 45);
-            this.Pdf_Készítés.TabIndex = 250;
-            this.toolTip1.SetToolTip(this.Pdf_Készítés, "Átadás-átvételi dokumentumot generál");
-            this.Pdf_Készítés.UseVisualStyleBackColor = true;
-            this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
-            // 
             // PDFNéz
             // 
             this.PDFNéz.BackgroundImage = global::Tisztito.Properties.Resources.App_dict;
@@ -550,7 +536,6 @@
         internal System.Windows.Forms.Button PDFAblak;
         internal System.Windows.Forms.Button Storno;
         internal System.Windows.Forms.Button BtnExcel;
-        internal System.Windows.Forms.Button Pdf_Készítés;
         internal System.Windows.Forms.Button PDFNéz;
         internal System.Windows.Forms.Button SAPbeolvasás;
     }

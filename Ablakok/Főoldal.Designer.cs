@@ -63,6 +63,8 @@
             this.Label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Figyelmeztetés = new System.Windows.Forms.Label();
+            this.BizonylatMenu = new System.Windows.Forms.ToolStripSeparator();
+            this.BizonylatMenü = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Képkeret)).BeginInit();
             this.Rejtett.SuspendLayout();
@@ -199,6 +201,8 @@
             this.könyvelésekToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.raktárakKözöttiKönyvelésToolStripMenuItem,
             this.készletSelejtezésToolStripMenuItem,
+            this.BizonylatMenu,
+            this.BizonylatMenü,
             this.toolStripSeparator3,
             this.DolgozóiKiadásMenuItem});
             this.könyvelésekToolStripMenuItem.Image = global::Tisztito.Properties.Resources.App_edit;
@@ -368,6 +372,18 @@
             this.Figyelmeztetés.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Figyelmeztetés.Visible = false;
             // 
+            // BizonylatMenu
+            // 
+            this.BizonylatMenu.Name = "BizonylatMenu";
+            this.BizonylatMenu.Size = new System.Drawing.Size(264, 6);
+            // 
+            // BizonylatMenü
+            // 
+            this.BizonylatMenü.Name = "BizonylatMenü";
+            this.BizonylatMenü.Size = new System.Drawing.Size(267, 24);
+            this.BizonylatMenü.Text = "Bizonylat nyomtatás";
+            this.BizonylatMenü.Click += new System.EventHandler(this.BizonylatMenü_Click);
+            // 
             // Főoldal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -434,6 +450,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem LekérdezésToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dolgozóiLekérdezésekToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator BizonylatMenu;
+        private System.Windows.Forms.ToolStripMenuItem BizonylatMenü;
     }
 }
 

@@ -60,7 +60,6 @@
             this.MezőkÜrítése = new System.Windows.Forms.Button();
             this.Rögzít = new System.Windows.Forms.Button();
             this.Storno = new System.Windows.Forms.Button();
-            this.Pdf_Készítés = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -237,13 +236,13 @@
             this.Tábla.EnableHeadersVisualStyles = false;
             this.Tábla.FilterAndSortEnabled = true;
             this.Tábla.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-            this.Tábla.Location = new System.Drawing.Point(12, 237);
+            this.Tábla.Location = new System.Drawing.Point(12, 220);
             this.Tábla.MaxFilterButtonImageHeight = 23;
             this.Tábla.Name = "Tábla";
             this.Tábla.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Tábla.RowHeadersWidth = 62;
             this.Tábla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Tábla.Size = new System.Drawing.Size(1227, 191);
+            this.Tábla.Size = new System.Drawing.Size(1227, 208);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 224;
             this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
@@ -366,15 +365,13 @@
             this.tableLayoutPanel2.Controls.Add(this.MezőkÜrítése, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.Rögzít, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.Storno, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.Pdf_Készítés, 2, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1067, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 219);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 173);
             this.tableLayoutPanel2.TabIndex = 242;
             // 
             // BtnExcel
@@ -437,18 +434,6 @@
             this.Storno.UseVisualStyleBackColor = true;
             this.Storno.Click += new System.EventHandler(this.Storno_Click);
             // 
-            // Pdf_Készítés
-            // 
-            this.Pdf_Készítés.BackgroundImage = global::Tisztito.Properties.Resources.pdf_32;
-            this.Pdf_Készítés.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Pdf_Készítés.Location = new System.Drawing.Point(113, 168);
-            this.Pdf_Készítés.Name = "Pdf_Készítés";
-            this.Pdf_Készítés.Size = new System.Drawing.Size(45, 45);
-            this.Pdf_Készítés.TabIndex = 250;
-            this.toolTip1.SetToolTip(this.Pdf_Készítés, "Selejtezési bizonylatot készít");
-            this.Pdf_Készítés.UseVisualStyleBackColor = true;
-            this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
-            // 
             // Ablak_Selejtezés
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -504,6 +489,5 @@
         private System.Windows.Forms.DateTimePicker Dátum;
         internal System.Windows.Forms.Button Storno;
         internal System.Windows.Forms.Button BtnExcel;
-        internal System.Windows.Forms.Button Pdf_Készítés;
     }
 }

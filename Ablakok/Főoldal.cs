@@ -214,8 +214,6 @@ namespace Tisztito
         #endregion
         #endregion
 
-
-
         /// <summary>
         /// Ablakokat nyitja meg és kezeli a bezárást
         /// <summary>
@@ -434,6 +432,27 @@ namespace Tisztito
         private void Új_Ablak_Selejtezés_FormClosed(object sender, FormClosedEventArgs e)
         {
             Új_Ablak_Selejtezés = null;
+        }
+
+        Ablak_Bizonylat Új_Ablak_Bizonylat;
+        private void BizonylatMenü_Click(object sender, EventArgs e)
+        {
+            if (Új_Ablak_Bizonylat == null)
+            {
+                Új_Ablak_Bizonylat = new Ablak_Bizonylat();
+                Új_Ablak_Bizonylat.FormClosed += Ablak_Bizonylat_FormClosed;
+                Új_Ablak_Bizonylat.Show();
+            }
+            else
+            {
+                Új_Ablak_Bizonylat.Activate();
+                Új_Ablak_Bizonylat.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void Ablak_Bizonylat_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Új_Ablak_Bizonylat = null;
         }
         #endregion
 
