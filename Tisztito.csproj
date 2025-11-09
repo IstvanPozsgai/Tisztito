@@ -472,6 +472,9 @@
     <None Include="Resources\Filesystem-blockdevice-cubes.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Action-run.ico" />
+    <None Include="Resources\Action-paste.ico" />
+    <None Include="Resources\Document Copy-011.ico" />
     <None Include="Adatok\képek\BKV háttér.jpg" />
     <Content Include="community_users.ico" />
     <None Include="Resources\SAP.ico" />

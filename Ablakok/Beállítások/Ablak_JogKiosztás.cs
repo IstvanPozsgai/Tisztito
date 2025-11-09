@@ -58,6 +58,7 @@ namespace Tisztito
             OldalFeltöltés();
             FelhasználóFeltöltés();
             GombLathatosagKezelo.Beallit(this);
+            CMBSzervezetFeltöltés();
         }
 
 
@@ -83,6 +84,7 @@ namespace Tisztito
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         /// <summary>
         /// Ablak gombok feltöltése a comboxba.
@@ -119,6 +121,7 @@ namespace Tisztito
             }
         }
 
+
         /// <summary>
         /// Feltöltjük, hogy melyik szervezetnek engedjük meg a módosítást
         /// </summary>
@@ -137,7 +140,6 @@ namespace Tisztito
                                                  select a).FirstOrDefault();
                     if (EgyJog != null) LstChkSzervezet.SetItemChecked(i, true);
                 }
-
             }
             catch (HibásBevittAdat ex)
             {
@@ -149,6 +151,32 @@ namespace Tisztito
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        private void CMBSzervezetFeltöltés()
+        {
+            try
+            {
+                CmbSzervezetek.Items.Clear();
+                CmbSzervezetek.Items.Add("");
+                for (int i = 0; i < AdatokSzervezet.Count; i++)
+                {
+                    CmbSzervezetek.Items.Add(AdatokSzervezet[i].Szervezet);
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
 
         /// <summary>
         /// Feltöltjük a felhasználókat a comboxba.
@@ -241,6 +269,11 @@ namespace Tisztito
             CmbAblak.Text = "";
             LstChkGombok.Items.Clear();
             LstChkSzervezet.Items.Clear();
+        }
+
+        private void CmbSzervezetek_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CmbSzervezetek.Text = CmbSzervezetek.Items[CmbSzervezetek.SelectedIndex].ToString();
         }
         #endregion
 
@@ -346,6 +379,143 @@ namespace Tisztito
             for (int i = 0; i < LstChkSzervezet.Items.Count; i++)
                 LstChkSzervezet.SetItemChecked(i, false);
         }
+
+        private void Másolás_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Felhasználók.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva másolandó felhasználó");
+                Másolt.Text = Felhasználók.Text.Trim();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Másolt.Text = "<< >>";
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MindenJog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (Másolt.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva másolandó felhasználó.");
+                if (Másolt.Text.Trim() == Felhasználók.Text.Trim()) throw new HibásBevittAdat("Most komolyan saját magára akarod másolni?");
+                CsoportosJogok(false);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SzervezetBővítés_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Másolt.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva másolandó felhasználó.");
+                if (CmbSzervezetek.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva másolandó szervezet.");
+                CsoportosJogok(true);
+
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CsoportosJogok(bool szűrt)
+        {
+            try
+            {
+                Adat_Users MásoltFelhasználó = (from a in AdatokUsers
+                                                where a.UserName.Trim() == Másolt.Text.Trim()
+                                                select a).FirstOrDefault() ?? throw new HibásBevittAdat("Nincs jogosultsági adata kiválasztott felhasználónak.");
+
+                List<Adat_Jogosultságok> MásoltJogok = (from a in AdatokJogosultságok
+                                                        where a.UserId == MásoltFelhasználó.UserId
+                                                        && a.Törölt == false
+                                                        select a).ToList();
+
+                Adat_Szervezet EgySzervezet = null;
+                if (szűrt)
+                {
+                    MásoltJogok = MásoltJogok.GroupBy(x => x.GombokId)
+                                                            .Select(g => g.First())
+                                                            .ToList();
+                    EgySzervezet = (from a in AdatokSzervezet
+                                    where a.Szervezet.Trim() == CmbSzervezetek.Text.Trim()
+                                    select a).FirstOrDefault() ?? throw new HibásBevittAdat("Nincs ilyen szervezet.");
+                }
+
+                Adat_Users Kikapja = (from a in AdatokUsers
+                                      where a.UserName.Trim() == Felhasználók.Text.Trim()
+                                      select a).FirstOrDefault() ?? throw new HibásBevittAdat("Nincs kinek másolni.");
+
+                List<Adat_Jogosultságok> Adatok = new List<Adat_Jogosultságok>();
+                foreach (Adat_Jogosultságok Elem in MásoltJogok)
+                {
+                    if (szűrt)
+                    {
+                        Adat_Jogosultságok ADAT = new Adat_Jogosultságok(Kikapja.UserId, Elem.OldalId, Elem.GombokId, EgySzervezet.Id, false);
+                        Adatok.Add(ADAT);
+                    }
+                    else
+                    {
+                        Adat_Jogosultságok ADAT = new Adat_Jogosultságok(Kikapja.UserId, Elem.OldalId, Elem.GombokId, Elem.SzervezetId, false);
+                        Adatok.Add(ADAT);
+                    }
+                }
+                if (Adatok.Count > 0) KézJogosultságok.Rögzítés(Adatok);
+                TáblázatListázás();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void JogosultságokTörlése_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Felhasználók.Text.Trim() == "") throw new HibásBevittAdat("Nincs kiválasztva felhasználó.");
+                Adat_Users Felhasználó = (from a in AdatokUsers
+                                          where a.UserName.Trim() == Felhasználók.Text.Trim()
+                                          select a).FirstOrDefault() ?? throw new HibásBevittAdat("Nincs jogosultsági adata kiválasztott felhasználónak.");
+                KézJogosultságok.MindenTörlés(Felhasználó.UserId);
+                TáblázatListázás();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
 
@@ -449,6 +619,9 @@ namespace Tisztito
             Tábla.Columns["Szervezet"].Width = 500;
             Tábla.Columns["Törölt"].Width = 110;
         }
+
+
+
         #endregion
 
 

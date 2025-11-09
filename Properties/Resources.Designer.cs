@@ -73,6 +73,26 @@ namespace Tisztito.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Action_paste {
+            get {
+                object obj = ResourceManager.GetObject("Action-paste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Action_run {
+            get {
+                object obj = ResourceManager.GetObject("Action-run", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Aha_Soft_Large_Seo_SEO {
             get {
                 object obj = ResourceManager.GetObject("Aha-Soft-Large-Seo-SEO", resourceCulture);
@@ -176,6 +196,16 @@ namespace Tisztito.Properties {
         internal static System.Drawing.Bitmap Document_Copy_01 {
             get {
                 object obj = ResourceManager.GetObject("Document Copy-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Document_Copy_011 {
+            get {
+                object obj = ResourceManager.GetObject("Document Copy-011", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
