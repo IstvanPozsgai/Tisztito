@@ -7,14 +7,16 @@
         public int Mennyiség { get; private set; }
 
         public string Dolgozószám { get; private set; }
+        public string DolgozóNév { get; private set; }
         public string Szervezet { get; private set; }
 
-        public Adat_Igény(string munkakör, string cikkszám, int mennyiség, string dolgozószám, string szervezet)
+        public Adat_Igény(string munkakör, string cikkszám, int mennyiség, string dolgozószám, string dolgozónév,string szervezet)
         {
             Munkakör = munkakör;
             Cikkszám = cikkszám;
             Mennyiség = mennyiség;
             Dolgozószám = dolgozószám;
+            DolgozóNév = dolgozónév;
             Szervezet = szervezet;
         }
     }

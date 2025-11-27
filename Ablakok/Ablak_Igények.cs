@@ -155,6 +155,7 @@ namespace Tisztito.Ablakok
                             Jár.Cikkszám,
                             Jár.Mennyiség,
                             Dolg.Dolgozószám,
+                            Dolg.Dolgozónév,
                             Dolg.Szervezet);
                         AdatokIgény.Add(ADAT);
                     }
@@ -214,6 +215,7 @@ namespace Tisztito.Ablakok
 
                 Soradat["Mennyiség"] = rekord.Mennyiség;
                 Soradat["Dolgozószám"] = rekord.Dolgozószám;
+                Soradat["DolgozóNév"] = rekord.DolgozóNév;
                 Soradat["Szervezet"] = rekord.Szervezet;
                 AdatTáblaALap.Rows.Add(Soradat);
             }
@@ -229,6 +231,7 @@ namespace Tisztito.Ablakok
                 AdatTáblaALap.Columns.Add("Megnevezés");
                 AdatTáblaALap.Columns.Add("Mennyiség");
                 AdatTáblaALap.Columns.Add("Dolgozószám");
+                AdatTáblaALap.Columns.Add("DolgozóNév");
                 AdatTáblaALap.Columns.Add("Szervezet");
             }
             catch (HibásBevittAdat ex)
@@ -249,6 +252,7 @@ namespace Tisztito.Ablakok
             Tábla.Columns["Megnevezés"].Width = 300;
             Tábla.Columns["Mennyiség"].Width = 130;
             Tábla.Columns["Dolgozószám"].Width = 130;
+            Tábla.Columns["DolgozóNév"].Width = 200;
             Tábla.Columns["Szervezet"].Width = 250;
         }
 

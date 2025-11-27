@@ -292,7 +292,7 @@
             this.Pdf_Készítés.Name = "Pdf_Készítés";
             this.Pdf_Készítés.Size = new System.Drawing.Size(45, 45);
             this.Pdf_Készítés.TabIndex = 250;
-            this.toolTip1.SetToolTip(this.Pdf_Készítés, "Selejtezési bizonylatot készít");
+            this.toolTip1.SetToolTip(this.Pdf_Készítés, "Bizonylatot készít");
             this.Pdf_Készítés.UseVisualStyleBackColor = true;
             this.Pdf_Készítés.Click += new System.EventHandler(this.Pdf_Készítés_Click);
             // 
