@@ -20,7 +20,7 @@ namespace Tisztito.Kezelők
         public Kezelő_Raktár()
         {
             if (!File.Exists(hely)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely.KönyvSzerk());
-            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.Adatbázis_Oldalak(hely);
+            if (!AdatBázis_kezelés.TáblaEllenőrzés(hely, jelszó, táblanév)) Adatbázis_Létrehozás.RaktárKészlet(hely);
 
         }
 
