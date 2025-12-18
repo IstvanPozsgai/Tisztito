@@ -479,8 +479,8 @@ namespace Tisztito.Ablakok
                 //Csak a raktárak közötti mozgásokat írjuk ki
                 Adatok = (from a in Adatok
                           where !(a.SzervezetHova == null || a.SzervezetHova.Trim() == "")
-                          && a.Dátum>=Dátumtól.Value 
-                          && a.Dátum <=Dátumig.Value 
+                          && a.Dátum >= Dátumtól.Value
+                          && a.Dátum <= Dátumig.Value
                           select a).ToList();
                 if (Honnan.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHonnan == Honnan.Text.Trim()).ToList();
                 if (Hova.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHova == Hova.Text.Trim()).ToList();
@@ -715,25 +715,29 @@ namespace Tisztito.Ablakok
                     baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                     font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
                     // Papírszélességű, háromoszlopos táblázat keretes fejléccel
-                    PdfPTable t = new PdfPTable(3)
+                    PdfPTable t = new PdfPTable(4)
                     {
                         WidthPercentage = 100
                     };
-                    t.SetWidths(new float[] { 2, 5, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
+                    t.SetWidths(new float[] { 2,5, 2, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
 
                     // Fejléc cellák (kerettel, félkövérrel)
+
                     PdfPCell cikkszamHeader = new PdfPCell(new Phrase("Cikkszám", headerFont));
                     PdfPCell megnevezesHeader = new PdfPCell(new Phrase("Megnevezés", headerFont));
+                    PdfPCell bizonylatHeader = new PdfPCell(new Phrase("Bizonylatszám", headerFont));
                     PdfPCell mennyisegHeader = new PdfPCell(new Phrase("Mennyiség", headerFont));
 
                     // Fejléc cellák igazítása (középre)
                     cikkszamHeader.HorizontalAlignment = Element.ALIGN_CENTER;
                     megnevezesHeader.HorizontalAlignment = Element.ALIGN_CENTER;
                     mennyisegHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+                    bizonylatHeader.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     // Fejléc cellák hozzáadása
                     t.AddCell(cikkszamHeader);
                     t.AddCell(megnevezesHeader);
+                    t.AddCell(bizonylatHeader);
                     t.AddCell(mennyisegHeader);
 
                     // Példa sorok hozzáadása (töltsd fel a saját adataiddal)
@@ -742,17 +746,21 @@ namespace Tisztito.Ablakok
                         string cikkszam = tetel.Cells["Cikkszám"].Value.ToStrTrim() ?? "";
                         string megnevezes = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == cikkszam)?.Megnevezés ?? "";
                         string mennyiseg = tetel.Cells["Mennyiség"].Value.ToString();
+                        string bizonylat = tetel.Cells["Bizonylat"].Value.ToString();
 
                         PdfPCell cikkszamCell = new PdfPCell(new Phrase(cikkszam, font));
                         PdfPCell megnevezesCell = new PdfPCell(new Phrase(megnevezes, font));
                         PdfPCell mennyisegCell = new PdfPCell(new Phrase(mennyiseg, font));
+                        PdfPCell bizonylatCell = new PdfPCell(new Phrase(bizonylat, font));
 
                         cikkszamCell.HorizontalAlignment = Element.ALIGN_CENTER;
                         megnevezesCell.HorizontalAlignment = Element.ALIGN_LEFT;
                         mennyisegCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                        bizonylatCell.HorizontalAlignment = Element.ALIGN_RIGHT;
 
                         t.AddCell(cikkszamCell);
                         t.AddCell(megnevezesCell);
+                        t.AddCell(bizonylatCell);
                         t.AddCell(mennyisegCell);
                     }
                     doc.Add(t);
