@@ -181,7 +181,7 @@ namespace Tisztito.Kezelők
                 foreach (Adat_Raktár Adat in Adatok)
                 {
                     List<Adat_Raktár> AdatokKész = Lista_Adatok();
-                    Adat_Raktár Készlet = Adatok.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
+                    Adat_Raktár Készlet = AdatokKész.FirstOrDefault(a => a.Cikkszám == Adat.Cikkszám && a.Szervezet == Adat.Szervezet);
                     Módosítás(Adat, Készlet.Mennyiség);
                 }
             }
