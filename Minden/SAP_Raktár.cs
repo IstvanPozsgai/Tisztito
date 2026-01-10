@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -71,9 +70,9 @@ namespace Tisztito.Minden
                         }
                     }
                 }
-                if (AdatokGY.Count > 0) KézNaplóRaktár.Rögzítés( AdatokGY, DateTime.Now.Year);
+                if (AdatokGY.Count > 0) KézNaplóRaktár.Rögzítés(AdatokGY, DateTime.Now.Year);
                 // kitöröljük a betöltött fájlt
-                File.Delete(Excel_hely);
+                //     File.Delete(Excel_hely);
             }
             catch (HibásBevittAdat ex)
             {

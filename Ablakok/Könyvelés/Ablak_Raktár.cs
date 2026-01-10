@@ -127,7 +127,6 @@ namespace Tisztito.Ablakok
                     KiválasztottStátusz = (int)Enum.Parse(typeof(MyEn.Mozgás), Mozgás.Text);
                     HonnanHovaFeltöltés(KiválasztottStátusz);
                 }
-
             }
             catch (HibásBevittAdat ex)
             {
@@ -441,7 +440,7 @@ namespace Tisztito.Ablakok
             try
             {
                 if (KijelöltSor < 0) return;
-                //   if(Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim()!="") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
+                if (Tábla.Rows[KijelöltSor].Cells[8].Value.ToStrTrim() == "Stornózva") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
                 Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
                      Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim(),
                      Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
@@ -454,7 +453,7 @@ namespace Tisztito.Ablakok
                      Program.PostásNév,
                      DateTime.Now);
                 KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló);
-                TáblázatKönyvelés();
+                HonnanHovaFeltöltés(9);
                 KészletekKiírása();
             }
             catch (HibásBevittAdat ex)
@@ -527,6 +526,7 @@ namespace Tisztito.Ablakok
                 TáblaOszlopSzélesség();
                 Tábla.Visible = true;
                 Tábla.Refresh();
+                Tábla.ClearSelection();
 
             }
             catch (HibásBevittAdat ex)
@@ -729,6 +729,7 @@ namespace Tisztito.Ablakok
                 Tábla.Visible = true;
                 Tábla.Refresh();
                 SzínezdStornoSorokat();
+                Tábla.ClearSelection();
 
             }
             catch (HibásBevittAdat ex)

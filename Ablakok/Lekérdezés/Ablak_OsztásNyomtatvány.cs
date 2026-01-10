@@ -119,7 +119,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                 {
                     for (int i = 0; i < ChkMunkakör.CheckedItems.Count; i++)
                     {
-                        List<Adat_Dolgozó> Ideig = Adatok
+                        List<Adat_Dolgozó> Ideig = dolgozókS
                              .Where(d => d.Munkakör == ChkMunkakör.CheckedItems[i].ToStrTrim())
                              .ToList();
                         dolgozók.AddRange(Ideig);

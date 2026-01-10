@@ -66,14 +66,13 @@ namespace Tisztito.Ablakok
 
         private void MezőkÜrítése_Click(object sender, EventArgs e)
         {
-            Mozgás.Text = "";
             Mezőkürítés();
         }
 
         private void Mezőkürítés()
         {
             Honnan.Text = "";
-            Hova.Text = "";
+            //Hova.Text = "";
             Cikkszámok.Text = "";
             Megnevezések.Text = "";
             HonnanMennyiség.Text = "<-->";
@@ -351,7 +350,7 @@ namespace Tisztito.Ablakok
             try
             {
                 if (KijelöltSor < 0) return;
-                //   if(Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim()!="") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
+                if (Tábla.Rows[KijelöltSor].Cells[8].Value.ToStrTrim() != "Rögzítés") throw new HibásBevittAdat("Ez a tétel már stornózásra került.");
                 Adat_KészletNaplóRaktár AdatNapló = new Adat_KészletNaplóRaktár(
                      Tábla.Rows[KijelöltSor].Cells[0].Value.ToStrTrim(),
                      Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
@@ -611,6 +610,7 @@ namespace Tisztito.Ablakok
                 Tábla.Visible = true;
                 Tábla.Refresh();
                 SzínezdStornoSorokat();
+                Tábla.ClearSelection();
 
             }
             catch (HibásBevittAdat ex)
