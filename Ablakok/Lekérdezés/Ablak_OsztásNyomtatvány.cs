@@ -470,6 +470,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                 ChkSzervezet.SetItemChecked(i, true);
             }
             DolgozóFeltöltés();
+            MunkakörFeltöltésSzervezet();
         }
 
         private void SzervezetSemmi_Click(object sender, EventArgs e)
@@ -479,6 +480,7 @@ namespace Tisztito.Ablakok.Lekérdezés
                 ChkSzervezet.SetItemChecked(i, false);
             }
             DolgozóFeltöltés();
+            MunkakörFeltöltésSzervezet();
         }
 
         private void MunkakörMinden_Click(object sender, EventArgs e)
@@ -502,8 +504,57 @@ namespace Tisztito.Ablakok.Lekérdezés
         private void ChkSzervezet_SelectedIndexChanged(object sender, EventArgs e)
         {
             DolgozóFeltöltés();
+            MunkakörFeltöltésSzervezet();
         }
 
+        private void MunkakörFeltöltésSzervezet()
+        {
+            try
+            {
+                // Dolgozók Lista a kilépett dolgozók nélkül
+                List<Adat_Dolgozó> Adatok = AdatokDolgozók
+                    .Where(d => d.Státus == false)
+                    .OrderBy(d => d.Szervezet)
+                    .ToList();
+
+                //Csak azokat a dolgozókat adjuk hozzá akik a szervezethez tartoznak
+                List<Adat_Dolgozó> dolgozókS = new List<Adat_Dolgozó>();
+                if (ChkSzervezet.CheckedItems.Count > 0)
+                {
+                    for (int i = 0; i < ChkSzervezet.CheckedItems.Count; i++)
+                    {
+                        List<Adat_Dolgozó> Ideig = Adatok
+                             .Where(d => d.Szervezet == ChkSzervezet.CheckedItems[i].ToStrTrim())
+                             .ToList();
+                        dolgozókS.AddRange(Ideig);
+                    }
+                }
+                else
+                    dolgozókS = Adatok;
+
+                //a listázott dolgozók munkakörének feltöltése
+                List<string> munkakörök;
+                ChkMunkakör.Items.Clear();
+                munkakörök = dolgozókS
+                    .Where(d => !d.Státus)
+                    .OrderBy(d => d.Munkakör)
+                    .Select(d => d.Munkakör)
+                    .Distinct()
+                    .ToList();
+
+                foreach (string munkakör in munkakörök)
+                    ChkMunkakör.Items.Add(munkakör);
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void ChkMunkakör_SelectedIndexChanged(object sender, EventArgs e)
         {

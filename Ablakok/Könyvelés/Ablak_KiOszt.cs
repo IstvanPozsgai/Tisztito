@@ -195,6 +195,7 @@ namespace Tisztito.Ablakok
         /// <param name="e"></param>
         private void CmbMunkakör_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            if (CmbMunkakör.SelectedIndex < 0) return;
             CmbMunkakör.Text = CmbMunkakör.Items[CmbMunkakör.SelectedIndex].ToString();
             string szervezet = CmbSzervezet.Text.Trim();
             string munkakör = CmbMunkakör.Text.Trim();
