@@ -499,6 +499,8 @@
     <None Include="Resources\App-spreadsheet.ico" />
     <None Include="Resources\lista.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Mentések\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
