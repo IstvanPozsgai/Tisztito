@@ -71,7 +71,7 @@ namespace Tisztito.Ablakok
 
         private void Mezőkürítés()
         {
-            Honnan.Text = "";
+            //Honnan.Text = "";
             //Hova.Text = "";
             Cikkszámok.Text = "";
             Megnevezések.Text = "";
@@ -82,6 +82,8 @@ namespace Tisztito.Ablakok
             Honnan.Enabled = true;
             Hova.Enabled = true;
         }
+
+
 
 
         #region Mozgások és szervezetek
@@ -285,6 +287,7 @@ namespace Tisztito.Ablakok
         {
             Honnan.Text = Honnan.Items[Honnan.SelectedIndex].ToString();
             Bizonylatszám.Text = "";
+            Mezőkürítés();
             TáblaKitöltés();
             Storno.Enabled = false;
             Rögzít.Enabled = true;
@@ -356,13 +359,13 @@ namespace Tisztito.Ablakok
                      Tábla.Rows[KijelöltSor].Cells[2].Value.ToStrTrim().ToÉrt_Int(),
                      Tábla.Rows[KijelöltSor].Cells[3].Value.ToStrTrim(),
                      Tábla.Rows[KijelöltSor].Cells[4].Value.ToStrTrim(),
-                     "S" + Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim(),
+                     Tábla.Rows[KijelöltSor].Cells[5].Value.ToStrTrim(),
                      Program.PostásNév,
                      Dátum.Value,
                      true,
                      Program.PostásNév,
                      DateTime.Now);
-                KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló);
+                KézNaplóRaktár.Módosítás(DateTime.Now.Year, AdatNapló, true);
                 TáblázatKönyvelés();
                 KészletekKiírása();
             }
@@ -512,7 +515,10 @@ namespace Tisztito.Ablakok
         /// <param name="e"></param>
         private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Ha nincs tartalom akkor kilépünk
             if (e.RowIndex < 0) return;
+            //Ha a nézet nem könyvelési nézet akkor kilépünk
+            if (Tábla.Columns[0].Name.Trim() == "Szervezet") return;
             KijelöltSor = e.RowIndex;
 
             //Storno táblázat

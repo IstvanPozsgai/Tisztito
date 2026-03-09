@@ -25,7 +25,7 @@ namespace Tisztito.Kezelők
 
         }
 
-        public List<Adat_KészletNaplóRaktár> Lista_Adatok(int Év, bool stornóval=true  )
+        public List<Adat_KészletNaplóRaktár> Lista_Adatok(int Év, bool stornóval = true)
         {
             FájlBeállítás(Év);
             List<Adat_KészletNaplóRaktár> Adatok = new List<Adat_KészletNaplóRaktár>();
@@ -225,13 +225,14 @@ namespace Tisztito.Kezelők
         /// </summary>
         /// <param name="Év"></param>
         /// <param name="Adat"></param>
-        public void Módosítás(int Év, Adat_KészletNaplóRaktár Adat)
+        public void Módosítás(int Év, Adat_KészletNaplóRaktár Adat, bool storno = false)
         {
             try
             {
                 FájlBeállítás(Év);
+                string betűjel = storno ? "" : "S";
                 string szöveg = $"UPDATE {táblanév} SET ";
-                szöveg += $"Bizonylatszám='{Adat.Bizonylat}', ";
+                szöveg += $"Bizonylatszám='{betűjel}{Adat.Bizonylat}', ";
                 szöveg += $"Storno={true}, ";
                 szöveg += $"Storno_Rögzítő='{Adat.Storno_Rögzítő}', ";
                 szöveg += $"Storno_Dátum='{Adat.Storno_Dátum}' ";
@@ -240,6 +241,7 @@ namespace Tisztito.Kezelők
                 szöveg += $"SzervezetHonnan='{Adat.SzervezetHonnan}' AND ";
                 szöveg += $"SzervezetHova='{Adat.SzervezetHova}' AND ";
                 szöveg += $"Mennyiség={Adat.Mennyiség} AND ";
+                szöveg += $"Bizonylatszám='{Adat.Bizonylat}' AND ";
                 szöveg += $"Storno={false}";
                 MyA.ABMódosítás(hely, jelszó, szöveg);
 
@@ -344,7 +346,7 @@ namespace Tisztito.Kezelők
                     {
                         string[] darabol = item.Bizonylat.Split('_');
                         int érték = darabol[2].ToÉrt_Int();
-                        if (érték < maximum) érték = maximum;
+                        if (érték > maximum) maximum = érték;
                     }
                     maximum++;   // beállítjuk a következő értéket
                     Válasz += $"{maximum}";
