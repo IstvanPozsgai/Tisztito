@@ -484,6 +484,7 @@ namespace Tisztito.Ablakok
                           select a).ToList();
                 if (Honnan.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHonnan == Honnan.Text.Trim()).ToList();
                 if (Hova.Text.Trim() != "") Adatok = Adatok.Where(a => a.SzervezetHova == Hova.Text.Trim()).ToList();
+                if (Cikkszámok.Text.Trim() != "") Adatok = Adatok.Where(a => a.Cikkszám == Cikkszámok.Text.Trim()).ToList();
 
                 foreach (Adat_KészletNaplóRaktár rekord in Adatok)
                 {
@@ -719,7 +720,7 @@ namespace Tisztito.Ablakok
                     {
                         WidthPercentage = 100
                     };
-                    t.SetWidths(new float[] { 2,5, 2, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
+                    t.SetWidths(new float[] { 2, 5, 2, 2 }); // arányos oszlopszélességek (igény szerint módosítható)
 
                     // Fejléc cellák (kerettel, félkövérrel)
 
