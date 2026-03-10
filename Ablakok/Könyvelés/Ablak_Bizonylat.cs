@@ -37,6 +37,9 @@ namespace Tisztito.Ablakok
 #pragma warning disable IDE0044
         DataTable AdatTáblaALap = new DataTable();
 #pragma warning restore IDE0044
+        private BindingSource BS = new BindingSource();
+
+
 
         public Ablak_Bizonylat()
         {
@@ -184,7 +187,6 @@ namespace Tisztito.Ablakok
         {
             try
             {
-
                 if (Megnevezések.SelectedIndex < 1)
                 {
                     Cikkszámok.Text = "";
@@ -214,168 +216,22 @@ namespace Tisztito.Ablakok
         private void Honnan_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Honnan.Text = Honnan.Items[Honnan.SelectedIndex].ToString();
-            TáblaKitöltés();
+            TáblázatKönyvelés();
         }
         #endregion
 
 
         #region Táblázat Készlet
         /// <summary>
-        /// A feltételeknek megfelelően kilistázza a raktárakat készletét
+        /// A feltételeknek megfelelően kilistázza a raktárakat könyvelését
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Frissít_Click(object sender, EventArgs e)
         {
-            TáblaKitöltés();
-        }
-
-        /// <summary>
-        /// Státusnak megfelelően írja ki az adotak
-        /// </summary>
-        private void TáblaKitöltés()
-        {
             TáblázatKönyvelés();
         }
 
-        /// <summary>
-        ///  Táblázat adatainak kiírása
-        /// </summary>
-        private void Táblázat()
-        {
-            try
-            {
-                AdatokRaktár.Clear();
-                AdatokRaktár = KézRaktár.Lista_Adatok();
-                Tábla.Visible = false;
-                Tábla.CleanFilterAndSort();
-                TáblaFejléc();
-                AlapTáblaTartalom();
-                Tábla.DataSource = AdatTáblaALap;
-                TáblaOszlopSzélesség();
-                Tábla.Visible = true;
-                Tábla.Refresh();
-
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Táblázat adat oszlopainak beállítása
-        /// </summary>
-        private void TáblaFejléc()
-        {
-            try
-            {
-                AdatTáblaALap.Columns.Clear();
-                AdatTáblaALap.Columns.Add("Szervezet");
-                AdatTáblaALap.Columns.Add("Cikkszám");
-                AdatTáblaALap.Columns.Add("Megnevezés");
-                AdatTáblaALap.Columns.Add("Mennyiség");
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// A táblázat oszlop szélességének beállítása
-        /// </summary>
-        private void TáblaOszlopSzélesség()
-        {
-            Tábla.Columns["Szervezet"].Width = 400;
-            Tábla.Columns["Cikkszám"].Width = 130;
-            Tábla.Columns["Megnevezés"].Width = 300;
-            Tábla.Columns["Mennyiség"].Width = 130;
-        }
-
-        /// <summary>
-        /// A táblázat tartalmának feltöltése
-        /// </summary>
-        private void AlapTáblaTartalom()
-        {
-            try
-            {
-                List<Adat_Raktár> Adatok = new List<Adat_Raktár>();
-                if (Honnan.Text.Trim() == "" && Hova.Text.Trim() == BázisRaktár) Adatok = AdatokRaktár.Where(a => a.Szervezet == BázisRaktár).ToList(); ;
-                if (Honnan.Text.Trim() != "") Adatok = AdatokRaktár.Where(a => a.Szervezet == Honnan.Text.Trim()).ToList();
-
-                AdatTáblaALap.Clear();
-
-                foreach (Adat_Raktár rekord in Adatok)
-                {
-                    DataRow Soradat = AdatTáblaALap.NewRow();
-
-                    Soradat["Cikkszám"] = rekord.Cikkszám;
-                    Adat_Anyag EgyAnyag = AdatokAnyag.FirstOrDefault(a => a.Cikkszám == rekord.Cikkszám);
-                    if (EgyAnyag != null)
-                        Soradat["Megnevezés"] = EgyAnyag.Megnevezés;
-                    else
-                        Soradat["Megnevezés"] = "";
-
-                    Soradat["Mennyiség"] = rekord.Mennyiség;
-                    Soradat["Szervezet"] = rekord.Szervezet;
-                    AdatTáblaALap.Rows.Add(Soradat);
-                }
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        #endregion
-
-
-        #region Készletkiírás
-        private int Készlet(string cikkszám, string szervezet)
-        {
-            int válasz = 0;
-            try
-            {
-                if (cikkszám.Trim() != "" && szervezet.Trim() != "")
-                {
-                    Adat_Raktár Adat = (from a in AdatokRaktár
-                                        where a.Cikkszám == cikkszám
-                                        && a.Szervezet == szervezet
-                                        select a).FirstOrDefault();
-                    if (Adat != null) válasz = Adat.Mennyiség;
-                }
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return válasz;
-        }
-        #endregion
-
-
-        #region Könyvelés kiírása
         /// <summary>
         /// Táblázat összeállítása könyvelési adatoknak megfelelően
         /// </summary>
@@ -383,13 +239,24 @@ namespace Tisztito.Ablakok
         {
             try
             {
-
                 AdatokRaktár.Clear();
-                AdatTáblaALap.Clear();
                 AdatokRaktár = KézRaktár.Lista_Adatok();
+
+                AdatTáblaALap.Rows.Clear(); // Csak a sorokat töröld, az oszlopokat ne!
+
+                if (AdatTáblaALap.Columns.Count == 0) TáblaFejlécKönyvelés();
+
+                AlapTáblaTartalomKönyvelés();
+
+                BS.DataSource = AdatTáblaALap;
+                Tábla.DataSource = BS; // BindingSource használata
+
+
+                //   AdatTáblaALap.Clear();
+
                 Tábla.Visible = false;
                 Tábla.CleanFilterAndSort();
-                TáblaFejlécKönyvelés();
+                //   TáblaFejlécKönyvelés();
                 AlapTáblaTartalomKönyvelés();
                 Tábla.DataSource = AdatTáblaALap;
                 TáblaOszlopSzélességKönyvelés();
@@ -408,6 +275,30 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SzuresFrissitese(object sender, EventArgs e)
+        {
+            List<string> szurok = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(Honnan.Text))
+                szurok.Add(string.Format("[Szervezet Honnan] = '{0}'", Honnan.Text.Replace("'", "''")));
+
+            if (!string.IsNullOrWhiteSpace(Hova.Text))
+                szurok.Add(string.Format("[Szervezet Hova] = '{0}'", Hova.Text.Replace("'", "''")));
+
+            if (!string.IsNullOrWhiteSpace(Cikkszámok.Text))
+                szurok.Add(string.Format("[Cikkszám] = '{0}'", Cikkszámok.Text.Replace("'", "''")));
+
+            // Összefűzzük a szűrőket AND kapcsolattal
+            BS.Filter = string.Join(" AND ", szurok);
+
+            SzínezdStornoSorokat(); // A szűrés után újra kell színezni!
         }
 
         /// <summary>
@@ -544,7 +435,7 @@ namespace Tisztito.Ablakok
         #endregion
 
 
-
+        #region Kimenet
         private void BtnExcel_Click(object sender, EventArgs e)
         {
             try
@@ -586,9 +477,6 @@ namespace Tisztito.Ablakok
         {
             KészítsSzállítóPDF();
         }
-
-
-
 
         private void KészítsSzállítóPDF()
         {
@@ -854,5 +742,43 @@ namespace Tisztito.Ablakok
             }
         }
 
+
+        #endregion
+
+        private void Honnan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SzuresFrissitese(sender, e);
+        }
+
+        private void Hova_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SzuresFrissitese(sender, e);
+        }
+
+        private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Ellenőrizzük, hogy nem a fejlécet vagy egy érvénytelen cellát kattintottak-e
+                Honnan.Text = Tábla.Rows[e.RowIndex].Cells["Szervezet Honnan"].Value.ToString();
+                Hova.Text = Tábla.Rows[e.RowIndex].Cells["Szervezet Hova"].Value.ToString();
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void SzűrőTörlése_Click(object sender, EventArgs e)
+        {
+            Honnan.Text = "";
+            Hova.Text = "";
+        }
     }
 }
