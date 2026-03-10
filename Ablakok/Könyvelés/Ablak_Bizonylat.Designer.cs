@@ -47,11 +47,11 @@
             this.Dátumig = new System.Windows.Forms.DateTimePicker();
             this.Dátumtól = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BtnExcel = new System.Windows.Forms.Button();
             this.Frissít = new System.Windows.Forms.Button();
             this.Pdf_Készítés = new System.Windows.Forms.Button();
             this.SzűrőTörlése = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Tábla)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -103,7 +103,6 @@
             this.Hova.Size = new System.Drawing.Size(350, 28);
             this.Hova.Sorted = true;
             this.Hova.TabIndex = 219;
-            this.Hova.SelectedIndexChanged += new System.EventHandler(this.Hova_SelectedIndexChanged);
             // 
             // Label18
             // 
@@ -133,8 +132,8 @@
             this.Tábla.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.Tábla.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.Tábla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Tábla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -157,7 +156,8 @@
             this.Tábla.Size = new System.Drawing.Size(1227, 298);
             this.Tábla.SortStringChangedInvokeBeforeDatasourceUpdate = true;
             this.Tábla.TabIndex = 224;
-            this.Tábla.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tábla_CellClick);
+            this.Tábla.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Tábla_CellMouseDown);
+            this.Tábla.SelectionChanged += new System.EventHandler(this.Tábla_SelectionChanged);
             // 
             // Honnan
             // 
@@ -170,7 +170,6 @@
             this.Honnan.Size = new System.Drawing.Size(350, 28);
             this.Honnan.Sorted = true;
             this.Honnan.TabIndex = 218;
-            this.Honnan.SelectedIndexChanged += new System.EventHandler(this.Honnan_SelectedIndexChanged);
             this.Honnan.SelectionChangeCommitted += new System.EventHandler(this.Honnan_SelectionChangeCommitted);
             // 
             // tableLayoutPanel1
@@ -309,7 +308,7 @@
             this.SzűrőTörlése.Name = "SzűrőTörlése";
             this.SzűrőTörlése.Size = new System.Drawing.Size(45, 45);
             this.SzűrőTörlése.TabIndex = 251;
-            this.toolTip1.SetToolTip(this.SzűrőTörlése, "Frissítés");
+            this.toolTip1.SetToolTip(this.SzűrőTörlése, "Táblázat kijelöléseit törli.");
             this.SzűrőTörlése.UseVisualStyleBackColor = true;
             this.SzűrőTörlése.Click += new System.EventHandler(this.SzűrőTörlése_Click);
             // 

@@ -39,7 +39,10 @@ namespace Tisztito.Ablakok
 #pragma warning restore IDE0044
         private BindingSource BS = new BindingSource();
 
-
+        //Szűrő ételékek: Honnan, Hova
+        private string elsőHonnan = null;
+        private string elsőHova = null;
+        private bool Lehet = true;
 
         public Ablak_Bizonylat()
         {
@@ -244,7 +247,7 @@ namespace Tisztito.Ablakok
 
                 AdatTáblaALap.Rows.Clear(); // Csak a sorokat töröld, az oszlopokat ne!
 
-                if (AdatTáblaALap.Columns.Count == 0) TáblaFejlécKönyvelés();
+                if (AdatTáblaALap.Columns.Count == 0) TáblaFejlécKönyvelés();    //Ezért csak akkor hozzuk létre az oszlopokat, ha még nincsenek, így elkerülve a duplikációt
 
                 AlapTáblaTartalomKönyvelés();
 
@@ -275,30 +278,6 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SzuresFrissitese(object sender, EventArgs e)
-        {
-            List<string> szurok = new List<string>();
-
-            if (!string.IsNullOrWhiteSpace(Honnan.Text))
-                szurok.Add(string.Format("[Szervezet Honnan] = '{0}'", Honnan.Text.Replace("'", "''")));
-
-            if (!string.IsNullOrWhiteSpace(Hova.Text))
-                szurok.Add(string.Format("[Szervezet Hova] = '{0}'", Hova.Text.Replace("'", "''")));
-
-            if (!string.IsNullOrWhiteSpace(Cikkszámok.Text))
-                szurok.Add(string.Format("[Cikkszám] = '{0}'", Cikkszámok.Text.Replace("'", "''")));
-
-            // Összefűzzük a szűrőket AND kapcsolattal
-            BS.Filter = string.Join(" AND ", szurok);
-
-            SzínezdStornoSorokat(); // A szűrés után újra kell színezni!
         }
 
         /// <summary>
@@ -432,6 +411,80 @@ namespace Tisztito.Ablakok
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        ///
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tábla_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                // Fejlécet vagy érvénytelen sort haggyunk figyelmen kívül
+                if (e.RowIndex < 0) return;
+
+                // Aktuális sor értékei
+                string aktHonnan = Tábla.Rows[e.RowIndex].Cells["Szervezet Honnan"].Value?.ToString();
+                string aktHova = Tábla.Rows[e.RowIndex].Cells["Szervezet Hova"].Value?.ToString();
+
+                // Ha ez az első kijelölés (vagy Ctrl+kattintással épp most ürült ki minden)
+                if (Tábla.SelectedRows.Count == 0)
+                {
+                    elsőHonnan = aktHonnan;
+                    elsőHova = aktHova;
+                    Honnan.Text = elsőHonnan;
+                    Hova.Text = elsőHova;
+                }
+                else
+                {
+                    // Összehasonlítás az első kijelölt sorral
+                    if (aktHonnan != elsőHonnan || aktHova != elsőHova)
+                    {
+                        Lehet = false;
+                        if (ModifierKeys == Keys.Control || ModifierKeys == Keys.Shift)
+                        {
+                            // Ha többes kijelölést próbált, megállítjuk
+                            // Ezt legegyszerűbben a SelectionChanged-ben tudjuk teljesen "visszadobni"
+                        }
+                        throw new HibásBevittAdat("Csak azonos 'Honnan' és 'Hova' szervezettel rendelkező sorokat jelölhet ki egyszerre!");
+
+                    }
+                    else
+                    {
+                        Lehet = true;
+                    }
+                }
+            }
+            catch (HibásBevittAdat ex)
+            {
+                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
+                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+
+        private void Tábla_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Lehet)
+            {
+                if (Tábla.SelectedRows.Count == 0)
+                {
+                    elsőHonnan = null;
+                    elsőHova = null;
+                    Honnan.Text = "";
+                    Hova.Text = "";
+                }
+            }
+        }
+
         #endregion
 
 
@@ -745,40 +798,15 @@ namespace Tisztito.Ablakok
 
         #endregion
 
-        private void Honnan_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SzuresFrissitese(sender, e);
-        }
-
-        private void Hova_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SzuresFrissitese(sender, e);
-        }
-
-        private void Tábla_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Ellenőrizzük, hogy nem a fejlécet vagy egy érvénytelen cellát kattintottak-e
-                Honnan.Text = Tábla.Rows[e.RowIndex].Cells["Szervezet Honnan"].Value.ToString();
-                Hova.Text = Tábla.Rows[e.RowIndex].Cells["Szervezet Hova"].Value.ToString();
-            }
-            catch (HibásBevittAdat ex)
-            {
-                MessageBox.Show(ex.Message, "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
-                MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
 
         private void SzűrőTörlése_Click(object sender, EventArgs e)
         {
             Honnan.Text = "";
             Hova.Text = "";
+            elsőHonnan = null;
+            elsőHova = null;
+            Tábla.CurrentCell = null; // Ez leveszi a fókuszt az aktuális celláról
+            Tábla.ClearSelection();   // Ez törli a kék kijelölést a sorokról
         }
     }
 }
