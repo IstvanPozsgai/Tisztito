@@ -893,6 +893,7 @@ namespace Tisztito.Ablakok
                 }
 
                 Process.Start(FileName);
+                SzűrésTörlése();
             }
             catch (HibásBevittAdat ex)
             {
@@ -910,6 +911,11 @@ namespace Tisztito.Ablakok
 
 
         private void SzűrőTörlése_Click(object sender, EventArgs e)
+        {
+            SzűrésTörlése();
+        }
+
+        private void SzűrésTörlése() 
         {
             Honnan.Text = "";
             Hova.Text = "";
