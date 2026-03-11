@@ -42,10 +42,10 @@ namespace Tisztito.Ablakok
         //Szűrő ételékek: Honnan, Hova
         private string elsőHonnan = null;
         private string elsőHova = null;
-        private bool suppressSelectionChanged = false;   // rekurzió-védelem a programozott kijelöléshez
-        private bool blockNextSelectionChange = false;   // jelző: tiltott kiválasztás történt, vissza kell állítani
-        private List<int> lastValidSelectedRowIndexes = new List<int>(); // utolsó érvényes kijelölés (indexek)
-        private List<int> allowedRowIndexesForBase = new List<int>();    // bázispárhoz tartozó megengedett sorok
+        private bool KijelölésElnyomása = false;   // rekurzió-védelem a programozott kijelöléshez
+        private bool KövetkezőKijelölés = false;   // jelző: tiltott kiválasztás történt, vissza kell állítani
+        private List<int> UtolsóÉrvényesSorok = new List<int>(); // utolsó érvényes kijelölés (indexek)
+        private List<int> EngedélyezettSorok = new List<int>();    // bázispárhoz tartozó megengedett sorok
 
         public Ablak_Bizonylat()
         {
@@ -415,18 +415,20 @@ namespace Tisztito.Ablakok
             }
         }
 
-        // Összegyűjti az "épp érvényes" kijelölést és az összes, bázishoz engedett sort
+        /// <summary>
+        /// Összegyűjti az "épp érvényes" kijelölést és az összes, bázishoz engedett sort
+        /// </summary>
         private void CaptureCurrentValidSelectionAndAllowedRows()
         {
             if (string.IsNullOrEmpty(elsőHonnan) || string.IsNullOrEmpty(elsőHova))
             {
-                lastValidSelectedRowIndexes.Clear();
-                allowedRowIndexesForBase.Clear();
+                UtolsóÉrvényesSorok.Clear();
+                EngedélyezettSorok.Clear();
                 return;
             }
 
             // Érvényes kijelölés: csak a bázissal egyező sorok maradhatnak
-            lastValidSelectedRowIndexes = Tábla.SelectedRows
+            UtolsóÉrvényesSorok = Tábla.SelectedRows
                 .Cast<DataGridViewRow>()
                 .Where(r =>
                 {
@@ -439,7 +441,7 @@ namespace Tisztito.Ablakok
                 .ToList();
 
             // Bázissal egyező összes sor
-            allowedRowIndexesForBase = Tábla.Rows
+            EngedélyezettSorok = Tábla.Rows
                 .Cast<DataGridViewRow>()
                 .Where(r =>
                 {
@@ -458,16 +460,16 @@ namespace Tisztito.Ablakok
         //   ha az üres, akkor esik vissza a teljes engedett halmazra.
         private void RestoreAllowedSelection(bool restoreLastValidOnly)
         {
-            suppressSelectionChanged = true;
+            KijelölésElnyomása = true;
             try
             {
                 Tábla.ClearSelection();
 
                 List<int> toSelect;
-                if (restoreLastValidOnly && lastValidSelectedRowIndexes.Any())
-                    toSelect = lastValidSelectedRowIndexes;
+                if (restoreLastValidOnly && UtolsóÉrvényesSorok.Any())
+                    toSelect = UtolsóÉrvényesSorok;
                 else
-                    toSelect = allowedRowIndexesForBase;
+                    toSelect = EngedélyezettSorok;
 
                 foreach (int idx in toSelect)
                 {
@@ -477,10 +479,10 @@ namespace Tisztito.Ablakok
             }
             finally
             {
-                suppressSelectionChanged = false;
+                KijelölésElnyomása = false;
             }
         }
-        
+
         /// <summary>
         /// Fontos: az e.Handled itt nem állítja meg a DataGridView belső kiválasztását,
         /// ezért csak jelzünk, és majd a SelectionChanged-ben állítjuk vissza.
@@ -524,7 +526,7 @@ namespace Tisztito.Ablakok
                 {
                     // A DataGridView most még át fogja állítani a kijelölést,
                     // ezért "visszaállítási módba" tesszük a SelectionChanged-et.
-                    blockNextSelectionChange = true;
+                    KövetkezőKijelölés = true;
 
                     // Mentsük el, mi a jelenlegi érvényes kijelölés és a bázishoz engedett listát
                     CaptureCurrentValidSelectionAndAllowedRows();
@@ -547,7 +549,7 @@ namespace Tisztito.Ablakok
 
         private void Tábla_SelectionChanged(object sender, EventArgs e)
         {
-            if (suppressSelectionChanged)                 return;
+            if (KijelölésElnyomása) return;
 
             // Ha kiürült a kijelölés: bázis törlése
             if (Tábla.SelectedRows.Count == 0)
@@ -556,15 +558,15 @@ namespace Tisztito.Ablakok
                 elsőHova = null;
                 Honnan.Text = "";
                 Hova.Text = "";
-                lastValidSelectedRowIndexes.Clear();
-                allowedRowIndexesForBase.Clear();
+                UtolsóÉrvényesSorok.Clear();
+                EngedélyezettSorok.Clear();
                 return;
             }
 
             // Tiltott kiválasztási próbálkozás után: visszaállítás
-            if (blockNextSelectionChange)
+            if (KövetkezőKijelölés)
             {
-                blockNextSelectionChange = false;
+                KövetkezőKijelölés = false;
                 // Először az "utolsó érvényes" állapotot próbáljuk visszahozni,
                 // ha az üres, akkor legalább a bázishoz engedett összes sort.
                 RestoreAllowedSelection(restoreLastValidOnly: true);
@@ -915,7 +917,7 @@ namespace Tisztito.Ablakok
             SzűrésTörlése();
         }
 
-        private void SzűrésTörlése() 
+        private void SzűrésTörlése()
         {
             Honnan.Text = "";
             Hova.Text = "";
