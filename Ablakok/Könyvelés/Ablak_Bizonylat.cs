@@ -42,7 +42,10 @@ namespace Tisztito.Ablakok
         //Szűrő ételékek: Honnan, Hova
         private string elsőHonnan = null;
         private string elsőHova = null;
-        private bool Lehet = true;
+        private bool suppressSelectionChanged = false;   // rekurzió-védelem a programozott kijelöléshez
+        private bool blockNextSelectionChange = false;   // jelző: tiltott kiválasztás történt, vissza kell állítani
+        private List<int> lastValidSelectedRowIndexes = new List<int>(); // utolsó érvényes kijelölés (indexek)
+        private List<int> allowedRowIndexesForBase = new List<int>();    // bázispárhoz tartozó megengedett sorok
 
         public Ablak_Bizonylat()
         {
@@ -412,9 +415,75 @@ namespace Tisztito.Ablakok
             }
         }
 
+        // Összegyűjti az "épp érvényes" kijelölést és az összes, bázishoz engedett sort
+        private void CaptureCurrentValidSelectionAndAllowedRows()
+        {
+            if (string.IsNullOrEmpty(elsőHonnan) || string.IsNullOrEmpty(elsőHova))
+            {
+                lastValidSelectedRowIndexes.Clear();
+                allowedRowIndexesForBase.Clear();
+                return;
+            }
+
+            // Érvényes kijelölés: csak a bázissal egyező sorok maradhatnak
+            lastValidSelectedRowIndexes = Tábla.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Where(r =>
+                {
+                    var h = r.Cells["Szervezet Honnan"].Value?.ToString() ?? "";
+                    var v = r.Cells["Szervezet Hova"].Value?.ToString() ?? "";
+                    return string.Equals(h, elsőHonnan, StringComparison.Ordinal)
+                        && string.Equals(v, elsőHova, StringComparison.Ordinal);
+                })
+                .Select(r => r.Index)
+                .ToList();
+
+            // Bázissal egyező összes sor
+            allowedRowIndexesForBase = Tábla.Rows
+                .Cast<DataGridViewRow>()
+                .Where(r =>
+                {
+                    if (r.IsNewRow) return false;
+                    var h = r.Cells["Szervezet Honnan"].Value?.ToString() ?? "";
+                    var v = r.Cells["Szervezet Hova"].Value?.ToString() ?? "";
+                    return string.Equals(h, elsőHonnan, StringComparison.Ordinal)
+                        && string.Equals(v, elsőHova, StringComparison.Ordinal);
+                })
+                .Select(r => r.Index)
+                .ToList();
+        }
+
+        // Kijelölés visszaállítása megengedett állapotra
+        // - restoreLastValidOnly = true esetén az utolsó "jó" kijelölést állítja vissza,
+        //   ha az üres, akkor esik vissza a teljes engedett halmazra.
+        private void RestoreAllowedSelection(bool restoreLastValidOnly)
+        {
+            suppressSelectionChanged = true;
+            try
+            {
+                Tábla.ClearSelection();
+
+                List<int> toSelect;
+                if (restoreLastValidOnly && lastValidSelectedRowIndexes.Any())
+                    toSelect = lastValidSelectedRowIndexes;
+                else
+                    toSelect = allowedRowIndexesForBase;
+
+                foreach (int idx in toSelect)
+                {
+                    if (idx >= 0 && idx < Tábla.Rows.Count)
+                        Tábla.Rows[idx].Selected = true;
+                }
+            }
+            finally
+            {
+                suppressSelectionChanged = false;
+            }
+        }
+        
         /// <summary>
-        /// 
-        ///
+        /// Fontos: az e.Handled itt nem állítja meg a DataGridView belső kiválasztását,
+        /// ezért csak jelzünk, és majd a SelectionChanged-ben állítjuk vissza.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -422,40 +491,48 @@ namespace Tisztito.Ablakok
         {
             try
             {
-                // Fejlécet vagy érvénytelen sort haggyunk figyelmen kívül
+                // Fejléc vagy érvénytelen index?
                 if (e.RowIndex < 0) return;
 
-                // Aktuális sor értékei
                 string aktHonnan = Tábla.Rows[e.RowIndex].Cells["Szervezet Honnan"].Value?.ToString();
                 string aktHova = Tábla.Rows[e.RowIndex].Cells["Szervezet Hova"].Value?.ToString();
 
-                // Ha ez az első kijelölés (vagy Ctrl+kattintással épp most ürült ki minden)
-                if (Tábla.SelectedRows.Count == 0)
+                // Nincs bázis? (vagy üres kijelölés?)
+                bool nincsBazis = (string.IsNullOrEmpty(elsőHonnan) && string.IsNullOrEmpty(elsőHova))
+                                  || Tábla.SelectedRows.Count == 0;
+
+                if (nincsBazis)
                 {
+                    // Beállítjuk a bázist az első kattintott sor szerint
                     elsőHonnan = aktHonnan;
                     elsőHova = aktHova;
-                    Honnan.Text = elsőHonnan;
-                    Hova.Text = elsőHova;
-                }
-                else
-                {
-                    // Összehasonlítás az első kijelölt sorral
-                    if (aktHonnan != elsőHonnan || aktHova != elsőHova)
-                    {
-                        Lehet = false;
-                        if (ModifierKeys == Keys.Control || ModifierKeys == Keys.Shift)
-                        {
-                            // Ha többes kijelölést próbált, megállítjuk
-                            // Ezt legegyszerűbben a SelectionChanged-ben tudjuk teljesen "visszadobni"
-                        }
-                        throw new HibásBevittAdat("Csak azonos 'Honnan' és 'Hova' szervezettel rendelkező sorokat jelölhet ki egyszerre!");
 
-                    }
-                    else
-                    {
-                        Lehet = true;
-                    }
+                    // (Opcionális) szűrőmezők tükrözése
+                    Honnan.Text = elsőHonnan ?? "";
+                    Hova.Text = elsőHova ?? "";
+
+                    // Engedett sorok és aktuális érvényes kijelölés beolvasása
+                    CaptureCurrentValidSelectionAndAllowedRows();
+                    return;
                 }
+
+                // Van bázis: csak akkor engedjük, ha egyezik
+                bool egyezik = string.Equals(aktHonnan, elsőHonnan, StringComparison.Ordinal)
+                            && string.Equals(aktHova, elsőHova, StringComparison.Ordinal);
+
+                if (!egyezik)
+                {
+                    // A DataGridView most még át fogja állítani a kijelölést,
+                    // ezért "visszaállítási módba" tesszük a SelectionChanged-et.
+                    blockNextSelectionChange = true;
+
+                    // Mentsük el, mi a jelenlegi érvényes kijelölés és a bázishoz engedett listát
+                    CaptureCurrentValidSelectionAndAllowedRows();
+
+                    throw new HibásBevittAdat("Csak azonos 'Honnan' és 'Hova' szervezettel rendelkező sorokat jelölhet ki egyszerre!");
+                }
+
+                // Ha egyezik, nincs teendő: a DataGridView végez, majd SelectionChanged frissít.
             }
             catch (HibásBevittAdat ex)
             {
@@ -466,25 +543,58 @@ namespace Tisztito.Ablakok
                 HibaNapló.Log(ex.Message, this.ToString(), ex.StackTrace, ex.Source, ex.HResult);
                 MessageBox.Show(ex.Message + "\n\n a hiba naplózásra került.", "A program hibára futott", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
-
 
         private void Tábla_SelectionChanged(object sender, EventArgs e)
         {
-            if (Lehet)
+            if (suppressSelectionChanged)                 return;
+
+            // Ha kiürült a kijelölés: bázis törlése
+            if (Tábla.SelectedRows.Count == 0)
             {
-                if (Tábla.SelectedRows.Count == 0)
+                elsőHonnan = null;
+                elsőHova = null;
+                Honnan.Text = "";
+                Hova.Text = "";
+                lastValidSelectedRowIndexes.Clear();
+                allowedRowIndexesForBase.Clear();
+                return;
+            }
+
+            // Tiltott kiválasztási próbálkozás után: visszaállítás
+            if (blockNextSelectionChange)
+            {
+                blockNextSelectionChange = false;
+                // Először az "utolsó érvényes" állapotot próbáljuk visszahozni,
+                // ha az üres, akkor legalább a bázishoz engedett összes sort.
+                RestoreAllowedSelection(restoreLastValidOnly: true);
+                return;
+            }
+
+            // Normál eset: ha minden kijelölt sor egyezik a bázissal, frissítjük a valid listát;
+            // ha mégis bekerült eltérő, visszaállítjuk.
+            if (!string.IsNullOrEmpty(elsőHonnan) && !string.IsNullOrEmpty(elsőHova))
+            {
+                bool vanEltérő = Tábla.SelectedRows
+                    .Cast<DataGridViewRow>()
+                    .Any(r =>
+                    {
+                        var h = r.Cells["Szervezet Honnan"].Value?.ToString() ?? "";
+                        var v = r.Cells["Szervezet Hova"].Value?.ToString() ?? "";
+                        return !string.Equals(h, elsőHonnan, StringComparison.Ordinal)
+                            || !string.Equals(v, elsőHova, StringComparison.Ordinal);
+                    });
+
+                if (vanEltérő)
                 {
-                    elsőHonnan = null;
-                    elsőHova = null;
-                    Honnan.Text = "";
-                    Hova.Text = "";
+                    RestoreAllowedSelection(restoreLastValidOnly: true);
+                }
+                else
+                {
+                    CaptureCurrentValidSelectionAndAllowedRows();
                 }
             }
         }
-
         #endregion
 
 
